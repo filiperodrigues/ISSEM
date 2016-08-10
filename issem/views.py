@@ -56,4 +56,4 @@ def add_cid(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-    return render(request, 'rango/cadastro_cid.html', {'form': form})
+    return render(request, 'issem/cadastro_cid.html', {'form': form})

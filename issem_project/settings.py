@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# =============issem=============
+
+TEMPLATE_PATH = os.path.join(BASE_DIR,'templates/')
+
+TEMPLATE_DIRS  =  (
+    TEMPLATE_PATH,
+)
+
 
 # Application definition
 
@@ -69,6 +77,12 @@ TEMPLATES = [
     },
 ]
 
+
+
+
+
+
+
 WSGI_APPLICATION = 'issem_project.wsgi.application'
 
 
@@ -102,3 +116,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
