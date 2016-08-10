@@ -1,2 +1,6 @@
 test
+<<<<<<< Updated upstream
 vine
+=======
+>>>>>>> Stashed changes
+wagner
