@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>Adicionar um Departamento:</h1>
+
+    <form id="DepartamentoForm" method="post" action="/issem/add_departamento/">
+
+
+        {% csrf_token %}
+        {{ form }}
+
+        <input type="submit" name="submit" value="Cadastrar Departamento" />
+    </form>
+
+</body>
+
+</html>
