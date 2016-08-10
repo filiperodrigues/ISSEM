@@ -33,3 +33,27 @@ def add_departamento(request):
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
     return render(request, 'issem/cadastro_departamento.html', {'form': form})
+
+def add_cid(request):
+    # A HTTP POST?
+    #return HttpResponseRedirect('Funcionou')
+    if request.method == 'POST':
+        form = CidForm(request.POST)
+        # Have we been provided with a valid form?
+        if form.is_valid():
+            # Save the new category to the database.
+            form.save(commit=True)
+
+            # Now call the index() view.
+            # The user will be shown the homepage.
+            return index(request)
+        else:
+            # The supplied form contained errors - just print them to the terminal.
+            print(form.errors)
+    else:
+        # If the request was not a POST, display the form to enter details.
+        form = CidForm()
+
+    # Bad form (or form details), no form supplied...
+    # Render the form with error messages (if any).
+    return render(request, 'rango/cadastro_cid.html', {'form': form})

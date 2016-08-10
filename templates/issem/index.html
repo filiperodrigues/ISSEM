@@ -1,6 +1,14 @@
+<html>
+
+<body>
+
 <h2>Departamentos</h2>
 
 {% for i in departamento %}
     <strong>{{ i.nome_departamento }}</strong>
 {% endfor %}
 <p><a href="{% url 'rango:add_departamento' %}">Cadastrar Departamento</a></p>
+
+</body>
+
+</html>
