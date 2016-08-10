@@ -6,6 +6,7 @@ from issem.forms import DepartamentoForm
 
 
 def index(request):
+<<<<<<< Updated upstream
     departamento = Departamento.objects.all()
     context_dict = {'departamento': departamento}
     return render(request, 'issem/index.html', context_dict)
@@ -33,3 +34,4 @@ def add_departamento(request):
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
     return render(request, 'issem/cadastro_departamento.html', {'form': form})
+
