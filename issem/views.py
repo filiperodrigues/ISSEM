@@ -3,4 +3,4 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("ISSEM says hey there world!")
+    return HttpResponse("ISSEM diz alô mundo!")
