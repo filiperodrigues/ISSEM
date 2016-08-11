@@ -5,14 +5,14 @@
 <h2>Departamentos</h2>
 
 {% for i in departamento %}
-    <strong>{{ i.nome_departamento }} <br/></strong>
+    <strong>{{ i.nome_departamento }} {{ i.id }} <br/></strong>
 {% endfor %}
 <p><a href="{% url 'issem:add_departamento' %}">Cadastrar Departamento</a></p>
 
 <h2>CIDS</h2>
 
 {% for i in cid %}
-    <strong>{{ i.descricao_cid }} <br/></strong>
+    <strong>{{ i.descricao_cid }} <a href="{% url 'issem:delete_cid' i.id %}">Delete</a> <a href="{% url 'issem:edita_cid' i.id %}">Editar</a><br/></strong>
 {% endfor %}
 <p><a href="{% url 'issem:add_cid' %}">Cadastrar Cid</a></p>
 

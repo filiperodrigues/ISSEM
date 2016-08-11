@@ -1,0 +1,19 @@
+<html>
+<body>
+
+<h1>Editar uma CID:</h1>
+    {% if cid %}
+        {{ cid.descricao_cid }}
+    {% endif %}
+
+
+    <form id="CidForm" method="post" action="/issem/edita_cid/">
+        {% csrf_token %}
+        {{ form.as_p}}
+
+    <input type="submit" name="submit" value="Atualizar" />
+    </form>
+
+</body>
+
+</html>

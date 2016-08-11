@@ -18,3 +18,4 @@ class Cid(models.Model):
 
     def __unicode__(self):
         return self.descricao_cid
+
