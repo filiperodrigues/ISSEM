@@ -1,13 +1,14 @@
 #coding: utf-8
 from django.shortcuts import render
 
-from issem.models import Departamento
-from issem.forms import DepartamentoForm
+from issem.models import Departamento, Cid
+from issem.forms import DepartamentoForm, CidForm
 
 
 def index(request):
     departamento = Departamento.objects.all()
-    context_dict = {'departamento': departamento}
+    cid = Cid.objects.all()
+    context_dict = {'departamento': departamento, 'cid':cid}
     return render(request, 'issem/index.html', context_dict)
 
 def add_departamento(request):

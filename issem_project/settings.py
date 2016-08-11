@@ -27,13 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# =============issem=============
-
-TEMPLATE_PATH = os.path.join(BASE_DIR,'templates/')
-
-TEMPLATE_DIRS  =  (
-    TEMPLATE_PATH,
-)
 
 
 # Application definition
@@ -64,7 +57,9 @@ ROOT_URLCONF = 'issem_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR,'templates/'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

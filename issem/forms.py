@@ -9,10 +9,10 @@ class DepartamentoForm(forms.ModelForm):
         fields = ('nome_departamento',)
 
 class CidForm(forms.ModelForm):
-    descricao = forms.CharField(widget=forms.TextInput())
+    descricao_cid = forms.CharField(widget=forms.TextInput())
     status = forms.BooleanField()
     gravidade_cid = forms.IntegerField()
 
     class Meta:
         model = Cid
-        fields = ('descricao', 'status', 'gravidade_cid')
+        fields = ('descricao_cid', 'status', 'gravidade_cid')
