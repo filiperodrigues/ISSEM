@@ -4,10 +4,12 @@
 <h1>Editar uma CID:</h1>
     {% if cid %}
         {{ cid.descricao_cid }}
+        {{ cid.id }}
+        {{ cid.id    }}
+
     {% endif %}
 
-
-    <form id="CidForm" method="post" action="/issem/edita_cid/">
+    <form id="CidForm" method="post" >
         {% csrf_token %}
         {{ form.as_p}}
 
