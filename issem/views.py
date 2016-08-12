@@ -39,6 +39,11 @@ def delete_cid(request, id):
     b.delete()
     return index(request)
 
+def delete_departamento(request, id):
+    b = Departamento.objects.get(pk=id)
+    b.delete()
+    return index(request)
+
 def edita_cid(request, id):
     cid = Cid.objects.get(pk=id)
     if request.method == "POST":
@@ -47,8 +52,20 @@ def edita_cid(request, id):
             cid = form.save(commit=False)
             cid.save()
             return index(request)
-
     else:
 
         form = CidForm(instance=cid)
         return render(request, 'issem/editar_cid.html', {'form': form})
+
+def edita_departamento(request, id):
+    departamento = Departamento.objects.get(pk=id)
+    if request.method == "POST":
+        form = DepartamentoForm(request.POST, instance=departamento)
+        if form.is_valid():
+            departamento = form.save(commit=False)
+            departamento.save()
+            return index(request)
+    else:
+
+        form = DepartamentoForm(instance=departamento)
+        return render(request, 'issem/editar_departamento.html', {'form': form})

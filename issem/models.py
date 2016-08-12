@@ -2,20 +2,20 @@ from django.db import models
 
 # Create your models here.
 class Departamento(models.Model):
-    nome_departamento = models.CharField(max_length=128)
+    nome = models.CharField(max_length=128)
     def __str__(self):
-        return self.nome_departamento
+        return self.nom
 
     def __unicode__(self):
-        return self.nome_departamento
+        return self.nome
 
 class Cid(models.Model):
-    descricao_cid = models.CharField(max_length=128)
+    descricao = models.CharField(max_length=128)
     status = models.BooleanField(default=0)
-    gravidade_cid = models.IntegerField()
+    gravidade = models.IntegerField()
     def __str__(self):
-        return self.descricao_cid
+        return self.descricao
 
     def __unicode__(self):
-        return self.descricao_cid
+        return self.descricao
 

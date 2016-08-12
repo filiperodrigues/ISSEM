@@ -4,11 +4,11 @@ from issem.models import Departamento, Cid
 class DepartamentoForm(forms.ModelForm):
     class Meta:
         model = Departamento
-        fields = ('nome_departamento',)
+        fields = ('nome',)
 
 class CidForm(forms.ModelForm):
 
     class Meta:
         model = Cid
-        fields = ('id','descricao_cid', 'status', 'gravidade_cid')
+        fields = ('id','descricao', 'status', 'gravidade')
 
