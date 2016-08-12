@@ -7,8 +7,7 @@ class DepartamentoForm(forms.ModelForm):
         fields = ('nome',)
 
 class CidForm(forms.ModelForm):
-
     class Meta:
         model = Cid
-        fields = ('id','descricao', 'status', 'gravidade')
+        fields = ('descricao', 'status', 'gravidade')
 
