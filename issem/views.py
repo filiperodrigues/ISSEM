@@ -59,7 +59,6 @@ def delete_cid(request, id):
     return index(request)
 
 #PROCEDIMENTO MÉDICO
-
 def add_procedimento_medico(request):
     if request.method == 'POST':
         form = Procedimento_MedicoForm(request.POST)
