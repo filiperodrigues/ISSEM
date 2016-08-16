@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>Adicionar uma Função:</h1>
+
+    <form id="FuncaoForm" method="post" action="/issem/add_funcao/">
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" name="submit" value="Cadastrar Função" />
+    </form>
+
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+#coding:utf-8
 import datetime
 from django.db import models
 
@@ -61,3 +62,16 @@ class Beneficios(models.Model):
    class Meta:
        verbose_name = "Benefícios"
        verbose_name_plural = "Benefícios"
+
+class Funcao(models.Model):
+    nome = models.CharField(max_length=128, null=False)
+    descricao = models.CharField(max_length=128, null=False)
+
+    def __str__(self):
+        return self.nome
+
+class Cargo(models.Model):
+    nome = models.CharField(max_length=128, null=False)
+
+    def __str__(self):
+        return self.nome

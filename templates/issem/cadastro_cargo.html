@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>Adicionar um Cargo:</h1>
+
+    <form id="CargoForm" method="post" action="/issem/add_cargo/">
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" name="submit" value="Cadastrar Cargo" />
+    </form>
+
+</body>
+
+</html>

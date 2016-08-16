@@ -29,6 +29,22 @@
     <strong>{{ i.descricao }}<br/><a href="{%url 'issem:edit_beneficios' i.id %}">Editar</a><br/><a href="{% url 'issem:delete_beneficios' i.id %}">Excluir</a><br/></strong>
 {% endfor %}
 <p><a href="{%  url 'issem:add_beneficios' %}">Cadastrar Benefícios</a></p>
+
+<h2>FUNÇÕES</h2>
+
+{% for i in funcao %}
+    <strong>{{ i.nome }} <a href="{% url 'issem:delete_funcao' i.id %}">Delete</a> <a href="{% url 'issem:edita_funcao' i.id %}">Editar</a> <br/></strong>
+{% endfor %}
+<p><a href="{% url 'issem:add_funcao' %}">Cadastrar Função</a></p>
+
+<h2>CARGOS</h2>
+
+{% for i in cargo %}
+    <strong>{{ i.nome }} <a href="{% url 'issem:delete_cargo' i.id %}">Delete</a> <a href="{% url 'issem:edita_cargo' i.id %}">Editar</a> <br/></strong>
+{% endfor %}
+<p><a href="{% url 'issem:add_cargo' %}">Cadastrar Cargo</a></p>
+
+
 </body>
 
 </html>
