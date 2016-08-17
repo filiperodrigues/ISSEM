@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>Adicionar um Benefício:</h1>
+
+    <form id="BeneficioForm" method="post" action="/issem/add_beneficio/">
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" name="submit" value="Cadastrar Benefício" />
+    </form>
+
+</body>
+
+</html>

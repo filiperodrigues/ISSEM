@@ -1,0 +1,85 @@
+<html>
+
+<body>
+
+<h2>Departamentos</h2>
+
+{% for departamento in departamentos %}
+    <strong>
+        {{ departamento.nome }}
+        <a href="{% url 'issem:edita_departamento' departamento.id %}">Editar</a>
+        <a href="{% url 'issem:deleta_departamento' departamento.id %}">Deletar</a>
+        <br/>
+    </strong>
+{% endfor %}
+
+<p><a href="{% url 'issem:add_departamento' %}">Cadastrar Departamento</a></p>
+
+<h2>CIDs</h2>
+
+{% for cid in cids %}
+    <strong>
+        {{ cid.descricao }}
+        <a href="{% url 'issem:edita_cid' cid.id %}">Editar</a>
+        <a href="{% url 'issem:deleta_cid' cid.id %}">Deletar</a>
+    <br/>
+    </strong>
+{% endfor %}
+
+<p><a href="{% url 'issem:add_cid' %}">Cadastrar CID</a></p>
+
+<h2>Procedimentos Médicos</h2>
+
+{% for procedimento in procedimentos_medicos %}
+    <strong>
+        {{ procedimento.descricao }}
+        <a href="{% url 'issem:edita_procedimento_medico' procedimento.id %}">Editar</a>
+        <a href="{% url 'issem:deleta_procedimento_medico' procedimento.id %}">Deletar</a>
+        <br/>
+    </strong>
+{% endfor %}
+
+<p><a href="{% url 'issem:add_procedimento_medico' %}">Cadastrar Procedimento Médico</a></p>
+
+<h2>Benefícios</h2>
+
+{% for beneficio in beneficios %}
+    <strong>
+        {{ beneficio.descricao }}
+        <a href="{% url 'issem:edita_beneficio' beneficio.id %}">Editar</a>
+        <a href="{% url 'issem:deleta_beneficio' beneficio.id %}">Deletar</a>
+        <br/>
+    </strong>
+{% endfor %}
+
+<p><a href="{% url 'issem:add_beneficio' %}">Cadastrar Benefício</a></p>
+
+<h2>FUNÇÕES</h2>
+
+{% for funcao in funcoes %}
+    <strong>
+        {{ funcao.nome }}
+        <a href="{% url 'issem:edita_funcao' funcao.id %}">Editar</a>
+        <a href="{% url 'issem:deleta_funcao' funcao.id %}">Deletar</a>
+        <br/>
+    </strong>
+{% endfor %}
+
+<p><a href="{% url 'issem:add_funcao' %}">Cadastrar Função</a></p>
+
+<h2>CARGOS</h2>
+
+{% for cargo in cargos %}
+    <strong>
+        {{ cargo.nome }}
+        <a href="{% url 'issem:edita_cargo' cargo.id %}">Editar</a>
+        <a href="{% url 'issem:deleta_cargo' cargo.id %}">Deletar</a>
+        <br/>
+    </strong>
+{% endfor %}
+
+<p><a href="{% url 'issem:add_cargo' %}">Cadastrar Cargo</a></p>
+
+</body>
+
+</html>

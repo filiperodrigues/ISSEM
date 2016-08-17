@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -26,8 +25,6 @@ SECRET_KEY = 'm_9rbc+jm0=d$yun&eip=0*+hh1l_c^*ianrk*483ykj1qfqlo'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 
 # Application definition
 
@@ -57,9 +54,7 @@ ROOT_URLCONF = 'issem_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR,'templates/'),
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,12 +66,6 @@ TEMPLATES = [
         },
     },
 ]
-
-
-
-
-
-
 
 WSGI_APPLICATION = 'issem_project.wsgi.application'
 
