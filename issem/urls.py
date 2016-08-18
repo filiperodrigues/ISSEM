@@ -39,4 +39,9 @@ urlpatterns = [
 	url(r'^add_tipo_dependente/$',views.add_tipo_dependente, name='add_tipo_dependente'),
 	url(r'^edita_tipo_dependente/(?P<id>[0-9]+)/$', views.edita_tipo_dependente, name='edita_tipo_dependente'),
 	url(r'^deleta_tipo_dependente/(?P<id>[0-9]+)/$', views.deleta_tipo_dependente, name='deleta_tipo_dependente'),
+
+	## TIPO EXAME ##
+	url(r'^add_tipo_exame/$', views.add_tipo_exame, name='add_tipo_exame'),
+	url(r'^edita_tipo_exame/(?P<id>[0-9]+)/$', views.edita_tipo_exame, name='edita_tipo_exame'),
+	url(r'^deleta_tipo_exame/(?P<id>[0-9]+)/$', views.deleta_tipo_exame, name='deleta_tipo_exame'),
 ]

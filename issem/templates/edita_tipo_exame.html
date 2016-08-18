@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>Editar um Tipo Exame:</h1>
+
+    <form id="Tipo_ExameForm" method="post">
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" name="submit" value="Atualizar" />
+    </form>
+
+</body>
+
+</html>

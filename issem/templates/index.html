@@ -92,6 +92,19 @@
 {% endfor %}
 
 <p><a href="{% url 'issem:add_tipo_dependente' %}">Cadastrar Tipo Dependente</a></p>
+
+<h2>Tipo Exame</h2>
+
+{% for tipo_exame in tipo_exame %}
+    <strong>
+        {{ tipo_exame.nome }}
+        <a href="{% url 'issem:edita_tipo_exame' tipo_exame.id %}">Editar</a>
+        <a href="{% url 'issem:deleta_tipo_exame' tipo_exame.id %}">Deletar</a>
+        <br/>
+    </strong>
+{% endfor %}
+
+<p><a href="{% url 'issem:add_tipo_exame' %}">Cadastrar Tipo Exame</a></p>
 </body>
 
 </html>

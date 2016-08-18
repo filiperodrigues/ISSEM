@@ -1,8 +1,8 @@
 #coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import HttpResponse
-from issem.models import Departamento, Cid, Procedimento_Medico, Beneficio, Funcao, Cargo, Tipo_Dependente
-from issem.forms import DepartamentoForm, CidForm, Procedimento_MedicoForm, BeneficioForm, FuncaoForm, CargoForm, Tipo_DependenteForm
+from issem.models import Departamento, Cid, Procedimento_Medico, Beneficio, Funcao, Cargo, Tipo_Dependente, Tipo_Exame
+from issem.forms import DepartamentoForm, CidForm, Procedimento_MedicoForm, BeneficioForm, FuncaoForm, CargoForm, Tipo_DependenteForm, Tipo_ExameForm
 
 def index(request):
     departamentos = Departamento.objects.all()
@@ -12,7 +12,8 @@ def index(request):
     funcoes = Funcao.objects.all()
     cargos = Cargo.objects.all()
     tipo_dependente = Tipo_Dependente.objects.all()
-    context_dict = {'departamentos': departamentos, 'cids': cids, 'procedimentos_medicos': procedimentos_medicos, 'beneficios': beneficios, 'funcoes': funcoes, 'cargos': cargos, 'tipo_dependente': tipo_dependente}
+    tipo_exame = Tipo_Exame.objects.all()
+    context_dict = {'departamentos': departamentos, 'cids': cids, 'procedimentos_medicos': procedimentos_medicos, 'beneficios': beneficios, 'funcoes': funcoes, 'cargos': cargos, 'tipo_dependente': tipo_dependente, 'tipo_exame': tipo_exame}
     return render(request, 'index.html', context_dict)
 
 ## DEPARTAMENTO ##
@@ -240,4 +241,36 @@ def edita_tipo_dependente(request, id):
 def deleta_tipo_dependente(request, id):
     tipo_dependente = Tipo_Dependente.objects.get(pk=id)
     tipo_dependente.delete()
+    return index(request)
+
+## TIPO EXAME ##
+def add_tipo_exame(request):
+    if request.method == 'POST':
+        form = Tipo_ExameForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print(form.errors)
+    else:
+        form = Tipo_ExameForm()
+        return render(request, 'cadastro_tipo_exame.html', {'form': form})
+
+def edita_tipo_exame(request, id):
+    tipo_exame = Tipo_Exame.objects.get(pk=id)
+    if request.method == "POST":
+        form = Tipo_ExameForm(request.POST, instance=tipo_exame)
+        if form.is_valid():
+            tipo_exame = form.save(commit=False)
+            tipo_exame.save()
+            return index(request)
+        else:
+            print(form.errors)
+    else:
+        form = Tipo_ExameForm(instance=tipo_exame)
+        return render(request, 'edita_tipo_exame.html', {'form': form})
+
+def deleta_tipo_exame(request, id):
+    tipo_exame = Tipo_Exame.objects.get(pk=id)
+    tipo_exame.delete()
     return index(request)

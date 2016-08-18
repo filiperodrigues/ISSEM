@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>Adicionar um Tipo de Exame:</h1>
+
+    <form id="Tipo_ExameForm" method="post" action="/issem/add_tipo_exame/">
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" name="submit" value="Cadastrar Tipo de Exame" />
+    </form>
+
+</body>
+
+</html>
