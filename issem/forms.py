@@ -1,6 +1,6 @@
 #coding:utf-8
 from django import forms
-from issem.models import Departamento, Cid, Procedimento_Medico, Beneficio, Funcao, Cargo
+from issem.models import Departamento, Cid, Procedimento_Medico, Beneficio, Funcao, Cargo, Tipo_Dependente
 
 class DepartamentoForm(forms.ModelForm):
     class Meta:
@@ -30,4 +30,9 @@ class FuncaoForm(forms.ModelForm):
 class CargoForm(forms.ModelForm):
     class Meta:
         model = Cargo
+        fields = ('nome',)
+
+class Tipo_DependenteForm(forms.ModelForm):
+    class Meta:
+        model = Tipo_Dependente
         fields = ('nome',)

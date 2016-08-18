@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>Adicionar um Tipo Dependente:</h1>
+
+    <form id="Tipo_DependenteForm" method="post" action="/issem/add_tipo_dependente/">
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" name="submit" value="Cadastrar Tipo Dependente" />
+    </form>
+
+</body>
+
+</html>

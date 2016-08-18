@@ -80,6 +80,18 @@
 
 <p><a href="{% url 'issem:add_cargo' %}">Cadastrar Cargo</a></p>
 
+<h2>Tipo Dependente</h2>
+
+{% for tipo_dependente in tipo_dependente %}
+    <strong>
+        {{ tipo_dependente.nome }}
+        <a href="{% url 'issem:edita_tipo_dependente' tipo_dependente.id %}">Editar</a>
+        <a href="{% url 'issem:deleta_tipo_dependente' tipo_dependente.id %}">Deletar</a>
+        <br/>
+    </strong>
+{% endfor %}
+
+<p><a href="{% url 'issem:add_tipo_dependente' %}">Cadastrar Tipo Dependente</a></p>
 </body>
 
 </html>

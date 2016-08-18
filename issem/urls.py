@@ -35,4 +35,8 @@ urlpatterns = [
 	url(r'^edita_cargo/(?P<id>[0-9]+)/$', views.edita_cargo, name='edita_cargo'),
 	url(r'^deleta_cargo/(?P<id>[0-9]+)/$', views.deleta_cargo, name='deleta_cargo'),
 
+	## TIPO DEPENDENTE ##
+	url(r'^add_tipo_dependente/$',views.add_tipo_dependente, name='add_tipo_dependente'),
+	url(r'^edita_tipo_dependente/(?P<id>[0-9]+)/$', views.edita_tipo_dependente, name='edita_tipo_dependente'),
+	url(r'^deleta_tipo_dependente/(?P<id>[0-9]+)/$', views.deleta_tipo_dependente, name='deleta_tipo_dependente'),
 ]

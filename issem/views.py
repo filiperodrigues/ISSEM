@@ -1,8 +1,8 @@
 #coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import HttpResponse
-from issem.models import Departamento, Cid, Procedimento_Medico, Beneficio, Funcao, Cargo
-from issem.forms import DepartamentoForm, CidForm, Procedimento_MedicoForm, BeneficioForm, FuncaoForm, CargoForm
+from issem.models import Departamento, Cid, Procedimento_Medico, Beneficio, Funcao, Cargo, Tipo_Dependente
+from issem.forms import DepartamentoForm, CidForm, Procedimento_MedicoForm, BeneficioForm, FuncaoForm, CargoForm, Tipo_DependenteForm
 
 def index(request):
     departamentos = Departamento.objects.all()
@@ -11,7 +11,8 @@ def index(request):
     beneficios = Beneficio.objects.all()
     funcoes = Funcao.objects.all()
     cargos = Cargo.objects.all()
-    context_dict = {'departamentos': departamentos, 'cids': cids, 'procedimentos_medicos': procedimentos_medicos, 'beneficios': beneficios, 'funcoes': funcoes, 'cargos': cargos}
+    tipo_dependente = Tipo_Dependente.objects.all()
+    context_dict = {'departamentos': departamentos, 'cids': cids, 'procedimentos_medicos': procedimentos_medicos, 'beneficios': beneficios, 'funcoes': funcoes, 'cargos': cargos, 'tipo_dependente': tipo_dependente}
     return render(request, 'index.html', context_dict)
 
 ## DEPARTAMENTO ##
@@ -207,4 +208,36 @@ def edita_cargo(request, id):
 def deleta_cargo(request, id):
     cargo = Cargo.objects.get(pk=id)
     cargo.delete()
+    return index(request)
+
+## TIPO DEPENDENTE ##
+def add_tipo_dependente(request):
+    if request.method == 'POST':
+        form = Tipo_DependenteForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print(form.errors)
+    else:
+        form = Tipo_DependenteForm()
+        return render(request, 'cadastro_tipo_dependente.html', {'form': form})
+
+def edita_tipo_dependente(request, id):
+    tipo_dependente = Tipo_Dependente.objects.get(pk=id)
+    if request.method == "POST":
+        form = Tipo_DependenteForm(request.POST, instance=tipo_dependente)
+        if form.is_valid():
+            tipo_dependente = form.save(commit=False)
+            tipo_dependente.save()
+            return index(request)
+        else:
+            print(form.errors)
+    else:
+        form = Tipo_DependenteForm(instance=tipo_dependente)
+        return render(request, 'edita_tipo_dependente.html', {'form': form})
+
+def deleta_tipo_dependente(request, id):
+    tipo_dependente = Tipo_Dependente.objects.get(pk=id)
+    tipo_dependente.delete()
     return index(request)
