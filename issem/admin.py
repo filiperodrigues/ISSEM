@@ -20,6 +20,7 @@ admin.site.register(Tipo_Dependente)
 admin.site.register(Tipo_Exame)
 admin.site.register(Secretaria)
 admin.site.register(Local_Trabalho)
+admin.site.register(Servidor)
 
 
 ## SOMENTE PARA TESTES ##
