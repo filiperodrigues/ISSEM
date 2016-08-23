@@ -4,16 +4,18 @@ from issem.models import *
 
 
 def index(request):
-    departamentos = Departamento.objects.all()
-    cids = Cid.objects.all()
-    procedimentos_medicos = Procedimento_Medico.objects.all()
-    beneficios = Beneficio.objects.all()
-    funcoes = Funcao.objects.all()
-    cargos = Cargo.objects.all()
-    tipo_dependente = Tipo_Dependente.objects.all()
-    tipo_exame = Tipo_Exame.objects.all()
-    tipo_sangue = Tipo_Sangue.objects.all()
-    estado_civil = Estado_Civil.objects.all()
+    context_dict = {}
+    context_dict['departamentos'] = Departamento.objects.all()
+    context_dict['cids'] = Cid.objects.all()
+    context_dict['procedimentos_medicos'] = Procedimento_Medico.objects.all()
+    context_dict['beneficios'] = Beneficio.objects.all()
+    context_dict['funcoes'] = Funcao.objects.all()
+    context_dict['cargos'] = Cargo.objects.all()
+    context_dict['tipo_dependente'] = Tipo_Dependente.objects.all()
+    context_dict['tipo_exame'] = Tipo_Exame.objects.all()
+    context_dict['tipo_sangue'] = Tipo_Sangue.objects.all()
+    context_dict['estado_civil'] = Estado_Civil.objects.all()
+    context_dict['secretaria'] = Secretaria.objects.all()
+    context_dict['local_trabalho'] = Local_Trabalho.objects.all()
 
-    context_dict = {'departamentos': departamentos, 'cids': cids, 'procedimentos_medicos': procedimentos_medicos, 'beneficios': beneficios, 'funcoes': funcoes, 'cargos': cargos, 'tipo_dependente': tipo_dependente, 'tipo_exame': tipo_exame, 'tipo_sangue': tipo_sangue, 'estado_civil': estado_civil}
     return render(request, 'index.html', context_dict)

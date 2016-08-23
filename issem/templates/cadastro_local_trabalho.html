@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>Adicionar Local de Trabalho:</h1>
+
+    <form id="Local_TrabalhoForm" method="post" action="/issem/add_local_trabalho/">
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" name="submit" value="Cadastrar Local de Trabalho" />
+    </form>
+
+</body>
+
+</html>

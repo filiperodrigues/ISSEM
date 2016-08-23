@@ -19,7 +19,7 @@
         </div>
         <div class="column">
             <div class="ui segment">
-                <div class="ui four column grid">
+                <div class="four column grid">
                     <div class="row">
                         <div class="column"><div class="ui segment">1</div></div>
                         <div class="column"><div class="ui segment">2</div></div>
@@ -240,6 +240,50 @@
                     </strong>
                 {% endfor %}
                 <p><a href="{% url 'issem:add_estado_civil' %}" class="ui blue button">Cadastrar Estado Civil</a></p>
+            </div>
+        </div>
+        <div class="column"></div>
+    </div>
+</div>
+
+<div class="ui three column grid">
+    <div class="row">
+        <div class="column"></div>
+        <div class="column">
+            <div class="ui segment">
+                <h2>Secretaria</h2>
+
+                {% for secretaria in secretaria %}
+                    <strong>
+                        {{ secretaria.nome }}
+                        <a href="{% url 'issem:edita_secretaria' secretaria.id %}">Editar</a>
+                        <a href="{% url 'issem:deleta_secretaria' secretaria.id %}">Deletar</a>
+                        <br/>
+                    </strong>
+                {% endfor %}
+                <p><a href="{% url 'issem:add_secretaria' %}" class="ui blue button">Cadastrar Secretaria</a></p>
+            </div>
+        </div>
+        <div class="column"></div>
+    </div>
+</div>
+
+<div class="ui three column grid">
+    <div class="row">
+        <div class="column"></div>
+        <div class="column">
+            <div class="ui segment">
+                <h2>Local de Trabalho</h2>
+
+                {% for local_trabalho in local_trabalho %}
+                    <strong>
+                        {{ local_trabalho.nome }}
+                        <a href="{% url 'issem:edita_local_trabalho' local_trabalho.id %}">Editar</a>
+                        <a href="{% url 'issem:deleta_local_trabalho' local_trabalho.id %}">Deletar</a>
+                        <br/>
+                    </strong>
+                {% endfor %}
+                <p><a href="{% url 'issem:add_local_trabalho' %}" class="ui blue button">Cadastrar Local de Trabalho</a></p>
             </div>
         </div>
         <div class="column"></div>
