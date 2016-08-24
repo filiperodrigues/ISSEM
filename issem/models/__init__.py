@@ -13,4 +13,6 @@ from issem.models.tipo_sangue import Tipo_Sangue
 from issem.models.secretaria import Secretaria
 from issem.models.local_trabalho import Local_Trabalho
 from issem.models.pessoa import *
-from issem.models.servidor import *
+from issem.models.servidor import Servidor
+from issem.models.dependente import Dependente
+from issem.models.segurado import Segurado

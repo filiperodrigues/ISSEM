@@ -27,5 +27,5 @@ class Pessoa(models.Model):
     estado_civil = models.ForeignKey(Estado_Civil)
     tipo_saguineo = models.ForeignKey(Tipo_Sangue)
     cargo = models.ForeignKey(Cargo)
-    cidade_natural = models.ForeignKey(Cidade, related_name='cidade_natural')
-    cidade_atual = models.ForeignKey(Cidade, related_name='cidade_atual')
+    cidade_atual = models.ForeignKey(Cidade, related_name="%(app_label)s_%(class)s_atual")
+    cidade_natural = models.ForeignKey(Cidade, related_name="%(app_label)s_%(class)s_natural")
