@@ -17,5 +17,8 @@ def index(request):
     context_dict['estado_civil'] = Estado_Civil.objects.all()
     context_dict['secretaria'] = Secretaria.objects.all()
     context_dict['local_trabalho'] = Local_Trabalho.objects.all()
+    context_dict['dependentes'] = Dependente.objects.all()
+    context_dict['segurados'] = Segurado.objects.all()
+
 
     return render(request, 'index.html', context_dict)

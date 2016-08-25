@@ -66,4 +66,14 @@ urlpatterns = [
     url(r'^add_local_trabalho/$', views.add_local_trabalho, name='add_local_trabalho'),
     url(r'^edita_local_trabalho/(?P<id>[0-9]+)/$', views.edita_local_trabalho, name='edita_local_trabalho'),
     url(r'^deleta_local_trabalho/(?P<id>[0-9]+)/$', views.deleta_local_trabalho, name='deleta_local_trabalho'),
+
+    ## DEPENDENTE ##
+    url(r'^add_dependente/$', views.add_dependente, name='add_dependente'),
+    url(r'^edita_dependente/(?P<id>[0-9]+)/$', views.edita_dependente, name='edita_dependente'),
+    url(r'^deleta_dependente/(?P<id>[0-9]+)/$', views.deleta_dependente, name='deleta_dependente'),
+
+    ## SEGURADO ##
+    url(r'^add_segurado/$', views.add_segurado, name='add_segurado'),
+    url(r'^edita_segurado/(?P<id>[0-9]+)/$', views.edita_segurado, name='edita_segurado'),
+    url(r'^deleta_segurado/(?P<id>[0-9]+)/$', views.deleta_segurado, name='deleta_segurado'),
 ]

@@ -10,3 +10,5 @@ from issem.forms.procedimento_medico import Procedimento_MedicoForm
 from issem.forms.tipo_sangue import Tipo_SangueForm
 from issem.forms.secretaria import SecretariaForm
 from issem.forms.local_trabalho import Local_TrabalhoForm
+from issem.forms.dependente import DependenteForm
+from issem.forms.segurado import SeguradoForm

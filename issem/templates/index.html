@@ -12,45 +12,36 @@
     </div>
 </div>
 
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column">
-            <div class="ui segment"></div>
-        </div>
-        <div class="column">
-            <div class="ui segment">
-                <div class="four column grid">
-                    <div class="row">
-                        <div class="column"><div class="ui segment">1</div></div>
-                        <div class="column"><div class="ui segment">2</div></div>
-                        <div class="column"><div class="ui segment">3</div></div>
-                        <div class="column"><div class="ui segment">4</div></div>
-                        <div class="column"><div class="ui segment">5</div></div>
-                        <div class="column"><div class="ui segment">6</div></div>
-                        <div class="column"><div class="ui segment">7</div></div>
-                        <div class="column"><div class="ui segment">8</div></div>
-                        <div class="column"><div class="ui segment">9</div></div>
-                        <div class="column"><div class="ui segment">10</div></div>
-                        <div class="column"><div class="ui segment">11</div></div>
-                        <div class="column"><div class="ui segment">12</div></div>
-                        <div class="column"><div class="ui segment">13</div></div>
-                        <div class="column"><div class="ui segment">14</div></div>
-                        <div class="column"><div class="ui segment">15</div></div>
-                        <div class="column"><div class="ui segment">16</div></div>
-                        <div class="column"><div class="ui segment">17</div></div>
-                        <div class="column"><div class="ui segment">18</div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
 <div class="ui three column centered grid">
     <div class="row">
         <div class="column"></div>
         <div class="column">
+            <div class="ui segment">
+                <h2>Segurados</h2>
+
+                {% for segurado in segurados %}
+                    <div class="ui existing segment">
+                        {{ segurado.nome }}
+                        <a href="{% url 'issem:edita_segurado' segurado.id %}" class="ui button red">Editar</a>
+                        <a href="{% url 'issem:deleta_segurado' segurado.id %}" class="ui button red">Deletar</a>
+                        <br/>
+                    </div>
+                {% endfor %}
+                <a href="{% url 'issem:add_segurado' %}" class="ui button blue">Cadastrar Segurado</a>
+            </div>
+            <div class="ui segment">
+                <h2>Dependentes</h2>
+
+                {% for dependente in dependentes %}
+                    <div class="ui existing segment">
+                        {{ dependente.nome }}
+                        <a href="{% url 'issem:edita_dependente' dependente.id %}" class="ui button red">Editar</a>
+                        <a href="{% url 'issem:deleta_dependente' dependente.id %}" class="ui button red">Deletar</a>
+                        <br/>
+                    </div>
+                {% endfor %}
+                <a href="{% url 'issem:add_dependente' %}" class="ui button blue">Cadastrar Dependente</a>
+            </div>
             <div class="ui segment">
                 <h2>Departamentos</h2>
 
@@ -64,14 +55,6 @@
                 {% endfor %}
                 <a href="{% url 'issem:add_departamento' %}" class="ui button blue">Cadastrar Departamento</a>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>CIDs</h2>
                 {% for cid in cids %}
@@ -85,15 +68,6 @@
 
                 <a href="{% url 'issem:add_cid' %}" class="ui blue button">Cadastrar CID</a>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Procedimentos Médicos</h2>
 
@@ -108,15 +82,6 @@
 
                 <p><a href="{% url 'issem:add_procedimento_medico' %}" class="ui blue button">Cadastrar Procedimento Médico</a></p>
              </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Benefícios</h2>
 
@@ -131,15 +96,6 @@
 
                 <p><a href="{% url 'issem:add_beneficio' %}" class="ui blue button">Cadastrar Benefício</a></p>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Funções</h2>
                 {% for funcao in funcoes %}
@@ -153,15 +109,6 @@
 
                 <p><a href="{% url 'issem:add_funcao' %}" class="ui blue button">Cadastrar Função</a></p>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Cargos</h2>
                 {% for cargo in cargos %}
@@ -175,15 +122,6 @@
 
                 <p><a href="{% url 'issem:add_cargo' %}" class="ui blue button">Cadastrar Cargo</a></p>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Tipo Dependente</h2>
 
@@ -197,15 +135,6 @@
                 {% endfor %}
                 <p><a href="{% url 'issem:add_tipo_dependente' %}" class="ui blue button">Cadastrar Tipo Dependente</a></p>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Tipo de Sangue</h2>
 
@@ -219,15 +148,6 @@
                 {% endfor %}
                 <p><a href="{% url 'issem:add_tipo_sangue' %}" class="ui blue button">Cadastrar Tipo de Sangue</a></p>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Estado Civil</h2>
 
@@ -241,15 +161,6 @@
                 {% endfor %}
                 <p><a href="{% url 'issem:add_estado_civil' %}" class="ui blue button">Cadastrar Estado Civil</a></p>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Secretaria</h2>
 
@@ -263,15 +174,6 @@
                 {% endfor %}
                 <p><a href="{% url 'issem:add_secretaria' %}" class="ui blue button">Cadastrar Secretaria</a></p>
             </div>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
-
-<div class="ui three column grid">
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
             <div class="ui segment">
                 <h2>Local de Trabalho</h2>
 
@@ -289,13 +191,6 @@
         <div class="column"></div>
     </div>
 </div>
-
-<div class="ui one column inverted grid">
-    <div class="column">
-            <div class="ui segment red"></div>
-    </div>
-</div>
-
 
 </body>
 

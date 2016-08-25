@@ -6,7 +6,6 @@ from issem.models.tipo_sangue import Tipo_Sangue
 from issem.models.estado_civil import Estado_Civil
 from issem.models.cargo import Cargo
 
-
 class Pessoa(models.Model):
     class Meta:
         abstract = True
