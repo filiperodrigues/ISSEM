@@ -13,3 +13,4 @@ from issem.views.secretaria import *
 from issem.views.local_trabalho import *
 from issem.views.dependente import *
 from issem.views.segurado import *
+from issem.views.servidor import *

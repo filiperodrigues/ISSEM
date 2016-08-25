@@ -19,6 +19,6 @@ def index(request):
     context_dict['local_trabalho'] = Local_Trabalho.objects.all()
     context_dict['dependentes'] = Dependente.objects.all()
     context_dict['segurados'] = Segurado.objects.all()
-
+    context_dict['servidores'] = Servidor.objects.all()
 
     return render(request, 'index.html', context_dict)

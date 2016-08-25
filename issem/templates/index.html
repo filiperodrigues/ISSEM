@@ -17,6 +17,19 @@
         <div class="column"></div>
         <div class="column">
             <div class="ui segment">
+                <h2>Servidores</h2>
+
+                {% for servidor in servidores %}
+                    <div class="ui existing segment">
+                        {{ servidor.nome }}
+                        <a href="{% url 'issem:edita_servidor' servidor.id %}" class="ui button red">Editar</a>
+                        <a href="{% url 'issem:deleta_servidor' servidor.id %}" class="ui button red">Deletar</a>
+                        <br/>
+                    </div>
+                {% endfor %}
+                <a href="{% url 'issem:add_servidor' %}" class="ui button blue">Cadastrar Servidor</a>
+            </div>
+            <div class="ui segment">
                 <h2>Segurados</h2>
 
                 {% for segurado in segurados %}

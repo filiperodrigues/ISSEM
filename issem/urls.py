@@ -76,4 +76,9 @@ urlpatterns = [
     url(r'^add_segurado/$', views.add_segurado, name='add_segurado'),
     url(r'^edita_segurado/(?P<id>[0-9]+)/$', views.edita_segurado, name='edita_segurado'),
     url(r'^deleta_segurado/(?P<id>[0-9]+)/$', views.deleta_segurado, name='deleta_segurado'),
+
+    ## SERVIDOR ##
+    url(r'^add_servidor/$', views.add_servidor, name='add_servidor'),
+    url(r'^edita_servidor/(?P<id>[0-9]+)/$', views.edita_servidor, name='edita_servidor'),
+    url(r'^deleta_servidor/(?P<id>[0-9]+)/$', views.deleta_servidor, name='deleta_servidor'),
 ]
