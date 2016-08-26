@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+
+<div class="ui segment">
+    <h2>Servidores</h2>
+    <table class="ui celled table">
+  <thead>
+    <tr><th>Nome</th>
+    <th>CPF</th>
+    <th>E-mail</th>
+    <th></th>
+    <th></th>
+  </tr></thead>
+  <tbody>
+    {% for servidor in servidores %}
+    <tr>
+      <td>{{ servidor.nome }}</td>
+      <td>{{ servidor.cpf }}</td>
+      <td>{{ servidor.email }}</td>
+      <td><a href="{% url 'issem:edita_servidor' servidor.id %}" class="ui button red">Editar</a></td>
+      <td><a href="{% url 'issem:deleta_servidor' servidor.id %}" class="ui button red">Deletar</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+</div>
+
+
+{% endblock %}

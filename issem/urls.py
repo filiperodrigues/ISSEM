@@ -79,6 +79,7 @@ urlpatterns = [
 
     ## SERVIDOR ##
     url(r'^add_servidor/$', views.add_servidor, name='add_servidor'),
+    url(r'^apresenta_servidor/$', views.apresenta_servidor, name='apresenta_servidor'),
     url(r'^edita_servidor/(?P<id>[0-9]+)/$', views.edita_servidor, name='edita_servidor'),
     url(r'^deleta_servidor/(?P<id>[0-9]+)/$', views.deleta_servidor, name='deleta_servidor'),
 ]

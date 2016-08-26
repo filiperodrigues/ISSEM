@@ -36,3 +36,8 @@ def deleta_servidor(request, id):
     servidor = Servidor.objects.get(pk=id)
     servidor.delete()
     return HttpResponseRedirect('/')
+
+def apresenta_servidor(request):
+    context_dict = {}
+    context_dict['servidores'] = Servidor.objects.all()
+    return render(request, 'servidores.html', context_dict)
