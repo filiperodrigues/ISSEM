@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models.servidor import Servidor
+from issem.models.servidor import ServidorModel
 from issem.forms.servidor import ServidorForm
 
 
@@ -18,7 +18,7 @@ def add_servidor(request):
 
 
 def edita_servidor(request, id):
-    servidor = Servidor.objects.get(pk=id)
+    servidor = ServidorModel.objects.get(pk=id)
     if request.method == "POST":
         form = ServidorForm(request.POST, instance=servidor)
         if form.is_valid():
@@ -33,11 +33,11 @@ def edita_servidor(request, id):
 
 
 def deleta_servidor(request, id):
-    servidor = Servidor.objects.get(pk=id)
+    servidor = ServidorModel.objects.get(pk=id)
     servidor.delete()
     return HttpResponseRedirect('/')
 
 def apresenta_servidor(request):
     context_dict = {}
-    context_dict['servidores'] = Servidor.objects.all()
+    context_dict['servidores'] = ServidorModel.objects.all()
     return render(request, 'servidores.html', context_dict)

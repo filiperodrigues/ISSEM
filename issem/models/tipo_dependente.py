@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class Tipo_Dependente(models.Model):
+class TipoDependenteModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
 
     def __str__(self):

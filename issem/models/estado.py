@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class Estado(models.Model):
+class EstadoModel(models.Model):
     uf = models.CharField(max_length=2, unique=True, null=False)
     nome = models.CharField(max_length=128, unique=True, null=False)
 

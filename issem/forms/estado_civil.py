@@ -1,9 +1,9 @@
 #coding:utf-8
 from django import forms
-from issem.models import Estado_Civil
+from issem.models import EstadoCivilModel
 
 
-class Estado_CivilForm(forms.ModelForm):
+class EstadoCivilForm(forms.ModelForm):
     class Meta:
-        model = Estado_Civil
+        model = EstadoCivilModel
         fields = ('nome',)

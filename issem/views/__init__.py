@@ -11,6 +11,7 @@ from issem.views.tipo_sangue import *
 from issem.views.estado_civil import *
 from issem.views.secretaria import *
 from issem.views.local_trabalho import *
+from issem.views.beneficio import BeneficioView
 from issem.views.dependente import *
 from issem.views.segurado import *
 from issem.views.servidor import *

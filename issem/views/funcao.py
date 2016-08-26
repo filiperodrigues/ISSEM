@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import Funcao
+from issem.models import FuncaoModel
 from issem.forms import FuncaoForm
 
 
@@ -18,7 +18,7 @@ def add_funcao(request):
 
 
 def edita_funcao(request, id):
-    funcao = Funcao.objects.get(pk=id)
+    funcao = FuncaoModel.objects.get(pk=id)
     if request.method == "POST":
         form = FuncaoForm(request.POST, instance=funcao)
         if form.is_valid():
@@ -33,6 +33,6 @@ def edita_funcao(request, id):
 
 
 def deleta_funcao(request, id):
-    funcao = Funcao.objects.get(pk=id)
+    funcao = FuncaoModel.objects.get(pk=id)
     funcao.delete()
     return HttpResponseRedirect('/')

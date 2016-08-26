@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import Departamento
+from issem.models import DepartamentoModel
 from issem.forms import DepartamentoForm
 from issem.views import index
 
@@ -19,7 +19,7 @@ def add_departamento(request):
 
 
 def edita_departamento(request, id):
-    departamento = Departamento.objects.get(pk=id)
+    departamento = DepartamentoModel.objects.get(pk=id)
     if request.method == "POST":
         form = DepartamentoForm(request.POST, instance=departamento)
         if form.is_valid():
@@ -34,6 +34,6 @@ def edita_departamento(request, id):
 
 
 def deleta_departamento(request, id):
-    departamento = Departamento.objects.get(pk=id)
+    departamento = DepartamentoModel.objects.get(pk=id)
     departamento.delete()
     return HttpResponseRedirect('/')

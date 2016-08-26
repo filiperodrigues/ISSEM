@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class Funcao(models.Model):
+class FuncaoModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
     descricao = models.CharField(max_length=128, null=False)
 

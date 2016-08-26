@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import Cargo
+from issem.models import CargoModel
 from issem.forms import CargoForm
 
 
@@ -18,7 +18,7 @@ def add_cargo(request):
 
 
 def edita_cargo(request, id):
-    cargo = Cargo.objects.get(pk=id)
+    cargo = CargoModel.objects.get(pk=id)
     if request.method == "POST":
         form = CargoForm(request.POST, instance=cargo)
         if form.is_valid():
@@ -33,6 +33,6 @@ def edita_cargo(request, id):
 
 
 def deleta_cargo(request, id):
-    cargo = Cargo.objects.get(pk=id)
+    cargo = CargoModel.objects.get(pk=id)
     cargo.delete()
     return HttpResponseRedirect('/')

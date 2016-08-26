@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models.segurado import Segurado
+from issem.models.segurado import SeguradoModel
 from issem.forms.segurado import SeguradoForm
 
 
@@ -18,7 +18,7 @@ def add_segurado(request):
 
 
 def edita_segurado(request, id):
-    segurado = Segurado.objects.get(pk=id)
+    segurado = SeguradoModel.objects.get(pk=id)
     if request.method == "POST":
         form = SeguradoForm(request.POST, instance=segurado)
         if form.is_valid():
@@ -33,6 +33,6 @@ def edita_segurado(request, id):
 
 
 def deleta_segurado(request, id):
-    segurado = Segurado.objects.get(pk=id)
+    segurado = SeguradoModel.objects.get(pk=id)
     segurado.delete()
     return HttpResponseRedirect('/')

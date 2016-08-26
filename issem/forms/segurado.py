@@ -1,9 +1,9 @@
 #coding:utf-8
 from django import forms
-from issem.models.segurado import Segurado
+from issem.models.segurado import SeguradoModel
 
 
 class SeguradoForm(forms.ModelForm):
     class Meta:
-        model = Segurado
+        model = SeguradoModel
         fields = '__all__'

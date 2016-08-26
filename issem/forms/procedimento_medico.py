@@ -1,9 +1,8 @@
 #coding:utf-8
 from django import forms
-from issem.models import Procedimento_Medico
+from issem.models import ProcedimentoMedicoModel
 
-
-class Procedimento_MedicoForm(forms.ModelForm):
+class ProcedimentoMedicoForm(forms.ModelForm):
     class Meta:
-        model = Procedimento_Medico
+        model = ProcedimentoMedicoModel
         fields = ('codigo', 'descricao', 'porte', 'custo_operacao')

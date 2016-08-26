@@ -1,26 +1,26 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import Tipo_Dependente
-from issem.forms import Tipo_DependenteForm
+from issem.models import TipoDependenteModel
+from issem.forms import TipoDependenteForm
 
 
 def add_tipo_dependente(request):
     if request.method == 'POST':
-        form = Tipo_DependenteForm(request.POST)
+        form = TipoDependenteForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
     else:
-        form = Tipo_DependenteForm()
+        form = TipoDependenteForm()
         return render(request, 'cadastro_tipo_dependente.html', {'form': form})
 
 
 def edita_tipo_dependente(request, id):
-    tipo_dependente = Tipo_Dependente.objects.get(pk=id)
+    tipo_dependente = TipoDependenteModel.objects.get(pk=id)
     if request.method == "POST":
-        form = Tipo_DependenteForm(request.POST, instance=tipo_dependente)
+        form = TipoDependenteForm(request.POST, instance=tipo_dependente)
         if form.is_valid():
             tipo_dependente = form.save(commit=False)
             tipo_dependente.save()
@@ -28,11 +28,11 @@ def edita_tipo_dependente(request, id):
         else:
             print(form.errors)
     else:
-        form = Tipo_DependenteForm(instance=tipo_dependente)
+        form = TipoDependenteForm(instance=tipo_dependente)
         return render(request, 'edita_tipo_dependente.html', {'form': form})
 
 
 def deleta_tipo_dependente(request, id):
-    tipo_dependente = Tipo_Dependente.objects.get(pk=id)
+    tipo_dependente = TipoDependenteModel.objects.get(pk=id)
     tipo_dependente.delete()
     return HttpResponseRedirect('/')

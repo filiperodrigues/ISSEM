@@ -1,9 +1,9 @@
 #coding:utf-8
 from django import forms
-from issem.models import Departamento
+from issem.models import DepartamentoModel
 
 
 class DepartamentoForm(forms.ModelForm):
     class Meta:
-        model = Departamento
+        model = DepartamentoModel
         fields = ('nome',)

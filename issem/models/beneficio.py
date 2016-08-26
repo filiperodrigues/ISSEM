@@ -3,7 +3,7 @@ import datetime
 from django.db import models
 
 
-class Beneficio(models.Model):
+class BeneficioModel(models.Model):
    concessao = models.BooleanField(default=0)
    data_inicial = models.DateField(default=datetime.date.today)
    data_final = models.DateField(default=datetime.date.today)

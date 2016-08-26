@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import Secretaria
+from issem.models import SecretariaModel
 from issem.forms import SecretariaForm
 
 
@@ -18,7 +18,7 @@ def add_secretaria(request):
 
 
 def edita_secretaria(request, id):
-    secretaria = Secretaria.objects.get(pk=id)
+    secretaria = SecretariaModel.objects.get(pk=id)
     if request.method == "POST":
         form = SecretariaForm(request.POST, instance=secretaria)
         if form.is_valid():
@@ -33,6 +33,6 @@ def edita_secretaria(request, id):
 
 
 def deleta_secretaria(request, id):
-    secretaria = Secretaria.objects.get(pk=id)
+    secretaria = SecretariaModel.objects.get(pk=id)
     secretaria.delete()
     return HttpResponseRedirect('/')

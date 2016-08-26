@@ -1,41 +1,41 @@
 from django.contrib import admin
-from issem.models.cid import Cid
-from issem.models.departamento import Departamento
-from issem.models.procedimento_medico import Procedimento_Medico
-from issem.models.beneficio import Beneficio
-from issem.models.funcao import Funcao
-from issem.models.cargo import Cargo
-from issem.models.tipo_dependente import Tipo_Dependente
-from issem.models.tipo_exame import Tipo_Exame
-from issem.models.secretaria import Secretaria
-from issem.models.local_trabalho import Local_Trabalho
-from issem.models.servidor import Servidor
-from issem.models.dependente import Dependente
-from issem.models.segurado import Segurado
+from issem.models.cid import CidModel
+from issem.models.departamento import DepartamentoModel
+from issem.models.procedimento_medico import ProcedimentoMedicoModel
+from issem.models.beneficio import BeneficioModel
+from issem.models.funcao import FuncaoModel
+from issem.models.cargo import CargoModel
+from issem.models.tipo_dependente import TipoDependenteModel
+from issem.models.tipo_exame import TipoExameModel
+from issem.models.secretaria import SecretariaModel
+from issem.models.local_trabalho import LocalTrabalhoModel
+from issem.models.servidor import ServidorModel
+from issem.models.dependente import DependenteModel
+from issem.models.segurado import SeguradoModel
 
-admin.site.register(Cid)
-admin.site.register(Departamento)
-admin.site.register(Procedimento_Medico)
-admin.site.register(Beneficio)
-admin.site.register(Funcao)
-admin.site.register(Cargo)
-admin.site.register(Tipo_Dependente)
-admin.site.register(Tipo_Exame)
-admin.site.register(Secretaria)
-admin.site.register(Local_Trabalho)
-admin.site.register(Servidor)
-admin.site.register(Dependente)
-admin.site.register(Segurado)
+admin.site.register(CidModel)
+admin.site.register(DepartamentoModel)
+admin.site.register(ProcedimentoMedicoModel)
+admin.site.register(BeneficioModel)
+admin.site.register(FuncaoModel)
+admin.site.register(CargoModel)
+admin.site.register(TipoDependenteModel)
+admin.site.register(TipoExameModel)
+admin.site.register(SecretariaModel)
+admin.site.register(LocalTrabalhoModel)
+admin.site.register(ServidorModel)
+admin.site.register(DependenteModel)
+admin.site.register(SeguradoModel)
 
 
 
 
 ## SOMENTE PARA TESTES ##
-from issem.models.estado_civil import Estado_Civil
-from issem.models.tipo_sangue import Tipo_Sangue
-from issem.models.estado import Estado
-from issem.models.cidade import Cidade
-admin.site.register(Estado_Civil)
-admin.site.register(Tipo_Sangue)
-admin.site.register(Estado)
-admin.site.register(Cidade)
+from issem.models.estado_civil import EstadoCivilModel
+from issem.models.tipo_sangue import TipoSangueModel
+from issem.models.estado import EstadoModel
+from issem.models.cidade import CidadeModel
+admin.site.register(EstadoCivilModel)
+admin.site.register(TipoSangueModel)
+admin.site.register(EstadoModel)
+admin.site.register(CidadeModel)

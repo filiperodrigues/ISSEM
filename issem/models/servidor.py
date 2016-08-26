@@ -1,13 +1,8 @@
 # coding:utf-8
-import datetime
 from django.db import models
-from issem.models.pessoa import Pessoa
-from issem.models.departamento import Departamento
+from issem.models.pessoa import PessoaModel
+from issem.models.departamento import DepartamentoModel
 
-class Servidor(Pessoa):
-    departamento = models.ForeignKey(Departamento)
+class ServidorModel(PessoaModel):
+    departamento = models.ForeignKey(DepartamentoModel)
     crm = models.IntegerField()
-
-    class Meta:
-        verbose_name = 'Servidor'
-        verbose_name_plural = 'Servidor'

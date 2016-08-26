@@ -1,9 +1,9 @@
 # coding:utf-8
 from django import forms
-from issem.models import Tipo_Sangue
+from issem.models import TipoSangueModel
 
 
-class Tipo_SangueForm(forms.ModelForm):
+class TipoSangueForm(forms.ModelForm):
     class Meta:
-        model = Tipo_Sangue
+        model = TipoSangueModel
         fields = ('nome',)

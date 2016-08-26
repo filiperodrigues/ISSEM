@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class Tipo_Sangue(models.Model):
+class TipoSangueModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
 
     def __str__(self):

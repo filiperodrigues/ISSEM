@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class Cid(models.Model):
+class CidModel(models.Model):
     descricao = models.CharField(max_length=128, null=False)
     status = models.BooleanField(default=0)
     gravidade = models.IntegerField(null=False)

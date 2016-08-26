@@ -1,9 +1,9 @@
 # coding:utf-8
 from django.db import models
-from issem.models.cidade import Cidade
+from issem.models.cidade import CidadeModel
 
 
-class Local_Trabalho(models.Model):
+class LocalTrabalhoModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
     cnpj = models.IntegerField(unique=True)
     endereco = models.CharField(max_length=128)
@@ -11,7 +11,7 @@ class Local_Trabalho(models.Model):
     complemento = models.CharField(max_length=128)
     bairro = models.CharField(max_length=128)
     cep = models.IntegerField()
-    cidade = models.ForeignKey(Cidade)
+    cidade = models.ForeignKey(CidadeModel)
 
     def __str__(self):
         return self.nome

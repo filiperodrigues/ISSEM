@@ -1,9 +1,9 @@
 #coding:utf-8
 from django import forms
-from issem.models import Tipo_Dependente
+from issem.models import TipoDependenteModel
 
 
-class Tipo_DependenteForm(forms.ModelForm):
+class TipoDependenteForm(forms.ModelForm):
     class Meta:
-        model = Tipo_Dependente
+        model = TipoDependenteModel
         fields = ('nome',)

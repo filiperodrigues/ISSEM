@@ -1,13 +1,13 @@
 # coding:utf-8
 import datetime
 from django.db import models
-from issem.models.local_trabalho import Local_Trabalho
-from issem.models.pessoa import Pessoa
-from issem.models.dependente import Dependente
+from issem.models.local_trabalho import LocalTrabalhoModel
+from issem.models.pessoa import PessoaModel
+from issem.models.dependente import DependenteModel
 
-class Segurado(Pessoa):
+class SeguradoModel(PessoaModel):
     pasep_pis_nit = models.IntegerField()
-    local_trabalho = models.ForeignKey(Local_Trabalho)
+    local_trabalho = models.ForeignKey(LocalTrabalhoModel)
     data_admissao = models.DateField(default=datetime.date.today)
     documento_legal = models.IntegerField()
-    dependente = models.ManyToManyField(Dependente)
+    dependente = models.ManyToManyField(DependenteModel)

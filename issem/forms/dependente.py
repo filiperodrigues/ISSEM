@@ -1,9 +1,9 @@
 #coding:utf-8
 from django import forms
-from issem.models.dependente import Dependente
+from issem.models.dependente import DependenteModel
 
 
 class DependenteForm(forms.ModelForm):
     class Meta:
-        model = Dependente
+        model = DependenteModel
         fields = '__all__'

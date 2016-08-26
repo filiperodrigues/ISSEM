@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models.dependente import Dependente
+from issem.models.dependente import DependenteModel
 from issem.forms.dependente import DependenteForm
 #from issem.views import index
 
@@ -19,7 +19,7 @@ def add_dependente(request):
 
 
 def edita_dependente(request, id):
-    dependente = Dependente.objects.get(pk=id)
+    dependente = DependenteModel.objects.get(pk=id)
     if request.method == "POST":
         form = DependenteForm(request.POST, instance=dependente)
         if form.is_valid():
@@ -34,6 +34,6 @@ def edita_dependente(request, id):
 
 
 def deleta_dependente(request, id):
-    dependente = Dependente.objects.get(pk=id)
+    dependente = DependenteModel.objects.get(pk=id)
     dependente.delete()
     return HttpResponseRedirect('/')

@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import Cid
+from issem.models import CidModel
 from issem.forms import CidForm
 
 
@@ -18,7 +18,7 @@ def add_cid(request):
 
 
 def edita_cid(request, id):
-    cid = Cid.objects.get(pk=id)
+    cid = CidModel.objects.get(pk=id)
     if request.method == "POST":
         form = CidForm(request.POST, instance=cid)
         if form.is_valid():
@@ -33,6 +33,6 @@ def edita_cid(request, id):
 
 
 def deleta_cid(request, id):
-    cid = Cid.objects.get(pk=id)
+    cid = CidModel.objects.get(pk=id)
     cid.delete()
     return HttpResponseRedirect('/')

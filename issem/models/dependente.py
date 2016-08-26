@@ -1,12 +1,13 @@
 # coding:utf-8
 import datetime
 from django.db import models
-from issem.models.tipo_dependente import Tipo_Dependente
-from issem.models.pessoa import Pessoa
+from issem.models.tipo_dependente import TipoDependenteModel
+from issem.models.pessoa import PessoaModel
 
-class Dependente(Pessoa):
-    tipo = models.ForeignKey(Tipo_Dependente)
+class DependenteModel(PessoaModel):
+    tipo = models.ForeignKey(TipoDependenteModel)
     data_inicio = models.DateField(default=datetime.date.today)
+    data_fim = models.DateField(default=datetime.date.today)
     dat_fim = models.DateField(default=datetime.date.today)
 
     def __str__(self):

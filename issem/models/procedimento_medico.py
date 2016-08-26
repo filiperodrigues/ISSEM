@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class Procedimento_Medico(models.Model):
+class ProcedimentoMedicoModel(models.Model):
     codigo = models.CharField(max_length=250)
     descricao = models.CharField(max_length=1000)
     porte = models.CharField(max_length=250)

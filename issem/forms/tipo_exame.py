@@ -1,9 +1,9 @@
 #coding:utf-8
 from django import forms
-from issem.models import Tipo_Exame
+from issem.models import TipoExameModel
 
 
-class Tipo_ExameForm(forms.ModelForm):
+class TipoExameForm(forms.ModelForm):
     class Meta:
-        model = Tipo_Exame
+        model = TipoExameModel
         fields = ('nome', 'observacao',)
