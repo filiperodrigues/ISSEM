@@ -22,7 +22,7 @@ __pycache__/
 env/
 build/
 develop-eggs/
-dist/
+# dist/  # retirado do gitignore, pois estava ignorando a pasta dist dentro da pasta do semantic
 eggs/
 lib/
 lib64/
