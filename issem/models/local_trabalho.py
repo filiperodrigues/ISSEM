@@ -5,12 +5,12 @@ from issem.models.cidade import CidadeModel
 
 class LocalTrabalhoModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
-    cnpj = models.IntegerField(unique=True)
+    cnpj = models.PositiveIntegerField(unique=True)
     endereco = models.CharField(max_length=128)
-    numero_endereco = models.IntegerField()
+    numero_endereco = models.PositiveIntegerField()
     complemento = models.CharField(max_length=128)
     bairro = models.CharField(max_length=128)
-    cep = models.IntegerField()
+    cep = models.PositiveIntegerField()
     cidade = models.ForeignKey(CidadeModel)
 
     def __str__(self):

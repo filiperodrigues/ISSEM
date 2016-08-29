@@ -10,11 +10,11 @@ class BeneficioModel(models.Model):
    data_retorno = models.DateField(default=datetime.date.today)
    data_pericia = models.DateField(default=datetime.date.today)
    descricao = models.CharField(max_length=1000)
-   numero_portaria = models.IntegerField()
+   numero_portaria = models.PositiveIntegerField()
    data_portaria = models.DateField(default=datetime.date.today)
-   salario_maximo = models.IntegerField()
+   salario_maximo = models.PositiveIntegerField()
    observacao = models.CharField(max_length=1000)
-   carencia = models.IntegerField()
+   carencia = models.PositiveIntegerField()
 
    def __str__(self):
        return self.descricao

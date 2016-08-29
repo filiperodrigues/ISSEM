@@ -5,4 +5,4 @@ from issem.models.departamento import DepartamentoModel
 
 class ServidorModel(PessoaModel):
     departamento = models.ForeignKey(DepartamentoModel)
-    crm = models.IntegerField()
+    crm = models.PositiveIntegerField()
