@@ -6,16 +6,14 @@ from issem.forms import LocalTrabalhoForm
 
 def add_local_trabalho(request):
     if request.method == 'POST':
-        print "COM POST"
+        #print "COM POST"
         form = LocalTrabalhoForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
             return HttpResponseRedirect('/')
-        else:
-            print "DEU MERDA"
-            print(form.errors)
+
     else:
-        print "SEM POST"
+        #print "SEM POST"
         form = LocalTrabalhoForm()
         return render(request, 'cadastro_local_trabalho.html', {'form': form})
 
@@ -28,8 +26,7 @@ def edita_local_trabalho(request, id):
             local_trabalho = form.save(commit=False)
             local_trabalho.save()
             return HttpResponseRedirect('/')
-        else:
-            print(form.errors)
+
     else:
         form = LocalTrabalhoForm(instance=local_trabalho)
         return render(request, 'edita_local_trabalho.html', {'form': form})
