@@ -8,8 +8,6 @@ from issem.models.cargo import CargoModel
 
 
 class PessoaModel(models.Model):
-    class Meta:
-        abstract = True
     nome = models.CharField(max_length=128, null=False)
     cpf = models.PositiveIntegerField(null=False)
     email = models.EmailField(max_length=128)
@@ -31,3 +29,13 @@ class PessoaModel(models.Model):
     cidade_natural = models.ForeignKey(CidadeModel, related_name="%(app_label)s_%(class)s_natural")
     nome_pai = models.CharField(max_length=128)
     nome_mae = models.CharField(max_length=128, null=False)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = "Pessoa"
+        verbose_name_plural = "Pessoas"

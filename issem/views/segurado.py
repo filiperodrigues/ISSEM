@@ -1,38 +1,41 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models.segurado import SeguradoModel
-from issem.forms.segurado import SeguradoForm
+from issem.models import SeguradoModel
+from issem.forms import SeguradoForm
+from django.views.generic.base import View
 
 
-def add_segurado(request):
-    if request.method == 'POST':
-        form = SeguradoForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return HttpResponseRedirect('/')
+class SeguradoView(View):
+    template = 'segurado.html'
+
+    def get(self, request, id=None):
+        if id:
+            segurado = SeguradoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            form = SeguradoForm(instance=segurado)
         else:
-            print(form.errors)
-    else:
-        form = SeguradoForm()
-        return render(request, 'cadastro_segurado.html', {'form': form})
+            form = SeguradoForm()  # MODO CADASTRO: recebe o formulário vazio
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
+    def post(self, request):
+        if not request.POST['id']:  # CADASTRO NOVO
+            id = None
+            form = SeguradoForm(data=request.POST)
+        else:  # EDIÇÃO
+            id = request.POST['id']
+            segurado = SeguradoModel.objects.get(pk=id)
+            form = SeguradoForm(instance=segurado, data=request.POST)
 
-def edita_segurado(request, id):
-    segurado = SeguradoModel.objects.get(pk=id)
-    if request.method == "POST":
-        form = SeguradoForm(request.POST, instance=segurado)
         if form.is_valid():
             segurado = form.save(commit=False)
             segurado.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
-    else:
-        form = SeguradoForm(instance=segurado)
-        return render(request, 'edita_segurado.html', {'form': form})
+
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
-def deleta_segurado(request, id):
+def SeguradoDelete(request, id):
     segurado = SeguradoModel.objects.get(pk=id)
     segurado.delete()
     return HttpResponseRedirect('/')

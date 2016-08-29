@@ -1,5 +1,5 @@
 # coding:utf-8
-from django.shortcuts import render, HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, HttpResponseRedirect
 from issem.models import BeneficioModel
 from issem.forms import BeneficioForm
 from django.views.generic.base import View

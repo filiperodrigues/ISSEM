@@ -12,3 +12,4 @@ from issem.forms.secretaria import SecretariaForm
 from issem.forms.local_trabalho import LocalTrabalhoForm
 from issem.forms.dependente import DependenteForm
 from issem.forms.segurado import SeguradoForm
+from issem.forms.servidor import ServidorForm

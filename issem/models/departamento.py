@@ -7,3 +7,7 @@ class DepartamentoModel(models.Model):
 
     def __str__(self):
         return self.nome
+
+    class Meta:
+        verbose_name = "Departamento"
+        verbose_name_plural = "Departamentos"

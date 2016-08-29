@@ -8,14 +8,14 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
 
     ## DEPARTAMENTO ##
-    url(r'^add_departamento/$', views.add_departamento, name='add_departamento'),
-    url(r'^edita_departamento/(?P<id>[0-9]+)/$', views.edita_departamento, name='edita_departamento'),
-    url(r'^deleta_departamento/(?P<id>[0-9]+)/$', views.deleta_departamento, name='deleta_departamento'),
+    url(r'^add/departamento/$', DepartamentoView.as_view(), name='add_departamento'),
+    url(r'^edita/departamento/(?P<id>\d+)/$', DepartamentoView.as_view(), name='edita_departamento'),
+    url(r'^deleta/departamento/(?P<id>[0-9]+)/$', views.DepartamentoDelete, name='deleta_departamento'),
 
     ## CID ##
-    url(r'^add_cid/$', views.add_cid, name='add_cid'),
-    url(r'^edita_cid/(?P<id>[0-9]+)/$', views.edita_cid, name='edita_cid'),
-    url(r'^deleta_cid/(?P<id>[0-9]+)/$', views.deleta_cid, name='deleta_cid'),
+    url(r'^add/cid/$', CidView.as_view(), name='add_cid'),
+    url(r'^edita/cid/(?P<id>\d+)/$', CidView.as_view(), name='edita_cid'),
+    url(r'^deleta/cid/(?P<id>[0-9]+)/$', views.CidDelete, name='deleta_cid'),
 
     ## BENEFÍCIO ##
     url(r'^add/beneficio/$', BeneficioView.as_view(), name='add_beneficio'),
@@ -23,65 +23,63 @@ urlpatterns = [
     url(r'^deleta/beneficio/(?P<id>[0-9]+)/$', views.BeneficioDelete, name='deleta_beneficio'),
 
     ## PROCEDIMENTO MÉDICO ##
-    url(r'^add_procedimento_medico/$', views.add_procedimento_medico, name='add_procedimento_medico'),
-    url(r'^edita_procedimento_medico/(?P<id>[0-9]+)/$', views.edita_procedimento_medico,
-        name='edita_procedimento_medico'),
-    url(r'^deleta_procedimento_medico/(?P<id>[0-9]+)/$', views.deleta_procedimento_medico,
-        name='deleta_procedimento_medico'),
+    url(r'^add/procedimento_medico/$', ProcedimentoMedicoView.as_view(), name='add_procedimento_medico'),
+    url(r'^edita/procedimento_medico/(?P<id>\d+)/$', ProcedimentoMedicoView.as_view(), name='edita_procedimento_medico'),
+    url(r'^deleta/procedimento_medico/(?P<id>[0-9]+)/$', views.ProcedimentoMedicoDelete, name='deleta_procedimento_medico'),
 
     ## FUNÇÃO ##
-    url(r'^add_funcao/$', views.add_funcao, name='add_funcao'),
-    url(r'^edita_funcao/(?P<id>[0-9]+)/$', views.edita_funcao, name='edita_funcao'),
-    url(r'^deleta_funcao/(?P<id>[0-9]+)/$', views.deleta_funcao, name='deleta_funcao'),
+    url(r'^add/funcao/$', FuncaoView.as_view(), name='add_funcao'),
+    url(r'^edita/funcao/(?P<id>\d+)/$', FuncaoView.as_view(), name='edita_funcao'),
+    url(r'^deleta/funcao/(?P<id>[0-9]+)/$', views.FuncaoDelete, name='deleta_funcao'),
 
     ## CARGO ##
-    url(r'^add_cargo/$', views.add_cargo, name='add_cargo'),
-    url(r'^edita_cargo/(?P<id>[0-9]+)/$', views.edita_cargo, name='edita_cargo'),
-    url(r'^deleta_cargo/(?P<id>[0-9]+)/$', views.deleta_cargo, name='deleta_cargo'),
+    url(r'^add/cargo/$', CargoView.as_view(), name='add_cargo'),
+    url(r'^edita/cargo/(?P<id>\d+)/$', CargoView.as_view(), name='edita_cargo'),
+    url(r'^deleta/cargo/(?P<id>[0-9]+)/$', views.CargoDelete, name='deleta_cargo'),
 
     ## TIPO DEPENDENTE ##
-    url(r'^add_tipo_dependente/$', views.add_tipo_dependente, name='add_tipo_dependente'),
-    url(r'^edita_tipo_dependente/(?P<id>[0-9]+)/$', views.edita_tipo_dependente, name='edita_tipo_dependente'),
-    url(r'^deleta_tipo_dependente/(?P<id>[0-9]+)/$', views.deleta_tipo_dependente, name='deleta_tipo_dependente'),
+    url(r'^add/tipo_dependente/$', TipoDependenteView.as_view(), name='add_tipo_dependente'),
+    url(r'^edita/tipo_dependente/(?P<id>\d+)/$', TipoDependenteView.as_view(), name='edita_tipo_dependente'),
+    url(r'^deleta/tipo_dependente/(?P<id>[0-9]+)/$', views.TipoDependenteDelete, name='deleta_tipo_dependente'),
 
     ## TIPO EXAME ##
-    url(r'^add_tipo_exame/$', views.add_tipo_exame, name='add_tipo_exame'),
-    url(r'^edita_tipo_exame/(?P<id>[0-9]+)/$', views.edita_tipo_exame, name='edita_tipo_exame'),
-    url(r'^deleta_tipo_exame/(?P<id>[0-9]+)/$', views.deleta_tipo_exame, name='deleta_tipo_exame'),
+    url(r'^add/tipo_exame/$', TipoExameView.as_view(), name='add_tipo_exame'),
+    url(r'^edita/tipo_exame/(?P<id>\d+)/$', TipoExameView.as_view(), name='edita_tipo_exame'),
+    url(r'^deleta/tipo_exame/(?P<id>[0-9]+)/$', views.TipoExameDelete, name='deleta_tipo_exame'),
 
     ## TIPO SANGUE ##
-    url(r'^add_tipo_sangue/$', views.add_tipo_sangue, name='add_tipo_sangue'),
-    url(r'^edita_tipo_sangue/(?P<id>[0-9]+)/$', views.edita_tipo_sangue, name='edita_tipo_sangue'),
-    url(r'^deleta_tipo_sangue/(?P<id>[0-9]+)/$', views.deleta_tipo_sangue, name='deleta_tipo_sangue'),
+    url(r'^add/tipo_sangue/$', TipoSangueView.as_view(), name='add_tipo_sangue'),
+    url(r'^edita/tipo_sangue/(?P<id>\d+)/$', TipoSangueView.as_view(), name='edita_tipo_sangue'),
+    url(r'^deleta/tipo_sangue/(?P<id>[0-9]+)/$', views.TipoSangueDelete, name='deleta_tipo_sangue'),
 
     ## ESTADO CIVIL ##
-    url(r'^add_estado_civil/$', views.add_estado_civil, name='add_estado_civil'),
-    url(r'^edita_estado_civil/(?P<id>[0-9]+)/$', views.edita_estado_civil, name='edita_estado_civil'),
-    url(r'^deleta_estado_civil/(?P<id>[0-9]+)/$', views.deleta_estado_civil, name='deleta_estado_civil'),
+    url(r'^add/estado_civil/$', EstadoCivilView.as_view(), name='add_estado_civil'),
+    url(r'^edita/estado_civil/(?P<id>\d+)/$', EstadoCivilView.as_view(), name='edita_estado_civil'),
+    url(r'^deleta/estado_civil/(?P<id>[0-9]+)/$', views.EstadoCivilDelete, name='deleta_estado_civil'),
     
     ## SECRETARIA ##
-    url(r'^add_secretaria/$', views.add_secretaria, name='add_secretaria'),
-    url(r'^edita_secretaria/(?P<id>[0-9]+)/$', views.edita_secretaria, name='edita_secretaria'),
-    url(r'^deleta_secretaria/(?P<id>[0-9]+)/$', views.deleta_secretaria, name='deleta_secretaria'),
+    url(r'^add/secretaria/$', SecretariaView.as_view(), name='add_secretaria'),
+    url(r'^edita/secretaria/(?P<id>\d+)/$', SecretariaView.as_view(), name='edita_secretaria'),
+    url(r'^deleta/secretaria/(?P<id>[0-9]+)/$', views.SecretariaDelete, name='deleta_secretaria'),
     
     ## LOCAL DE TRABALHO ##
-    url(r'^add_local_trabalho/$', views.add_local_trabalho, name='add_local_trabalho'),
-    url(r'^edita_local_trabalho/(?P<id>[0-9]+)/$', views.edita_local_trabalho, name='edita_local_trabalho'),
-    url(r'^deleta_local_trabalho/(?P<id>[0-9]+)/$', views.deleta_local_trabalho, name='deleta_local_trabalho'),
+    url(r'^add/local_trabalho/$', LocalTrabalhoView.as_view(), name='add_local_trabalho'),
+    url(r'^edita/local_trabalho/(?P<id>\d+)/$', LocalTrabalhoView.as_view(), name='edita_local_trabalho'),
+    url(r'^deleta/local_trabalho/(?P<id>[0-9]+)/$', views.LocalTrabalhoDelete, name='deleta_local_trabalho'),
 
     ## DEPENDENTE ##
-    url(r'^add_dependente/$', views.add_dependente, name='add_dependente'),
-    url(r'^edita_dependente/(?P<id>[0-9]+)/$', views.edita_dependente, name='edita_dependente'),
-    url(r'^deleta_dependente/(?P<id>[0-9]+)/$', views.deleta_dependente, name='deleta_dependente'),
+    url(r'^add/dependente/$', DependenteView.as_view(), name='add_dependente'),
+    url(r'^edita/dependente/(?P<id>\d+)/$', DependenteView.as_view(), name='edita_dependente'),
+    url(r'^deleta/dependente/(?P<id>[0-9]+)/$', views.DependenteDelete, name='deleta_dependente'),
 
     ## SEGURADO ##
-    url(r'^add_segurado/$', views.add_segurado, name='add_segurado'),
-    url(r'^edita_segurado/(?P<id>[0-9]+)/$', views.edita_segurado, name='edita_segurado'),
-    url(r'^deleta_segurado/(?P<id>[0-9]+)/$', views.deleta_segurado, name='deleta_segurado'),
+    url(r'^add/segurado/$', SeguradoView.as_view(), name='add_segurado'),
+    url(r'^edita/segurado/(?P<id>\d+)/$', SeguradoView.as_view(), name='edita_segurado'),
+    url(r'^deleta/segurado/(?P<id>[0-9]+)/$', views.SeguradoDelete, name='deleta_segurado'),
 
     ## SERVIDOR ##
-    url(r'^add_servidor/$', views.add_servidor, name='add_servidor'),
-    url(r'^apresenta_servidor/$', views.apresenta_servidor, name='apresenta_servidor'),
-    url(r'^edita_servidor/(?P<id>[0-9]+)/$', views.edita_servidor, name='edita_servidor'),
-    url(r'^deleta_servidor/(?P<id>[0-9]+)/$', views.deleta_servidor, name='deleta_servidor'),
+    url(r'^add/servidor/$', ServidorView.as_view(), name='add_servidor'),
+    url(r'^edita/servidor/(?P<id>\d+)/$', ServidorView.as_view(), name='edita_servidor'),
+    url(r'^deleta/servidor/(?P<id>[0-9]+)/$', views.ServidorDelete, name='deleta_servidor'),
+    url(r'^apresenta/servidor/$', views.ApresentaServidor, name='apresenta_servidor'),
 ]

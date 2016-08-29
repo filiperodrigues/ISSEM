@@ -7,3 +7,7 @@ class CargoModel(models.Model):
 
     def __str__(self):
         return self.nome
+
+    class Meta:
+        verbose_name = "Cargo"
+        verbose_name_plural = "Cargos"

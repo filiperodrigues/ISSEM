@@ -10,4 +10,4 @@ class TipoSangueModel(models.Model):
 
     class Meta:
         verbose_name = "Tipo Sanguíneo"
-        verbose_name_plural = "Tipo Sanguíneos"
+        verbose_name_plural = "Tipos Sanguíneos"

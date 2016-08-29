@@ -10,5 +10,5 @@ class TipoExameModel(models.Model):
         return self.nome
 
     class Meta:
-        verbose_name = "Tipo Exame"
-        verbose_name_plural = "Tipo Exame"
+        verbose_name = "Tipo de Exame"
+        verbose_name_plural = "Tipos de Exame"

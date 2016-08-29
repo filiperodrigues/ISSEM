@@ -8,3 +8,7 @@ class EstadoModel(models.Model):
 
     def __str__(self):
         return self.nome
+
+    class Meta:
+        verbose_name = "Estado"
+        verbose_name_plural = "Estados"

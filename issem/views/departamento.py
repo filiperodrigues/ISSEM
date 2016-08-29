@@ -2,38 +2,40 @@
 from django.shortcuts import render, HttpResponseRedirect
 from issem.models import DepartamentoModel
 from issem.forms import DepartamentoForm
-from issem.views import index
+from django.views.generic.base import View
 
 
-def add_departamento(request):
-    if request.method == 'POST':
-        form = DepartamentoForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return HttpResponseRedirect('/')
+class DepartamentoView(View):
+    template = 'departamento.html'
+
+    def get(self, request, id=None):
+        if id:
+            departamento = DepartamentoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            form = DepartamentoForm(instance=departamento)
         else:
-            print(form.errors)
-    else:
-        form = DepartamentoForm()
-        return render(request, 'cadastro_departamento.html', {'form': form})
+            form = DepartamentoForm()  # MODO CADASTRO: recebe o formulário vazio
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
+    def post(self, request):
+        if not request.POST['id']:  # CADASTRO NOVO
+            id = None
+            form = DepartamentoForm(data=request.POST)
+        else:  # EDIÇÃO
+            id = request.POST['id']
+            departamento = DepartamentoModel.objects.get(pk=id)
+            form = DepartamentoForm(instance=departamento, data=request.POST)
 
-def edita_departamento(request, id):
-    departamento = DepartamentoModel.objects.get(pk=id)
-    if request.method == "POST":
-        form = DepartamentoForm(request.POST, instance=departamento)
         if form.is_valid():
             departamento = form.save(commit=False)
             departamento.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
-    else:
-        form = DepartamentoForm(instance=departamento)
-        return render(request, 'edita_departamento.html', {'form': form})
+
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
-def deleta_departamento(request, id):
+def DepartamentoDelete(request, id):
     departamento = DepartamentoModel.objects.get(pk=id)
     departamento.delete()
     return HttpResponseRedirect('/')

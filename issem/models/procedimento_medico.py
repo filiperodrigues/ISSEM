@@ -12,5 +12,5 @@ class ProcedimentoMedicoModel(models.Model):
         return self.descricao
 
     class Meta:
-        verbose_name = "Procedimento médico"
-        verbose_name_plural = "Procedimento médicos"
+        verbose_name = "Procedimento Médico"
+        verbose_name_plural = "Procedimentos Médicos"

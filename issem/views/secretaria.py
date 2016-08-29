@@ -2,37 +2,40 @@
 from django.shortcuts import render, HttpResponseRedirect
 from issem.models import SecretariaModel
 from issem.forms import SecretariaForm
+from django.views.generic.base import View
 
 
-def add_secretaria(request):
-    if request.method == 'POST':
-        form = SecretariaForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return HttpResponseRedirect('/')
+class SecretariaView(View):
+    template = 'secretaria.html'
+
+    def get(self, request, id=None):
+        if id:
+            secretaria = SecretariaModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            form = SecretariaForm(instance=secretaria)
         else:
-            print(form.errors)
-    else:
-        form = SecretariaForm()
-        return render(request, 'cadastro_secretaria.html', {'form': form})
+            form = SecretariaForm()  # MODO CADASTRO: recebe o formulário vazio
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
+    def post(self, request):
+        if not request.POST['id']:  # CADASTRO NOVO
+            id = None
+            form = SecretariaForm(data=request.POST)
+        else:  # EDIÇÃO
+            id = request.POST['id']
+            secretaria = SecretariaModel.objects.get(pk=id)
+            form = SecretariaForm(instance=secretaria, data=request.POST)
 
-def edita_secretaria(request, id):
-    secretaria = SecretariaModel.objects.get(pk=id)
-    if request.method == "POST":
-        form = SecretariaForm(request.POST, instance=secretaria)
         if form.is_valid():
             secretaria = form.save(commit=False)
             secretaria.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
-    else:
-        form = SecretariaForm(instance=secretaria)
-        return render(request, 'edita_secretaria.html', {'form': form})
+
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
-def deleta_secretaria(request, id):
+def SecretariaDelete(request, id):
     secretaria = SecretariaModel.objects.get(pk=id)
     secretaria.delete()
     return HttpResponseRedirect('/')

@@ -2,37 +2,40 @@
 from django.shortcuts import render, HttpResponseRedirect
 from issem.models import EstadoCivilModel
 from issem.forms import EstadoCivilForm
+from django.views.generic.base import View
 
 
-def add_estado_civil(request):
-    if request.method == 'POST':
-        form = EstadoCivilForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return HttpResponseRedirect('/')
+class EstadoCivilView(View):
+    template = 'estado_civil.html'
+
+    def get(self, request, id=None):
+        if id:
+            estado_civil = EstadoCivilModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            form = EstadoCivilForm(instance=estado_civil)
         else:
-            print(form.errors)
-    else:
-        form = EstadoCivilForm()
-        return render(request, 'cadastro_estado_civil.html', {'form': form})
+            form = EstadoCivilForm()  # MODO CADASTRO: recebe o formulário vazio
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
+    def post(self, request):
+        if not request.POST['id']:  # CADASTRO NOVO
+            id = None
+            form = EstadoCivilForm(data=request.POST)
+        else:  # EDIÇÃO
+            id = request.POST['id']
+            estado_civil = EstadoCivilModel.objects.get(pk=id)
+            form = EstadoCivilForm(instance=estado_civil, data=request.POST)
 
-def edita_estado_civil(request, id):
-    tipo_estado_civil = EstadoCivilModel.objects.get(pk=id)
-    if request.method == "POST":
-        form = EstadoCivilForm(request.POST, instance=tipo_estado_civil)
         if form.is_valid():
             estado_civil = form.save(commit=False)
             estado_civil.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
-    else:
-        form = EstadoCivilForm(instance=tipo_estado_civil)
-        return render(request, 'edita_estado_civil.html', {'form': form})
+
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
-def deleta_estado_civil(request, id):
+def EstadoCivilDelete(request, id):
     estado_civil = EstadoCivilModel.objects.get(pk=id)
     estado_civil.delete()
     return HttpResponseRedirect('/')

@@ -2,37 +2,40 @@
 from django.shortcuts import render, HttpResponseRedirect
 from issem.models import TipoExameModel
 from issem.forms import TipoExameForm
+from django.views.generic.base import View
 
 
-def add_tipo_exame(request):
-    if request.method == 'POST':
-        form = TipoExameForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return HttpResponseRedirect('/')
+class TipoExameView(View):
+    template = 'tipo_exame.html'
+
+    def get(self, request, id=None):
+        if id:
+            tipo_exame = TipoExameModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            form = TipoExameForm(instance=tipo_exame)
         else:
-            print(form.errors)
-    else:
-        form = TipoExameForm()
-        return render(request, 'cadastro_tipo_exame.html', {'form': form})
+            form = TipoExameForm()  # MODO CADASTRO: recebe o formulário vazio
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
+    def post(self, request):
+        if not request.POST['id']:  # CADASTRO NOVO
+            id = None
+            form = TipoExameForm(data=request.POST)
+        else:  # EDIÇÃO
+            id = request.POST['id']
+            tipo_exame = TipoExameModel.objects.get(pk=id)
+            form = TipoExameForm(instance=tipo_exame, data=request.POST)
 
-def edita_tipo_exame(request, id):
-    tipo_exame = TipoExameModel.objects.get(pk=id)
-    if request.method == "POST":
-        form = TipoExameForm(request.POST, instance=tipo_exame)
         if form.is_valid():
             tipo_exame = form.save(commit=False)
             tipo_exame.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
-    else:
-        form = TipoExameForm(instance=tipo_exame)
-        return render(request, 'edita_tipo_exame.html', {'form': form})
+
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
-def deleta_tipo_exame(request, id):
+def TipoExameDelete(request, id):
     tipo_exame = TipoExameModel.objects.get(pk=id)
     tipo_exame.delete()
     return HttpResponseRedirect('/')

@@ -10,4 +10,4 @@ class TipoDependenteModel(models.Model):
 
     class Meta:
         verbose_name = "Tipo Dependente"
-        verbose_name_plural = "Tipo Dependente"
+        verbose_name_plural = "Tipos de Dependente"

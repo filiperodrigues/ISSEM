@@ -1,0 +1,29 @@
+<html>
+<body>
+<h1><span style="color: red">{{ msg }}</span></h1>
+    {% if method == 'get' %}
+
+        <h1>Cadastro de novo TipoExame:</h1>
+        <form id="TipoExameForm" method="post" action="{% url 'issem:add_tipo_exame' %}">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{% if id != None %}{{ id }}{% endif %}">
+            {{ form.as_p }}
+            <input type="submit" name="submit" value="Cadastrar TipoExame" />
+        </form>
+
+    {% else %}
+
+        <h1>TipoExame atualizado com sucesso</h1>
+        <form id="TipoExameForm" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+{#            <input type="submit" name="submit" value="Atualizar" />#}
+        </form>
+
+        <p><a href="{% url 'issem:index' %}">Página Inicial</a></p>
+
+    {% endif %}
+
+</body>
+
+</html>

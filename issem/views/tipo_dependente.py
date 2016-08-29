@@ -2,37 +2,40 @@
 from django.shortcuts import render, HttpResponseRedirect
 from issem.models import TipoDependenteModel
 from issem.forms import TipoDependenteForm
+from django.views.generic.base import View
 
 
-def add_tipo_dependente(request):
-    if request.method == 'POST':
-        form = TipoDependenteForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return HttpResponseRedirect('/')
+class TipoDependenteView(View):
+    template = 'tipo_dependente.html'
+
+    def get(self, request, id=None):
+        if id:
+            tipo_dependente = TipoDependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            form = TipoDependenteForm(instance=tipo_dependente)
         else:
-            print(form.errors)
-    else:
-        form = TipoDependenteForm()
-        return render(request, 'cadastro_tipo_dependente.html', {'form': form})
+            form = TipoDependenteForm()  # MODO CADASTRO: recebe o formulário vazio
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
+    def post(self, request):
+        if not request.POST['id']:  # CADASTRO NOVO
+            id = None
+            form = TipoDependenteForm(data=request.POST)
+        else:  # EDIÇÃO
+            id = request.POST['id']
+            tipo_dependente = TipoDependenteModel.objects.get(pk=id)
+            form = TipoDependenteForm(instance=tipo_dependente, data=request.POST)
 
-def edita_tipo_dependente(request, id):
-    tipo_dependente = TipoDependenteModel.objects.get(pk=id)
-    if request.method == "POST":
-        form = TipoDependenteForm(request.POST, instance=tipo_dependente)
         if form.is_valid():
             tipo_dependente = form.save(commit=False)
             tipo_dependente.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
-    else:
-        form = TipoDependenteForm(instance=tipo_dependente)
-        return render(request, 'edita_tipo_dependente.html', {'form': form})
+
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
-def deleta_tipo_dependente(request, id):
+def TipoDependenteDelete(request, id):
     tipo_dependente = TipoDependenteModel.objects.get(pk=id)
     tipo_dependente.delete()
     return HttpResponseRedirect('/')

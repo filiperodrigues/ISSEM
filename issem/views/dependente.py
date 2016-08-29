@@ -1,39 +1,41 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models.dependente import DependenteModel
-from issem.forms.dependente import DependenteForm
-#from issem.views import index
+from issem.models import DependenteModel
+from issem.forms import DependenteForm
+from django.views.generic.base import View
 
 
-def add_dependente(request):
-    if request.method == 'POST':
-        form = DependenteForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return HttpResponseRedirect('/')
+class DependenteView(View):
+    template = 'dependente.html'
+
+    def get(self, request, id=None):
+        if id:
+            dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            form = DependenteForm(instance=dependente)
         else:
-            print(form.errors)
-    else:
-        form = DependenteForm()
-        return render(request, 'cadastro_dependente.html', {'form': form})
+            form = DependenteForm()  # MODO CADASTRO: recebe o formulário vazio
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
+    def post(self, request):
+        if not request.POST['id']:  # CADASTRO NOVO
+            id = None
+            form = DependenteForm(data=request.POST)
+        else:  # EDIÇÃO
+            id = request.POST['id']
+            dependente = DependenteModel.objects.get(pk=id)
+            form = DependenteForm(instance=dependente, data=request.POST)
 
-def edita_dependente(request, id):
-    dependente = DependenteModel.objects.get(pk=id)
-    if request.method == "POST":
-        form = DependenteForm(request.POST, instance=dependente)
         if form.is_valid():
             dependente = form.save(commit=False)
             dependente.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
-    else:
-        form = DependenteForm(instance=dependente)
-        return render(request, 'edita_dependente.html', {'form': form})
+
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
-def deleta_dependente(request, id):
+def DependenteDelete(request, id):
     dependente = DependenteModel.objects.get(pk=id)
     dependente.delete()
     return HttpResponseRedirect('/')

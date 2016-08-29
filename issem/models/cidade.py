@@ -9,3 +9,7 @@ class CidadeModel(models.Model):
 
     def __str__(self):
         return self.nome
+
+    class Meta:
+        verbose_name = "Cidade"
+        verbose_name_plural = "Cidades"

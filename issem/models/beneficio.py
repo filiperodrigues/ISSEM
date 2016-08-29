@@ -20,5 +20,5 @@ class BeneficioModel(models.Model):
        return self.descricao
 
    class Meta:
-       verbose_name = "Benefícios"
+       verbose_name = "Benefício"
        verbose_name_plural = "Benefícios"
