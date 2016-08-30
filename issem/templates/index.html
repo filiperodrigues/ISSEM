@@ -3,57 +3,34 @@
 {% block body_block %}
 
     <div class="ui segment">
-        <h2>Servidores</h2>
+        <h2>Benefícios</h2>
 
-        {% for servidor in servidores %}
-            <div class="ui existing segment">
-                {{ servidor.nome }}
-                <a href="{% url 'issem:edita_servidor' servidor.id %}" class="ui button red">Editar</a>
-                <a href="{% url 'issem:deleta_servidor' servidor.id %}" class="ui button red">Deletar</a>
+        {% for beneficio in beneficios %}
+            <strong>
+                {{ beneficio.descricao }}
+                <a href="{% url 'issem:edita_beneficio' beneficio.id %}">Editar</a>
+                <a href="{% url 'issem:deleta_beneficio' beneficio.id %}">Deletar</a>
                 <br/>
-            </div>
+            </strong>
         {% endfor %}
-        <a href="{% url 'issem:add_servidor' %}" class="ui button blue">Cadastrar Servidor</a>
+
+        <p><a href="{% url 'issem:add_beneficio' %}" class="ui blue button">Cadastrar Benefício</a></p>
     </div>
+
     <div class="ui segment">
-        <h2>Segurados</h2>
-
-        {% for segurado in segurados %}
-            <div class="ui existing segment">
-                {{ segurado.nome }}
-                <a href="{% url 'issem:edita_segurado' segurado.id %}" class="ui button red">Editar</a>
-                <a href="{% url 'issem:deleta_segurado' segurado.id %}" class="ui button red">Deletar</a>
+        <h2>Cargos</h2>
+        {% for cargo in cargos %}
+            <strong>
+                {{ cargo.nome }}
+                <a href="{% url 'issem:edita_cargo' cargo.id %}">Editar</a>
+                <a href="{% url 'issem:deleta_cargo' cargo.id %}">Deletar</a>
                 <br/>
-            </div>
+            </strong>
         {% endfor %}
-        <a href="{% url 'issem:add_segurado' %}" class="ui button blue">Cadastrar Segurado</a>
-    </div>
-    <div class="ui segment">
-        <h2>Dependentes</h2>
 
-        {% for dependente in dependentes %}
-            <div class="ui existing segment">
-                {{ dependente.nome }}
-                <a href="{% url 'issem:edita_dependente' dependente.id %}" class="ui button red">Editar</a>
-                <a href="{% url 'issem:deleta_dependente' dependente.id %}" class="ui button red">Deletar</a>
-                <br/>
-            </div>
-        {% endfor %}
-        <a href="{% url 'issem:add_dependente' %}" class="ui button blue">Cadastrar Dependente</a>
+        <p><a href="{% url 'issem:add_cargo' %}" class="ui blue button">Cadastrar Cargo</a></p>
     </div>
-    <div class="ui segment">
-        <h2>Departamentos</h2>
 
-        {% for departamento in departamentos %}
-            <div class="ui existing segment">
-                {{ departamento.nome }}
-                <a href="{% url 'issem:edita_departamento' departamento.id %}" class="ui button red">Editar</a>
-                <a href="{% url 'issem:deleta_departamento' departamento.id %}" class="ui button red">Deletar</a>
-                <br/>
-            </div>
-        {% endfor %}
-        <a href="{% url 'issem:add_departamento' %}" class="ui button blue">Cadastrar Departamento</a>
-    </div>
     <div class="ui segment">
         <h2>CIDs</h2>
         {% for cid in cids %}
@@ -67,6 +44,77 @@
 
         <a href="{% url 'issem:add_cid' %}" class="ui blue button">Cadastrar CID</a>
     </div>
+
+    <div class="ui segment">
+        <h2>Departamentos</h2>
+
+        {% for departamento in departamentos %}
+            <div class="ui existing segment">
+                {{ departamento.nome }}
+                <a href="{% url 'issem:edita_departamento' departamento.id %}" class="ui button red">Editar</a>
+                <a href="{% url 'issem:deleta_departamento' departamento.id %}" class="ui button red">Deletar</a>
+                <br/>
+            </div>
+        {% endfor %}
+        <a href="{% url 'issem:add_departamento' %}" class="ui button blue">Cadastrar Departamento</a>
+    </div>
+
+    <div class="ui segment">
+        <h2>Dependentes</h2>
+
+        {% for dependente in dependentes %}
+            <div class="ui existing segment">
+                {{ dependente.nome }}
+                <a href="{% url 'issem:edita_dependente' dependente.id %}" class="ui button red">Editar</a>
+                <a href="{% url 'issem:deleta_dependente' dependente.id %}" class="ui button red">Deletar</a>
+                <br/>
+            </div>
+        {% endfor %}
+        <a href="{% url 'issem:add_dependente' %}" class="ui button blue">Cadastrar Dependente</a>
+    </div>
+
+    <div class="ui segment">
+        <h2>Estado Civil</h2>
+
+        {% for estado_civil in estado_civil %}
+            <strong>
+                {{ estado_civil.nome }}
+                <a href="{% url 'issem:edita_estado_civil' estado_civil.id %}">Editar</a>
+                <a href="{% url 'issem:deleta_estado_civil' estado_civil.id %}">Deletar</a>
+                <br/>
+            </strong>
+        {% endfor %}
+        <p><a href="{% url 'issem:add_estado_civil' %}" class="ui blue button">Cadastrar Estado Civil</a></p>
+    </div>
+    
+    <div class="ui segment">
+        <h2>Funções</h2>
+        {% for funcao in funcoes %}
+            <strong>
+                {{ funcao.nome }}
+                <a href="{% url 'issem:edita_funcao' funcao.id %}">Editar</a>
+                <a href="{% url 'issem:deleta_funcao' funcao.id %}">Deletar</a>
+                <br/>
+            </strong>
+        {% endfor %}
+
+        <p><a href="{% url 'issem:add_funcao' %}" class="ui blue button">Cadastrar Função</a></p>
+    </div>
+    
+    <div class="ui segment">
+        <h2>Local de Trabalho</h2>
+
+        {% for local_trabalho in local_trabalho %}
+            <strong>
+                {{ local_trabalho.nome }}
+                <a href="{% url 'issem:edita_local_trabalho' local_trabalho.id %}">Editar</a>
+                <a href="{% url 'issem:deleta_local_trabalho' local_trabalho.id %}">Deletar</a>
+                <br/>
+            </strong>
+        {% endfor %}
+        <p><a href="{% url 'issem:add_local_trabalho' %}" class="ui blue button">Cadastrar Local de Trabalho</a></p>
+    </div>
+    
     <div class="ui segment">
         <h2>Procedimentos Médicos</h2>
 
@@ -82,85 +130,7 @@
         <p><a href="{% url 'issem:add_procedimento_medico' %}" class="ui blue button">Cadastrar Procedimento Médico</a>
         </p>
     </div>
-    <div class="ui segment">
-        <h2>Benefícios</h2>
-
-        {% for beneficio in beneficios %}
-            <strong>
-                {{ beneficio.descricao }}
-                <a href="{% url 'issem:edita_beneficio' beneficio.id %}">Editar</a>
-                <a href="{% url 'issem:deleta_beneficio' beneficio.id %}">Deletar</a>
-                <br/>
-            </strong>
-        {% endfor %}
-
-        <p><a href="{% url 'issem:add_beneficio' %}" class="ui blue button">Cadastrar Benefício</a></p>
-    </div>
-    <div class="ui segment">
-        <h2>Funções</h2>
-        {% for funcao in funcoes %}
-            <strong>
-                {{ funcao.nome }}
-                <a href="{% url 'issem:edita_funcao' funcao.id %}">Editar</a>
-                <a href="{% url 'issem:deleta_funcao' funcao.id %}">Deletar</a>
-                <br/>
-            </strong>
-        {% endfor %}
-
-        <p><a href="{% url 'issem:add_funcao' %}" class="ui blue button">Cadastrar Função</a></p>
-    </div>
-    <div class="ui segment">
-        <h2>Cargos</h2>
-        {% for cargo in cargos %}
-            <strong>
-                {{ cargo.nome }}
-                <a href="{% url 'issem:edita_cargo' cargo.id %}">Editar</a>
-                <a href="{% url 'issem:deleta_cargo' cargo.id %}">Deletar</a>
-                <br/>
-            </strong>
-        {% endfor %}
-
-        <p><a href="{% url 'issem:add_cargo' %}" class="ui blue button">Cadastrar Cargo</a></p>
-    </div>
-    <div class="ui segment">
-        <h2>Tipo Dependente</h2>
-
-        {% for tipo_dependente in tipo_dependente %}
-            <strong>
-                {{ tipo_dependente.nome }}
-                <a href="{% url 'issem:edita_tipo_dependente' tipo_dependente.id %}">Editar</a>
-                <a href="{% url 'issem:deleta_tipo_dependente' tipo_dependente.id %}">Deletar</a>
-                <br/>
-            </strong>
-        {% endfor %}
-        <p><a href="{% url 'issem:add_tipo_dependente' %}" class="ui blue button">Cadastrar Tipo Dependente</a></p>
-    </div>
-    <div class="ui segment">
-        <h2>Tipo de Sangue</h2>
-
-        {% for tipo_sangue in tipo_sangue %}
-            <strong>
-                {{ tipo_sangue.nome }}
-                <a href="{% url 'issem:edita_tipo_sangue' tipo_sangue.id %}">Editar</a>
-                <a href="{% url 'issem:deleta_tipo_sangue' tipo_sangue.id %}">Deletar</a>
-                <br/>
-            </strong>
-        {% endfor %}
-        <p><a href="{% url 'issem:add_tipo_sangue' %}" class="ui blue button">Cadastrar Tipo de Sangue</a></p>
-    </div>
-    <div class="ui segment">
-        <h2>Estado Civil</h2>
-
-        {% for estado_civil in estado_civil %}
-            <strong>
-                {{ estado_civil.nome }}
-                <a href="{% url 'issem:edita_estado_civil' estado_civil.id %}">Editar</a>
-                <a href="{% url 'issem:deleta_estado_civil' estado_civil.id %}">Deletar</a>
-                <br/>
-            </strong>
-        {% endfor %}
-        <p><a href="{% url 'issem:add_estado_civil' %}" class="ui blue button">Cadastrar Estado Civil</a></p>
-    </div>
+    
     <div class="ui segment">
         <h2>Secretaria</h2>
 
@@ -174,18 +144,61 @@
         {% endfor %}
         <p><a href="{% url 'issem:add_secretaria' %}" class="ui blue button">Cadastrar Secretaria</a></p>
     </div>
+    
     <div class="ui segment">
-        <h2>Local de Trabalho</h2>
+        <h2>Segurados</h2>
 
-        {% for local_trabalho in local_trabalho %}
+        {% for segurado in segurados %}
+            <div class="ui existing segment">
+                {{ segurado.nome }}
+                <a href="{% url 'issem:edita_segurado' segurado.id %}" class="ui button red">Editar</a>
+                <a href="{% url 'issem:deleta_segurado' segurado.id %}" class="ui button red">Deletar</a>
+                <br/>
+            </div>
+        {% endfor %}
+        <a href="{% url 'issem:add_segurado' %}" class="ui button blue">Cadastrar Segurado</a>
+    </div>
+    
+    <div class="ui segment">
+        <h2>Servidores</h2>
+
+        {% for servidor in servidores %}
+            <div class="ui existing segment">
+                {{ servidor.nome }}
+                <a href="{% url 'issem:edita_servidor' servidor.id %}" class="ui button red">Editar</a>
+                <a href="{% url 'issem:deleta_servidor' servidor.id %}" class="ui button red">Deletar</a>
+                <br/>
+            </div>
+        {% endfor %}
+        <a href="{% url 'issem:add_servidor' %}" class="ui button blue">Cadastrar Servidor</a>
+    </div>
+    
+    <div class="ui segment">
+        <h2>Tipo Dependente</h2>
+
+        {% for tipo_dependente in tipo_dependente %}
             <strong>
-                {{ local_trabalho.nome }}
-                <a href="{% url 'issem:edita_local_trabalho' local_trabalho.id %}">Editar</a>
-                <a href="{% url 'issem:deleta_local_trabalho' local_trabalho.id %}">Deletar</a>
+                {{ tipo_dependente.nome }}
+                <a href="{% url 'issem:edita_tipo_dependente' tipo_dependente.id %}">Editar</a>
+                <a href="{% url 'issem:deleta_tipo_dependente' tipo_dependente.id %}">Deletar</a>
                 <br/>
             </strong>
         {% endfor %}
-        <p><a href="{% url 'issem:add_local_trabalho' %}" class="ui blue button">Cadastrar Local de Trabalho</a></p>
+        <p><a href="{% url 'issem:add_tipo_dependente' %}" class="ui blue button">Cadastrar Tipo Dependente</a></p>
+    </div>
+    
+    <div class="ui segment">
+        <h2>Tipo de Sangue</h2>
+
+        {% for tipo_sangue in tipo_sangue %}
+            <strong>
+                {{ tipo_sangue.nome }}
+                <a href="{% url 'issem:edita_tipo_sangue' tipo_sangue.id %}">Editar</a>
+                <a href="{% url 'issem:deleta_tipo_sangue' tipo_sangue.id %}">Deletar</a>
+                <br/>
+            </strong>
+        {% endfor %}
+        <p><a href="{% url 'issem:add_tipo_sangue' %}" class="ui blue button">Cadastrar Tipo de Sangue</a></p>
     </div>
 
 {% endblock %}
