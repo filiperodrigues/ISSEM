@@ -13,6 +13,9 @@ class SeguradoModel(PessoaModel):
     documento_legal = models.PositiveIntegerField()
     dependente = models.ManyToManyField(DependenteModel)
 
+    def __unicode__(self):
+        return self.pasep_pis_nit
+
     def __str__(self):
         return self.pasep_pis_nit
 

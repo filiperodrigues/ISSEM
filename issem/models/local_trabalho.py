@@ -13,6 +13,9 @@ class LocalTrabalhoModel(models.Model):
     cep = models.PositiveIntegerField()
     cidade = models.ForeignKey(CidadeModel)
 
+    def __unicode__(self):
+        return self.nome
+
     def __str__(self):
         return self.nome
 

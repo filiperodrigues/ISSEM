@@ -33,6 +33,9 @@ class PessoaModel(models.Model):
     class Meta:
         abstract = True
 
+    def __unicode__(self):
+        return self.nome
+
     def __str__(self):
         return self.nome
 

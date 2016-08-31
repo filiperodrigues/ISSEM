@@ -11,6 +11,9 @@ class DependenteModel(PessoaModel):
     data_fim = models.DateField(default=datetime.date.today)
     dat_fim = models.DateField(default=datetime.date.today)
 
+    def __unicode__(self):
+        return self.nome
+
     def __str__(self):
         return self.nome
 

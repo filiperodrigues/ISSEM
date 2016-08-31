@@ -7,6 +7,9 @@ class CidModel(models.Model):
     status = models.BooleanField(default=0)
     gravidade = models.PositiveIntegerField(null=False)
 
+    def __unicode__(self):
+        return self.descricao
+
     def __str__(self):
         return self.descricao
 

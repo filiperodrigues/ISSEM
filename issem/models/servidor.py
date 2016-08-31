@@ -8,6 +8,9 @@ class ServidorModel(PessoaModel):
     departamento = models.ForeignKey(DepartamentoModel)
     crm = models.PositiveIntegerField()
 
+    def __unicode__(self):
+        return self.crm
+
     def __str__(self):
         return self.crm
 

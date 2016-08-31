@@ -8,6 +8,9 @@ class ProcedimentoMedicoModel(models.Model):
     porte = models.CharField(max_length=250)
     custo_operacao = models.FloatField(default=0)
 
+    def __unicode__(self):
+        return self.descricao
+
     def __str__(self):
         return self.descricao
 

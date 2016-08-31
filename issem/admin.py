@@ -1,3 +1,4 @@
+# coding: utf-8
 from django.contrib import admin
 from issem.models.cid import CidModel
 from issem.models.departamento import DepartamentoModel
