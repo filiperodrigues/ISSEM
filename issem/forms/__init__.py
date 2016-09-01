@@ -12,5 +12,5 @@ from issem.forms.segurado import SeguradoForm
 from issem.forms.servidor import ServidorForm
 from issem.forms.tipo_dependente import TipoDependenteForm
 from issem.forms.tipo_exame import TipoExameForm
-from issem.forms.tipo_sangue import TipoSangueForm
+from issem.forms.tipo_sanguineo import TipoSanguineoForm
 

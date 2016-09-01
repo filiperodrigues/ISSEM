@@ -48,9 +48,9 @@ urlpatterns = [
     url(r'^deleta/tipo_exame/(?P<id>[0-9]+)/$', views.TipoExameDelete, name='deleta_tipo_exame'),
 
     ## TIPO SANGUE ##
-    url(r'^add/tipo_sangue/$', TipoSangueView.as_view(), name='add_tipo_sangue'),
-    url(r'^edita/tipo_sangue/(?P<id>\d+)/$', TipoSangueView.as_view(), name='edita_tipo_sangue'),
-    url(r'^deleta/tipo_sangue/(?P<id>[0-9]+)/$', views.TipoSangueDelete, name='deleta_tipo_sangue'),
+    url(r'^add/tipo_sanguineo/$', TipoSanguineoView.as_view(), name='add_tipo_sanguineo'),
+    url(r'^edita/tipo_sanguineo/(?P<id>\d+)/$', TipoSanguineoView.as_view(), name='edita_tipo_sanguineo'),
+    url(r'^deleta/tipo_sanguineo/(?P<id>[0-9]+)/$', views.TipoSanguineoDelete, name='deleta_tipo_sanguineo'),
 
     ## ESTADO CIVIL ##
     url(r'^add/estado_civil/$', EstadoCivilView.as_view(), name='add_estado_civil'),

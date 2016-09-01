@@ -2,7 +2,7 @@
 import datetime
 from django.db import models
 from issem.models.cidade import CidadeModel
-from issem.models.tipo_sangue import TipoSangueModel
+from issem.models.tipo_sanguineo import TipoSanguineoModel
 from issem.models.estado_civil import EstadoCivilModel
 from issem.models.cargo import CargoModel
 
@@ -23,7 +23,7 @@ class PessoaModel(models.Model):
     bairro = models.CharField(max_length=128)
     cep = models.PositiveIntegerField()
     estado_civil = models.ForeignKey(EstadoCivilModel)
-    tipo_saguineo = models.ForeignKey(TipoSangueModel)
+    tipo_saguineo = models.ForeignKey(TipoSanguineoModel)
     cargo = models.ForeignKey(CargoModel)
     cidade_atual = models.ForeignKey(CidadeModel, related_name="%(app_label)s_%(class)s_atual")
     cidade_natural = models.ForeignKey(CidadeModel, related_name="%(app_label)s_%(class)s_natural")

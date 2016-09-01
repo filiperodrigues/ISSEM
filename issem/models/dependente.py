@@ -9,7 +9,6 @@ class DependenteModel(PessoaModel):
     tipo = models.ForeignKey(TipoDependenteModel)
     data_inicio = models.DateField(default=datetime.date.today)
     data_fim = models.DateField(default=datetime.date.today)
-    dat_fim = models.DateField(default=datetime.date.today)
 
     def __unicode__(self):
         return self.nome

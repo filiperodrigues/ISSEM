@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class TipoSangueModel(models.Model):
+class TipoSanguineoModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
 
     def __unicode__(self):

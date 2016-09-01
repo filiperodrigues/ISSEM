@@ -188,17 +188,17 @@
     </div>
     
     <div class="ui segment">
-        <h2>Tipo de Sangue</h2>
+        <h2>Tipo Sanguíneo</h2>
 
-        {% for tipo_sangue in tipo_sangue %}
+        {% for tipo_sanguineo in tipo_sanguineo %}
             <strong>
-                {{ tipo_sangue.nome }}
-                <a href="{% url 'issem:edita_tipo_sangue' tipo_sangue.id %}">Editar</a>
-                <a href="{% url 'issem:deleta_tipo_sangue' tipo_sangue.id %}">Deletar</a>
+                {{ tipo_sanguineo.nome }}
+                <a href="{% url 'issem:edita_tipo_sanguineo' tipo_sanguineo.id %}">Editar</a>
+                <a href="{% url 'issem:deleta_tipo_sanguineo' tipo_sanguineo.id %}">Deletar</a>
                 <br/>
             </strong>
         {% endfor %}
-        <p><a href="{% url 'issem:add_tipo_sangue' %}" class="ui blue button">Cadastrar Tipo de Sangue</a></p>
+        <p><a href="{% url 'issem:add_tipo_sanguineo' %}" class="ui blue button">Cadastrar Tipo Sanguíneo</a></p>
     </div>
 
 {% endblock %}

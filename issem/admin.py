@@ -33,10 +33,10 @@ admin.site.register(SeguradoModel)
 
 ## SOMENTE PARA TESTES ##
 from issem.models.estado_civil import EstadoCivilModel
-from issem.models.tipo_sangue import TipoSangueModel
+from issem.models.tipo_sanguineo import TipoSanguineoModel
 from issem.models.estado import EstadoModel
 from issem.models.cidade import CidadeModel
 admin.site.register(EstadoCivilModel)
-admin.site.register(TipoSangueModel)
+admin.site.register(TipoSanguineoModel)
 admin.site.register(EstadoModel)
 admin.site.register(CidadeModel)
