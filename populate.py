@@ -17,15 +17,13 @@ def populate():
         [0,"2010-10-10","2010-10-10","2010-10-10","2010-10-10","Benefício 4",4,"2010-10-10",5.000,"Observação 1",2],
         [0,"2010-10-10","2010-10-10","2010-10-10","2010-10-10","Benefício 5",5,"2010-10-10",5.500,"Observação 1",7],
     ]
-    for registro in beneficios:
-        add_beneficio(concessao=registro[0],data_inicial=registro[1],data_final=registro[2],data_retorno=registro[3],data_pericia=registro[4],
-            descricao=registro[5],numero_portaria=registro[6],data_portaria=registro[7],salario_maximo=registro[8],observacao=registro[9],
-            carencia=registro[10])
+    for b in beneficios:
+        add_beneficio(b[0],b[1],b[2],b[3],b[4],b[5],b[6],b[7],b[8],b[9],b[10])
 
     # CARGOS
     cargos = ['Chefe','Secretária','Técnico']
-    for cargo in cargos:
-        add_cargo(nome=cargo)
+    for c in cargos:
+        add_cargo(c)
 
     # CIDs
     cids = [
@@ -48,28 +46,28 @@ def populate():
         ['Pelotas', 'Porto Alegre', 'Gramado'],
         ['Curitiba', 'Morretes', 'Manoel Ribas']
     ]
-    for i, estado in enumerate(estados):
-        estado_atual = add_estado(estado[0], estado[1])
-        for cidade in cidades[i]:
-            add_cidade(nome=cidade, uf=estado_atual)
+    for i, e in enumerate(estados):
+        e_atual = add_estado(e[0], e[1])
+        for c in cidades[i]:
+            add_cidade(c, e_atual)
 
     # DEPARTAMENTOS
     departamentos = ['Administrativo','Recursos Humanos','Tecnologia da Informação','Contabilidade']
-    for departamento in departamentos:
-        add_departamentos(departamento)
+    for d in departamentos:
+        add_departamentos(d)
 
     # TIPOS DE DEPENDENTE
     tipos_dependente = ['Cônjuge','Incapaz','Pai','Mãe','Filho(a)','Irmão não emancipado']
-    for tipo_dependente in tipos_dependente:
-        add_tipo_dependente(tipo_dependente)
+    for td in tipos_dependente:
+        add_tipo_dependente(td)
 
     # DEPENDENTES
-    ##### ENVOLVE A CLASSE PESSOA
+        ##### ENVOLVE A CLASSE PESSOA
 
     # ESTADO CIVIL
     estado_civil = ['Solteiro(a)','Casado(a)','Divorciado(a)','Viúvo(a)','Separado(a)','Companheiro(a)']
-    for estado_civil in estado_civil:
-        add_estado_civil(estado_civil)
+    for ec in estado_civil:
+        add_estado_civil(ec)
 
     # FUNÇÕES
     funcoes = [
@@ -77,65 +75,106 @@ def populate():
         ['Supervisor','supervisionar'],
         ['Contador','contar']
     ]
-    for funcao in funcoes:
-        add_funcao(funcao[0], funcao[1])
+    for f in funcoes:
+        add_funcao(f[0], f[1])
 
     # LOCAIS DE TRABALHO
-    # locais_trabalho = [
-    #     ['Empresa 1','12345678901234','Rua Joquina',568,'Sala 2','Aparecida',89200542,],
-    # ]
-    # nome
-    # cnpj
-    # endereco
-    # numero_endereco
-    # complemento
-    # bairro
-    # cep
-    # cidade
+    cidade_1 = CidadeModel.objects.filter()[0]
+    cidade_2 = CidadeModel.objects.filter()[1]
+    cidade_3 = CidadeModel.objects.filter()[2]
+    locais_trabalho = [
+        ['Empresa 1','12345678901234','Rua Joaquina',568,'Sala 2','Aparecida',89200542,cidade_1],
+        ['Empresa 2','12345678901235','Rua Terezinha',569,'Sala 1','Boehmerwald',89200543,cidade_1],
+        ['Empresa 3','12345678901236','Rua da Tia Marta',468,'Sala 5','Carioca',89200544,cidade_2],
+        ['Empresa 4','12345678901237','Rua Lulinha',68,'Sala 20','Vila Velha',89200545,cidade_2],
+        ['Empresa 5','12345678901238','Rua Dilmãe',58,'Sala 15','Brasília',89200546,cidade_3],
+        ['Empresa 6','12345678901239','Rua Tiricutico',500,'Sala 8','Boa Vista',89200547,cidade_3],
+    ]
+    for lt in locais_trabalho:
+        add_local_trabalho(lt[0], lt[1], lt[2], lt[3], lt[4], lt[5], lt[6], lt[7])
+
     # PESSOAS
-    # PROCIDEMENTOS MÉDICOS
+
+    # PROCEDIMENTOS MÉDICOS
+    procedimentos_medicos = [
+        [100,'Procedimento 1','Porte 1',50.00],
+        [200,'Procedimento 2','Porte 2',80.00],
+        [300,'Procedimento 3','Porte 3',178.00],
+    ]
+    for pm in procedimentos_medicos:
+        add_procedimento_medico(pm[0],pm[1],pm[2],pm[3])
+
     # SECRETARIAS
+    secretarias = ['Secretaria 1','Secretaria 2', 'Secretaria 3']
+    for s in secretarias:
+        add_secretaria(s)
+
     # SEGURADOS
+        ##### ENVOLVE A CLASSE PESSOA
+
     # SERVIDORES
-    # TIPOS DE DEPENDENTE
+        ##### ENVOLVE A CLASSE PESSOA
+
     # TIPOS DE EXAME
+    tipos_exame = [
+        ['Exame 1', 'Descrição 1'],
+        ['Exame 2', 'Descrição 2'],
+        ['Exame 3', 'Descrição 3']
+    ]
+    for te in tipos_exame:
+        add_tipo_exame(te[0],te[1])
+
     # TIPOS SANGUÍNEOS
+    tipos_sanguineos = ['A+','A-','B+','B-','O+','O-']
+    for ts in tipos_sanguineos:
+        add_tipo_sanguineo(ts)
 
-def add_beneficio(concessao, data_inicial, data_final, data_retorno, data_pericia, descricao, numero_portaria,
-                  data_portaria, salario_maximo, observacao, carencia):
-    return BeneficioModel.objects.get_or_create(concessao=concessao, data_inicial=data_inicial, data_final=data_final,
-            data_retorno=data_retorno, data_pericia=data_pericia, descricao=descricao,numero_portaria=numero_portaria,
-            data_portaria=data_portaria, salario_maximo=salario_maximo,observacao=observacao, carencia=carencia)
+def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
+    return BeneficioModel.objects.get_or_create(concessao=c, data_inicial=di, data_final=df, data_retorno=dr, data_pericia=dp,
+            descricao=d, numero_portaria=np, data_portaria=dpt, salario_maximo=sm, observacao=obs, carencia=ca)
 
-def add_cargo(nome):
-    return CargoModel.objects.get_or_create(nome=nome)[0]
+def add_cargo(n):
+    return CargoModel.objects.get_or_create(nome=n)[0]
 
-def add_cid(descricao,status,gravidade):
-    return CidModel.objects.get_or_create(descricao=descricao, status=status, gravidade=gravidade)[0]
+def add_cid(d,s,g):
+    return CidModel.objects.get_or_create(descricao=d, status=s, gravidade=g)[0]
 
-def add_cidade(nome, uf):
-    return CidadeModel.objects.get_or_create(uf=uf, nome=nome)[0]
+def add_cidade(n, uf):
+    return CidadeModel.objects.get_or_create(uf=uf, nome=n)[0]
 
-def add_estado(nome, uf):
-    return EstadoModel.objects.get_or_create(nome=nome, uf=uf)[0]
+def add_estado(n, uf):
+    return EstadoModel.objects.get_or_create(nome=n, uf=uf)[0]
 
-def add_departamentos(nome):
-    return DepartamentoModel.objects.get_or_create(nome=nome)[0]
+def add_departamentos(n):
+    return DepartamentoModel.objects.get_or_create(nome=n)[0]
 
-def add_tipo_dependente(nome):
-    return TipoDependenteModel.objects.get_or_create(nome=nome)
+def add_tipo_dependente(n):
+    return TipoDependenteModel.objects.get_or_create(nome=n)
 
 def add_dependente():
     return
 
-def add_estado_civil(nome):
-    return EstadoCivilModel.objects.get_or_create(nome=nome)
+def add_estado_civil(n):
+    return EstadoCivilModel.objects.get_or_create(nome=n)
 
-def add_funcao(nome, descricao):
-    return FuncaoModel.objects.get_or_create(nome=nome, descricao=descricao)
+def add_funcao(n, d):
+    return FuncaoModel.objects.get_or_create(nome=n, descricao=d)
 
+def add_local_trabalho(n, cnpj, e, ne, c, b, cep, ci):
+    return LocalTrabalhoModel.objects.get_or_create(nome=n, cnpj=cnpj, endereco=e, numero_endereco=ne, complemento=c, bairro=b,
+            cep=cep, cidade=ci)
 
+def add_procedimento_medico(c, d, p, co):
+    return ProcedimentoMedicoModel.objects.get_or_create(codigo=c, descricao=d, porte=p, custo_operacao=co)
 
+def add_secretaria(n):
+    return SecretariaModel.objects.get_or_create(nome=n)
+
+def add_tipo_exame(n, obs):
+    return TipoExameModel.objects.get_or_create(nome=n, observacao=obs)
+
+def add_tipo_sanguineo(n):
+    return TipoSanguineoModel.objects.get_or_create(nome=n)
 
 # Start execution here!
 if __name__ == '__main__':

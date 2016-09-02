@@ -102,9 +102,9 @@
     </div>
     
     <div class="ui segment">
-        <h2>Local de Trabalho</h2>
+        <h2>Locais de Trabalho</h2>
 
-        {% for local_trabalho in local_trabalho %}
+        {% for local_trabalho in locais_trabalho %}
             <strong>
                 {{ local_trabalho.nome }}
                 <a href="{% url 'issem:edita_local_trabalho' local_trabalho.id %}">Editar</a>
@@ -132,9 +132,9 @@
     </div>
     
     <div class="ui segment">
-        <h2>Secretaria</h2>
+        <h2>Secretarias</h2>
 
-        {% for secretaria in secretaria %}
+        {% for secretaria in secretarias %}
             <strong>
                 {{ secretaria.nome }}
                 <a href="{% url 'issem:edita_secretaria' secretaria.id %}">Editar</a>
@@ -174,9 +174,9 @@
     </div>
     
     <div class="ui segment">
-        <h2>Tipo Dependente</h2>
+        <h2>Tipos de Dependente</h2>
 
-        {% for tipo_dependente in tipo_dependente %}
+        {% for tipo_dependente in tipos_dependente %}
             <strong>
                 {{ tipo_dependente.nome }}
                 <a href="{% url 'issem:edita_tipo_dependente' tipo_dependente.id %}">Editar</a>
@@ -188,9 +188,9 @@
     </div>
     
     <div class="ui segment">
-        <h2>Tipo Sanguíneo</h2>
+        <h2>Tipos Sanguíneos</h2>
 
-        {% for tipo_sanguineo in tipo_sanguineo %}
+        {% for tipo_sanguineo in tipos_sanguineos %}
             <strong>
                 {{ tipo_sanguineo.nome }}
                 <a href="{% url 'issem:edita_tipo_sanguineo' tipo_sanguineo.id %}">Editar</a>

@@ -3,18 +3,18 @@
 <h1><span style="color: red">{{ msg }}</span></h1>
 {% if method == 'get' %}
 
-    <h1>Cadastro de novo TipoSangue:</h1>
-    <form id="TipoSangueForm" method="post" action="{% url 'issem:add_tipo_sangue' %}">
+    <h1>Cadastro de novo Tipo Sanguíneo:</h1>
+    <form id="TipoSanguineoForm" method="post" action="{% url 'issem:add_tipo_sanguineo' %}">
         {% csrf_token %}
         <input type="hidden" name="id" value="{% if id != None %}{{ id }}{% endif %}">
         {{ form.as_p }}
-        <input type="submit" name="submit" value="Cadastrar TipoSangue"/>
+        <input type="submit" name="submit" value="Cadastrar Tipo Sanguíneo"/>
     </form>
 
 {% else %}
 
-    <h1>TipoSangue atualizado com sucesso</h1>
-    <form id="TipoSangueForm" method="post">
+    <h1>Tipo Sanguíneo atualizado com sucesso</h1>
+    <form id="TipoSanguineoForm" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         {#            <input type="submit" name="submit" value="Atualizar" />#}

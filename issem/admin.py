@@ -31,7 +31,7 @@ admin.site.register(SeguradoModel)
 
 
 
-## SOMENTE PARA TESTES ##
+## SOMENTE PARA TESTES, POIS ESTES NÃO SERÃO PREENCHIDOS PELOS USUÁRIOS ##
 from issem.models.estado_civil import EstadoCivilModel
 from issem.models.tipo_sanguineo import TipoSanguineoModel
 from issem.models.estado import EstadoModel
