@@ -6,6 +6,10 @@ from issem.views import *
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    ## PÁGINAS ##
+    url(r'^funcionario$', views.PaginaFuncionarioView, name='funcionario'),
+    url(r'^medico$', views.PaginaMedicoView, name='medico'),
+
 
     ## DEPARTAMENTO ##
     url(r'^add/departamento/$', DepartamentoView.as_view(), name='add_departamento'),

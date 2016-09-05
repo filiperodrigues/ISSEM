@@ -14,3 +14,5 @@ from issem.views.servidor import *
 from issem.views.tipo_dependente import *
 from issem.views.tipo_exame import *
 from issem.views.tipo_sanguineo import *
+from issem.views.funcionario import *
+from issem.views.medico import *

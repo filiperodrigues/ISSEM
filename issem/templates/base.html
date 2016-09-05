@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="{% static 'semanticui/dist/semantic.css' %}"/>
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{{ STATIC_URL }}js/issem.js"></script>
     <script type="text/javascript" src="{% static 'semanticui/dist/semantic.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -22,48 +23,8 @@
                 <img src="../../static/images/logo_issem.jpg" width="100"/>
                 <div class="ui menu">
                     <a href="{% url 'issem:index' %}" class="item">Home</a>
-                    <div class="ui pointing dropdown link item">
-                        <span class="text">Cadastrar</span>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <div class="item"><a href="{% url 'issem:add_servidor' %}">Servidor</a></div>
-                            <div class="item"><a href="{% url 'issem:add_segurado' %}">Segurados</a></div>
-                            <div class="item"><a href="{% url 'issem:add_dependente' %}">Dependente</a></div>
-                            <div class="item"><a href="{% url 'issem:add_departamento' %}">Departamento</a></div>
-                            <div class="item"><a href="{% url 'issem:add_cid' %}">CIDs</a></div>
-                            <div class="item"><a href="{% url 'issem:add_procedimento_medico' %}">Procedimentos
-                                Médicos</a></div>
-                            <div class="item"><a href="{% url 'issem:add_beneficio' %}">Benefício</a></div>
-                            <div class="item"><a href="{% url 'issem:add_funcao' %}">Função</a></div>
-                            <div class="item"><a href="{% url 'issem:add_cargo' %}">Cargo</a></div>
-                            <div class="item"><a href="{% url 'issem:add_estado_civil' %}">Estado Civil</a></div>
-                            <div class="item"><a href="{% url 'issem:add_tipo_dependente' %}">Tipo Dependente</a></div>
-                            <div class="item"><a href="{% url 'issem:add_tipo_sanguineo' %}">Tipo Sangue</a></div>
-                            <div class="item"><a href="{% url 'issem:add_secretaria' %}">Secretaria</a></div>
-                            <div class="item"><a href="{% url 'issem:add_local_trabalho' %}">Local de Trabalho</a></div>
-                        </div>
-                    </div>
-                    <div class="ui pointing dropdown link item">
-                        <span class="text">Visualizar</span>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <div class="item"><a href="{% url 'issem:apresenta_servidor' %}">Servidores</a></div>
-                            <div class="item">Segurados</div>
-                            <div class="item">Dependentes</div>
-                            <div class="item">Departamentos</div>
-                            <div class="item">CIDs</div>
-                            <div class="item">Procedimentos Médicos</div>
-                            <div class="item">Benefícios</div>
-                            <div class="item">Funções</div>
-                            <div class="item">Cargos</div>
-                            <div class="item">Estado Civil</div>
-                            <div class="item">Tipo Dependente</div>
-                            <div class="item">Tipo Sangue</div>
-                            <div class="item">Secretaria</div>
-                            <div class="item">Local de Trabalho</div>
-                        </div>
-                    </div>
-
+                    <a href="{% url 'issem:funcionario' %}" class="item">Funcionario</a>
+                    <a href="{% url 'issem:medico' %}" class="item">Médico</a>
                 </div>
             </div>
         </div>
@@ -71,14 +32,8 @@
 </div>
 
 
-<div class="ui centered grid">
-    <div class="row">
-        <div class="ten wide column">
-            {% block body_block %}
-            {% endblock %}
-        </div>
-    </div>
-</div>
+{% block body_block %}
+{% endblock %}
 
 </body>
 
