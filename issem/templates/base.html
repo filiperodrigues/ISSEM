@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>ISSEM</title>
     <meta charset="UTF-8">
@@ -15,26 +15,30 @@
     </script>
 </head>
 <body>
-
-<div class="ui one column grid">
-    <div class="row">
-        <div class="column">
-            <div class="ui segment red">
-                <img src="../../static/images/logo_issem.jpg" width="100"/>
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <div id="topo">
+                <a href="/">
+                    <h2 class="ui header red">
+                        <div class="ui segment">
+                            <img src="/static/images/1.jpg" width="100px"/>
+                            <div class="content">
+                                ISSEM
+                                <div class="sub header">INSTITUTO DE SEGURIDADE DOS SERVIDORES MUNICIPAIS</div>
+                            </div>
+                        </div>
+                    </h2>
+                </a>
                 <div class="ui menu">
                     <a href="{% url 'issem:index' %}" class="item">Home</a>
-                    <a href="{% url 'issem:funcionario' %}" class="item">Funcionario</a>
+                    <a href="{% url 'issem:funcionario' %}" class="item">Funcionário</a>
                     <a href="{% url 'issem:medico' %}" class="item">Médico</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
 {% block body_block %}
 {% endblock %}
-
 </body>
 
 </html>

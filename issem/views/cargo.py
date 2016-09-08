@@ -32,7 +32,7 @@ class CargoView(View):
         else:
             print(form.errors)
 
-        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
+        return render(request, self.template, {'form': form, 'method': 'post'})
 
 
 def CargoDelete(request, id):

@@ -32,7 +32,7 @@ class TipoSanguineoView(View):
         else:
             print(form.errors)
 
-        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
+        return render(request, self.template, {'form': form, 'method': 'post'})
 
 
 def TipoSanguineoDelete(request, id):

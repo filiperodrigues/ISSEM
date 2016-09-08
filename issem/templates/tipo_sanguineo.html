@@ -1,29 +1,26 @@
-<html>
-<body>
-<h1><span style="color: red">{{ msg }}</span></h1>
-{% if method == 'get' %}
+{% extends 'base.html' %}
 
-    <h1>Cadastro de novo Tipo Sanguíneo:</h1>
-    <form id="TipoSanguineoForm" method="post" action="{% url 'issem:add_tipo_sanguineo' %}">
-        {% csrf_token %}
-        <input type="hidden" name="id" value="{% if id != None %}{{ id }}{% endif %}">
-        {{ form.as_p }}
-        <input type="submit" name="submit" value="Cadastrar Tipo Sanguíneo"/>
-    </form>
+{% block body_block %}
+    {% if not id %}
 
-{% else %}
+        <h1>Cadastro de novo Tipo Sanguíneo:</h1>
+        <form class="ui form" id="TipoSanguineoForm" method="post" action="{% url 'issem:add_tipo_sanguineo' %}">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="">
+            {{ form.as_p }}
+            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
+        </form>
 
-    <h1>Tipo Sanguíneo atualizado com sucesso</h1>
-    <form id="TipoSanguineoForm" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {#            <input type="submit" name="submit" value="Atualizar" />#}
-    </form>
+    {% else %}
 
-    <p><a href="{% url 'issem:index' %}">Página Inicial</a></p>
+        <h1>Edição de Tipo Sanguíneo</h1>
+        <form class="ui form" id="TipoSanguineoForm" method="post" action="{% url 'issem:add_tipo_sanguineo' %}">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ id }}">
+            {{ form.as_p }}
+            <input type="submit" name="submit" class="ui button blue" value="Atualizar" />
+        </form>
 
-{% endif %}
+    {% endif %}
 
-</body>
-
-</html>
+{% endblock %}
