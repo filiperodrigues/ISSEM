@@ -1,27 +1,54 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
+    <div class="ui centered grid">
+        <div class="row">
+            <div class="ten wide column">
+                <div class="ui segment">
+                    {% if not id %}
 
-    {% if not id %}
+                        <h1>Cadastro de novo Local de Trabalho:</h1>
+                        <form class="ui form" id="LocalTrabalhoForm" method="post"
+                              action="{% url 'issem:add_local_trabalho' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="">
+                            <label>Nome:</label>
+                            {{ form.nome }}
+                            <label>CNPJ:</label>
+                            {{ form.cnpj }}
+                            <label>Endereço:</label>
+                            {{ form.endereco }}
+                            <label>Número Endereço:</label>
+                            {{ form.numero_endereco }}
+                            <label>Complemento:</label>
+                            {{ form.complemento}}
+                            <label>Bairro:</label>
+                            {{ form.bairro }}
+                            <label>CEP:</label>
+                            {{ form.cep }}
+                            <label>Cidade:</label>
+                            {{ form.cidade }}
+                            <label>Secretaria:</label>
+                            {{ form.secretaria }}
+                            <br/>
+                            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
+                        </form>
 
-        <h1>Cadastro de novo Local de Trabalho:</h1>
-        <form class="ui form" id="LocalTrabalhoForm" method="post" action="{% url 'issem:add_local_trabalho' %}">
-            {% csrf_token %}
-            <input type="hidden" name="id" value="">
-            {{ form.as_p }}
-            <input type="submit" name="submit" class="ui button blue" value="Cadastrar" />
-        </form>
+                    {% else %}
 
-    {% else %}
+                        <h1>Edição Local de Trabalho</h1>
+                        <form class="ui form" id="LocalTrabalhoForm" method="post"
+                              action="{% url 'issem:add_local_trabalho' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ id }}">
+                            {{ form.as_p }}
+                            <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
+                        </form>
 
-        <h1>Edição Local de Trabalho</h1>
-        <form class="ui form" id="LocalTrabalhoForm" method="post" action="{% url 'issem:add_local_trabalho' %}">
-            {% csrf_token %}
-            <input type="hidden" name="id" value="{{ id }}">
-            {{ form.as_p }}
-            <input type="submit" name="submit" class="ui button blue" value="Atualizar" />
-        </form>
+                    {% endif %}
 
-    {% endif %}
-
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

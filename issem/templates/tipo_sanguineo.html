@@ -1,26 +1,36 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    {% if not id %}
+    <div class="ui centered grid">
+        <div class="row">
+            <div class="ten wide column">
+                <div class="ui segment">
+                    {% if not id %}
 
-        <h1>Cadastro de novo Tipo Sanguíneo:</h1>
-        <form class="ui form" id="TipoSanguineoForm" method="post" action="{% url 'issem:add_tipo_sanguineo' %}">
-            {% csrf_token %}
-            <input type="hidden" name="id" value="">
-            {{ form.as_p }}
-            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
-        </form>
+                        <h1>Cadastro de novo Tipo Sanguíneo:</h1>
+                        <form class="ui form" id="TipoSanguineoForm" method="post"
+                              action="{% url 'issem:add_tipo_sanguineo' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="">
+                            {{ form.as_p }}
+                            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
+                        </form>
 
-    {% else %}
+                    {% else %}
 
-        <h1>Edição de Tipo Sanguíneo</h1>
-        <form class="ui form" id="TipoSanguineoForm" method="post" action="{% url 'issem:add_tipo_sanguineo' %}">
-            {% csrf_token %}
-            <input type="hidden" name="id" value="{{ id }}">
-            {{ form.as_p }}
-            <input type="submit" name="submit" class="ui button blue" value="Atualizar" />
-        </form>
+                        <h1>Edição de Tipo Sanguíneo</h1>
+                        <form class="ui form" id="TipoSanguineoForm" method="post"
+                              action="{% url 'issem:add_tipo_sanguineo' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ id }}">
+                            {{ form.as_p }}
+                            <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
+                        </form>
 
-    {% endif %}
+                    {% endif %}
 
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -30,8 +30,9 @@
                                         <div class="ui divider"></div>
                                     </h2>
                                     <div class="menu">
-                                        <div class="wide item"><a href="#">Teste 1</a></div>
-                                        <div class="wide item"><a href="#">Teste 2</a></div>
+                                        <a href="{% url 'issem:apresenta_servidor' %}" class="item">Servidores</a>
+                                        <a href="{% url 'issem:apresenta_segurado' %}" class="item">Segurados</a>
+
                                     </div>
                                 </div>
                             </div>
@@ -44,8 +45,12 @@
                                         <div class="ui divider"></div>
                                     </h2>
                                     <div class="menu">
-                                        <div class="item"><a href="#">Teste 1</a></div>
-                                        <div class="wide item"><a href="#">Teste 2</a></div>
+                                        <a href="{% url 'issem:add_segurado' %}" class="item">Segurado</a>
+                                        <a href="{% url 'issem:add_dependente' %}" class="item">Dependente</a>
+                                        <a href="{% url 'issem:add_servidor' %}" class="item">Servidor</a>
+                                        <a href="{% url 'issem:add_departamento' %}" class="item">Departamento</a>
+                                        <a href="{% url 'issem:add_cid' %}" class="item">CID</a>
+                                        <a href="{% url 'issem:add_procedimento_medico' %}" class="item">Procedimento Médico</a>
                                     </div>
                                 </div>
                             </div>

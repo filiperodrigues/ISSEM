@@ -80,6 +80,7 @@ urlpatterns = [
     url(r'^add/segurado/$', SeguradoView.as_view(), name='add_segurado'),
     url(r'^edita/segurado/(?P<id>\d+)/$', SeguradoView.as_view(), name='edita_segurado'),
     url(r'^deleta/segurado/(?P<id>[0-9]+)/$', views.SeguradoDelete, name='deleta_segurado'),
+    url(r'^apresenta/segurado/$', views.ApresentaSegurado, name='apresenta_segurado'),
 
     ## SERVIDOR ##
     url(r'^add/servidor/$', ServidorView.as_view(), name='add_servidor'),

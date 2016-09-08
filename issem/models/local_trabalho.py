@@ -1,6 +1,7 @@
 # coding:utf-8
 from django.db import models
 from issem.models.cidade import CidadeModel
+from issem.models.secretaria import SecretariaModel
 
 
 class LocalTrabalhoModel(models.Model):
@@ -12,7 +13,7 @@ class LocalTrabalhoModel(models.Model):
     bairro = models.CharField(max_length=128)
     cep = models.PositiveIntegerField()
     cidade = models.ForeignKey(CidadeModel)
-
+    secretaria = models.ForeignKey(SecretariaModel)
     def __unicode__(self):
         return self.nome
 

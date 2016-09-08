@@ -39,3 +39,8 @@ def SeguradoDelete(request, id):
     segurado = SeguradoModel.objects.get(pk=id)
     segurado.delete()
     return HttpResponseRedirect('/')
+
+def ApresentaSegurado(request):
+    context_dict = {}
+    context_dict['segurados'] = SeguradoModel.objects.all()
+    return render(request, 'segurados.html', context_dict)

@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-
-    {% if not id %}
+<div class="ui centered grid">
+        <div class="row">
+            <div class="ten wide column">
+                <div class="ui segment">
+                    {% if not id %}
 
         <h1>Cadastro de novo Cargo:</h1>
         <form class="ui form" id="CargoForm" method="post" action="{% url 'issem:add_cargo' %}">
@@ -23,5 +26,12 @@
         </form>
 
     {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 {% endblock %}
