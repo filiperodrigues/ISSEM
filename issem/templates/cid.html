@@ -11,7 +11,20 @@
                         <form class="ui form" id="CidForm" method="post" action="{% url 'issem:add_cid' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="">
-                            {{ form.as_p }}
+                            <div class="fields">
+                                <label>Descrição:</label>
+                                <div class="twelve wide field">
+                                    {{ form.descricao }}
+                                </div>
+                                <label>Gravidade:</label>
+                                <div class="two wide field">
+                                    {{ form.gravidade }}
+                                </div>
+                                <label>Status:</label>
+                                <div class="two wide field">
+                                    {{ form.status }}
+                                </div>
+                            </div>
                             <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
                         </form>
 
@@ -21,7 +34,20 @@
                         <form class="ui form" id="CidForm" method="post" action="{% url 'issem:add_cid' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ id }}">
-                            {{ form.as_p }}
+                            <div class="fields">
+                                <label>Descrição:</label>
+                                <div class="twelve wide field">
+                                    {{ form.descricao }}
+                                </div>
+                                <label>Gravidade:</label>
+                                <div class="two wide field">
+                                    {{ form.gravidade }}
+                                </div>
+                                <label>Status:</label>
+                                <div class="two wide field">
+                                    {{ form.status }}
+                                </div>
+                            </div>
                             <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
                         </form>
 

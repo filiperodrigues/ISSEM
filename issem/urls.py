@@ -9,6 +9,7 @@ urlpatterns = [
     ## PÁGINAS ##
     url(r'^funcionario$', views.PaginaFuncionarioView, name='funcionario'),
     url(r'^medico$', views.PaginaMedicoView, name='medico'),
+    url(r'^segurado$', views.PaginaSeguradoView, name='segurado'),
 
 
     ## DEPARTAMENTO ##

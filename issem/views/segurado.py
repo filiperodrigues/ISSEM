@@ -44,3 +44,6 @@ def ApresentaSegurado(request):
     context_dict = {}
     context_dict['segurados'] = SeguradoModel.objects.all()
     return render(request, 'segurados.html', context_dict)
+
+def PaginaSeguradoView(request):
+    return render(request, 'pagina_segurado.html')
