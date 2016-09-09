@@ -78,20 +78,28 @@ def populate():
     for f in funcoes:
         add_funcao(f[0], f[1])
 
+    # SECRETARIAS
+    secretarias = ['Secretaria 1','Secretaria 2', 'Secretaria 3']
+    for s in secretarias:
+        add_secretaria(s)
+
     # LOCAIS DE TRABALHO
     cidade_1 = CidadeModel.objects.filter()[0]
     cidade_2 = CidadeModel.objects.filter()[1]
     cidade_3 = CidadeModel.objects.filter()[2]
+    secretaria_1 = SecretariaModel.objects.filter()[0]
+    secretaria_2 = SecretariaModel.objects.filter()[1]
+    secretaria_3 = SecretariaModel.objects.filter()[2]
     locais_trabalho = [
-        ['Empresa 1','12345678901234','Rua Joaquina',568,'Sala 2','Aparecida',89200542,cidade_1],
-        ['Empresa 2','12345678901235','Rua Terezinha',569,'Sala 1','Boehmerwald',89200543,cidade_1],
-        ['Empresa 3','12345678901236','Rua da Tia Marta',468,'Sala 5','Carioca',89200544,cidade_2],
-        ['Empresa 4','12345678901237','Rua Lulinha',68,'Sala 20','Vila Velha',89200545,cidade_2],
-        ['Empresa 5','12345678901238','Rua Dilmãe',58,'Sala 15','Brasília',89200546,cidade_3],
-        ['Empresa 6','12345678901239','Rua Tiricutico',500,'Sala 8','Boa Vista',89200547,cidade_3],
+        ['Empresa 1','12345678901234','Rua Joaquina',568,'Sala 2','Aparecida',89200542,cidade_1,secretaria_2],
+        ['Empresa 2','12345678901235','Rua Terezinha',569,'Sala 1','Boehmerwald',89200543,cidade_1,secretaria_3],
+        ['Empresa 3','12345678901236','Rua da Tia Marta',468,'Sala 5','Carioca',89200544,cidade_2,secretaria_1],
+        ['Empresa 4','12345678901237','Rua Lulinha',68,'Sala 20','Vila Velha',89200545,cidade_2,secretaria_3],
+        ['Empresa 5','12345678901238','Rua Dilmãe',58,'Sala 15','Brasília',89200546,cidade_3,secretaria_2],
+        ['Empresa 6','12345678901239','Rua Tiricutico',500,'Sala 8','Boa Vista',89200547,cidade_3,secretaria_1],
     ]
     for lt in locais_trabalho:
-        add_local_trabalho(lt[0], lt[1], lt[2], lt[3], lt[4], lt[5], lt[6], lt[7])
+        add_local_trabalho(lt[0], lt[1], lt[2], lt[3], lt[4], lt[5], lt[6], lt[7],lt[8])
 
     # PESSOAS
 
@@ -103,11 +111,6 @@ def populate():
     ]
     for pm in procedimentos_medicos:
         add_procedimento_medico(pm[0],pm[1],pm[2],pm[3])
-
-    # SECRETARIAS
-    secretarias = ['Secretaria 1','Secretaria 2', 'Secretaria 3']
-    for s in secretarias:
-        add_secretaria(s)
 
     # SEGURADOS
         ##### ENVOLVE A CLASSE PESSOA
@@ -160,9 +163,9 @@ def add_estado_civil(n):
 def add_funcao(n, d):
     return FuncaoModel.objects.get_or_create(nome=n, descricao=d)
 
-def add_local_trabalho(n, cnpj, e, ne, c, b, cep, ci):
+def add_local_trabalho(n, cnpj, e, ne, c, b, cep, ci, s):
     return LocalTrabalhoModel.objects.get_or_create(nome=n, cnpj=cnpj, endereco=e, numero_endereco=ne, complemento=c, bairro=b,
-            cep=cep, cidade=ci)
+            cep=cep, cidade=ci, secretaria=s)
 
 def add_procedimento_medico(c, d, p, co):
     return ProcedimentoMedicoModel.objects.get_or_create(codigo=c, descricao=d, porte=p, custo_operacao=co)
