@@ -12,24 +12,55 @@
                               action="{% url 'issem:add_local_trabalho' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="">
-                            <label>Nome:</label>
-                            {{ form.nome }}
-                            <label>CNPJ:</label>
-                            {{ form.cnpj }}
-                            <label>Endereço:</label>
-                            {{ form.endereco }}
-                            <label>Número Endereço:</label>
-                            {{ form.numero_endereco }}
-                            <label>Complemento:</label>
-                            {{ form.complemento}}
-                            <label>Bairro:</label>
-                            {{ form.bairro }}
-                            <label>CEP:</label>
-                            {{ form.cep }}
-                            <label>Cidade:</label>
-                            {{ form.cidade }}
-                            <label>Secretaria:</label>
-                            {{ form.secretaria }}
+                            <div class="fields">
+                                <label>Nome:</label>
+                                <div class="eight wide field">
+                                    {{ form.nome }}
+                                </div>
+                                <label>CNPJ:</label>
+                                <div class="eight wide field">
+                                    {{ form.cnpj }}
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label>Endereço:</label>
+                                <div class="twelve wide field">
+                                    {{ form.endereco }}
+                                </div>
+                                <label>Número:</label>
+                                <div class="four wide field">
+                                    {{ form.numero_endereco }}
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label>Complemento:</label>
+                                <div class="six wide field">
+                                    {{ form.complemento }}
+                                </div>
+                                <label>Bairro:</label>
+                                <div class="ten wide field">
+                                    {{ form.bairro }}
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label>CEP:</label>
+                                <div class="five wide field">
+                                    {{ form.cep }}
+                                </div>
+                                <label>Cidade:</label>
+                                <div class="five wide field">
+                                    {{ form.cidade }}
+                                </div>
+                                <label>Secretaria:</label>
+                                <div class="five wide field">
+                                    {{ form.secretaria }}
+                                </div>
+                                <div class="one wide field">
+                                    <a href="{% url 'issem:add_secretaria' %}">
+                                        <button class="ui icon button"><i class="plus icon"></i></button>
+                                    </a>
+                                </div>
+                            </div>
                             <br/>
                             <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
                         </form>
@@ -41,7 +72,50 @@
                               action="{% url 'issem:add_local_trabalho' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ id }}">
-                            {{ form.as_p }}
+                            <div class="fields">
+                                <label>Nome:</label>
+                                <div class="eight wide field">
+                                    {{ form.nome }}
+                                </div>
+                                <label>CNPJ:</label>
+                                <div class="eight wide field">
+                                    {{ form.cnpj }}
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label>Endereço:</label>
+                                <div class="twelve wide field">
+                                    {{ form.endereco }}
+                                </div>
+                                <label>Número:</label>
+                                <div class="four wide field">
+                                    {{ form.numero_endereco }}
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label>Complemento:</label>
+                                <div class="six wide field">
+                                    {{ form.complemento }}
+                                </div>
+                                <label>Bairro:</label>
+                                <div class="ten wide field">
+                                    {{ form.bairro }}
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label>CEP:</label>
+                                <div class="five wide field">
+                                    {{ form.cep }}
+                                </div>
+                                <label>Cidade:</label>
+                                <div class="five wide field">
+                                    {{ form.cidade }}
+                                </div>
+                                <label>Secretaria:</label>
+                                <div class="six wide field">
+                                    {{ form.secretaria }}
+                                </div>
+                            </div>
                             <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
                         </form>
 

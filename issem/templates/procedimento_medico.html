@@ -12,7 +12,27 @@
                               action="{% url 'issem:add_procedimento_medico' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="">
-                            {{ form.as_p }}
+                            <div class="fields">
+                                <label>Código:</label>
+                                <div class="four wide field">
+                                    {{ form.codigo }}
+                                </div>
+                                <label>Descrição:</label>
+                                <div class="twelve wide field">
+                                    {{ form.descricao }}
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label>Porte:</label>
+                                <div class="twelve wide field">
+                                    {{ form.porte }}
+                                </div>
+                                <label>Custo Operação:</label>
+                                <div class="four wide field">
+                                    {{ form.custo_operacao }}
+                                </div>
+                            </div>
+                            <br/>
                             <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
                         </form>
 
@@ -23,7 +43,27 @@
                               action="{% url 'issem:add_procedimento_medico' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ id }}">
-                            {{ form.as_p }}
+                            <div class="fields">
+                                <label>Código:</label>
+                                <div class="four wide field">
+                                    {{ form.codigo }}
+                                </div>
+                                <label>Descrição:</label>
+                                <div class="twelve wide field">
+                                    {{ form.descricao }}
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label>Porte:</label>
+                                <div class="twelve wide field">
+                                    {{ form.porte }}
+                                </div>
+                                <label>Custo Operação:</label>
+                                <div class="four wide field">
+                                    {{ form.custo_operacao }}
+                                </div>
+                            </div>
+                            <br/>
                             <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
                         </form>
 
