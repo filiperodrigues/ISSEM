@@ -8,13 +8,110 @@
                     {% if not id %}
 
                         <h1>Cadastro de novo Dependente:</h1>
-                        <form class="ui form" id="DependenteForm" method="post"
-                              action="{% url 'issem:add_dependente' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="">
-                            {{ form.as_p }}
+                        <br/>
+                        <form class="ui form">
+                            <h4 class="ui dividing red header">Informações Pessoais</h4>
+                            <div class="fields">
+                                <div class="six wide field">
+                                    <label>Nome</label>
+                                    {{ form.nome }}
+                                </div>
+                                <div class="six wide field">
+                                    <label>E-mail</label>
+                                    {{ form.email }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Data de Nascimento</label>
+                                    {{ form.data_nascimento }}
+                                </div>
+                            </div>
+
+                            <div class="fields">
+                                <div class="four wide field">
+                                    <label>CPF</label>
+                                    {{ form.cpf }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>RG</label>
+                                    {{ form.rg }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Sexo</label>
+                                    {{ form.sexo }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Estado Civil</label>
+                                    {{ form.estado_civil }}
+                                </div>
+                            </div>
+
+                            <div class="fields">
+                                <div class="four wide field">
+                                    <label>Cargo</label>
+                                    {{ form.cargo }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Telefone Residencial</label>
+                                    {{ form.telefone_residencial }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Telefone Celular</label>
+                                    {{ form.telefone_celular }}
+                                </div>
+                                <div class="three wide field">
+                                    <label>Tipo Sanguineo</label>
+                                    {{ form.tipo_saguineo }}
+                                </div>
+                                <div class="one wide field">
+                                    <label>Doador</label>
+                                    {{ form.doador }}
+                                </div>
+                            </div>
+
+                            <div class="fields">
+                                <div class="four wide field">
+                                    <label>CEP</label>
+                                    {{ form.cep }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Estado</label>
+                                    {{ form.nome }}
+                                </div>
+
+                                <div class="four wide field">
+                                    <label>Cidade Natural</label>
+                                    {{ form.cidade_natural }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Cidade Atual</label>
+                                    {{ form.cidade_atual }}
+                                </div>
+                            </div>
+
+                            <div class="fields">
+                                <div class="four wide field">
+                                    <label>CEP</label>
+                                    {{ form.cep }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Estado</label>
+                                    {{ form.nome }}
+                                </div>
+
+                                <div class="four wide field">
+                                    <label>Cidade Natural</label>
+                                    {{ form.cidade_natural }}
+                                </div>
+                                <div class="four wide field">
+                                    <label>Cidade Atual</label>
+                                    {{ form.cidade_atual }}
+                                </div>
+                            </div>
+
                             <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
                         </form>
+
+
 
                     {% else %}
 
@@ -24,12 +121,13 @@
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ id }}">
                             {{ form.as_p }}
+
                             <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
                         </form>
 
                     {% endif %}
-                </div>
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}
