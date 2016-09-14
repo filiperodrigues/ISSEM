@@ -2,59 +2,53 @@
 
 {% block body_block %}
 
-    <div class="ui grid">
-        <div class="row">
-            <div class="three wide column"></div>
-            <div class="twelve wide column">
-                <div class="ui stackable grid">
-                    <div class="ui center aligned row">
-                        <div class="ui four wide column">
-                            <div class="ui menu">
-                                <div class="ui dropdown fluid selection">
-                                    <h2>
-                                        <div class="content" align="center"><i class="treatment icon"></i>Perícias</div>
-                                        <div class="ui divider"></div>
-                                    </h2>
-                                    <div class="menu">
-                                        <div class="wide item"><a href="#">Teste 1</a></div>
-                                        <div class="wide item"><a href="#">Teste 2</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui four wide column">
-                            <div class="ui menu">
-                                <div class="ui dropdown fluid selection">
-                                    <h2>
-                                        <div class="content" align="center"><i class="doctor icon"></i>Laudos Médicos</div>
-                                        <div class="ui divider"></div>
-                                    </h2>
-                                    <div class="menu">
-                                        <div class="wide item"><a href="#">Teste 1</a></div>
-                                        <div class="wide item"><a href="#">Teste 2</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui four wide column">
-                            <div class="ui menu">
-                                <div class="ui dropdown fluid selection">
-                                    <h2>
-                                        <div class="content" align="center"><i class="bar chart icon"></i>Analytics</div>
-                                        <div class="ui divider"></div>
-                                    </h2>
-                                    <div class="menu">
-                                        <div class="wide item"><a href="#">Teste 1</a></div>
-                                        <div class="wide item"><a href="#">Teste 2</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="ui centered grid">
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="treatment icon"></i> Perícias</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <div class="item">Choice 1</div>
+                        <div class="item">Choice 2</div>
+                        <div class="item">Choice 3</div>
                     </div>
                 </div>
-
             </div>
         </div>
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="doctor icon"></i> Laudos Médicos</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <div class="item">Choice 1</div>
+                        <div class="item">Choice 2</div>
+                        <div class="item">Choice 3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="bar chart icon"></i> Analytics</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <div class="item">Choice 1</div>
+                        <div class="item">Choice 2</div>
+                        <div class="item">Choice 3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 {% endblock %}

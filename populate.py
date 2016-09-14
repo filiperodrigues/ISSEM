@@ -61,6 +61,12 @@ def populate():
     for td in tipos_dependente:
         add_tipo_dependente(td)
 
+    # PESSOAS
+    pessoas =[
+        nome, cpf, email, sexo, data_nascimento, rg, telefone_residencial, telefone_celular, doador, endereco, numero_endereco,
+        complemento, bairro, cep, estado_civil, tipo_sanguineo, cargo, cidade_atual, cidade_natural, nome_pai, nome_mae
+        ['Wagner Esser',09291012947,'wagner@email.com','M','1999-12-05',5425956,4756849265,4756849265,'S'],
+    ]
     # DEPENDENTES
         ##### ENVOLVE A CLASSE PESSOA
 

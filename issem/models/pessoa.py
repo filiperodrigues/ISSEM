@@ -12,7 +12,7 @@ class PessoaModel(models.Model):
     cpf = models.CharField(null=False, max_length=14)
     email = models.EmailField(max_length=128)
     sexo = models.CharField(max_length=1)
-    data_nascimento = models.DateField(default=datetime.date.today)
+    data_nascimento = models.DateField()
     rg = models.PositiveIntegerField(null=False)
     telefone_residencial = models.PositiveIntegerField()
     telefone_celular = models.PositiveIntegerField()

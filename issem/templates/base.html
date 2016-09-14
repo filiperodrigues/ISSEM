@@ -4,6 +4,7 @@
 <head>
     <title>ISSEM</title>
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/base.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static 'semanticui/dist/semantic.css' %}"/>
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/issem.js' %}"></script>
@@ -12,60 +13,58 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.ui.dropdown').dropdown();
+            $('#id_estado_civil').dropdown();
+            $('#id_cargo').dropdown();
+            $('#id_tipo_sanguineo').dropdown();
+            $('#id_cidade_atual').dropdown();
+            $('#id_cidade_natural').dropdown();
+            $('#tipo').dropdown();
         });
     </script>
-    <style>
-        @media (min-height: 320px) {
-            .ui.footer.form-page { /* Increased specificity for SO snippet priority */
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-                margin-bottom: 0px;
-                margin-inside: 50px;
-            }
-        }
-    </style>
 </head>
+
 <body>
-<div class="ui grid">
-    <div class="sixteen wide column"></div>
-    <div class="sixteen wide column"></div>
-    <div class="sixteen wide column">
-        <div id="topo">
+
+<header>
+    <div class="ui fluid">
+        <div class="ui container">
             <a href="/">
                 <h2 class="ui header red">
-                    <img src="/static/images/1.jpg" width="100px"/>
+                    <img src="/static/images/1.png"/>
                     <div class="content">
                         ISSEM
                         <div class="sub header">INSTITUTO DE SEGURIDADE DOS SERVIDORES MUNICIPAIS</div>
                     </div>
                 </h2>
             </a>
-            <div class="ui menu">
-                <a href="{% url 'issem:index' %}" class="item">Home</a>
-                <a href="{% url 'issem:funcionario' %}" class="item">Funcionário</a>
-                <a href="{% url 'issem:medico' %}" class="item">Médico</a>
-                <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>
-            </div>
         </div>
     </div>
-</div>
+</header>
 
-{% block body_block %}
-{% endblock %}
-<div class="ui inverted vertical footer segment form-page">
-    <div class="ui grid">
-        <div class="sixteen wide column"></div>
-    </div>
+{# ======= PARA TESTE ======= #}
+<nav class="ui menu large" style="margin-top: 0; border-top: 0">
     <div class="ui container">
-        <div class="ui column center aligned stackable grid">Instituto de Seguridade dos Servidores Municipais - Rua
-            Walter Marquardt, 623 - Barra do Rio Molha - Jaragua do Sul - SC
-            Fone: (47)3270 3900
-        </div>
+        <a href="{% url 'issem:index' %}" class="item">Home</a>
+        <a href="{% url 'issem:funcionario' %}" class="item">Funcionário</a>
+        <a href="{% url 'issem:medico' %}" class="item">Médico</a>
+        <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>
     </div>
-    <div class="ui grid">
-        <div class="sixteen wide column"></div>
+</nav>
+{# ======= PARA TESTE ======= #}
+
+<article>
+    <div class="ui container issem-content">
+        {% block body_block %}
+        {% endblock %}
     </div>
-</div>
+</article>
+
+<footer class="ui inverted vertical segment footer">
+    <div class="ui centered grid">
+        Instituto de Seguridade dos Servidores Municipais<br/>
+        Rua Walter Marquardt, 623 - Barra do Rio Molha - Jaragua do Sul - SC / Fone: (47)3270 3900
+    </div>
+</footer>
+
 </body>
 </html>

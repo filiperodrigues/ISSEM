@@ -7,8 +7,8 @@ from issem.models.pessoa import PessoaModel
 
 class DependenteModel(PessoaModel):
     tipo = models.ForeignKey(TipoDependenteModel)
-    data_inicio = models.DateField(default=datetime.date.today)
-    data_fim = models.DateField(default=datetime.date.today)
+    data_inicio = models.DateField()
+    data_fim = models.DateField()
 
     def __unicode__(self):
         return self.nome

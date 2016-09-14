@@ -2,79 +2,69 @@
 
 {% block body_block %}
 
-    <div class="ui grid">
-        <div class="row">
-            <div class="one wide column"></div>
-            <div class="fourteen wide column">
-                <div class="ui stackable grid">
-                    <div class="ui center aligned row">
-                        <div class="ui four wide column">
-                            <div class="ui menu">
-                                <div class="ui dropdown fluid selection">
-                                    <h2>
-                                        <div class="content" align="center"><i class="calendar outline icon"></i>Agendamento</div>
-                                        <div class="ui divider"></div>
-                                    </h2>
-                                    <div class="menu">
-                                        <div class="wide item"><a href="#">Teste 1</a></div>
-                                        <div class="wide item"><a href="#">Teste 2</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui four wide column">
-                            <div class="ui menu">
-                                <div class="ui dropdown fluid selection">
-                                    <h2>
-                                        <div class="content" align="center"><i class="users icon"></i>Servidor/Segurado</div>
-                                        <div class="ui divider"></div>
-                                    </h2>
-                                    <div class="menu">
-                                        <a href="{% url 'issem:apresenta_servidor' %}" class="item">Servidores</a>
-                                        <a href="{% url 'issem:apresenta_segurado' %}" class="item">Segurados</a>
+    <div class="ui centered grid">
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui four wide column">
-                            <div class="ui menu">
-                                <div class="ui dropdown fluid selection">
-                                    <h2>
-                                        <div class="content" align="center"><i class="add to calendar icon"></i>Cadastros</div>
-                                        <div class="ui divider"></div>
-                                    </h2>
-                                    <div class="menu">
-                                        <a href="{% url 'issem:add_segurado' %}" class="item">Segurado</a>
-                                        <a href="{% url 'issem:add_dependente' %}" class="item">Dependente</a>
-                                        <a href="{% url 'issem:add_servidor' %}" class="item">Servidor</a>
-                                        <a href="{% url 'issem:add_departamento' %}" class="item">Departamento</a>
-                                        <a href="{% url 'issem:add_cid' %}" class="item">CID</a>
-                                        <a href="{% url 'issem:add_procedimento_medico' %}" class="item">Procedimento Médico</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui four wide column">
-                            <div class="ui menu">
-                                <div class="ui dropdown fluid selection">
-                                    <h2>
-                                        <div class="content" align="center"><i class="bar chart icon"></i>Analytics</div>
-                                        <div class="ui divider"></div>
-                                    </h2>
-                                    <div class="menu">
-                                        <div class="wide item"><a href="#">Teste 1</a></div>
-                                        <div class="wide item"><a href="#">Teste 2</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="calendar outline icon"></i> Agendamento</h3>
 
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <div class="item">Choice 1</div>
+                        <div class="item">Choice 2</div>
+                        <div class="item">Choice 3</div>
                     </div>
                 </div>
-
             </div>
         </div>
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="users icon"></i> Servidor/Segurado</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <a href="{% url 'issem:apresenta_servidor' %}" class="item">Servidores</a>
+                        <a href="{% url 'issem:apresenta_segurado' %}" class="item">Segurados</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="plus icon"></i> Cadastros</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <a href="{% url 'issem:add_segurado' %}" class="item">Segurado</a>
+                        <a href="{% url 'issem:add_dependente' %}" class="item">Dependente</a>
+                        <a href="{% url 'issem:add_servidor' %}" class="item">Servidor</a>
+                        <a href="{% url 'issem:add_departamento' %}" class="item">Departamento</a>
+                        <a href="{% url 'issem:add_cid' %}" class="item">CID</a>
+                        <a href="{% url 'issem:add_procedimento_medico' %}" class="item">Procedimento Médico</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="bar chart icon"></i> Analytics</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <div class="wide item"><a href="#">Teste 1</a></div>
+                        <div class="wide item"><a href="#">Teste 2</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 {% endblock %}

@@ -7,12 +7,12 @@
                 <div class="ui segment">
                     {% if not id %}
 
-                        <h1>Cadastro de novo Dependente:</h1>
+                        <h1>Cadastro de novo dependente:</h1>
                         <br/>
                         <form class="ui form">
                             <h4 class="ui dividing red header">Informações Pessoais</h4>
                             <div class="fields">
-                                <div class="eight wide field">
+                                <div class="four wide field">
                                     <label>Nome</label>
                                     {{ form.nome }}
                                 </div>
@@ -24,13 +24,13 @@
                                     <label>Data de Nascimento</label>
                                     {{ form.data_nascimento }}
                                 </div>
-                            </div>
-
-                            <div class="fields">
                                 <div class="four wide field">
                                     <label>CPF</label>
                                     {{ form.cpf }}
                                 </div>
+                            </div>
+
+                            <div class="fields">
                                 <div class="four wide field">
                                     <label>RG</label>
                                     {{ form.rg }}
@@ -43,13 +43,13 @@
                                     <label>Estado Civil</label>
                                     {{ form.estado_civil }}
                                 </div>
-                            </div>
-
-                            <div class="fields">
                                 <div class="four wide field">
                                     <label>Cargo</label>
                                     {{ form.cargo }}
                                 </div>
+                            </div>
+
+                            <div class="fields">
                                 <div class="four wide field">
                                     <label>Telefone Residencial</label>
                                     {{ form.telefone_residencial }}
@@ -58,13 +58,15 @@
                                     <label>Telefone Celular</label>
                                     {{ form.telefone_celular }}
                                 </div>
-                                <div class="three wide field">
+                                <div class="four wide field">
                                     <label>Tipo Sanguineo</label>
                                     {{ form.tipo_saguineo }}
                                 </div>
-                                <div class="one wide field">
-                                    <label>Doador</label>
-                                    {{ form.doador }}
+                                <div class="four wide field">
+                                    <div class="">
+                                        <label>Doador</label>
+                                        {{ form.doador }}
+                                    </div>
                                 </div>
                             </div>
 
@@ -77,7 +79,6 @@
                                     <label>Estado</label>
                                     {{ form.nome }}
                                 </div>
-
                                 <div class="four wide field">
                                     <label>Cidade Natural</label>
                                     {{ form.cidade_natural }}
@@ -88,28 +89,31 @@
                                 </div>
                             </div>
 
-                            <h4 class="ui dividing red header">Informações Pessoais</h4>
+                            <h4 class="ui dividing red header">Dados específicos do Dependente</h4>
                             <div class="fields">
-                                <div class="four wide field">
-                                    <label>CEP</label>
-                                    {{ form.cep }}
+                                {#                                <div class="two wide field"></div>#}
+                                <div class="six wide field">
+                                    <label>Tipo de Dependente</label>
+                                    {{ form.tipo }}
                                 </div>
-                                <div class="four wide field">
-                                    <label>Estado</label>
-                                    {{ form.nome }}
+                                <div class="five wide field">
+                                    <label>Data de início (Dependente)</label>
+                                    {{ form.data_inicio }}
                                 </div>
-
-                                <div class="four wide field">
-                                    <label>Cidade Natural</label>
-                                    {{ form.cidade_natural }}
-                                </div>
-                                <div class="four wide field">
-                                    <label>Cidade Atual</label>
-                                    {{ form.cidade_atual }}
+                                <div class="five wide field">
+                                    <label>Data de término (Dependente)</label>
+                                    {{ form.data_fim }}
                                 </div>
                             </div>
 
-                            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
+                            <br/>
+                            <div class="ui centered grid">
+                                <div class="ui column centered row">
+                                    <input type="submit" name="submit" class="ui button default" value="Limpar"/>&nbsp;
+                                    <input type="submit" name="submit" class="ui button red" value="Cancelar"/>&nbsp;
+                                    <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                                </div>
+                            </div>
                         </form>
 
 
@@ -127,8 +131,8 @@
                         </form>
 
                     {% endif %}
+                </div>
             </div>
         </div>
-    </div>
     </div>
 {% endblock %}
