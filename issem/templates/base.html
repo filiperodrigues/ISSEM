@@ -6,8 +6,9 @@
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="{% static 'semanticui/dist/semantic.css' %}"/>
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{{ STATIC_URL }}js/issem.js"></script>
+    <script type="text/javascript" src="{% static 'js/issem.js' %}"></script>
     <script type="text/javascript" src="{% static 'semanticui/dist/semantic.js' %}"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('.ui.dropdown').dropdown();

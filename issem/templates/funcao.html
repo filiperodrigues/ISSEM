@@ -12,12 +12,12 @@
                             {% csrf_token %}
                             <input type="hidden" name="id" value="">
                             <div class="fields">
-                                <label>Nome:</label>
-                                <div class="fourteen wide field">
+                                <div class="ten wide field">
+                                    <label>Nome:</label>
                                     {{ form.nome }}
                                 </div>
-                                <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
                             </div>
+                         <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
                         </form>
 
                     {% else %}
@@ -27,8 +27,8 @@
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ id }}">
                             <div class="fields">
-                                <label>Nome:</label>
                                 <div class="fourteen wide field">
+                                    <label>Nome:</label>
                                     {{ form.nome }}
                                 </div>
                                 <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>

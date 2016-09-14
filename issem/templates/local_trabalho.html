@@ -13,52 +13,51 @@
                             {% csrf_token %}
                             <input type="hidden" name="id" value="">
                             <div class="fields">
-                                <label>Nome:</label>
                                 <div class="eight wide field">
+                                    <label>Nome:</label>
                                     {{ form.nome }}
                                 </div>
-                                <label>CNPJ:</label>
                                 <div class="eight wide field">
+                                    <label>CNPJ:</label>
                                     {{ form.cnpj }}
                                 </div>
                             </div>
                             <div class="fields">
-                                <label>Endereço:</label>
                                 <div class="twelve wide field">
+                                    <label>Endereço:</label>
                                     {{ form.endereco }}
                                 </div>
-                                <label>Número:</label>
                                 <div class="four wide field">
+                                    <label>Número:</label>
                                     {{ form.numero_endereco }}
                                 </div>
                             </div>
                             <div class="fields">
-                                <label>Complemento:</label>
                                 <div class="six wide field">
+                                    <label>Complemento:</label>
                                     {{ form.complemento }}
                                 </div>
-                                <label>Bairro:</label>
                                 <div class="ten wide field">
+                                    <label>Bairro:</label>
                                     {{ form.bairro }}
                                 </div>
                             </div>
                             <div class="fields">
-                                <label>CEP:</label>
                                 <div class="five wide field">
+                                    <label>CEP:</label>
                                     {{ form.cep }}
                                 </div>
-                                <label>Cidade:</label>
                                 <div class="five wide field">
+                                    <label>Cidade:</label>
                                     {{ form.cidade }}
                                 </div>
-                                <label>Secretaria:</label>
                                 <div class="five wide field">
+                                    <label>Secretaria:</label>
                                     {{ form.secretaria }}
                                 </div>
                                 <div class="one wide field">
-                                    <a href="{% url 'issem:add_secretaria' %}">
-                                        <button class="ui icon button"><i class="plus icon"></i></button>
-                                    </a>
+                                    <label> </label>
+                                    <div class="ui icon button" id="cadastro-secretaria"><i class="plus icon"></i></div>
                                 </div>
                             </div>
                             <br/>
@@ -73,46 +72,46 @@
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ id }}">
                             <div class="fields">
-                                <label>Nome:</label>
                                 <div class="eight wide field">
+                                    <label>Nome:</label>
                                     {{ form.nome }}
                                 </div>
-                                <label>CNPJ:</label>
                                 <div class="eight wide field">
+                                    <label>CNPJ:</label>
                                     {{ form.cnpj }}
                                 </div>
                             </div>
                             <div class="fields">
-                                <label>Endereço:</label>
                                 <div class="twelve wide field">
+                                    <label>Endereço:</label>
                                     {{ form.endereco }}
                                 </div>
-                                <label>Número:</label>
                                 <div class="four wide field">
+                                    <label>Número:</label>
                                     {{ form.numero_endereco }}
                                 </div>
                             </div>
                             <div class="fields">
-                                <label>Complemento:</label>
                                 <div class="six wide field">
+                                    <label>Complemento:</label>
                                     {{ form.complemento }}
                                 </div>
-                                <label>Bairro:</label>
                                 <div class="ten wide field">
+                                    <label>Bairro:</label>
                                     {{ form.bairro }}
                                 </div>
                             </div>
                             <div class="fields">
-                                <label>CEP:</label>
                                 <div class="five wide field">
+                                    <label>CEP:</label>
                                     {{ form.cep }}
                                 </div>
-                                <label>Cidade:</label>
                                 <div class="five wide field">
+                                    <label>Cidade:</label>
                                     {{ form.cidade }}
                                 </div>
-                                <label>Secretaria:</label>
                                 <div class="six wide field">
+                                    <label>Secretaria:</label>
                                     {{ form.secretaria }}
                                 </div>
                             </div>
@@ -121,6 +120,27 @@
 
                     {% endif %}
 
+                </div>
+                <div class="ui form modal">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Cadastrar Secretaria
+                    </div>
+                    <br/>
+                    <form class="ui form" id="SecretariaForm" method="post"
+                          action="{% url 'issem:add_secretaria' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="">
+                        <div class="ten wide field">
+                            <label>Nome</label>
+                            {{ form.nome }}
+                        </div>
+                    </form>
+                    <br/>
+                    <div class="action">
+                        <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
+                    </div>
+                    <br/>
                 </div>
             </div>
         </div>
