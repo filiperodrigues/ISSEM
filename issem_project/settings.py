@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'issem',
+    'localflavor',
+    'input_mask',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,3 +107,6 @@ STATIC_URL = '/static/' # You may find this is already defined as such.
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
+
+DATE_FORMAT = 'd/m/Y'
+DATETIME_FORMAT = 'd/m/Y - H:i:s'

@@ -7,7 +7,6 @@ from issem.models.departamento import DepartamentoModel
 class ServidorModel(PessoaModel):
     departamento = models.ForeignKey(DepartamentoModel)
     crm = models.PositiveIntegerField()
-
     def __unicode__(self):
         return self.crm
 

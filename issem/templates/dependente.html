@@ -103,12 +103,13 @@
                         {{ form.tipo }}
                     </div>
                     <div class="five wide field">
-                        <label>Data de início</label>
-                        {{ form.data_inicio }}
+                        <label>Data de início (Dependente)</label>
+                        <input type="date" name="data_inicio" id="id_data_inicio"
+                               onchange="data_fim_teste(this.value)"/>
                     </div>
                     <div class="five wide field">
-                        <label>Data de término</label>
-                        {{ form.data_fim }}
+                        <label>Data de término (Dependente)</label>
+                        <input type="date" name="data_fim" id="id_data_fim" disabled="True"/>
                     </div>
                 </div>
 

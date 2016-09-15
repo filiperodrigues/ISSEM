@@ -11,7 +11,8 @@ class DependenteView(View):
 
     def get(self, request, id=None):
         if id:
-            dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            dependente = DependenteModel.objects.get(
+                pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = DependenteForm(instance=dependente)
         else:
             form = DependenteForm()  # MODO CADASTRO: recebe o formulário vazio
@@ -30,7 +31,7 @@ class DependenteView(View):
         if form.is_valid():
             dependente = form.save(commit=False)
             dependente.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('suhsushuhuh.html')
         else:
             print(form.errors)
 

@@ -9,6 +9,23 @@
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/issem.js' %}"></script>
     <script type="text/javascript" src="{% static 'semanticui/dist/semantic.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ui.dropdown').dropdown();
+            $('#id_estado_civil').dropdown();
+            $('#id_cargo').dropdown();
+            $('#id_tipo_sanguineo').dropdown();
+            $('#id_cidade_atual').dropdown();
+            $('#id_cidade_natural').dropdown();
+            $('#tipo').dropdown();
+        });
+        function data_fim_teste(data_inicio) {
+            console.log(data_inicio);
+            $("input#id_data_fim").attr('disabled', false);
+            $("input#id_data_fim").attr('min', data_inicio);
+        }
+    </script>
 </head>
 
 <body>
@@ -30,7 +47,7 @@
 </header>
 
 {# ======= PARA TESTE ======= #}
-<nav class="ui menu large" style="position: absolute;top:95px;">
+<nav class="ui menu large" style="margin-top: 0; border-top: 0">
     <div class="ui container">
         <a href="{% url 'issem:index' %}" class="item">Home</a>
         <a href="{% url 'issem:funcionario' %}" class="item">Funcionário</a>
