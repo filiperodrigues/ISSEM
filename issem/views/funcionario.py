@@ -4,4 +4,4 @@ from issem.models import *
 
 
 def PaginaFuncionarioView(request):
-    return render(request, 'funcionario.html')
+    return render(request, 'funcionario_pagina.html')

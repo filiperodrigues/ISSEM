@@ -1,64 +1,42 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    <div class="ui centered grid">
-        <div class="row">
-            <div class="ten wide column">
-                <div class="ui segment">
-                    {% if not id %}
 
-                        <h1>Cadastro de novo CID:</h1>
-                        <form class="ui form" id="CidForm" method="post" action="{% url 'issem:add_cid' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="">
-                            <div class="fields">
-                                <label>Descrição:</label>
-                                <div class="twelve wide field">
-                                    {{ form.descricao }}
-                                </div>
-                                <label>Gravidade:</label>
-                                <div class="two wide field">
-                                    {{ form.gravidade }}
-                                </div>
-                                <label>Status:</label>
-                                <div class="two wide field">
-                                    {{ form.status }}
-                                </div>
-                            </div>
-                            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
-                        </form>
+    <div class="ui centered row">
+        <div class="ui segment">
 
-                    {% else %}
+            <h1 class="issem-cad">Cadastro de novo CID:</h1>
+            <br/>
+            <form class="ui form" id="CidForm" method="post" action="{% url 'issem:add_cid' %}">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="">
 
-                        <h1>Edição de CID</h1>
-                        <form class="ui form" id="CidForm" method="post" action="{% url 'issem:add_cid' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                            <div class="fields">
-                                <label>Descrição:</label>
-                                <div class="twelve wide field">
-                                    {{ form.descricao }}
-                                </div>
-                                <label>Gravidade:</label>
-                                <div class="two wide field">
-                                    {{ form.gravidade }}
-                                </div>
-                                <label>Status:</label>
-                                <div class="two wide field">
-                                    {{ form.status }}
-                                </div>
-                            </div>
-                            <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
-                        </form>
-
-                    {% endif %}
-
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Descrição</label>
+                        {{ form.descricao }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Gravidade</label>
+                        {{ form.gravidade }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Status</label>
+                        {{ form.status }}
+                    </div>
                 </div>
-            </div>
+
+                <br/>
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="button" name="cancelar" class="ui button red" value="Cancelar"/>&nbsp;
+                        <input type="submit" name="cadastrar" class="ui button green" value="Cadastrar"/>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
-    </div>
-
-
-
 {% endblock %}

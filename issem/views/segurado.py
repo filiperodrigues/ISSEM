@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import SeguradoModel
 from issem.forms import SeguradoForm
 from django.views.generic.base import View
+from issem.models import EstadoModel
 
 
 class SeguradoView(View):
@@ -14,7 +15,8 @@ class SeguradoView(View):
             form = SeguradoForm(instance=segurado)
         else:
             form = SeguradoForm()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
+            estados = EstadoModel.objects.all()
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
         if not request.POST['id']:  # CADASTRO NOVO
@@ -46,4 +48,4 @@ def ApresentaSegurado(request):
     return render(request, 'segurados.html', context_dict)
 
 def PaginaSeguradoView(request):
-    return render(request, 'pagina_segurado.html')
+    return render(request, 'segurado_pagina.html')

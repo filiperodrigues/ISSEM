@@ -1,33 +1,131 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    <div class="ui centered grid">
-        <div class="row">
-            <div class="ten wide column">
-                <div class="ui segment">
-                    {% if not id %}
 
-                        <h1>Cadastro de novo Segurado:</h1>
-                        <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:add_segurado' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="">
+    <div class="ui centered row">
+        <div class="ui segment">
 
-                            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
-                        </form>
+            <h1>Cadastro de novo Segurado:</h1>
+            <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:add_segurado' %}">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="">
 
-                    {% else %}
-
-                        <h1>Edição de Segurado</h1>
-                        <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:add_segurado' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                            {{ form.as_p }}
-                            <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
-                        </form>
-
-                    {% endif %}
+                <h4 class="ui dividing red header">Informações Pessoais</h4>
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>Nome</label>
+                        {{ form.nome }}
+                    </div>
+                    <div class="four wide field">
+                        <label>E-mail</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Data de Nascimento</label>
+                        {{ form.data_nascimento }}
+                    </div>
+                    <div class="four wide field">
+                        <label>CPF</label>
+                        {{ form.cpf }}
+                    </div>
                 </div>
-            </div>
+
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>RG</label>
+                        {{ form.rg }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Sexo</label>
+                        {{ form.sexo }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Estado Civil</label>
+                        {{ form.estado_civil }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Cargo</label>
+                        {{ form.cargo }}
+                    </div>
+                </div>
+
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>Telefone Residencial</label>
+                        {{ form.telefone_residencial }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Telefone Celular</label>
+                        {{ form.telefone_celular }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Tipo Sanguineo</label>
+                        {{ form.tipo_saguineo }}
+                    </div>
+                    <div class="four wide field">
+                        <div class="">
+                            <label>Doador</label>
+                            {{ form.doador }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>CEP</label>
+                        {{ form.cep }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Estado</label>
+                        <select onchange="get_cidade()" name="estado">
+                            <option>Selecione um estado...</option>
+                            {% for estado in estados %}
+                                <option value="{{ estado.id }}">{{ estado.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="four wide field">
+                        <label>Cidade Natural</label>
+                        <select name="cidade_natural" id="cidade_atual" disabled="True">
+                            <option>Selecione uma cidade...</option>
+                        </select>
+                    </div>
+                    <div class="four wide field">
+                        <label>Cidade Atual</label>
+                        {{ form.cidade_atual }}
+                    </div>
+                </div>
+
+                <h4 class="ui dividing red header">Dados específicos do Segurado</h4>
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>PIS/PASEP/NIT</label>
+                        {{ form.pasep_pis_nit }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Local de Trabalho</label>
+                        {{ form.local_trabalho }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Data de Admissão</label>
+                        {{ form.data_admissao }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Dependente</label>
+                        {{ form.dependente }}
+                    </div>
+                </div>
+
+                <br/>
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="button" name="cancelar" class="ui button red" value="Cancelar"/>&nbsp;
+                        <input type="submit" name="cadastrar" class="ui button green" value="Cadastrar"/>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 {% endblock %}

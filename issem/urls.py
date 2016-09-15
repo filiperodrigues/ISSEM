@@ -88,4 +88,7 @@ urlpatterns = [
     url(r'^edita/servidor/(?P<id>\d+)/$', ServidorView.as_view(), name='edita_servidor'),
     url(r'^deleta/servidor/(?P<id>[0-9]+)/$', views.ServidorDelete, name='deleta_servidor'),
     url(r'^apresenta/servidor/$', views.ApresentaServidor, name='apresenta_servidor'),
+
+    ## CIDADE / ESTADO ##
+    url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),
 ]

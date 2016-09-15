@@ -1,6 +1,7 @@
 from issem.views.beneficio import *
 from issem.views.cargo import *
 from issem.views.cid import *
+from issem.views.cidade import *
 from issem.views.departamento import *
 from issem.views.dependente import *
 from issem.views.estado_civil import *

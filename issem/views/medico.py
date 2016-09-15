@@ -4,4 +4,4 @@ from issem.models import *
 
 
 def PaginaMedicoView(request):
-    return render(request, 'medico.html')
+    return render(request, 'medico_pagina.html')

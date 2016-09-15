@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import DependenteModel
 from issem.forms import DependenteForm
 from django.views.generic.base import View
+from issem.models import EstadoModel
 
 
 class DependenteView(View):
@@ -14,7 +15,8 @@ class DependenteView(View):
             form = DependenteForm(instance=dependente)
         else:
             form = DependenteForm()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
+            estados = EstadoModel.objects.all()
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
         if not request.POST['id']:  # CADASTRO NOVO

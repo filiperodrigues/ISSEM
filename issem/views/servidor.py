@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import ServidorModel
 from issem.forms import ServidorForm
 from django.views.generic.base import View
+from issem.models import EstadoModel
 
 
 class ServidorView(View):
@@ -14,7 +15,8 @@ class ServidorView(View):
             form = ServidorForm(instance=servidor)
         else:
             form = ServidorForm()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
+            estados = EstadoModel.objects.all()
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
         if not request.POST['id']:  # CADASTRO NOVO
