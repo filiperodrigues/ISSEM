@@ -1,5 +1,5 @@
 # coding:utf-8
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from issem.models import LocalTrabalhoModel
 from issem.forms import LocalTrabalhoForm
 from django.views.generic.base import View
@@ -17,6 +17,7 @@ class LocalTrabalhoView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
+
         if not request.POST['id']:  # CADASTRO NOVO
             id = None
             form = LocalTrabalhoForm(data=request.POST)

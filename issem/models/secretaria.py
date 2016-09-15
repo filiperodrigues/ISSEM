@@ -14,3 +14,4 @@ class SecretariaModel(models.Model):
     class Meta:
         verbose_name = "Secretaria"
         verbose_name_plural = "Secretarias"
+

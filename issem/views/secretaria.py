@@ -1,8 +1,9 @@
 # coding:utf-8
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from issem.models import SecretariaModel
 from issem.forms import SecretariaForm
 from django.views.generic.base import View
+from django.core import serializers
 
 
 class SecretariaView(View):
@@ -17,6 +18,13 @@ class SecretariaView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
+        if 'sec' in request.POST:
+            nome = request.POST['sec']
+            nome_sec = SecretariaModel(nome=nome)
+            nome_sec.save()
+            nome_sec = SecretariaModel.objects.all()
+            json = serializers.serialize("json", nome_sec)
+            return HttpResponse(json)
         if not request.POST['id']:  # CADASTRO NOVO
             id = None
             form = SecretariaForm(data=request.POST)
@@ -31,6 +39,7 @@ class SecretariaView(View):
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
+
 
         return render(request, self.template, {'form': form, 'method': 'post'})
 

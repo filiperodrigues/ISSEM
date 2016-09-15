@@ -126,22 +126,20 @@
                     <div class="header">
                         Cadastrar Secretaria
                     </div>
-                    <br/>
-                    <form class="ui form" id="SecretariaForm" method="post"
-                          action="{% url 'issem:add_secretaria' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="id" value="">
-                        <div class="ten wide field">
-                            <label>Nome</label>
-                            {{ form.nome }}
+                    <div class="fields">
+                        <div class="twelve wide field">
+                            <label>Nome:</label>
+                            <input type="text" id="id_sec" name="sec">
                         </div>
-                    </form>
-                    <br/>
-                    <div class="action">
-                        <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
                     </div>
-                    <br/>
+                    <div class="actions">
+                        <div class="ui positive right">
+                            <input type="button" onclick="get_secretaria()" class="ui button blue" value="Cadastrar"/>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>
