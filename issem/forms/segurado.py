@@ -10,6 +10,7 @@ class SeguradoForm(forms.ModelForm):
         'required' :'required',
     }))
     rg = forms.CharField(widget=forms.TextInput(attrs={'required':'required',}))
+
     class Meta:
         model = SeguradoModel
         fields = '__all__'

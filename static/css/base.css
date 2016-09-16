@@ -1,4 +1,6 @@
-html, body {height:100%;}
+html, body {
+    height: 100%;
+}
 
 header {
     padding-top: 50px;
@@ -8,7 +10,9 @@ header {
     min-height: 20% !important;
 }
 
-nav{width:100%}
+nav {
+    width: 100%
+}
 
 article {
     /*background-color: #f8f8f8;*/
@@ -17,17 +21,29 @@ article {
     min-height: 70% !important;
 }
 
-.issem-content{
+.issem-content {
     margin-top: 15px;
 }
 
-.issem-dropdown{
+.issem-dropdown {
     text-align: center !important;
     padding: 20px 0 10px 0 !important;
 }
 
-.issem-cad{
+.issem-cad {
     text-align: center;
+}
+
+.issem-input-small div {
+    min-width: 8em !important;
+}
+
+.issem-input-checkbox{
+    margin-top: 0 !important;
+    padding-top: 10px !important;
+    padding-bottom: 8px !important;
+    padding-left: 15px !important;
+    box-shadow: none !important;
 }
 
 footer {

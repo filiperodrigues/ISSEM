@@ -23,7 +23,7 @@ class PessoaModel(models.Model):
     bairro = models.CharField(max_length=128)
     cep = models.PositiveIntegerField()
     estado_civil = models.ForeignKey(EstadoCivilModel)
-    tipo_saguineo = models.ForeignKey(TipoSanguineoModel)
+    tipo_sanguineo = models.ForeignKey(TipoSanguineoModel)
     cargo = models.ForeignKey(CargoModel)
     cidade_atual = models.ForeignKey(CidadeModel, related_name="%(app_label)s_%(class)s_atual")
     cidade_natural = models.ForeignKey(CidadeModel, related_name="%(app_label)s_%(class)s_natural")

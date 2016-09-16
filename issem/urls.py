@@ -6,6 +6,7 @@ from issem.views import *
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+
     ## PÁGINAS ##
     url(r'^funcionario$', views.PaginaFuncionarioView, name='funcionario'),
     url(r'^medico$', views.PaginaMedicoView, name='medico'),
@@ -52,7 +53,7 @@ urlpatterns = [
     url(r'^edita/tipo_exame/(?P<id>\d+)/$', TipoExameView.as_view(), name='edita_tipo_exame'),
     url(r'^deleta/tipo_exame/(?P<id>[0-9]+)/$', views.TipoExameDelete, name='deleta_tipo_exame'),
 
-    ## TIPO SANGUE ##
+    ## TIPO SANGUÍNEO ##
     url(r'^add/tipo_sanguineo/$', TipoSanguineoView.as_view(), name='add_tipo_sanguineo'),
     url(r'^edita/tipo_sanguineo/(?P<id>\d+)/$', TipoSanguineoView.as_view(), name='edita_tipo_sanguineo'),
     url(r'^deleta/tipo_sanguineo/(?P<id>[0-9]+)/$', views.TipoSanguineoDelete, name='deleta_tipo_sanguineo'),
@@ -91,4 +92,5 @@ urlpatterns = [
 
     ## CIDADE / ESTADO ##
     url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),
+    url(r'^escolha_cidade_atual/$', CidadeView.as_view(), name='escolha_cidade_atual'),
 ]
