@@ -4,9 +4,9 @@
 
     <div class="ui centered row">
         <div class="ui segment">
-
-            <h1>Cadastro de novo Dependente:</h1>
-            <form class="ui form" method="post" action="{% url 'issem:add_dependente' %}">
+            <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
+            <h1>Cadastro de novo Segurado:</h1>
+            <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:add_dependente' %}">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="">
 
@@ -22,7 +22,7 @@
                     </div>
                     <div class="four wide field">
                         <label>Data de Nascimento</label>
-                        {{ form.data_nascimento }}
+                        <input type="date" name="data_nascimento" id="id_data_nascimento"/>
                     </div>
                     <div class="four wide field">
                         <label>CPF</label>
@@ -95,6 +95,35 @@
                         {{ form.cidade_atual }}
                     </div>
                 </div>
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>Bairro</label>
+                        {{ form.bairro }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Endereço</label>
+                        {{ form.endereco }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Complemento</label>
+                        {{ form.complemento }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Nº Residencial</label>
+                        {{ form.numero_endereco }}
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Nome do pai</label>
+                        {{ form.nome_pai }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Nome da mãe</label>
+                        {{ form.nome_mae }}
+                    </div>
+                </div>
 
                 <h4 class="ui dividing red header">Dados específicos do Dependente</h4>
                 <div class="fields">
@@ -116,9 +145,9 @@
                 <br/>
                 <div class="ui centered grid">
                     <div class="ui column centered row">
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
-                        <input type="button" name="cancelar" class="ui button red" value="Cancelar"/>&nbsp;
                         <input type="submit" name="cadastrar" class="ui button green" value="Cadastrar"/>
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
+                        <a href="{{ request.META.HTTP_REFERER }}"><button class="ui button red">Cancelar</button></a>
                     </div>
                 </div>
             </form>

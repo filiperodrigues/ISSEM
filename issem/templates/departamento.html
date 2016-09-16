@@ -4,8 +4,8 @@
 
     <div class="ui centered row">
         <div class="ui segment issem-cad">
-
-            <h1>Cadastro de novo Departamento:</h1>
+            <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
+            <h1>Cadastro de novo departamento:</h1>
             <br/>
             <form class="ui form" method="post" action="{% url 'issem:add_departamento' %}">
                 {% csrf_token %}

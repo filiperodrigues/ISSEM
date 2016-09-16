@@ -1,8 +1,6 @@
 #coding:utf-8
 from django import forms
 from issem.models.segurado import SeguradoModel
-from localflavor.br.forms import BRCPFField
-from input_mask.contrib.localflavor.br.widgets import BRCPFInput
 
 
 class SeguradoForm(forms.ModelForm):

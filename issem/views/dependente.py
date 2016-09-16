@@ -31,7 +31,7 @@ class DependenteView(View):
         if form.is_valid():
             dependente = form.save(commit=False)
             dependente.save()
-            return HttpResponseRedirect('suhsushuhuh.html')
+            return HttpResponseRedirect('/')
         else:
             print(form.errors)
 
