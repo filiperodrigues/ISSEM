@@ -4,7 +4,7 @@
 
     <div class="ui centered row">
         <div class="ui segment">
-            <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
+            <a href="{{ request.META.HTTP_REFERER }}"></a>
             <h1>Cadastro de novo Servidor:</h1>
             <form class="ui form" id="ServidorForm" method="post" action="{% url 'issem:add_servidor' %}">
                 {% csrf_token %}
