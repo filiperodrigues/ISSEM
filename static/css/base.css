@@ -38,12 +38,18 @@ article {
     min-width: 8em !important;
 }
 
-.issem-input-checkbox{
+.issem-input-checkbox {
     margin-top: 0 !important;
     padding-top: 10px !important;
     padding-bottom: 8px !important;
     padding-left: 15px !important;
     box-shadow: none !important;
+}
+
+.issem-required-field ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 footer {

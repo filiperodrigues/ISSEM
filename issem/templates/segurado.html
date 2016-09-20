@@ -15,14 +15,29 @@
                     <div class="four wide field">
                         <label>Nome</label>
                         {{ form.nome }}
+                        {% if form.nome.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.nome.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>CPF</label>
                         {{ form.cpf }}
+                        {% if form.cpf.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.cpf.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>RG</label>
                         {{ form.rg }}
+                        {% if form.rg.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.rg.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>Data de Nascimento</label>
@@ -84,7 +99,7 @@
                     </div>
                     <div class="four wide field">
                         <label>Cidade Natural</label>
-                        <select name="cidade_natural" id="id_cidade_natural" required="required">
+                        <select name="cidade_natural" id="id_cidade_natural">
                             <option value="">Selecione uma cidade...</option>
                         </select>
                     </div>
@@ -100,7 +115,7 @@
                     </div>
                     <div class="four wide field">
                         <label>Cidade Atual</label>
-                        <select name="cidade_atual" id="id_cidade_atual" required="required">
+                        <select name="cidade_atual" id="id_cidade_atual">
                             <option value="">Selecione uma cidade...</option>
                         </select>
                     </div>
@@ -133,6 +148,11 @@
                     <div class="four wide field">
                         <label>Nome da mãe</label>
                         {{ form.nome_mae }}
+                        {% if form.nome_mae.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.nome_mae.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 

@@ -15,14 +15,29 @@
                     <div class="four wide field">
                         <label>Nome</label>
                         {{ form.nome }}
+                        {% if form.nome.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.nome.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>CPF</label>
                         {{ form.cpf }}
+                        {% if form.cpf.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.cpf.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>RG</label>
                         {{ form.rg }}
+                        {% if form.rg.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.rg.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>Data de Nascimento</label>
@@ -84,14 +99,15 @@
                     </div>
                     <div class="four wide field">
                         <label>Cidade Natural</label>
-                        <select name="cidade_natural" id="id_cidade_natural" required="required">
+                        <select name="cidade_natural" id="id_cidade_natural">
                             <option value="">Selecione uma cidade...</option>
                         </select>
                     </div>
 
                     <div class="four wide field">
                         <label>Estado (Atual)</label>
-                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual" class="ui dropdown">
+                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual"
+                                class="ui dropdown">
                             <option value="">Selecione um estado...</option>
                             {% for estado in estados %}
                                 <option value="{{ estado.id }}">{{ estado.nome }}</option>
@@ -100,7 +116,7 @@
                     </div>
                     <div class="four wide field">
                         <label>Cidade Atual</label>
-                        <select name="cidade_atual" id="id_cidade_atual" required="required">
+                        <select name="cidade_atual" id="id_cidade_atual">
                             <option value="">Selecione uma cidade...</option>
                         </select>
                     </div>
@@ -133,6 +149,11 @@
                     <div class="four wide field">
                         <label>Nome da mãe</label>
                         {{ form.nome_mae }}
+                        {% if form.nome_mae.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.nome_mae.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -155,7 +176,9 @@
                     <div class="ui column centered row">
                         <input type="submit" name="cadastrar" class="ui button green" value="Cadastrar"/>
                         <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <a href="{{ request.META.HTTP_REFERER }}"><button class="ui button red">Cancelar</button></a>
+                        <a href="{{ request.META.HTTP_REFERER }}">
+                            <button class="ui button red">Cancelar</button>
+                        </a>
                     </div>
                 </div>
             </form>
