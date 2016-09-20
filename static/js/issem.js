@@ -8,7 +8,8 @@ $(document).ready(function () {
     $('#id_cidade_atual').dropdown();
     $('#id_cidade_natural').dropdown();
     $('#id_local_trabalho').dropdown();
-    $('#tipo').dropdown();
+    $('#id_tipo').dropdown();
+    $('#id_departamento').dropdown();
 
     $('.ui.modal')
         .modal('setting', 'closable', false)

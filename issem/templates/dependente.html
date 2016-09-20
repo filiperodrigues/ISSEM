@@ -5,7 +5,7 @@
     <div class="ui centered row">
         <div class="ui segment">
             <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
-            <h1>Cadastro de novo Segurado:</h1>
+            <h1>Cadastro de novo Dependente:</h1>
             <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:add_dependente' %}">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="">
@@ -17,39 +17,47 @@
                         {{ form.nome }}
                     </div>
                     <div class="four wide field">
-                        <label>E-mail</label>
-                        {{ form.email }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Data de Nascimento</label>
-                        <input type="date" name="data_nascimento" id="id_data_nascimento"/>
-                    </div>
-                    <div class="four wide field">
                         <label>CPF</label>
                         {{ form.cpf }}
                     </div>
-                </div>
-
-                <div class="fields">
                     <div class="four wide field">
                         <label>RG</label>
                         {{ form.rg }}
                     </div>
                     <div class="four wide field">
-                        <label>Sexo</label>
-                        {{ form.sexo }}
+                        <label>Data de Nascimento</label>
+                        <input type="date" name="data_nascimento" id="id_data_nascimento"/>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>Cargo</label>
+                        {{ form.cargo }}
                     </div>
                     <div class="four wide field">
                         <label>Estado Civil</label>
                         {{ form.estado_civil }}
                     </div>
                     <div class="four wide field">
-                        <label>Cargo</label>
-                        {{ form.cargo }}
+                        <label>Sexo</label>
+                        {{ form.sexo }}
+                    </div>
+                    <div class="two wide field issem-input-small">
+                        <label>Tipo Sanguíneo</label>
+                        {{ form.tipo_sanguineo }}
+                    </div>
+                    <div class="two wide field">
+                        <label>Doador</label>
+                        <div class="ui segment issem-input-checkbox">
+                            {{ form.doador }}
+                        </div>
                     </div>
                 </div>
-
                 <div class="fields">
+                    <div class="four wide field">
+                        <label>E-mail</label>
+                        {{ form.email }}
+                    </div>
                     <div class="four wide field">
                         <label>Telefone Residencial</label>
                         {{ form.telefone_residencial }}
@@ -59,26 +67,16 @@
                         {{ form.telefone_celular }}
                     </div>
                     <div class="four wide field">
-                        <label>Tipo Sanguineo</label>
-                        {{ form.tipo_saguineo }}
-                    </div>
-                    <div class="four wide field">
-                        <div class="">
-                            <label>Doador</label>
-                            {{ form.doador }}
-                        </div>
+                        <label>CEP</label>
+                        {{ form.cep }}
                     </div>
                 </div>
 
                 <div class="fields">
                     <div class="four wide field">
-                        <label>CEP</label>
-                        {{ form.cep }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Estado</label>
-                        <select onchange="get_cidade()" name="estado">
-                            <option>Selecione um estado...</option>
+                        <label>Estado (Natural)</label>
+                        <select onchange="get_cidade_natural()" name="estado_natural" id="id_estado_natural">
+                            <option value="">Selecione um estado...</option>
                             {% for estado in estados %}
                                 <option value="{{ estado.id }}">{{ estado.nome }}</option>
                             {% endfor %}
@@ -86,23 +84,36 @@
                     </div>
                     <div class="four wide field">
                         <label>Cidade Natural</label>
-                        <select name="cidade_natural" id="cidade_atual" disabled="True">
-                            <option>Selecione uma cidade...</option>
+                        <select name="cidade_natural" id="id_cidade_natural" required="required">
+                            <option value="">Selecione uma cidade...</option>
+                        </select>
+                    </div>
+
+                    <div class="four wide field">
+                        <label>Estado (Atual)</label>
+                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual" class="ui dropdown">
+                            <option value="">Selecione um estado...</option>
+                            {% for estado in estados %}
+                                <option value="{{ estado.id }}">{{ estado.nome }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="four wide field">
                         <label>Cidade Atual</label>
-                        {{ form.cidade_atual }}
+                        <select name="cidade_atual" id="id_cidade_atual" required="required">
+                            <option value="">Selecione uma cidade...</option>
+                        </select>
                     </div>
+
                 </div>
                 <div class="fields">
                     <div class="four wide field">
-                        <label>Bairro</label>
-                        {{ form.bairro }}
-                    </div>
-                    <div class="four wide field">
                         <label>Endereço</label>
                         {{ form.endereco }}
+                    </div>
+                    <div class="four wide field">
+                        <label>Bairro</label>
+                        {{ form.bairro }}
                     </div>
                     <div class="four wide field">
                         <label>Complemento</label>
