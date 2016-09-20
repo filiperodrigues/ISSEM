@@ -76,7 +76,7 @@
                     <div class="four wide field">
                         <label>Estado (Natural)</label>
                         <select onchange="get_cidade_natural()" name="estado_natural" id="id_estado_natural">
-                            <option>Selecione um estado...</option>
+                            <option value="">Selecione um estado...</option>
                             {% for estado in estados %}
                                 <option value="{{ estado.id }}">{{ estado.nome }}</option>
                             {% endfor %}
@@ -91,8 +91,8 @@
 
                     <div class="four wide field">
                         <label>Estado (Atual)</label>
-                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual">
-                            <option>Selecione um estado...</option>
+                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual" class="ui dropdown">
+                            <option value="">Selecione um estado...</option>
                             {% for estado in estados %}
                                 <option value="{{ estado.id }}">{{ estado.nome }}</option>
                             {% endfor %}

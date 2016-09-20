@@ -11,7 +11,7 @@ class SeguradoModel(PessoaModel):
     local_trabalho = models.ForeignKey(LocalTrabalhoModel)
     data_admissao = models.DateField()
     documento_legal = models.PositiveIntegerField()
-    dependente = models.ManyToManyField(DependenteModel)
+    dependente = models.ManyToManyField(DependenteModel, blank=True)
 
     def __unicode__(self):
         return self.pasep_pis_nit

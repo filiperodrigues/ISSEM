@@ -25,12 +25,12 @@ function get_cidade_natural() {
         },
         dataType: 'json',
         success: function (data) {
+
             var options = '';
             for (var i = 0; i < data.length; i++) {
                 options += '<option value="' + data[i].pk + '">' + data[i].fields['nome'] + '</option>';
             }
-
-            $("select#id_cidade_natural").html(options);
+            $("#id_cidade_natural").html(options);
         }
     });
 }
@@ -45,11 +45,11 @@ function get_cidade_atual() {
         },
         dataType: 'json',
         success: function (data) {
+            $("select#id_cidade_atual").html("");
             var options = '';
             for (var i = 0; i < data.length; i++) {
                 options += '<option value="' + data[i].pk + '">' + data[i].fields['nome'] + '</option>';
             }
-
             $("select#id_cidade_atual").html(options);
         }
     });

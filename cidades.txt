@@ -1,0 +1,79 @@
+79, Acrelândia, 1
+80, Assis Brasil, 1
+81, Brasiléia, 1
+101, Água Branca, 2
+102, Anadia, 2
+103, Arapiraca, 2
+219, Alvarães, 3
+220, Amaturá, 3
+221, Anamã, 3
+203, Amapá, 4
+204, Calçoene, 4
+205, Cutias, 4
+281, Abaíra, 5
+282, Abaré, 5
+283, Acajutiba, 5
+698, Abaiara, 6
+699, Acarape, 6
+700, Acaraú, 6
+882, Brasília, 7
+1, Afonso Cláudio, 8
+2, Água Doce do Norte, 8
+3, Águia Branca, 8
+883, Abadia de Goiás, 9
+884, Abadiânia, 9
+885, Acreúna, 9
+1129, Açailândia, 10
+1130, Afonso Cunha, 10
+1131, Água Doce do Maranhão, 10
+1565, Abadia dos Dourados, 11
+1566, Abaeté, 11
+1567, Abre Campo, 11
+1487, Água Clara, 12
+1488, Alcinópolis, 12
+1489, Amambaí, 12
+1346, Acorizal, 13
+1347, Água Boa, 13
+1348, Alta Floresta, 13
+2418, Abaetetuba, 14
+2419, Abel Figueiredo, 14
+2420, Acará, 14
+2561, Água Branca, 15
+2562, Aguiar, 15
+2563, Alagoa Grande, 15
+3183, Abreu e Lima, 16
+3184, Afogados da Ingazeira, 16
+3185, Afrânio, 16
+3368, Acauã, 17
+3369, Agricolândia, 17
+3370, Água Branca, 17
+2784, Abatiá, 18
+2785, Adrianópolis, 18
+2786, Agudos do Sul, 18
+3591, Angra dos Reis, 19
+3592, Aperibé, 19
+3593, Araruama, 19
+3683, Acari, 20
+3684, Açu, 20
+3685, Afonso Bezerra, 20
+4346, Alta Floresta d`Oeste, 21
+4347, Alto Alegre dos Parecis, 21
+4348, Alto Paraíso, 21
+4398, Alto Alegre, 22
+4399, Amajari, 22
+4400, Boa Vista, 22
+3850, Aceguá, 23
+3851, Água Santa, 23
+3852, Agudo, 23
+4413, Abdon Batista, 24
+4414, Abelardo Luz, 24
+4415, Agrolândia, 24
+5351, Amparo de São Francisco, 25
+5352, Aquidabã, 25
+5353, Aracaju, 25
+4706, Adamantina, 26
+4707, Adolfo, 26
+4708, Aguaí, 26
+5426, Abreulândia, 27
+5427, Aguiarnópolis, 27
+5428, Aliança do Tocantins, 27
