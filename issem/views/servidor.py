@@ -5,7 +5,6 @@ from issem.forms import ServidorForm
 from django.views.generic.base import View
 from issem.models import EstadoModel
 
-
 class ServidorView(View):
     template = 'servidor.html'
 
@@ -15,7 +14,7 @@ class ServidorView(View):
             form = ServidorForm(instance=servidor)
         else:
             form = ServidorForm()  # MODO CADASTRO: recebe o formulário vazio
-            estados = EstadoModel.objects.all()
+        estados = EstadoModel.objects.all()
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):

@@ -14,17 +14,14 @@
                             <div class="fields">
                                 <div class="four wide field">
                                     <label>Data Inicial:</label>
-
-                                    {{ form.data_inicial }}
+                                    <input id="id_data_inicial" name="data_inicial" type="text" onchange="data_fim_teste(this.value)">
                                 </div>
                                 <div class="four wide field">
                                     <label>Data Final:</label>
-
-                                    {{ form.data_final }}
+                                    <input id="id_data_final" name="data_final" type="text" disabled="True">
                                 </div>
                                 <div class="four wide field">
                                     <label>Data Retorno:</label>
-
                                     {{ form.data_retorno }}
                                 </div>
                                 <div class="four wide field">

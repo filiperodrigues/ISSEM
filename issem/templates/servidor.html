@@ -4,7 +4,7 @@
 
     <div class="ui centered row">
         <div class="ui segment">
-            <a href="{{ request.META.HTTP_REFERER }}"></a>
+            <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
             <h1>Cadastro de novo Servidor:</h1>
             <form class="ui form" id="ServidorForm" method="post" action="{% url 'issem:add_servidor' %}">
                 {% csrf_token %}
@@ -41,7 +41,7 @@
                     </div>
                     <div class="four wide field">
                         <label>Data de Nascimento</label>
-                        <input type="date" name="data_nascimento" id="id_data_nascimento"/>
+                        <input name="data_nascimento" id="id_data_nascimento"/>
                     </div>
                 </div>
                 <div class="fields">
@@ -55,7 +55,9 @@
                     </div>
                     <div class="four wide field">
                         <label>Sexo</label>
-                        {{ form.sexo }}
+                        <div class="issem-input-radio">
+                            {{ form.sexo }}
+                        </div>
                     </div>
                     <div class="two wide field issem-input-small">
                         <label>Tipo Sanguíneo</label>

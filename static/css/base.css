@@ -52,6 +52,24 @@ article {
     margin: 0;
 }
 
+.issem-input-radio {
+    box-shadow: none !important;
+    padding: 0;
+    padding-top: 10px;
+    margin: 0;
+}
+
+.issem-input-radio ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.issem-input-radio ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
 footer {
     padding-top: 30px !important;
     padding-bottom: 30px !important;

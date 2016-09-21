@@ -1,20 +1,22 @@
-$(document).ready(function () {
-    $('.ui.dropdown').dropdown();
-    $('#id_estado_civil').dropdown();
-    $('#id_cargo').dropdown();
-    $('#id_tipo_sanguineo').dropdown();
-    $('#id_estado_natural').dropdown();
-    $('#id_estado_atual').dropdown();
-    $('#id_cidade_atual').dropdown();
-    $('#id_cidade_natural').dropdown();
-    $('#id_local_trabalho').dropdown();
-    $('#id_tipo').dropdown();
-    $('#id_departamento').dropdown();
+$(document).ready(
+    function () {
+        $("#id_data_nascimento, #id_data_inicio, #id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria").datepicker({dateFormat: "dd/mm/yy"});
+        $('.ui.dropdown').dropdown();
+        $('#id_estado_civil').dropdown();
+        $('#id_cargo').dropdown();
+        $('#id_tipo_sanguineo').dropdown();
+        $('#id_estado_natural').dropdown();
+        $('#id_estado_atual').dropdown();
+        $('#id_cidade_atual').dropdown();
+        $('#id_cidade_natural').dropdown();
+        $('#id_local_trabalho').dropdown();
+        $('#id_tipo').dropdown();
+        $('#id_departamento').dropdown();
+        $('.ui.modal')
+            .modal('setting', 'closable', false)
+            .modal('attach events', '#cadastro-secretaria', 'show');
 
-    $('.ui.modal')
-        .modal('setting', 'closable', false)
-        .modal('attach events', '#cadastro-secretaria', 'show');
-});
+    });
 
 function get_cidade_natural() {
     $.ajax({
@@ -77,7 +79,10 @@ function get_secretaria() {
 }
 
 function data_fim_teste(data_inicio) {
-    console.log(data_inicio);
+    // #======= CADASTRO DEPENDENTE =======#
+    $("#id_data_fim").datepicker({minDate: data_inicio, dateFormat: "dd/mm/yy"});
     $("input#id_data_fim").attr('disabled', false);
-    $("input#id_data_fim").attr('min', data_inicio);
+    // #======= CADASTRO BENEFÍCIO =======#
+    $("#id_data_final").datepicker({minDate: data_inicio, dateFormat: "dd/mm/yy"});
+    $("input#id_data_final").attr('disabled', false);
 }
