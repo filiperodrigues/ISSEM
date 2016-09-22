@@ -1,6 +1,6 @@
 $(document).ready(
     function () {
-        $("#id_data_nascimento, #id_data_inicio, #id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria").datepicker({dateFormat: "dd/mm/yy"});
+        $("#id_data_nascimento, #id_data_inicio, #id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final").datepicker({dateFormat: "dd/mm/yy"});
         $('.ui.dropdown').dropdown();
         $('#id_estado_civil').dropdown();
         $('#id_cargo').dropdown();
@@ -78,11 +78,46 @@ function get_secretaria() {
     });
 }
 
-function data_fim_teste(data_inicio) {
-    // #======= CADASTRO DEPENDENTE =======#
-    $("#id_data_fim").datepicker({minDate: data_inicio, dateFormat: "dd/mm/yy"});
-    $("input#id_data_fim").attr('disabled', false);
-    // #======= CADASTRO BENEFÍCIO =======#
-    $("#id_data_final").datepicker({minDate: data_inicio, dateFormat: "dd/mm/yy"});
-    $("input#id_data_final").attr('disabled', false);
+function change_life() {
+    var dateFormat = "dd/mm/yy",
+        from = $("#id_data_inicial")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3
+            })
+            .on("change", function () {
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+        to = $("#id_data_final").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3
+        })
+            .on("change", function () {
+                from.datepicker("option", "minDate", getDate(from));
+            });
+
+    function getDate(element) {
+        var date;
+        try {
+            date = $.datepicker.parseDate(dateFormat, element.value);
+        } catch (error) {
+            date = null;
+        }
+
+        return date;
+    }
+}
+
+// #========MASK DE CAMPOS ========#
+function formatar(mascara, documento) {
+    var i = documento.value.length;
+    var saida = mascara.substring(0, 1);
+    var texto = mascara.substring(i)
+
+    if (texto.substring(0, 1) != saida) {
+        documento.value += texto.substring(0, 1);
+    }
+
 }

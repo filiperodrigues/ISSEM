@@ -15,7 +15,7 @@ class SeguradoView(View):
             form = SeguradoForm(instance=segurado)
         else:
             form = SeguradoForm()  # MODO CADASTRO: recebe o formulário vazio
-            estados = EstadoModel.objects.all()
+        estados = EstadoModel.objects.all()
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
