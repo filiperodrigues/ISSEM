@@ -19,7 +19,7 @@ class ServidorView(View):
 
     def post(self, request):
         if not request.POST['id']:  # CADASTRO NOVO
-            id = None
+            # id = None
             form = ServidorForm(data=request.POST)
         else:  # EDIÇÃO
             id = request.POST['id']
@@ -27,8 +27,7 @@ class ServidorView(View):
             form = ServidorForm(instance=servidor, data=request.POST)
 
         if form.is_valid():
-            servidor = form.save(commit=False)
-            servidor.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
