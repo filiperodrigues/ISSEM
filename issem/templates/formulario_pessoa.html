@@ -37,7 +37,7 @@
     </div>
     <div class="four wide field">
         <label>Data de Nascimento</label>
-        <input name="data_nascimento" id="id_data_nascimento"/>
+        {{ form.data_nascimento }}
         {{ form.data_nascimento.errors }}
     </div>
 </div>
@@ -90,46 +90,33 @@
     <div class="four wide field">
         <label>CEP</label>
         {{ form.cep }}
-        {{ form.cep.errors }}
+        {% if form.cep.errors %}
+            <div class="ui pointing red basic label issem-required-field">
+                {{ form.cep.errors }}
+            </div>
+        {% endif %}
     </div>
 </div>
 
 <div class="fields">
     <div class="four wide field">
         <label>Estado (Natural)</label>
-        {#                        <select onchange="get_cidade_natural()" name="estado_natural" id="id_estado_natural">#}
-        {#                            <option value="">Selecione um estado...</option>#}
-        {#                            {% for estado in estados %}#}
-        {#                                <option value="{{ estado.id }}">{{ estado.nome }}</option>#}
-        {#                            {% endfor %}#}
-        {#                        </select>#}
+        {{ form.estado_natural }}
     </div>
     <div class="four wide field">
         <label>Cidade Natural</label>
         {{ form.cidade_natural }}
         {{ form.cidade_natural.erros }}
-        {#                        <select name="cidade_natural" id="id_cidade_natural">#}
-        {#                            <option value="">Selecione uma cidade...</option>#}
-        {#                        </select>#}
     </div>
 
     <div class="four wide field">
         <label>Estado (Atual)</label>
-        {#                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual"#}
-        {#                                class="ui dropdown">#}
-        {#                            <option value="">Selecione um estado...</option>#}
-        {#                            {% for estado in estados %}#}
-        {#                                <option value="{{ estado.id }}">{{ estado.nome }}</option>#}
-        {#                            {% endfor %}#}
-        {#                        </select>#}
+        {{ form.estado_atual }}
     </div>
     <div class="four wide field">
         <label>Cidade Atual</label>
         {{ form.cidade_atual }}
         {{ form.cidade_atual.errors }}
-        {#                        <select name="cidade_atual" id="id_cidade_atual">#}
-        {#                            <option value="">Selecione uma cidade...</option>#}
-        {#                        </select>#}
     </div>
 
 </div>

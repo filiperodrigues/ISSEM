@@ -1,5 +1,7 @@
 $(document).ready(
     function () {
+        get_cidade_natural();
+        get_cidade_atual();
         $("#id_data_nascimento, #id_data_inicio, #id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final").datepicker({dateFormat: "dd/mm/yy"});
         $('.ui.dropdown').dropdown();
         $('#id_estado_civil').dropdown();
