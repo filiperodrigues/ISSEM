@@ -6,7 +6,7 @@
         <div class="ui segment">
             <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
             <h1>Cadastro de novo Segurado:</h1>
-            <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:add_segurado' %}">
+            <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:cad_segurado' %}">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="">
 

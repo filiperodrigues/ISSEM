@@ -1,44 +1,50 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    <div class="ui centered grid">
-        <div class="row">
-            <div class="ten wide column">
-                <div class="ui segment">
-                    {% if not id %}
 
-                        <h1>Cadastro de nova Função:</h1>
-                        <form class="ui form" id="FuncaoForm" method="post" action="{% url 'issem:add_funcao' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="">
-                            <div class="fields">
-                                <div class="ten wide field">
-                                    <label>Nome:</label>
-                                    {{ form.nome }}
-                                </div>
-                            </div>
-                         <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
-                        </form>
+    <div class="ui centered row">
+        <div class="ui segment issem-cad">
+            <a href=""><i class="big arrow circle left icon red"></i></a>
 
-                    {% else %}
+            {% if not id %}
+                <h1>Cadastro de novo Função:</h1>
+            {% else %}
+                <h1>Edição de Função</h1>
+            {% endif %}
 
-                        <h1>Edição de Função</h1>
-                        <form class="ui form" id="FuncaoForm" method="post" action="{% url 'issem:add_funcao' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                            <div class="fields">
-                                <div class="fourteen wide field">
-                                    <label>Nome:</label>
-                                    {{ form.nome }}
-                                </div>
-                                <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
-                            </div>
-                        </form>
+            <br/>
+            <form class="ui form" method="post" action="{% url 'issem:cad_funcao' %}">
+                {% csrf_token %}
 
-                    {% endif %}
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
 
+                <div class="fields">
+                    <div class="five wide field"></div>
+                    <div class="six wide field">
+                        <label>Nome da função</label>
+                        {{ form.nome }}
+                    </div>
+                    <div class="five wide field"></div>
                 </div>
-            </div>
+
+                <br/>
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
+                        {% if not id %}
+                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        {% else %}
+                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                        {% endif %}
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="button" name="cancelar" class="ui button red" value="Cancelar"/>&nbsp;
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 {% endblock %}

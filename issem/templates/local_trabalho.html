@@ -5,122 +5,88 @@
         <div class="row">
             <div class="ten wide column">
                 <div class="ui segment">
+
                     {% if not id %}
-
                         <h1>Cadastro de novo Local de Trabalho:</h1>
-                        <form class="ui form" id="LocalTrabalhoForm" method="post"
-                              action="{% url 'issem:add_local_trabalho' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="">
-                            <div class="fields">
-                                <div class="eight wide field">
-                                    <label>Nome:</label>
-                                    {{ form.nome }}
-                                </div>
-                                <div class="eight wide field">
-                                    <label>CNPJ:</label>
-                                    {{ form.cnpj }}
-                                </div>
-                            </div>
-                            <div class="fields">
-                                <div class="twelve wide field">
-                                    <label>Endereço:</label>
-                                    {{ form.endereco }}
-                                </div>
-                                <div class="four wide field">
-                                    <label>Número:</label>
-                                    {{ form.numero_endereco }}
-                                </div>
-                            </div>
-                            <div class="fields">
-                                <div class="six wide field">
-                                    <label>Complemento:</label>
-                                    {{ form.complemento }}
-                                </div>
-                                <div class="ten wide field">
-                                    <label>Bairro:</label>
-                                    {{ form.bairro }}
-                                </div>
-                            </div>
-                            <div class="fields">
-                                <div class="five wide field">
-                                    <label>CEP:</label>
-                                    {{ form.cep }}
-                                </div>
-                                <div class="five wide field">
-                                    <label>Cidade:</label>
-                                    {{ form.cidade }}
-                                </div>
-                                <div class="five wide field">
-                                    <label>Secretaria:</label>
-                                    {{ form.secretaria }}
-                                </div>
-                                <div class="one wide field">
-                                    <label> </label>
-                                    <div class="ui icon button" id="cadastro-secretaria"><i class="plus icon"></i></div>
-                                </div>
-                            </div>
-                            <br/>
-                            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
-                        </form>
-
                     {% else %}
-
-                        <h1>Edição Local de Trabalho</h1>
-                        <form class="ui form" id="LocalTrabalhoForm" method="post"
-                              action="{% url 'issem:add_local_trabalho' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                            <div class="fields">
-                                <div class="eight wide field">
-                                    <label>Nome:</label>
-                                    {{ form.nome }}
-                                </div>
-                                <div class="eight wide field">
-                                    <label>CNPJ:</label>
-                                    {{ form.cnpj }}
-                                </div>
-                            </div>
-                            <div class="fields">
-                                <div class="twelve wide field">
-                                    <label>Endereço:</label>
-                                    {{ form.endereco }}
-                                </div>
-                                <div class="four wide field">
-                                    <label>Número:</label>
-                                    {{ form.numero_endereco }}
-                                </div>
-                            </div>
-                            <div class="fields">
-                                <div class="six wide field">
-                                    <label>Complemento:</label>
-                                    {{ form.complemento }}
-                                </div>
-                                <div class="ten wide field">
-                                    <label>Bairro:</label>
-                                    {{ form.bairro }}
-                                </div>
-                            </div>
-                            <div class="fields">
-                                <div class="five wide field">
-                                    <label>CEP:</label>
-                                    {{ form.cep }}
-                                </div>
-                                <div class="five wide field">
-                                    <label>Cidade:</label>
-                                    {{ form.cidade }}
-                                </div>
-                                <div class="six wide field">
-                                    <label>Secretaria:</label>
-                                    {{ form.secretaria }}
-                                </div>
-                            </div>
-                            <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
-                        </form>
-
+                        <h1>Edição de Local de Trabalho</h1>
                     {% endif %}
 
+                    <form class="ui form" id="LocalTrabalhoForm" method="post"
+                          action="{% url 'issem:cad_local_trabalho' %}">
+                        {% csrf_token %}
+
+                        {% if not id %}
+                            <input type="hidden" name="id" value="">
+                        {% else %}
+                            <input type="hidden" name="id" value="{{ id }}">
+                        {% endif %}
+
+                        <div class="fields">
+                            <div class="eight wide field">
+                                <label>Nome:</label>
+                                {{ form.nome }}
+                            </div>
+                            <div class="eight wide field">
+                                <label>CNPJ:</label>
+                                {{ form.cnpj }}
+                            </div>
+                        </div>
+                        <div class="fields">
+                            <div class="twelve wide field">
+                                <label>Endereço:</label>
+                                {{ form.endereco }}
+                            </div>
+                            <div class="four wide field">
+                                <label>Número:</label>
+                                {{ form.numero_endereco }}
+                            </div>
+                        </div>
+                        <div class="fields">
+                            <div class="six wide field">
+                                <label>Complemento:</label>
+                                {{ form.complemento }}
+                            </div>
+                            <div class="ten wide field">
+                                <label>Bairro:</label>
+                                {{ form.bairro }}
+                            </div>
+                        </div>
+                        <div class="fields">
+                            <div class="five wide field">
+                                <label>CEP:</label>
+                                {{ form.cep }}
+                            </div>
+                            <div class="five wide field">
+                                <label>Cidade:</label>
+                                {{ form.cidade }}
+                            </div>
+                            <div class="five wide field">
+                                <label>Secretaria:</label>
+                                {{ form.secretaria }}
+                            </div>
+                            <div class="one wide field">
+                                <label> </label>
+                                <div class="ui icon button" id="cadastro-secretaria"><i class="plus icon"></i></div>
+                            </div>
+                        </div>
+
+                        <br/>
+                        <div class="ui centered grid">
+                            <div class="ui column centered row">
+                                {% if not id %}
+                                    <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                                {% else %}
+                                    <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                                {% endif %}
+                                <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                                <input type="button" name="cancelar" class="ui button red" value="Cancelar"/>&nbsp;
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
+
                 <div class="ui form modal">
                     <i class="close icon"></i>
                     <div class="header">
@@ -138,7 +104,6 @@
                         </div>
                     </div>
                 </div>
-
 
             </div>
         </div>

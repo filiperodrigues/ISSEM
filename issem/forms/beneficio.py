@@ -1,9 +1,12 @@
-#coding:utf-8
+# coding: utf-8
 from django import forms
 from issem.models import BeneficioModel
 
 
 class BeneficioForm(forms.ModelForm):
+    data_inicial = forms.CharField(widget=forms.TextInput(attrs={'onfocus': 'change_life()'}))
+
     class Meta:
         model = BeneficioModel
-        fields = ('concessao', 'data_inicial', 'data_final', 'data_retorno', 'data_pericia', 'descricao', 'numero_portaria', 'data_portaria', 'salario_maximo', 'observacao', 'carencia')
+        fields = ('__all__')
+

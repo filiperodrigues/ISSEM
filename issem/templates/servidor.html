@@ -4,11 +4,22 @@
 
     <div class="ui centered row">
         <div class="ui segment">
-            <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
-            <h1>Cadastro de novo Servidor:</h1>
-            <form class="ui form" id="ServidorForm" method="post" action="{% url 'issem:add_servidor' %}">
+            <a href=""><i class="big arrow circle left icon red"></i></a>
+
+            {% if not id %}
+                <h1>Cadastro de novo Servidor:</h1>
+            {% else %}
+                <h1>Edição de Servidor</h1>
+            {% endif %}
+
+            <form class="ui form" id="ServidorForm" method="post" action="{% url 'issem:cad_servidor' %}">
                 {% csrf_token %}
-                <input type="hidden" name="id" value="">
+
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
 
                 <div class="fields">
                     <div class="four wide field">
@@ -22,7 +33,7 @@
                     </div>
                     <div class="four wide field">
                         <label>CPF</label>
-                        <input id="id_cpf" maxlength="14" name="cpf" type="text" OnKeyPress="formatar('###.###.###-##', this)"/>
+                        {{ form.cpf }}
                         {% if form.cpf.errors %}
                             <div class="ui pointing red basic label issem-required-field">
                                 {{ form.cpf.errors }}
@@ -76,50 +87,52 @@
                     </div>
                     <div class="four wide field">
                         <label>Telefone Residencial</label>
-                        <input id="id_telefone_residencial" maxlength="12" name="telefone_residencial" type="text" OnKeyPress="formatar('## ####-####', this)">
+                        {{ form.telefone_residencial }}
                     </div>
                     <div class="four wide field">
                         <label>Telefone Celular</label>
-                        <input id="id_telefone_celular" maxlength="12" name="telefone_celular" type="text" OnKeyPress="formatar('## ####-####', this)">
+                        {{ form.telefone_celular }}
                     </div>
                     <div class="four wide field">
                         <label>CEP</label>
-                        <input id="id_cep" maxlength="9" name="cep" type="text" OnKeyPress="formatar('#####-###', this)">
+                        {{ form.cep }}
                     </div>
                 </div>
 
                 <div class="fields">
                     <div class="four wide field">
                         <label>Estado (Natural)</label>
-                        <select onchange="get_cidade_natural()" name="estado_natural" id="id_estado_natural">
-                            <option value="">Selecione um estado...</option>
-                            {% for estado in estados %}
-                                <option value="{{ estado.id }}">{{ estado.nome }}</option>
-                            {% endfor %}
-                        </select>
+                        {#                        <select onchange="get_cidade_natural()" name="estado_natural" id="id_estado_natural">#}
+                        {#                            <option value="">Selecione um estado...</option>#}
+                        {#                            {% for estado in estados %}#}
+                        {#                                <option value="{{ estado.id }}">{{ estado.nome }}</option>#}
+                        {#                            {% endfor %}#}
+                        {#                        </select>#}
                     </div>
                     <div class="four wide field">
                         <label>Cidade Natural</label>
-                        <select name="cidade_natural" id="id_cidade_natural">
-                            <option value="">Selecione uma cidade...</option>
-                        </select>
+                        {{ form.cidade_natural }}
+                        {#                        <select name="cidade_natural" id="id_cidade_natural">#}
+                        {#                            <option value="">Selecione uma cidade...</option>#}
+                        {#                        </select>#}
                     </div>
 
                     <div class="four wide field">
                         <label>Estado (Atual)</label>
-                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual"
-                                class="ui dropdown">
-                            <option value="">Selecione um estado...</option>
-                            {% for estado in estados %}
-                                <option value="{{ estado.id }}">{{ estado.nome }}</option>
-                            {% endfor %}
-                        </select>
+                        {#                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual"#}
+                        {#                                class="ui dropdown">#}
+                        {#                            <option value="">Selecione um estado...</option>#}
+                        {#                            {% for estado in estados %}#}
+                        {#                                <option value="{{ estado.id }}">{{ estado.nome }}</option>#}
+                        {#                            {% endfor %}#}
+                        {#                        </select>#}
                     </div>
                     <div class="four wide field">
                         <label>Cidade Atual</label>
-                        <select name="cidade_atual" id="id_cidade_atual">
-                            <option value="">Selecione uma cidade...</option>
-                        </select>
+                        {{ form.cidade_atual }}
+                        {#                        <select name="cidade_atual" id="id_cidade_atual">#}
+                        {#                            <option value="">Selecione uma cidade...</option>#}
+                        {#                        </select>#}
                     </div>
 
                 </div>
@@ -158,7 +171,7 @@
                     </div>
                 </div>
 
-                <h4 class="ui dividing red header">Dados específicos do Dependente</h4>
+                <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
                 <div class="fields">
                     <div class="four wide field"></div>
                     <div class="four wide field">
@@ -175,11 +188,13 @@
                 <br/>
                 <div class="ui centered grid">
                     <div class="ui column centered row">
-                        <input type="submit" name="cadastrar" class="ui button green" value="Cadastrar"/>
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <a href="{{ request.META.HTTP_REFERER }}">
-                            <button class="ui button red">Cancelar</button>
-                        </a>
+                        {% if not id %}
+                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        {% else %}
+                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                        {% endif %}
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="button" name="cancelar" class="ui button red" value="Cancelar"/>&nbsp;
                     </div>
                 </div>
             </form>

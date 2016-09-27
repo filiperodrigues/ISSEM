@@ -17,17 +17,16 @@ class FuncaoView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = FuncaoForm(data=request.POST)
-        else:  # EDIÇÃO
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             funcao = FuncaoModel.objects.get(pk=id)
             form = FuncaoForm(instance=funcao, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = FuncaoForm(data=request.POST)
 
         if form.is_valid():
-            funcao = form.save(commit=False)
-            funcao.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)

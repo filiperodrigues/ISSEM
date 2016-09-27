@@ -11,8 +11,7 @@ class DependenteView(View):
 
     def get(self, request, id=None):
         if id:
-            dependente = DependenteModel.objects.get(
-                pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = DependenteForm(instance=dependente)
         else:
             form = DependenteForm()  # MODO CADASTRO: recebe o formulário vazio
@@ -20,17 +19,16 @@ class DependenteView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = DependenteForm(data=request.POST)
-        else:  # EDIÇÃO
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             dependente = DependenteModel.objects.get(pk=id)
             form = DependenteForm(instance=dependente, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = DependenteForm(data=request.POST)
 
         if form.is_valid():
-            dependente = form.save(commit=False)
-            dependente.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)

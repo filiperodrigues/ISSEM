@@ -9,7 +9,7 @@
 
                         <h1>Cadastro de novo TipoExame:</h1>
                         <form class="ui form" id="TipoExameForm" method="post"
-                              action="{% url 'issem:add_tipo_exame' %}">
+                              action="{% url 'issem:cad_tipo_exame' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="">
                             {{ form.as_p }}
@@ -20,7 +20,7 @@
 
                         <h1>Edição de Tipo Exame</h1>
                         <form class="ui form" id="TipoExameForm" method="post"
-                              action="{% url 'issem:add_tipo_exame' %}">
+                              action="{% url 'issem:cad_tipo_exame' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ id }}">
                             {{ form.as_p }}

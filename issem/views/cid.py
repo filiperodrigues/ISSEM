@@ -17,17 +17,16 @@ class CidView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = CidForm(data=request.POST)
-        else:  # EDIÇÃO
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             cid = CidModel.objects.get(pk=id)
             form = CidForm(instance=cid, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = CidForm(data=request.POST)
 
         if form.is_valid():
-            cid = form.save(commit=False)
-            cid.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)

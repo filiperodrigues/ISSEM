@@ -13,8 +13,6 @@ def index(request):
     context_dict['cargos'] = CargoModel.objects.all()
     context_dict['tipos_dependente'] = TipoDependenteModel.objects.all()
     context_dict['tipos_exame'] = TipoExameModel.objects.all()
-    context_dict['tipos_sanguineos'] = TipoSanguineoModel.objects.all()
-    context_dict['estado_civil'] = EstadoCivilModel.objects.all()
     context_dict['secretarias'] = SecretariaModel.objects.all()
     context_dict['locais_trabalho'] = LocalTrabalhoModel.objects.all()
     context_dict['dependentes'] = DependenteModel.objects.all()

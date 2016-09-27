@@ -12,6 +12,8 @@ $(document).ready(
         $('#id_local_trabalho').dropdown();
         $('#id_tipo').dropdown();
         $('#id_departamento').dropdown();
+        $('#id_cidade').dropdown();
+        $('#id_secretaria').dropdown();
         $('.ui.modal')
             .modal('setting', 'closable', false)
             .modal('attach events', '#cadastro-secretaria', 'show');

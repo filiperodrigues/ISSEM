@@ -18,7 +18,7 @@
             {% endfor %}
         </div>
 
-        <p><a href="{% url 'issem:add_beneficio' %}" class="ui blue button">Cadastrar Benefício</a></p>
+        <p><a href="{% url 'issem:cad_beneficio' %}" class="ui blue button">Cadastrar Benefício</a></p>
     </div>
 
     <div class="ui segment">
@@ -36,7 +36,7 @@
             {% endfor %}
         </div>
 
-        <p><a href="{% url 'issem:add_cargo' %}" class="ui blue button">Cadastrar Cargo</a></p>
+        <p><a href="{% url 'issem:cad_cargo' %}" class="ui blue button">Cadastrar Cargo</a></p>
     </div>
 
     <div class="ui segment">
@@ -54,7 +54,7 @@
             {% endfor %}
         </div>
 
-        <a href="{% url 'issem:add_cid' %}" class="ui blue button">Cadastrar CID</a>
+        <a href="{% url 'issem:cad_cid' %}" class="ui blue button">Cadastrar CID</a>
     </div>
 
     <div class="ui segment">
@@ -72,7 +72,7 @@
                 <br/>
             {% endfor %}
         </div>
-        <a href="{% url 'issem:add_departamento' %}" class="ui button blue">Cadastrar Departamento</a>
+        <a href="{% url 'issem:cad_departamento' %}" class="ui button blue">Cadastrar Departamento</a>
     </div>
 
     <div class="ui segment">
@@ -90,26 +90,7 @@
                 <br/>
             {% endfor %}
         </div>
-        <a href="{% url 'issem:add_dependente' %}" class="ui button blue">Cadastrar Dependente</a>
-    </div>
-
-    <div class="ui segment">
-        <h2>Estado Civil</h2>
-
-        <div class="ui existing segment">
-            {% for estado_civil in estado_civil %}
-                {{ estado_civil.nome }} &nbsp;&nbsp;
-                <a href="{% url 'issem:edita_estado_civil' estado_civil.id %}">
-                    <i class="edit icon"></i>
-                </a>
-                <a href="{% url 'issem:deleta_estado_civil' estado_civil.id %}">
-                    <i class="remove icon"></i>
-                </a>
-                <br/>
-            {% endfor %}
-        </div>
-        <p><a href="{% url 'issem:add_estado_civil' %}" class="ui blue button">Cadastrar Estado Civil</a>
-        </p>
+        <a href="{% url 'issem:cad_dependente' %}" class="ui button blue">Cadastrar Dependente</a>
     </div>
 
     <div class="ui segment">
@@ -127,7 +108,7 @@
             {% endfor %}
         </div>
 
-        <p><a href="{% url 'issem:add_funcao' %}" class="ui blue button">Cadastrar Função</a></p>
+        <p><a href="{% url 'issem:cad_funcao' %}" class="ui blue button">Cadastrar Função</a></p>
     </div>
 
     <div class="ui segment">
@@ -145,8 +126,7 @@
                 <br/>
             {% endfor %}
         </div>
-        <p><a href="{% url 'issem:add_local_trabalho' %}" class="ui blue button">Cadastrar Local de
-            Trabalho</a></p>
+        <p><a href="{% url 'issem:cad_local_trabalho' %}" class="ui blue button">Cadastrar Local de Trabalho</a></p>
     </div>
 
     <div class="ui segment">
@@ -165,8 +145,7 @@
             {% endfor %}
         </div>
 
-        <p><a href="{% url 'issem:add_procedimento_medico' %}" class="ui blue button">Cadastrar Procedimento
-            Médico</a>
+        <p><a href="{% url 'issem:cad_procedimento_medico' %}" class="ui blue button">Cadastrar Procedimento Médico</a>
         </p>
     </div>
 
@@ -185,7 +164,7 @@
                 <br/>
             {% endfor %}
         </div>
-        <p><a href="{% url 'issem:add_secretaria' %}" class="ui blue button">Cadastrar Secretaria</a></p>
+        <p><a href="{% url 'issem:cad_secretaria' %}" class="ui blue button">Cadastrar Secretaria</a></p>
     </div>
 
     <div class="ui segment">
@@ -203,7 +182,7 @@
                 <br/>
             {% endfor %}
         </div>
-        <a href="{% url 'issem:add_segurado' %}" class="ui button blue">Cadastrar Segurado</a>
+        <a href="{% url 'issem:cad_segurado' %}" class="ui button blue">Cadastrar Segurado</a>
     </div>
 
     <div class="ui segment">
@@ -220,7 +199,7 @@
                 <br/>
             {% endfor %}
         </div>
-        <a href="{% url 'issem:add_servidor' %}" class="ui button blue">Cadastrar Servidor</a>
+        <a href="{% url 'issem:cad_servidor' %}" class="ui button blue">Cadastrar Servidor</a>
     </div>
 
     <div class="ui segment">
@@ -238,8 +217,7 @@
                 <br/>
             {% endfor %}
         </div>
-        <p><a href="{% url 'issem:add_tipo_dependente' %}" class="ui blue button">Cadastrar Tipo
-            Dependente</a></p>
+        <p><a href="{% url 'issem:cad_tipo_dependente' %}" class="ui blue button">Cadastrar Tipo Dependente</a></p>
     </div>
 
     <div class="ui segment">
@@ -257,26 +235,7 @@
                 <br/>
             {% endfor %}
         </div>
-        <p><a href="{% url 'issem:add_tipo_exame' %}" class="ui blue button">Cadastrar Tipo Exame</a></p>
-    </div>
-
-    <div class="ui segment">
-        <h2>Tipos Sanguíneos</h2>
-
-        <div class="ui existing segment">
-            {% for tipo_sanguineo in tipos_sanguineos %}
-                {{ tipo_sanguineo.nome }} &nbsp;&nbsp;
-                <a href="{% url 'issem:edita_tipo_sanguineo' tipo_sanguineo.id %}">
-                    <i class="edit icon"></i>
-                </a>
-                <a href="{% url 'issem:deleta_tipo_sanguineo' tipo_sanguineo.id %}">
-                    <i class="remove icon"></i>
-                </a>
-                <br/>
-            {% endfor %}
-        </div>
-        <p><a href="{% url 'issem:add_tipo_sanguineo' %}" class="ui blue button">Cadastrar Tipo
-            Sanguíneo</a></p>
+        <p><a href="{% url 'issem:cad_tipo_exame' %}" class="ui blue button">Cadastrar Tipo Exame</a></p>
     </div>
 
 {% endblock %}

@@ -9,7 +9,7 @@
 
                         <h1>Cadastro de novo Tipo Dependente:</h1>
                         <form class="ui form" id="TipoDependenteForm" method="post"
-                              action="{% url 'issem:add_tipo_dependente' %}">
+                              action="{% url 'issem:cad_tipo_dependente' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="">
                             {{ form.as_p }}
@@ -20,7 +20,7 @@
 
                         <h1>Edição de Tipo Dependente</h1>
                         <form class="ui form" id="TipoDependenteForm" method="post"
-                              action="{% url 'issem:add_tipo_dependente' %}">
+                              action="{% url 'issem:cad_tipo_dependente' %}">
                             {% csrf_token %}
                             <input type="hidden" name="id" value="{{ id }}">
                             {{ form.as_p }}

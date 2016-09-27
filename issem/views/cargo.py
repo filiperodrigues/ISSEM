@@ -17,17 +17,16 @@ class CargoView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
+        if request.POST['id']:  # EDIÇÃO
+            id = request.POST['id']
+            Cargo = CargoModel.objects.get(pk=id)
+            form = CargoForm(instance=Cargo, data=request.POST)
+        else:  # CADASTRO NOVO
             id = None
             form = CargoForm(data=request.POST)
-        else:  # EDIÇÃO
-            id = request.POST['id']
-            cargo = CargoModel.objects.get(pk=id)
-            form = CargoForm(instance=cargo, data=request.POST)
 
         if form.is_valid():
-            cargo = form.save(commit=False)
-            cargo.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)

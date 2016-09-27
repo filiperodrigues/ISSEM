@@ -17,17 +17,16 @@ class TipoExameView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = TipoExameForm(data=request.POST)
-        else:  # EDIÇÃO
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             tipo_exame = TipoExameModel.objects.get(pk=id)
             form = TipoExameForm(instance=tipo_exame, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = TipoExameForm(data=request.POST)
 
         if form.is_valid():
-            tipo_exame = form.save(commit=False)
-            tipo_exame.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)

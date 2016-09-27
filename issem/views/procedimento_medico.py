@@ -17,17 +17,16 @@ class ProcedimentoMedicoView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = ProcedimentoMedicoForm(data=request.POST)
-        else:  # EDIÇÃO
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id)
             form = ProcedimentoMedicoForm(instance=procedimento_medico, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = ProcedimentoMedicoForm(data=request.POST)
 
         if form.is_valid():
-            procedimento_medico = form.save(commit=False)
-            procedimento_medico.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)

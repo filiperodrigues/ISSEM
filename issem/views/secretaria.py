@@ -25,21 +25,20 @@ class SecretariaView(View):
             nome_sec = SecretariaModel.objects.all()
             json = serializers.serialize("json", nome_sec)
             return HttpResponse(json)
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = SecretariaForm(data=request.POST)
-        else:  # EDIÇÃO
+
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             secretaria = SecretariaModel.objects.get(pk=id)
             form = SecretariaForm(instance=secretaria, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = SecretariaForm(data=request.POST)
 
         if form.is_valid():
-            secretaria = form.save(commit=False)
-            secretaria.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
-
 
         return render(request, self.template, {'form': form, 'method': 'post'})
 

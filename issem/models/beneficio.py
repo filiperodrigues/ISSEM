@@ -17,7 +17,7 @@ class BeneficioModel(models.Model):
     carencia = models.PositiveIntegerField()
 
     def __unicode__(self):
-        return self.nome
+        return self.descricao
 
     def __str__(self):
         return self.descricao

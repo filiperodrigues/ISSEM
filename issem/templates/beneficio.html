@@ -5,129 +5,85 @@
         <div class="row">
             <div class="ten wide column">
                 <div class="ui form segment">
+
                     {% if not id %}
-
                         <h1>Cadastro de novo Benefício:</h1>
-                        <form class="ui form" id="BeneficioForm" method="post" action="{% url 'issem:add_beneficio' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="">
-                            <div class="fields">
-                                <div class="four wide field">
-                                    <label>Data Inicial:</label>
-                                    <input id="id_data_inicial" name="data_inicial" type="text" onfocus="change_life()">
-                                </div>
-                                <div class="four wide field">
-                                    <label>Data Final:</label>
-                                    <input id="id_data_final" name="data_final" type="text">
-                                </div>
-                                <div class="four wide field">
-                                    <label>Data Retorno:</label>
-                                    {{ form.data_retorno }}
-                                </div>
-                                <div class="four wide field">
-                                    <label>Data Perícia:</label>
-
-                                    {{ form.data_pericia }}
-                                </div>
-
-                            </div>
-                            <div class="fields">
-                                <div class="thirteen wide field">
-                                    <label>Descrição:</label>
-                                    {{ form.descricao }}
-                                </div>
-                                <div class="three wide field">
-                                    <label>Data Portaria:</label>
-
-                                    {{ form.data_portaria }}
-                                </div>
-                                <div class="two wide field">
-                                    <label>Número Portaria:</label>
-
-                                    {{ form.numero_portaria }}
-                                </div>
-                            </div>
-                            <div class="fields">
-                                <div class="three wide field">
-                                    <label>Salário Máximo:</label>
-
-                                    {{ form.salario_maximo }}
-                                </div>
-                                <div class="three wide field">
-                                    <label>Carência:</label>
-
-                                    {{ form.carencia }}
-                                </div>
-                                <div class="ten wide field">
-                                    <label>Observação:</label>
-
-                                    {{ form.observacao }}
-                                </div>
-                            </div>
-                            <input type="submit" name="submit" class="ui button RED" value="Cadastrar"/>
-                        </form>
-
-
                     {% else %}
-
                         <h1>Edição de Beneficio</h1>
-                        <form class="ui form" id="BeneficioForm" method="post" action="{% url 'issem:add_beneficio' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                            <div class="fields">
-                                <label>Data Inicial:</label>
-                                <div class="four wide field">
-                                    {{ form.data_inicial }}
-                                </div>
-                                <label>Data Final:</label>
-                                <div class="four wide field">
-                                    {{ form.data_final }}
-                                </div>
-                                <label>Data Retorno:</label>
-                                <div class="four wide field">
-                                    {{ form.data_retorno }}
-                                </div>
-                                <label>Data Perícia:</label>
-                                <div class="four wide field">
-                                    {{ form.data_pericia }}
-                                </div>
-
-                            </div>
-                            <div class="fields">
-                                <label>Descrição:</label>
-                                <div class="thirteen wide field">
-                                    {{ form.descricao }}
-                                </div>
-                                <label>Data Portaria:</label>
-                                <div class="three wide field">
-                                    {{ form.data_portaria }}
-                                </div>
-                                <label>Número Portaria:</label>
-                                <div class="two wide field">
-                                    {{ form.numero_portaria }}
-                                </div>
-                            </div>
-                            <div class="fields">
-                                <label>Salário Máximo:</label>
-                                <div class="three wide field">
-                                    {{ form.salario_maximo }}
-                                </div>
-                                <label>Carência:</label>
-                                <div class="three wide field">
-                                    {{ form.carencia }}
-                                </div>
-                                <label>Observação:</label>
-                                <div class="ten wide field">
-                                    {{ form.observacao }}
-                                </div>
-                            </div>
-                            <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
-                        </form>
-
                     {% endif %}
 
-                </div>
+                    <form class="ui form" id="BeneficioForm" method="post" action="{% url 'issem:cad_beneficio' %}">
+                        {% csrf_token %}
 
+                        {% if not id %}
+                            <input type="hidden" name="id" value="">
+                        {% else %}
+                            <input type="hidden" name="id" value="{{ id }}">
+                        {% endif %}
+
+                        <div class="fields">
+                            <div class="four wide field">
+                                <label>Data Inicial:</label>
+                                {{ form.data_inicial }}
+                            </div>
+                            <div class="four wide field">
+                                <label>Data Final:</label>
+                                {{ form.data_final }}
+                            </div>
+                            <div class="four wide field">
+                                <label>Data Retorno:</label>
+                                {{ form.data_retorno }}
+                            </div>
+                            <div class="four wide field">
+                                <label>Data Perícia:</label>
+                                {{ form.data_pericia }}
+                            </div>
+                        </div>
+
+                        <div class="fields">
+                            <div class="ten wide field">
+                                <label>Descrição:</label>
+                                {{ form.descricao }}
+                            </div>
+                            <div class="four wide field">
+                                <label>Data Portaria:</label>
+                                {{ form.data_portaria }}
+                            </div>
+                            <div class="three wide field">
+                                <label>Nº Portaria:</label>
+                                {{ form.numero_portaria }}
+                            </div>
+                        </div>
+
+                        <div class="fields">
+                            <div class="three wide field">
+                                <label>Salário Máximo:</label>
+                                {{ form.salario_maximo }}
+                            </div>
+                            <div class="three wide field">
+                                <label>Carência:</label>
+                                {{ form.carencia }}
+                            </div>
+                            <div class="eight wide field">
+                                <label>Observação:</label>
+                                {{ form.observacao }}
+                            </div>
+                            <div class="two wide field">
+                                <label>Concessão:</label>
+                                {{ form.concessao }}
+                            </div>
+                        </div>
+
+                        {% if not id %}
+                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        {% else %}
+                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                        {% endif %}
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="button" name="cancelar" class="ui button red" value="Cancelar"/>&nbsp;
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>

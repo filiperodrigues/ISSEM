@@ -17,17 +17,16 @@ class DepartamentoView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = DepartamentoForm(data=request.POST)
-        else:  # EDIÇÃO
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             departamento = DepartamentoModel.objects.get(pk=id)
             form = DepartamentoForm(instance=departamento, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = DepartamentoForm(data=request.POST)
 
         if form.is_valid():
-            departamento = form.save(commit=False)
-            departamento.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)

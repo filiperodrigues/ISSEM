@@ -17,17 +17,16 @@ class TipoDependenteView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = TipoDependenteForm(data=request.POST)
-        else:  # EDIÇÃO
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             tipo_dependente = TipoDependenteModel.objects.get(pk=id)
             form = TipoDependenteForm(instance=tipo_dependente, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = TipoDependenteForm(data=request.POST)
 
         if form.is_valid():
-            tipo_dependente = form.save(commit=False)
-            tipo_dependente.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)

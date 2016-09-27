@@ -4,11 +4,22 @@
 
     <div class="ui centered row">
         <div class="ui segment">
-            <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
-            <h1>Cadastro de novo Dependente:</h1>
-            <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:add_dependente' %}">
+            <a href=""><i class="big arrow circle left icon red"></i></a>
+
+            {% if not id %}
+                <h1>Cadastro de novo Dependente:</h1>
+            {% else %}
+                <h1>Edição de Dependente</h1>
+            {% endif %}
+
+            <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:cad_dependente' %}">
                 {% csrf_token %}
-                <input type="hidden" name="id" value="">
+
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
 
                 <h4 class="ui dividing red header">Informações Pessoais</h4>
                 <div class="fields">
@@ -23,7 +34,8 @@
                     </div>
                     <div class="four wide field">
                         <label>CPF</label>
-                        <input id="id_cpf" maxlength="14" name="cpf" type="text" OnKeyPress="formatar('###.###.###-##', this)"/>
+                        <input id="id_cpf" maxlength="14" name="cpf" type="text"
+                               OnKeyPress="formatar('###.###.###-##', this)"/>
                         {% if form.cpf.errors %}
                             <div class="ui pointing red basic label issem-required-field">
                                 {{ form.cpf.errors }}
@@ -83,12 +95,14 @@
                     </div>
                     <div class="four wide field">
                         <label>Telefone Residencial</label>
-                        <input id="id_telefone_residencial" maxlength="12" name="telefone_residencial" type="text" OnKeyPress="formatar('## ####-####', this)">
+                        <input id="id_telefone_residencial" maxlength="12" name="telefone_residencial" type="text"
+                               OnKeyPress="formatar('## ####-####', this)">
                         {{ form.telefone_residencial.errors }}
                     </div>
                     <div class="four wide field">
                         <label>Telefone Celular</label>
-                        <input id="id_telefone_celular" maxlength="12" name="telefone_celular" type="text" OnKeyPress="formatar('## ####-####', this)">
+                        <input id="id_telefone_celular" maxlength="12" name="telefone_celular" type="text"
+                               OnKeyPress="formatar('## ####-####', this)">
                         {{ form.telefone_celular.errors }}
 
                     </div>
@@ -118,7 +132,8 @@
 
                     <div class="four wide field">
                         <label>Estado (Atual)</label>
-                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual" class="ui dropdown">
+                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual"
+                                class="ui dropdown">
                             <option value="">Selecione um estado...</option>
                             {% for estado in estados %}
                                 <option value="{{ estado.id }}">{{ estado.nome }}</option>
@@ -181,11 +196,11 @@
                         {{ form.tipo.errors }}
                     </div>
                     <div class="five wide field">
-                        <label>Data de início (Dependente)</label>
+                        <label>Data de início</label>
                         <input name="data_inicial" id="id_data_inicial" onfocus="change_life()"/>
                     </div>
                     <div class="five wide field">
-                        <label>Data de término (Dependente)</label>
+                        <label>Data de término</label>
                         <input name="data_final" id="id_data_final"/>
                     </div>
                 </div>
@@ -193,9 +208,13 @@
                 <br/>
                 <div class="ui centered grid">
                     <div class="ui column centered row">
-                        <input type="submit" name="cadastrar" class="ui button green" value="Cadastrar"/>
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <a href="{{ request.META.HTTP_REFERER }}"><button class="ui button red">Cancelar</button></a>
+                        {% if not id %}
+                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        {% else %}
+                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                        {% endif %}
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="button" name="cancelar" class="ui button red" value="Cancelar"/>&nbsp;
                     </div>
                 </div>
             </form>

@@ -19,17 +19,16 @@ class SeguradoView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
-        if not request.POST['id']:  # CADASTRO NOVO
-            id = None
-            form = SeguradoForm(data=request.POST)
-        else:  # EDIÇÃO
+        if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             segurado = SeguradoModel.objects.get(pk=id)
             form = SeguradoForm(instance=segurado, data=request.POST)
+        else:  # CADASTRO NOVO
+            id = None
+            form = SeguradoForm(data=request.POST)
 
         if form.is_valid():
-            segurado = form.save(commit=False)
-            segurado.save()
+            form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
@@ -46,6 +45,3 @@ def ApresentaSegurado(request):
     context_dict = {}
     context_dict['segurados'] = SeguradoModel.objects.all()
     return render(request, 'segurados.html', context_dict)
-
-def PaginaSeguradoView(request):
-    return render(request, 'segurado_pagina.html')
