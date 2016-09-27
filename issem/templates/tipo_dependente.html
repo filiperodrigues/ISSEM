@@ -5,32 +5,39 @@
         <div class="row">
             <div class="ten wide column">
                 <div class="ui segment">
+                    <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
+
                     {% if not id %}
-
                         <h1>Cadastro de novo Tipo Dependente:</h1>
-                        <form class="ui form" id="TipoDependenteForm" method="post"
-                              action="{% url 'issem:cad_tipo_dependente' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="">
-                            {{ form.as_p }}
-                            <input type="submit" name="submit" class="ui button blue" value="Cadastrar"/>
-                        </form>
-
                     {% else %}
-
                         <h1>Edição de Tipo Dependente</h1>
-                        <form class="ui form" id="TipoDependenteForm" method="post"
-                              action="{% url 'issem:cad_tipo_dependente' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                            {{ form.as_p }}
-                            <input type="submit" name="submit" class="ui button blue" value="Atualizar"/>
-                        </form>
-
                     {% endif %}
 
+                    <form class="ui form" id="TipoDependenteForm" method="post"
+                          action="{% url 'issem:cad_tipo_dependente' %}">
+                        {% csrf_token %}
+
+                        {% if not id %}
+                            <input type="hidden" name="id" value="">
+                        {% else %}
+                            <input type="hidden" name="id" value="{{ id }}">
+                        {% endif %}
+
+                        {{ form.as_p }}
+
+                        {% if not id %}
+                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        {% else %}
+                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                        {% endif %}
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">
+                            Cancelar
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

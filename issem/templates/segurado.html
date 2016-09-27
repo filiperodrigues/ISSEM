@@ -4,159 +4,17 @@
 
     <div class="ui centered row">
         <div class="ui segment">
-            <a href="{{ request.META.HTTP_REFERER }}"><i class="big arrow circle left icon red"></i></a>
-            <h1>Cadastro de novo Segurado:</h1>
+            <a href="{% url 'issem:funcionario' %}"><i class="big arrow circle left icon red"></i></a>
+
+            {% if not id %}
+                <h1>Cadastro de novo Segurado:</h1>
+            {% else %}
+                <h1>Edição de Segurado:</h1>
+            {% endif %}
+
             <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:cad_segurado' %}">
-                {% csrf_token %}
-                <input type="hidden" name="id" value="">
 
-                <h4 class="ui dividing red header">Informações Pessoais</h4>
-                <div class="fields">
-                    <div class="four wide field">
-                        <label>Nome</label>
-                        {{ form.nome }}
-                        {% if form.nome.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
-                                {{ form.nome.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="four wide field">
-                        <label>CPF</label>
-                        <input id="id_cpf" maxlength="14" name="cpf" type="text" OnKeyPress="formatar('###.###.###-##', this)"/>
-                        {% if form.cpf.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
-                                {{ form.cpf.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="four wide field">
-                        <label>RG</label>
-                        {{ form.rg }}
-                        {% if form.rg.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
-                                {{ form.rg.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="four wide field">
-                        <label>Data de Nascimento</label>
-                        <input name="data_nascimento" id="id_data_nascimento"/>
-                    </div>
-                </div>
-                <div class="fields">
-                    <div class="four wide field">
-                        <label>Cargo</label>
-                        {{ form.cargo }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Estado Civil</label>
-                        {{ form.estado_civil }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Sexo</label>
-                        <div class="issem-input-radio">
-                            {{ form.sexo }}
-                        </div>
-                    </div>
-                    <div class="two wide field issem-input-small">
-                        <label>Tipo Sanguíneo</label>
-                        {{ form.tipo_sanguineo }}
-                    </div>
-                    <div class="two wide field">
-                        <label>Doador</label>
-                        <div class="ui segment issem-input-checkbox">
-                            {{ form.doador }}
-                        </div>
-                    </div>
-                </div>
-                <div class="fields">
-                    <div class="four wide field">
-                        <label>E-mail</label>
-                        {{ form.email }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Telefone Residencial</label>
-                        <input id="id_telefone_residencial" maxlength="12" name="telefone_residencial" type="text" OnKeyPress="formatar('## ####-####', this)">
-                    </div>
-                    <div class="four wide field">
-                        <label>Telefone Celular</label>
-                        <input id="id_telefone_celular" maxlength="12" name="telefone_celular" type="text" OnKeyPress="formatar('## ####-####', this)">
-                    </div>
-                    <div class="four wide field">
-                        <label>CEP</label>
-                        {{ form.cep }}
-                    </div>
-                </div>
-
-                <div class="fields">
-                    <div class="four wide field">
-                        <label>Estado (Natural)</label>
-                        <select onchange="get_cidade_natural()" name="estado_natural" id="id_estado_natural">
-                            <option value="">Selecione um estado...</option>
-                            {% for estado in estados %}
-                                <option value="{{ estado.id }}">{{ estado.nome }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="four wide field">
-                        <label>Cidade Natural</label>
-                        <select name="cidade_natural" id="id_cidade_natural">
-                            <option value="">Selecione uma cidade...</option>
-                        </select>
-                    </div>
-
-                    <div class="four wide field">
-                        <label>Estado (Atual)</label>
-                        <select onchange="get_cidade_atual()" name="estado_atual" id="id_estado_atual" class="ui dropdown">
-                            <option value="">Selecione um estado...</option>
-                            {% for estado in estados %}
-                                <option value="{{ estado.id }}">{{ estado.nome }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="four wide field">
-                        <label>Cidade Atual</label>
-                        <select name="cidade_atual" id="id_cidade_atual">
-                            <option value="">Selecione uma cidade...</option>
-                        </select>
-                    </div>
-
-                </div>
-                <div class="fields">
-                    <div class="four wide field">
-                        <label>Endereço</label>
-                        {{ form.endereco }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Bairro</label>
-                        {{ form.bairro }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Complemento</label>
-                        {{ form.complemento }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Nº Residencial</label>
-                        {{ form.numero_endereco }}
-                    </div>
-                </div>
-                <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="four wide field">
-                        <label>Nome do pai</label>
-                        {{ form.nome_pai }}
-                    </div>
-                    <div class="four wide field">
-                        <label>Nome da mãe</label>
-                        {{ form.nome_mae }}
-                        {% if form.nome_mae.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
-                                {{ form.nome_mae.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
+                {% include 'formulario_pessoa.html' %}
 
                 <h4 class="ui dividing red header">Dados específicos do Segurado</h4>
                 <div class="fields">
@@ -185,11 +43,13 @@
                 <br/>
                 <div class="ui centered grid">
                     <div class="ui column centered row">
-                        <input type="submit" name="cadastrar" class="ui button green" value="Cadastrar"/>
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <a href="{{ request.META.HTTP_REFERER }}">
-                            <button class="ui button red">Cancelar</button>
-                        </a>
+                        {% if not id %}
+                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        {% else %}
+                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                        {% endif %}
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">Cancelar</button>
                     </div>
                 </div>
             </form>
