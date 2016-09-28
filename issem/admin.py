@@ -13,6 +13,7 @@ from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.models.servidor import ServidorModel
 from issem.models.dependente import DependenteModel
 from issem.models.segurado import SeguradoModel
+from issem.models.consultasparametros import ConsultasParametrosModel
 
 admin.site.register(CidModel)
 admin.site.register(DepartamentoModel)
@@ -27,6 +28,7 @@ admin.site.register(LocalTrabalhoModel)
 admin.site.register(ServidorModel)
 admin.site.register(DependenteModel)
 admin.site.register(SeguradoModel)
+admin.site.register(ConsultasParametrosModel)
 
 
 

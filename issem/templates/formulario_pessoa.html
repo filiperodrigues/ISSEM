@@ -9,36 +9,43 @@
 <h4 class="ui dividing red header">Informações Pessoais</h4>
 <div class="fields">
     <div class="four wide field">
-        <label>Nome</label>
-        {{ form.nome }}
-        {% if form.nome.errors %}
-            <div class="ui pointing red basic label issem-required-field">
-                {{ form.nome.errors }}
-            </div>
-        {% endif %}
+        <label>Nome <i class="asterisk icon red"></i></label>
+        <div class="somente_letras">
+            {{ form.nome }}
+            {% if form.nome.errors %}
+                <div class="ui pointing red basic label issem-required-field">
+                    {{ form.nome.errors }}
+                </div>
+            {% endif %}
+        </div>
+
     </div>
     <div class="four wide field">
-        <label>CPF</label>
-        {{ form.cpf }}
-        {% if form.cpf.errors %}
-            <div class="ui pointing red basic label issem-required-field">
-                {{ form.cpf.errors }}
-            </div>
-        {% endif %}
+        <label>CPF <i class="asterisk icon red"></i></label>
+        <div class="cpf">
+            {{ form.cpf }}
+            {% if form.cpf.errors %}
+                <div class="ui pointing red basic label issem-required-field">
+                    {{ form.cpf.errors }}
+                </div>
+            {% endif %}
+        </div>
     </div>
     <div class="four wide field">
-        <label>RG</label>
-        {{ form.rg }}
-        {% if form.rg.errors %}
-            <div class="ui pointing red basic label issem-required-field">
-                {{ form.rg.errors }}
-            </div>
-        {% endif %}
+        <label>RG <i class="asterisk icon red"></i></label>
+        <div class="rg">{{ form.rg }}
+            {% if form.rg.errors %}
+                <div class="ui pointing red basic label issem-required-field">
+                    {{ form.rg.errors }}
+                </div>
+            {% endif %}</div>
+
     </div>
     <div class="four wide field">
         <label>Data de Nascimento</label>
-        {{ form.data_nascimento }}
-        {{ form.data_nascimento.errors }}
+        <div class="data">{{ form.data_nascimento }}
+            {{ form.data_nascimento.errors }}</div>
+
     </div>
 </div>
 <div class="fields">
@@ -79,22 +86,25 @@
     </div>
     <div class="four wide field">
         <label>Telefone Residencial</label>
-        {{ form.telefone_residencial }}
-        {{ form.telefone_residencial.errors }}
+        <div class="fone_ddd">{{ form.telefone_residencial }}
+            {{ form.telefone_residencial.errors }}</div>
+
     </div>
     <div class="four wide field">
         <label>Telefone Celular</label>
-        {{ form.telefone_celular }}
-        {{ form.telefone_celular.errors }}
+        <div class="fone_ddd">{{ form.telefone_celular }}
+            {{ form.telefone_celular.errors }}</div>
+
     </div>
     <div class="four wide field">
-        <label>CEP</label>
-        {{ form.cep }}
-        {% if form.cep.errors %}
-            <div class="ui pointing red basic label issem-required-field">
-                {{ form.cep.errors }}
-            </div>
-        {% endif %}
+        <label>CEP <i class="asterisk icon red"></i></label>
+        <div class="cep">{{ form.cep }}
+            {% if form.cep.errors %}
+                <div class="ui pointing red basic label issem-required-field">
+                    {{ form.cep.errors }}
+                </div>
+            {% endif %}</div>
+
     </div>
 </div>
 
@@ -138,8 +148,11 @@
     </div>
     <div class="four wide field">
         <label>Nº Residencial</label>
-        {{ form.numero_endereco }}
-        {{ form.numero_endereco.errors }}
+        <div class="n_endereco">
+            {{ form.numero_endereco }}
+            {{ form.numero_endereco.errors }}
+        </div>
+
     </div>
 </div>
 <div class="fields">
@@ -150,7 +163,7 @@
         {{ form.nome_pai.errors }}
     </div>
     <div class="four wide field">
-        <label>Nome da mãe</label>
+        <label>Nome da mãe <i class="asterisk icon red"></i></label>
         {{ form.nome_mae }}
         {% if form.nome_mae.errors %}
             <div class="ui pointing red basic label issem-required-field">

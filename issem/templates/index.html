@@ -3,6 +3,24 @@
 {% block body_block %}
 
     <div class="ui segment">
+        <h2>Consultas parâmetros</h2>
+
+        <div class="ui existing segment">
+            {% for consulta_parametro in consultas_parametros %}
+                {{ consulta_parametro.inicio_atendimento }} &nbsp;&nbsp;
+                <a href="{% url 'issem:edita_consulta_parametros' consulta_parametro.id %}">
+                    <i class="edit icon"></i>
+                </a>
+                <a href="{% url 'issem:deleta_consulta_parametros' consulta_parametro.id %}">
+                    <i class="remove icon"></i>
+                </a>
+                <br/>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="ui segment">
         <h2>Benefícios</h2>
 
         <div class="ui existing segment">

@@ -1,5 +1,21 @@
 $(document).ready(
     function () {
+        $('.cpf input').mask('000.000.000-00', {reverse: true});
+        $('.data input').mask('00/00/0000');
+        $('.hora').mask('00:00');
+        $('.minuto').mask('00');
+        $('.cep input').mask('00000-000');
+        $('.rg input').mask('000000000');
+        $('.n_endereco input').mask('000000000');
+        $('.fone_ddd input').mask('(00) 0000-0000');
+        $('.crm input').mask('00000000000000000000000000000000000000000000000000');
+
+        $('.somente_letras input').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
+            'translation': {
+                S: {pattern: /[A-Za-z ]/},
+
+            }
+        });
         get_cidade_natural();
         get_cidade_atual();
         $("#id_data_nascimento, #id_data_inicio, #id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final").datepicker({dateFormat: "dd/mm/yy"});
@@ -112,16 +128,4 @@ function change_life() {
 
         return date;
     }
-}
-
-// #========MASK DE CAMPOS ========#
-function formatar(mascara, documento) {
-    var i = documento.value.length;
-    var saida = mascara.substring(0, 1);
-    var texto = mascara.substring(i)
-
-    if (texto.substring(0, 1) != saida) {
-        documento.value += texto.substring(0, 1);
-    }
-
 }

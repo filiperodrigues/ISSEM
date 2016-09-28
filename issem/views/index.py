@@ -18,5 +18,6 @@ def index(request):
     context_dict['dependentes'] = DependenteModel.objects.all()
     context_dict['segurados'] = SeguradoModel.objects.all()
     context_dict['servidores'] = ServidorModel.objects.all()
+    context_dict['consultas_parametros'] = ConsultasParametrosModel.objects.all()
 
     return render(request, 'index.html', context_dict)

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered row">
+        <div class="ui segment">
+            <a href="{% url 'issem:funcionario' %}"><i class="big arrow circle left icon red"></i></a>
+
+            {% if not id %}
+                <h1 class="issem-cad">Cadastro de novo parêmetro de consulta:</h1>
+            {% else %}
+                <h1 class="issem-cad">Edição de Parâmetro de consulta:</h1>
+            {% endif %}
+
+            <br/>
+            <form class="ui form" id="ConsultasParametrosForm" method="post"
+                  action="{% url 'issem:cad_consulta_parametros' %}">
+                {% csrf_token %}
+
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
+
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>Tempo de consulta (minutos)</label>
+                        {{ form.tempo_consulta }}
+                        {% if form.tempo_consulta.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.tempo_consulta.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <div class="four wide field">
+                        <label>Tempo de Espera (minutos)</label>
+                        {{ form.tempo_espera }}
+                        {% if form.tempo_espera.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.tempo_espera.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Início do atendimento (hora:minuto)</label>
+                        {{ form.inicio_atendimento }}
+                        {% if form.inicio_atendimento.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.inicio_atendimento.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <div class="four wide field">
+                        <label>Limite de consultas</label>
+                        {{ form.limite_consultas }}
+                        {% if form.limite_consultas.errors %}
+                            <div class="ui pointing red basic label issem-required-field">
+                                {{ form.limite_consultas.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <br/>
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
+                        {% if not id %}
+                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        {% else %}
+                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                        {% endif %}
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

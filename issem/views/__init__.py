@@ -13,3 +13,4 @@ from issem.views.segurado import *
 from issem.views.servidor import *
 from issem.views.tipo_dependente import *
 from issem.views.tipo_exame import *
+from issem.views.consultasparametros import *
