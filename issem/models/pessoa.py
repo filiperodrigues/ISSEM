@@ -21,7 +21,7 @@ class PessoaModel(models.Model):
     numero_endereco = models.CharField(blank=True, max_length=9)
     complemento = models.CharField(max_length=128, blank=True)
     bairro = models.CharField(max_length=128, blank=True)
-    cep = models.CharField(null=False, max_length=9)
+    cep = models.CharField(max_length=9, blank=True)
     estado_civil = models.ForeignKey(EstadoCivilModel, null=True, blank=True)
     tipo_sanguineo = models.ForeignKey(TipoSanguineoModel, null=True, blank=True)
     cargo = models.ForeignKey(CargoModel, null=True, blank=True)

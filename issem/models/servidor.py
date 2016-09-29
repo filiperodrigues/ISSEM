@@ -6,7 +6,7 @@ from issem.models.departamento import DepartamentoModel
 
 class ServidorModel(PessoaModel):
     departamento = models.ForeignKey(DepartamentoModel)
-    crm = models.CharField(max_length=32)
+    crm = models.CharField(max_length=32, blank=True)
 
     def __unicode__(self):
         return self.crm

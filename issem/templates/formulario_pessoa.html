@@ -42,7 +42,7 @@
 
     </div>
     <div class="four wide field">
-        <label>Data de Nascimento</label>
+        <label>Data de Nascimento <i class="asterisk icon red"></i></label>
         <div class="data">{{ form.data_nascimento }}
             {% if form.data_nascimento.errors %}
                 <div class="ui pointing red basic label issem-required-field">
@@ -130,7 +130,10 @@
         <div class="fone_ddd">
             {{ form.telefone_celular }}
             {% if form.telefone_celular.errors %}
-            <div class="ui pointing red basic label issem-required-field">
+            <div class=<div class="ui checkbox">
+  <input name="example" type="checkbox">
+  <label>Make my profile visible</label>
+</div>"ui pointing red basic label issem-required-field">
                 {{ form.telefone_celular.errors }}
             </div>
         {% endif %}
@@ -138,7 +141,7 @@
 
     </div>
     <div class="four wide field">
-        <label>CEP <i class="asterisk icon red"></i></label>
+        <label>CEP</label>
         <div class="cep">{{ form.cep }}
             {% if form.cep.errors %}
                 <div class="ui pointing red basic label issem-required-field">
