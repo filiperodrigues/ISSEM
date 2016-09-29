@@ -15,16 +15,16 @@ class ServidorForm(forms.ModelForm):
     # numero_endereco = forms.CharField(widget=forms.TextInput(attrs={'class': 'n_endereco'}))
     # nome_pai = forms.CharField(widget=forms.TextInput(attrs={'class': 'somente_letras'}))
     generos = (('M', 'Masculino',), ('F', 'Feminino',))
-    sexo = forms.ChoiceField(
+    sexo = forms.ChoiceField(required=False,
         widget=forms.RadioSelect,
-        choices=generos
+        choices=generos,
     )
-    estado_natural = forms.ModelChoiceField(
+    estado_natural = forms.ModelChoiceField(required=False,
         empty_label="Selecione um estado...",
         queryset=EstadoModel.objects.all(),
         widget=forms.Select(attrs={"onchange": "get_cidade_natural()",})
     )
-    estado_atual = forms.ModelChoiceField(
+    estado_atual = forms.ModelChoiceField(required=False,
         empty_label="Selecione um estado...",
         queryset=EstadoModel.objects.all(),
         widget=forms.Select(attrs={"onchange": "get_cidade_atual()",})
