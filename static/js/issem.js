@@ -8,12 +8,10 @@ $(document).ready(
         $('.rg input').mask('000000000');
         $('.n_endereco input').mask('000000000');
         $('.fone_ddd input').mask('(00) 0000-0000');
-        $('.crm input').mask('00000000000000000000000000000000000000000000000000');
-
+        $('.crm input').mask('00000000000000000000000000000000');
         $('.somente_letras input').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
             'translation': {
                 S: {pattern: /[A-Za-z ]/},
-
             }
         });
         get_cidade_natural();
@@ -76,7 +74,6 @@ function get_cidade_atual() {
         },
         dataType: 'json',
         success: function (data) {
-            $("select#id_cidade_atual").html("");
             var options = '';
             for (var i = 0; i < data.length; i++) {
                 options += '<option value="' + data[i].pk + '">' + data[i].fields['nome'] + '</option>';

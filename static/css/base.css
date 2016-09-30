@@ -21,6 +21,12 @@ article {
     min-height: 70% !important;
 }
 
+footer {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+    min-height: 10% !important;
+}
+
 .issem-content {
     margin-top: 15px;
 }
@@ -46,7 +52,7 @@ article {
     box-shadow: none !important;
 }
 
-.issem-required-field ul {
+.issem-error-field ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -68,10 +74,4 @@ article {
 .issem-input-radio ul li {
     display: inline;
     margin-right: 20px;
-}
-
-footer {
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
-    min-height: 10% !important;
 }
