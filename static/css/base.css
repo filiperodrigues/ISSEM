@@ -3,23 +3,28 @@ html, body {
 }
 
 header {
-    padding-top: 3%;
-    padding-bottom: 3%;
+    padding-top: 50px;
+    padding-bottom: 50px;
     background-color: #f8f8f8;
     border-bottom: 1px solid #d4d4d4;
-    min-height: 14% !important;
+    min-height: 20% !important;
+}
+
+nav {
+    width: 100%
 }
 
 article {
-    padding-top: 1%;
-    padding-bottom: 2%;
-    min-height: 66% !important;
+    /*background-color: #f8f8f8;*/
+    padding-top: 15px;
+    padding-bottom: 30px;
+    min-height: 70% !important;
 }
 
 footer {
-    padding-top: 2% !important;
-    padding-bottom: 2% !important;
-    min-height: 6% !important;
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+    min-height: 10% !important;
 }
 
 .issem-content {

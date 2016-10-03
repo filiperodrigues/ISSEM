@@ -9,7 +9,7 @@ from issem.models.cargo import CargoModel
 
 class PessoaModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
-    cpf = models.CharField(null=False, max_length=14)
+    cpf = models.CharField(null=False, max_length=14, unique=True)
     email = models.EmailField(max_length=128, blank=True)
     sexo = models.CharField(max_length=1, blank=True, null=True)
     data_nascimento = models.DateField(null=False)

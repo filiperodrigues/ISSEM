@@ -3,6 +3,8 @@ from django import forms
 from issem.models.servidor import ServidorModel
 from issem.models.estado import EstadoModel
 from cpf_validator import CPF
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 class ServidorForm(forms.ModelForm):
@@ -33,3 +35,13 @@ class ServidorForm(forms.ModelForm):
             return cpf
         else:
             raise forms.ValidationError("CPF inválido.")
+
+    def clean_data_nascimento(self):
+        data_nascimento = self.cleaned_data.get('data_nascimento')
+        data_gerada = datetime.now() - relativedelta(years=18)
+        data_gerada = data_gerada.date()
+
+        if data_nascimento <= data_gerada:
+            return data_nascimento
+        else:
+            raise forms.ValidationError("Deve ter mais que 18 anos")
