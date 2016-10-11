@@ -44,7 +44,9 @@
                         <div class="fields">
                             <div class="ten wide field">
                                 <label>Descrição:</label>
-                                {{ form.descricao }}
+                                <div class="somente_letras">
+                                    {{ form.descricao }}
+                                </div>
                             </div>
                             <div class="four wide field">
                                 <label>Data Portaria:</label>
@@ -52,7 +54,8 @@
                             </div>
                             <div class="three wide field">
                                 <label>Nº Portaria:</label>
-                                {{ form.numero_portaria }}
+                               {{ form.numero_portaria }}
+
                             </div>
                         </div>
 

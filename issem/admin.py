@@ -14,6 +14,10 @@ from issem.models.servidor import ServidorModel
 from issem.models.dependente import DependenteModel
 from issem.models.segurado import SeguradoModel
 from issem.models.consultasparametros import ConsultasParametrosModel
+from issem.models.requerimento import RequerimentoModel
+from issem.models.exame_requerimento import ExameRequerimentoModel
+from issem.models.agendamento import AgendamentoModel
+
 
 admin.site.register(CidModel)
 admin.site.register(DepartamentoModel)
@@ -29,6 +33,9 @@ admin.site.register(ServidorModel)
 admin.site.register(DependenteModel)
 admin.site.register(SeguradoModel)
 admin.site.register(ConsultasParametrosModel)
+admin.site.register(RequerimentoModel)
+admin.site.register(ExameRequerimentoModel)
+admin.site.register(AgendamentoModel)
 
 
 

@@ -16,12 +16,12 @@ class DependenteForm(forms.ModelForm):
     estado_natural = forms.ModelChoiceField(required=False,
                                             empty_label="Selecione um estado...",
                                             queryset=EstadoModel.objects.all(),
-                                            widget=forms.Select(attrs={"onchange": "get_cidade_natural()",})
+                                            widget=forms.Select(attrs={"onchange": "get_cidade_natural()", })
                                             )
     estado_atual = forms.ModelChoiceField(required=False,
                                           empty_label="Selecione um estado...",
                                           queryset=EstadoModel.objects.all(),
-                                          widget=forms.Select(attrs={"onchange": "get_cidade_atual()",})
+                                          widget=forms.Select(attrs={"onchange": "get_cidade_atual()", })
                                           )
 
     class Meta:

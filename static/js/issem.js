@@ -7,7 +7,7 @@ $(document).ready(
         $('.cep input').mask('00000-000');
         $('.rg input').mask('000000000');
         $('.n_endereco input').mask('000000000');
-        $('.fone_ddd input').mask('(00) 0000-0000');
+        $('.fone_ddd input').mask('(00) 0000-00000');
         $('.crm input').mask('00000000000000000000000000000000');
         $('.somente_letras input').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
             'translation': {

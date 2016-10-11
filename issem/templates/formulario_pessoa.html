@@ -7,25 +7,25 @@
 {% endif %}
 
 <h4 class="ui dividing red header">Informações Pessoais</h4>
-
 <div class="fields">
     <div class="four wide field">
         <label>Nome <i class="asterisk icon red"></i></label>
         <div class="somente_letras">
             {{ form.nome }}
             {% if form.nome.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label issem-required-field">
                     {{ form.nome.errors }}
                 </div>
             {% endif %}
         </div>
+
     </div>
     <div class="four wide field">
         <label>CPF <i class="asterisk icon red"></i></label>
         <div class="cpf">
             {{ form.cpf }}
             {% if form.cpf.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label issem-required-field">
                     {{ form.cpf.errors }}
                 </div>
             {% endif %}
@@ -35,30 +35,29 @@
         <label>RG <i class="asterisk icon red"></i></label>
         <div class="rg">{{ form.rg }}
             {% if form.rg.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label issem-required-field">
                     {{ form.rg.errors }}
                 </div>
-            {% endif %}
-        </div>
+            {% endif %}</div>
+
     </div>
     <div class="four wide field">
         <label>Data de Nascimento <i class="asterisk icon red"></i></label>
         <div class="data">{{ form.data_nascimento }}
             {% if form.data_nascimento.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label issem-required-field">
                     {{ form.data_nascimento.errors }}
                 </div>
             {% endif %}
         </div>
     </div>
 </div>
-
 <div class="fields">
     <div class="four wide field">
         <label>Cargo</label>
         {{ form.cargo }}
         {% if form.cargo.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label issem-required-field">
                 {{ form.cargo.errors }}
             </div>
         {% endif %}
@@ -67,7 +66,7 @@
         <label>Estado Civil</label>
         {{ form.estado_civil }}
         {% if form.estado_civil.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label issem-required-field">
                 {{ form.estado_civil.errors }}
             </div>
         {% endif %}
@@ -77,7 +76,7 @@
         <div class="issem-input-radio">
             {{ form.sexo }}
             {% if form.sexo.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label issem-required-field">
                     {{ form.sexo.errors }}
                 </div>
             {% endif %}
@@ -87,7 +86,7 @@
         <label>Tipo Sanguíneo</label>
         {{ form.tipo_sanguineo }}
         {% if form.tipo_sanguineo.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label issem-required-field">
                 {{ form.tipo_sanguineo.errors }}
             </div>
         {% endif %}
@@ -132,6 +131,10 @@
         <div class="fone_ddd">
             {{ form.telefone_celular }}
             {% if form.telefone_celular.errors %}
+            <div class=<div class="ui checkbox">
+  <input name="example" type="checkbox">
+  <label>Make my profile visible</label>
+</div>"ui pointing red basic label issem-required-field">
                 {{ form.telefone_celular.errors }}
             {% endif %}
         </div>
@@ -139,7 +142,8 @@
     </div>
     <div class="four wide field">
         <label>CEP</label>
-        <div class="cep">{{ form.cep }}
+        <div class="cep">
+            {{ form.cep }}
             {% if form.cep.errors %}
                 <div class="ui pointing red basic label issem-error-field">
                     {{ form.cep.errors }}
@@ -168,6 +172,7 @@
                 {{ form.cidade_natural.errors }}
             </div>
         {% endif %}
+
     </div>
 
     <div class="four wide field">
@@ -188,6 +193,7 @@
             </div>
         {% endif %}
     </div>
+
 </div>
 
 <div class="fields">
@@ -201,13 +207,15 @@
         {% endif %}
     </div>
     <div class="four wide field">
-        <label>Bairro</label>
-        {{ form.bairro }}
-        {% if form.bairro.errors %}
-            <div class="ui pointing red basic label issem-error-field">
-                {{ form.bairro.errors }}
+        <label>Nº Residencial</label>
+        <div class="n_endereco">
+            {{ form.numero_endereco }}
+            {% if form.numero_endereco.errors %}
+            <div class="ui pointing red basic label issem-required-field">
+                {{ form.numero_endereco.errors }}
             </div>
         {% endif %}
+        </div>
     </div>
     <div class="four wide field">
         <label>Complemento</label>
@@ -219,16 +227,13 @@
         {% endif %}
     </div>
     <div class="four wide field">
-        <label>Nº Residencial</label>
-        <div class="n_endereco">
-            {{ form.numero_endereco }}
-            {% if form.numero_endereco.errors %}
-                <div class="ui pointing red basic label issem-error-field">
-                    {{ form.numero_endereco.errors }}
-                </div>
-            {% endif %}
-        </div>
-
+        <label>Bairro</label>
+        {{ form.bairro }}
+        {% if form.bairro.errors %}
+            <div class="ui pointing red basic label issem-error-field">
+                {{ form.bairro.errors }}
+            </div>
+        {% endif %}
     </div>
 </div>
 
