@@ -1,96 +1,164 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    <div class="ui centered grid">
-        <div class="row">
-            <div class="ten wide column">
-                <div class="ui form segment">
-                    <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
-                    {% if not id %}
-                        <h1>Cadastro de novo Benefício:</h1>
-                    {% else %}
-                        <h1>Edição de Beneficio</h1>
-                    {% endif %}
+    <div class="ui centered row">
+        <div class="ui segment">
+            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
-                    <form class="ui form" id="BeneficioForm" method="post" action="{% url 'issem:cad_beneficio' %}">
-                        {% csrf_token %}
+            {% if not id %}
+                <h1>Cadastro de novo Benefício:</h1>
+            {% else %}
+                <h1>Edição de Benefício</h1>
+            {% endif %}
 
-                        {% if not id %}
-                            <input type="hidden" name="id" value="">
-                        {% else %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                        {% endif %}
+            <form class="ui form" id="BeneficioForm" method="post" action="{% url 'issem:cad_beneficio' %}">
+                {% csrf_token %}
 
-                        <div class="fields">
-                            <div class="four wide field">
-                                <label>Data Inicial:</label>
-                                {{ form.data_inicial }}
-                            </div>
-                            <div class="four wide field">
-                                <label>Data Final:</label>
-                                {{ form.data_final }}
-                            </div>
-                            <div class="four wide field">
-                                <label>Data Retorno:</label>
-                                {{ form.data_retorno }}
-                            </div>
-                            <div class="four wide field">
-                                <label>Data Perícia:</label>
-                                {{ form.data_pericia }}
-                            </div>
-                        </div>
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
 
-                        <div class="fields">
-                            <div class="ten wide field">
-                                <label>Descrição:</label>
-                                <div class="somente_letras">
-                                    {{ form.descricao }}
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>Data Inicial:</label>
+                        <div class="data">
+                            {{ form.data_inicial }}
+                            {% if form.data_inicial.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_inicial.errors }}
                                 </div>
-                            </div>
-                            <div class="four wide field">
-                                <label>Data Portaria:</label>
-                                {{ form.data_portaria }}
-                            </div>
-                            <div class="three wide field">
-                                <label>Nº Portaria:</label>
-                               {{ form.numero_portaria }}
-
-                            </div>
+                            {% endif %}
                         </div>
-
-                        <div class="fields">
-                            <div class="three wide field">
-                                <label>Salário Máximo:</label>
-                                {{ form.salario_maximo }}
-                            </div>
-                            <div class="three wide field">
-                                <label>Carência:</label>
-                                {{ form.carencia }}
-                            </div>
-                            <div class="eight wide field">
-                                <label>Observação:</label>
-                                {{ form.observacao }}
-                            </div>
-                            <div class="two wide field">
-                                <label>Concessão:</label>
-                                {{ form.concessao }}
-                            </div>
+                    </div>
+                    <div class="four wide field">
+                        <label>Data Final:</label>
+                        <div class="data">
+                            {{ form.data_final }}
+                            {% if form.data_final.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_final.errors }}
+                                </div>
+                            {% endif %}
                         </div>
+                    </div>
+                    <div class="four wide field">
+                        <label>Data Retorno:</label>
+                        <div class="data">
+                            {{ form.data_retorno }}
+                            {% if form.data_retorno.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_retorno.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="four wide field">
+                        <label>Data Perícia:</label>
+                        <div class="data">
+                            {{ form.data_pericia }}
+                            {% if form.data_pericia.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_pericia.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
 
+                <div class="fields">
+                    <div class="eight wide field">
+                        <label>Descrição:</label>
+                        <div class="somente_letras">
+                            {{ form.descricao }}
+                            {% if form.descricao.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.descricao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="four wide field">
+                        <label>Data Portaria:</label>
+                        <div class="data">
+                            {{ form.data_portaria }}
+                            {% if form.data_portaria.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_portaria.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="four wide field">
+                        <label>Nº Portaria:</label>
+                        {{ form.numero_portaria }}
+                        {% if form.numero_portaria.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.numero_portaria.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="fields">
+                    <div class="four wide field">
+                        <label>Salário Máximo:</label>
+                        {{ form.salario_maximo }}
+                        {% if form.salario_maximo.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.salario_maximo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Carência:</label>
+                        {{ form.carencia }}
+                        {% if form.carencia.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.carencia.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="six wide field">
+                        <label>Observação:</label>
+                        {{ form.observacao }}
+                        {% if form.observacao.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.observacao.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="two wide field">
+                        <label>Concessão:</label>
+                        <div class="ui segment issem-input-checkbox">
+                            {{ form.concessao }}
+                            {% if form.concessao.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.concessao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
                         {% if not id %}
                             <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
                         {% else %}
                             <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
                         {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
-                        <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">
-                            Cancelar
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
+                        <button type="button" onclick="location.href='{% url "issem:index" %}'"
+                                class="ui button red">Cancelar
                         </button>
-                    </form>
-
+                    </div>
                 </div>
-            </div>
+            </form>
+
         </div>
     </div>
 

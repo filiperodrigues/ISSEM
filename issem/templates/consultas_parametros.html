@@ -3,13 +3,13 @@
 {% block body_block %}
 
     <div class="ui centered row">
-        <div class="ui segment">
+        <div class="ui segment issem-cad">
             <a href="{% url 'issem:funcionario' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
-                <h1 class="issem-cad">Cadastro de novo parêmetro de consulta:</h1>
+                <h1>Cadastro de novo parêmetro de consulta:</h1>
             {% else %}
-                <h1 class="issem-cad">Edição de Parâmetro de consulta:</h1>
+                <h1>Edição de Parâmetro de consulta:</h1>
             {% endif %}
 
             <br/>
@@ -24,6 +24,7 @@
                 {% endif %}
 
                 <div class="fields">
+                    <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Tempo de consulta (minutos)</label>
                         {{ form.tempo_consulta }}
@@ -43,6 +44,11 @@
                             </div>
                         {% endif %}
                     </div>
+                    <div class="four wide field"></div>
+                </div>
+
+                <div class="fields">
+                    <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Início do atendimento (hora:minuto)</label>
                         {{ form.inicio_atendimento }}
@@ -51,7 +57,6 @@
                                 {{ form.inicio_atendimento.errors }}
                             </div>
                         {% endif %}
-
                     </div>
                     <div class="four wide field">
                         <label>Limite de consultas diárias</label>
@@ -61,8 +66,8 @@
                                 {{ form.limite_consultas.errors }}
                             </div>
                         {% endif %}
-
                     </div>
+                    <div class="four wide field"></div>
                 </div>
 
                 <br/>
@@ -73,7 +78,7 @@
                         {% else %}
                             <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
                         {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
                         <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">
                             Cancelar
                         </button>

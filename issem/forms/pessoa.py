@@ -38,7 +38,6 @@ class PessoaForm(forms.ModelForm):
         else:
             raise forms.ValidationError("CPF inválido.")
 
-
     def clean_data_nascimento(self):
         data_nascimento = self.cleaned_data.get('data_nascimento')
         data_gerada = datetime.now() - relativedelta(years=18)

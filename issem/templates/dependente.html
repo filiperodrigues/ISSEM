@@ -21,15 +21,29 @@
                     <div class="six wide field">
                         <label>Tipo de Dependente</label>
                         {{ form.tipo }}
-                        {{ form.tipo.errors }}
+                        {% if form.tipo.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.tipo.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="five wide field">
                         <label>Data de início</label>
-                        <input name="data_inicial" id="id_data_inicial" onfocus="change_life()"/>
+                        {{ form.data_inicial }}
+                        {% if form.data_inicial.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.data_inicial.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="five wide field">
                         <label>Data de término</label>
-                        <input name="data_final" id="id_data_final"/>
+                        {{ form.data_final }}
+                        {% if form.data_final.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.data_final.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -41,7 +55,7 @@
                         {% else %}
                             <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
                         {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
                         <button type="button" onclick="location.href='{% url "issem:funcionario" %}'"
                                 class="ui button red">Cancelar
                         </button>

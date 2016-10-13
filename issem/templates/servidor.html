@@ -22,8 +22,8 @@
                     <div class="four wide field">
                         <label>Departamento</label>
                         {{ form.departamento }}
-                        {% if form.departemento.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
+                        {% if form.departamento.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
                                 {{ form.departamento.errors }}
                             </div>
                         {% endif %}
@@ -33,7 +33,7 @@
                         <div class="crm">
                             {{ form.crm }}
                             {% if form.crm.errors %}
-                                <div class="ui pointing red basic label issem-required-field">
+                                <div class="ui pointing red basic label issem-error-field">
                                     {{ form.crm.errors }}
                                 </div>
                             {% endif %}
@@ -50,7 +50,7 @@
                         {% else %}
                             <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
                         {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
                         <button type="button" onclick="location.href='{% url "issem:funcionario" %}'"
                                 class="ui button red">Cancelar
                         </button>

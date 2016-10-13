@@ -2,47 +2,58 @@
 
 {% block body_block %}
 
-    <div class="ui centered grid">
-        <div class="row">
-            <div class="ten wide column">
-                <div class="ui segment">
-                    <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
+    <div class="ui centered row">
+        <div class="ui segment issem-cad">
+            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
-                    {% if not id %}
-                        <h1>Cadastro de novo Cargo:</h1>
-                    {% else %}
-                        <h1>Edição de Cargo</h1>
-                    {% endif %}
+            {% if not id %}
+                <h1>Cadastro de novo Cargo:</h1>
+            {% else %}
+                <h1>Edição de Cargo</h1>
+            {% endif %}
 
-                    <form class="ui form" id="CargoForm" method="post" action="{% url 'issem:cad_cargo' %}">
-                        {% csrf_token %}
+            <br/>
+            <form class="ui form" id="CargoForm" method="post" action="{% url 'issem:cad_cargo' %}">
+                {% csrf_token %}
 
-                        {% if not id %}
-                            <input type="hidden" name="id" value="">
-                        {% else %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                        {% endif %}
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
 
-                        <div class="fields">
-                            <div class="thirteen wide field">
-                                <label>Nome:</label>
-                                {{ form.nome }}
-                            </div>
+                <div class="fields">
+                    <div class="five wide field"></div>
+                    <div class="six wide field">
+                        <label>Nome do cargo</label>
+                        <div class="somente_letras">
+                            {{ form.nome }}
+                            {% if form.nome.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.nome.errors }}
+                                </div>
+                            {% endif %}
                         </div>
+                    </div>
+                    <div class="five wide field"></div>
+                </div>
 
+                <br/>
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
                         {% if not id %}
                             <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
                         {% else %}
                             <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
                         {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>&nbsp;
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
                         <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">
                             Cancelar
                         </button>
-                    </form>
-
+                    </div>
                 </div>
-            </div>
+            </form>
+
         </div>
     </div>
 
