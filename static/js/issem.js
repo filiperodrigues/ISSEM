@@ -40,7 +40,7 @@ $(document).ready(
         $('#id_secretaria').dropdown();
         $('.ui.modal')
             .modal('setting', 'closable', false)
-            .modal('attach events', '#cadastro-secretaria', 'show');
+            .modal('attach events', '#CadastroSecretaria', 'show');
 
     });
 

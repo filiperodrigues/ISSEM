@@ -3,13 +3,13 @@
 {% block body_block %}
 
     <div class="ui centered row">
-        <div class="ui segment">
+        <div class="ui segment issem-cad">
             <a href="{% url 'issem:funcionario' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
-                <h1 class="issem-cad">Cadastro de novo Procedimento Médico:</h1>
+                <h1>Cadastro de novo Procedimento Médico:</h1>
             {% else %}
-                <h1 class="issem-cad">Edição de Procedimento Médico:</h1>
+                <h1>Edição de Procedimento Médico:</h1>
             {% endif %}
 
             <br/>
@@ -24,36 +24,51 @@
                 {% endif %}
 
                 <div class="fields">
+                    <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Código</label>
                         {{ form.codigo }}
+                        {% if form.codigo.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.codigo.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>Descrição</label>
                         {{ form.descricao }}
+                        {% if form.descricao.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.descricao.errors }}
+                            </div>
+                        {% endif %}
                     </div>
+                    <div class="four wide field"></div>
+                </div>
+                <div class="fields">
+                    <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Porte</label>
                         {{ form.porte }}
+                        {% if form.porte.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.porte.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>Custo de Operação</label>
                         {{ form.custo_operacao }}
+                        {% if form.custo_operacao.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.custo_operacao.errors }}
+                            </div>
+                        {% endif %}
                     </div>
+                    <div class="four wide field"></div>
                 </div>
 
-                <br/>
-                <div class="ui centered grid">
-                    <div class="ui column centered row">
-                        {% if not id %}
-                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
-                        {% else %}
-                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
-                        {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">Cancelar</button>
-                    </div>
-                </div>
+                {% include 'blocos/buttons_form.html' %}
             </form>
 
         </div>

@@ -16,7 +16,7 @@ from issem.models.servidor import ServidorModel
 from issem.models.tipo_dependente import TipoDependenteModel
 from issem.models.tipo_exame import TipoExameModel
 from issem.models.tipo_sanguineo import TipoSanguineoModel
-from issem.models.consultasparametros import ConsultasParametrosModel
+from issem.models.consulta_parametros import ConsultaParametrosModel
 from issem.models.requerimento import RequerimentoModel
 from issem.models.exame_requerimento import ExameRequerimentoModel
 from issem.models.agendamento import AgendamentoModel

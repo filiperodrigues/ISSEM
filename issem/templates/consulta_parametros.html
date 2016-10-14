@@ -13,7 +13,7 @@
             {% endif %}
 
             <br/>
-            <form class="ui form" id="ConsultasParametrosForm" method="post"
+            <form class="ui form" id="ConsultaParametrosForm" method="post"
                   action="{% url 'issem:cad_consulta_parametros' %}">
                 {% csrf_token %}
 
@@ -29,31 +29,29 @@
                         <label>Tempo de consulta (minutos)</label>
                         {{ form.tempo_consulta }}
                         {% if form.tempo_consulta.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
+                            <div class="ui pointing red basic label issem-error-field">
                                 {{ form.tempo_consulta.errors }}
                             </div>
                         {% endif %}
-
                     </div>
                     <div class="four wide field">
                         <label>Tempo de Espera (minutos)</label>
                         {{ form.tempo_espera }}
                         {% if form.tempo_espera.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
+                            <div class="ui pointing red basic label issem-error-field">
                                 {{ form.tempo_espera.errors }}
                             </div>
                         {% endif %}
                     </div>
                     <div class="four wide field"></div>
                 </div>
-
                 <div class="fields">
                     <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Início do atendimento (hora:minuto)</label>
                         {{ form.inicio_atendimento }}
                         {% if form.inicio_atendimento.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
+                            <div class="ui pointing red basic label issem-error-field">
                                 {{ form.inicio_atendimento.errors }}
                             </div>
                         {% endif %}
@@ -62,7 +60,7 @@
                         <label>Limite de consultas diárias</label>
                         {{ form.limite_consultas }}
                         {% if form.limite_consultas.errors %}
-                            <div class="ui pointing red basic label issem-required-field">
+                            <div class="ui pointing red basic label issem-error-field">
                                 {{ form.limite_consultas.errors }}
                             </div>
                         {% endif %}
@@ -70,20 +68,7 @@
                     <div class="four wide field"></div>
                 </div>
 
-                <br/>
-                <div class="ui centered grid">
-                    <div class="ui column centered row">
-                        {% if not id %}
-                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
-                        {% else %}
-                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
-                        {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
+                {% include 'blocos/buttons_form.html' %}
             </form>
 
         </div>

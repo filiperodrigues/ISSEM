@@ -56,20 +56,7 @@
                     <div class="three wide field"></div>
                 </div>
 
-                <br/>
-                <div class="ui centered grid">
-                    <div class="ui column centered row">
-                        {% if not id %}
-                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
-                        {% else %}
-                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
-                        {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
+                {% include 'blocos/buttons_form.html' %}
             </form>
 
         </div>

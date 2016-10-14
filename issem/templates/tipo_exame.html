@@ -1,42 +1,62 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    <div class="ui centered grid">
-        <div class="row">
-            <div class="ten wide column">
-                <div class="ui segment">
-                    <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
-                    {% if not id %}
-                        <h1>Cadastro de novo Tipo de Exame:</h1>
-                    {% else %}
-                        <h1>Edição de Tipo de Exame</h1>
-                    {% endif %}
+    <div class="ui centered row">
+        <div class="ui segment issem-cad">
+            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
-                    <form class="ui form" id="TipoExameForm" method="post"
-                          action="{% url 'issem:cad_tipo_exame' %}">
-                        {% csrf_token %}
+            {% if not id %}
+                <h1>Cadastro de novo Tipo de Exame:</h1>
+            {% else %}
+                <h1>Edição de Tipo de Exame</h1>
+            {% endif %}
 
-                        {% if not id %}
-                            <input type="hidden" name="id" value="">
-                        {% else %}
-                            <input type="hidden" name="id" value="{{ id }}">
-                        {% endif %}
+            <br/>
+            <form class="ui form" id="TipoExameForm" method="post"
+                  action="{% url 'issem:cad_tipo_exame' %}">
+                {% csrf_token %}
 
-                        {{ form.as_p }}
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
 
-                        {% if not id %}
-                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
-                        {% else %}
-                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
-                        {% endif %}
-                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
-                        <button type="button" onclick="location.href={% url 'issem:index' %}" class="ui button red">
-                            Cancelar
-                        </button>
-                    </form>
+                <div class="fields">
+                    <div class="three wide field"></div>
+                    <div class="ten wide field">
+                        <label>Nome</label>
+                        <div class="somente_letras">
+                            {{ form.nome }}
+                            {% if form.nome.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.nome.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="three wide field"></div>
                 </div>
-            </div>
+                <div class="fields">
+                    <div class="three wide field"></div>
+                    <div class="ten wide field">
+                        <label>Observação</label>
+                        <div class="somente_letras">
+                            {{ form.observacao }}
+                            {% if form.observacao.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.observacao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="three wide field"></div>
+                </div>
+
+                {% include 'blocos/buttons_form.html' %}
+            </form>
         </div>
     </div>
+
 {% endblock %}

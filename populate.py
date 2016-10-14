@@ -154,12 +154,12 @@ def populate():
     for ts in tipos_sanguineos:
         add_tipo_sanguineo(ts)
 
-    # CONSULTAS PARÂMETROS
-    consultas_parametros = [
+    # CONSULTA PARÂMETROS
+    consulta_parametros = [
         [20, 5,'10:45', 8],
     ]
-    for cp in consultas_parametros:
-        add_consultas_parametros(cp[0], cp[1], cp[2], cp[3])
+    for cp in consulta_parametros:
+        add_consulta_parametros(cp[0], cp[1], cp[2], cp[3])
 
 
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
@@ -190,7 +190,7 @@ def add_departamentos(n):
 
 
 def add_tipo_dependente(n):
-    return TipoDependenteModel.objects.get_or_create(nome=n)
+    return TipoDependenteModel.objects.get_or_create(descricao=n)
 
 
 def add_dependente():
@@ -226,8 +226,8 @@ def add_tipo_exame(n, obs):
 def add_tipo_sanguineo(n):
     return TipoSanguineoModel.objects.get_or_create(nome=n)
 
-def add_consultas_parametros(tc, te, ia, lc):
-    return ConsultasParametrosModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia, limite_consultas=lc)
+def add_consulta_parametros(tc, te, ia, lc):
+    return ConsultaParametrosModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia, limite_consultas=lc)
 
 
 # Start execution here!

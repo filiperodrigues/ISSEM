@@ -6,4 +6,4 @@ from issem.models import TipoDependenteModel
 class TipoDependenteForm(forms.ModelForm):
     class Meta:
         model = TipoDependenteModel
-        fields = ('nome',)
+        fields = ('descricao',)

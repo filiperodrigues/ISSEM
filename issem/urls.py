@@ -86,9 +86,9 @@ urlpatterns = [
     url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),
     url(r'^escolha_cidade_atual/$', CidadeView.as_view(), name='escolha_cidade_atual'),
 
-    ## CONSULTAS PARÂMETROS ##
-    url(r'^cad/consulta_parametro/$', ConstultasParametrosView.as_view(), name='cad_consulta_parametros'),
-    url(r'^edita/consulta_parametro/(?P<id>\d+)/$', ConstultasParametrosView.as_view(), name='edita_consulta_parametros'),
-    url(r'^deleta/consulta_parametro/(?P<id>[0-9]+)/$', views.ConsultasParametrosDelete, name='deleta_consulta_parametros'),
+    ## CONSULTA PARÂMETROS ##
+    url(r'^cad/consulta_parametro/$', ConstultaParametrosView.as_view(), name='cad_consulta_parametros'),
+    url(r'^edita/consulta_parametro/(?P<id>\d+)/$', ConstultaParametrosView.as_view(), name='edita_consulta_parametros'),
+    url(r'^deleta/consulta_parametro/(?P<id>[0-9]+)/$', views.ConsultaParametrosDelete, name='deleta_consulta_parametros'),
 
 ]

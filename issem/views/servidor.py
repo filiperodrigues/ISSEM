@@ -9,21 +9,21 @@ class ServidorView(View):
     template = 'servidor.html'
 
     def get(self, request, id=None):
-        if id:
+        if id:  # EDIÇÃO
             servidor = ServidorModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = ServidorForm(instance=servidor)
-        else:
+        else:  # CADASTRO NOVO
             form = ServidorForm()  # MODO CADASTRO: recebe o formulário vazio
         estados = EstadoModel.objects.all()
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
         if request.POST['id']:  # EDIÇÃO
+            print("processando ediçãooooooooooooooooo =================")
             id = request.POST['id']
             servidor = ServidorModel.objects.get(pk=id)
             form = ServidorForm(instance=servidor, data=request.POST)
         else:  # CADASTRO NOVO
-            # id = None
             form = ServidorForm(data=request.POST)
 
         if form.is_valid():

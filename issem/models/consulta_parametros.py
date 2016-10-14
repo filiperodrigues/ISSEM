@@ -1,7 +1,8 @@
-# coding:utf-8
+# coding: utf-8
 from django.db import models
 
-class ConsultasParametrosModel(models.Model):
+
+class ConsultaParametrosModel(models.Model):
     tempo_consulta = models.IntegerField(null=False)
     tempo_espera = models.IntegerField(null=False)
     inicio_atendimento = models.TimeField(null=False)
@@ -15,4 +16,4 @@ class ConsultasParametrosModel(models.Model):
 
     class Meta:
         verbose_name = "Consulta Parâmetro"
-        verbose_name_plural = "Consultas Parâmetros"
+        verbose_name_plural = "Consulta Parâmetros"
