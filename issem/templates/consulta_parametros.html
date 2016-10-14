@@ -46,7 +46,7 @@
                     <div class="four wide field"></div>
                 </div>
                 <div class="fields">
-                    <div class="four wide field"></div>
+                    <div class="two wide field"></div>
                     <div class="four wide field">
                         <label>Início do atendimento (hora:minuto)</label>
                         {{ form.inicio_atendimento }}
@@ -65,7 +65,15 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>GEP Agendamento</label>
+                        {{ form.gep_agendamento }}
+                        {% if form.gep_agendamento.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.gep_agendamento.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
 
                 {% include 'blocos/buttons_form.html' %}

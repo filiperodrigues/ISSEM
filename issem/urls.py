@@ -91,4 +91,7 @@ urlpatterns = [
     url(r'^edita/consulta_parametro/(?P<id>\d+)/$', ConstultaParametrosView.as_view(), name='edita_consulta_parametros'),
     url(r'^deleta/consulta_parametro/(?P<id>[0-9]+)/$', views.ConsultaParametrosDelete, name='deleta_consulta_parametros'),
 
+    ## AGENDAMENTO ##
+    url(r'^cad/agendamento/$', AgendamentoView.as_view(), name='cad_agendamento'),
+
 ]

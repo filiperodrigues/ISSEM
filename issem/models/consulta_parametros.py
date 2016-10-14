@@ -7,7 +7,7 @@ class ConsultaParametrosModel(models.Model):
     tempo_espera = models.IntegerField(null=False)
     inicio_atendimento = models.TimeField(null=False)
     limite_consultas = models.IntegerField(null=False)
-
+    gep_agendamento = models.CharField(null=False, max_length=8)
     def __unicode__(self):
         return self.tempo_consulta
 

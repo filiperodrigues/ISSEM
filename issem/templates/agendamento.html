@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered row">
+        <div class="ui segment">
+            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
+
+            {% if not id %}
+                <h1>Requerimento de benefício por incapacidade:</h1>
+            {% else %}
+                <h1>Edição de Agendamento</h1>
+            {% endif %}
+
+            <form class="ui form" id="AgendamentoForm" method="post" action="{% url 'issem:cad_agendamento' %}">
+                {% csrf_token %}
+
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
+                <div class="fields">
+                    <div class="three wide field">
+                        <label>Orgão:</label>
+                            {{ form.orgao }}
+                            {% if form.orgao.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.orgao.errors }}
+                                </div>
+                            {% endif %}
+                    </div>
+                    <div class="three wide field">
+                        <label>Secretaria:</label>
+                            {{ form.secretaria }}
+                            {% if form.secretaria.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.secretaria.errors }}
+                                </div>
+                            {% endif %}
+                    </div>
+                    <div class="three wide field">
+                        <label>Local de Trabalho:</label>
+                            {{ form.local_trabalho }}
+                            {% if form.local_trabalho.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.local_trabalho.errors }}
+                                </div>
+                            {% endif %}
+                    </div>
+                    <div class="three wide field">
+                        <label>Cargo:</label>
+                            {{ form.cargo }}
+                            {% if form.cargo.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.cargo.errors }}
+                                </div>
+                            {% endif %}
+                    </div>
+                    <div class="three wide field">
+                        <label>Data de início do afastamento:</label>
+                        <div class="data">
+                            {{ form.data_inicio_afastamento }}
+                            {% if form.data_inicio_afastamento.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_inicio_afastamento.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="three wide field">
+                        <label>Data término do afastamento:</label>
+                        <div class="data">
+                            {{ form.data_final_afastamento }}
+                            {% if form.data_final_afastamento.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_final_afastamento.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="ui centered grid">
+                    <div class="ui column centered row">
+                        {% if not id %}
+                            <input type="submit" name="submit" class="ui button green" value="Cadastrar"/>
+                        {% else %}
+                            <input type="submit" name="submit" class="ui button green" value="Atualizar"/>
+                        {% endif %}
+                        <input type="reset" name="limpar" class="ui button default" value="Limpar"/>
+                        <button type="button" onclick="location.href='{% url "issem:index" %}'"
+                                class="ui button red">Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
