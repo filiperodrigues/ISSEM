@@ -4,7 +4,7 @@ from issem.models import BeneficioModel
 
 
 class BeneficioForm(forms.ModelForm):
-    data_inicial = forms.CharField(widget=forms.TextInput(attrs={'onfocus': 'change_life()'}))
+    data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'change_life()'}))
 
     class Meta:
         model = BeneficioModel

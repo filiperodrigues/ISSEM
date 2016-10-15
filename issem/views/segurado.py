@@ -33,7 +33,7 @@ class SeguradoView(View):
         else:
             print(form.errors)
 
-        return render(request, self.template, {'form': form, 'method': 'post'})
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
 def SeguradoDelete(request, id):

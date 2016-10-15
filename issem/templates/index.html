@@ -225,7 +225,7 @@
 
         <div class="ui existing segment">
             {% for tipo_dependente in tipos_dependente %}
-                {{ tipo_dependente.nome }} &nbsp;&nbsp;
+                {{ tipo_dependente.descricao }} &nbsp;&nbsp;
                 <a href="{% url 'issem:edita_tipo_dependente' tipo_dependente.id %}">
                     <i class="edit icon"></i>
                 </a>

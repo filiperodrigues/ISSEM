@@ -4,6 +4,7 @@ from issem.models import DepartamentoModel
 
 
 class DepartamentoForm(forms.ModelForm):
+
     class Meta:
         model = DepartamentoModel
         fields = ('nome',)

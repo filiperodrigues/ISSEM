@@ -4,6 +4,7 @@ from issem.models import TipoExameModel
 
 
 class TipoExameForm(forms.ModelForm):
+
     class Meta:
         model = TipoExameModel
         fields = ('nome', 'observacao',)

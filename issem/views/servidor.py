@@ -5,6 +5,7 @@ from issem.forms import ServidorForm
 from django.views.generic.base import View
 from issem.models import EstadoModel
 
+
 class ServidorView(View):
     template = 'servidor.html'
 
@@ -19,11 +20,11 @@ class ServidorView(View):
 
     def post(self, request):
         if request.POST['id']:  # EDIÇÃO
-            print("processando ediçãooooooooooooooooo =================")
             id = request.POST['id']
             servidor = ServidorModel.objects.get(pk=id)
             form = ServidorForm(instance=servidor, data=request.POST)
         else:  # CADASTRO NOVO
+            id = None
             form = ServidorForm(data=request.POST)
 
         if form.is_valid():
@@ -32,7 +33,7 @@ class ServidorView(View):
         else:
             print(form.errors)
 
-        return render(request, self.template, {'form': form, 'method': 'post'})
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
 def ServidorDelete(request, id):

@@ -4,7 +4,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import AgendamentoModel
 from issem.forms import AgendamentoForm
 from django.views.generic.base import View
-from issem.models.consultasparametros import ConsultasParametrosModel
+from issem.models.consulta_parametros import ConsultaParametrosModel
 
 
 class AgendamentoView(View):
@@ -26,10 +26,10 @@ class AgendamentoView(View):
         else:  # CADASTRO NOVO
             id = None
             form = AgendamentoForm(data=request.POST)
-            tempo_consulta = ConsultasParametrosModel.tempo_consulta
-            tempo_espera = ConsultasParametrosModel.tempo_espera
-            limite_consultas_diarias = ConsultasParametrosModel.limite_consultas
-            gep_agendamento = ConsultasParametrosModel.gep_agendamento
+            tempo_consulta = ConsultaParametrosModel.tempo_consulta
+            tempo_espera = ConsultaParametrosModel.tempo_espera
+            limite_consultas_diarias = ConsultaParametrosModel.limite_consultas
+            gep_agendamento = ConsultaParametrosModel.gep_agendamento
 
             data_hoje = datetime.today()
 
@@ -42,7 +42,7 @@ class AgendamentoView(View):
         else:
             print(form.errors)
 
-        return render(request, self.template, {'form': form, 'method': 'post'})
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
 def AgendamentoDelete(request, id):

@@ -14,3 +14,4 @@ from issem.views.servidor import *
 from issem.views.tipo_dependente import *
 from issem.views.tipo_exame import *
 from issem.views.consulta_parametros import *
+from issem.views.agendamento import *
