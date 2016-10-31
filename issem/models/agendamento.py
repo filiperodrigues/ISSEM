@@ -7,6 +7,7 @@ from issem.models.cargo import CargoModel
 from issem.models.secretaria import SecretariaModel
 from issem.models.local_trabalho import LocalTrabalhoModel
 
+
 class AgendamentoModel(models.Model):
     data_agendamento = models.DateField(null=False)
     data_pericia = models.DateField()

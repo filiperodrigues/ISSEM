@@ -7,5 +7,5 @@ class CargoForm(forms.ModelForm):
 
     class Meta:
         model = CargoModel
-        fields = ('nome',)
+        fields = '__all__'
 

@@ -6,12 +6,12 @@ from issem.models.secretaria import SecretariaModel
 
 class LocalTrabalhoModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
-    cnpj = models.PositiveIntegerField(unique=True)
+    cnpj = models.CharField(unique=True, max_length=18)
     endereco = models.CharField(max_length=128)
-    numero_endereco = models.PositiveIntegerField()
+    numero_endereco = models.CharField(max_length=9)
     complemento = models.CharField(max_length=128)
     bairro = models.CharField(max_length=128)
-    cep = models.PositiveIntegerField()
+    cep = models.CharField(max_length=9)
     cidade = models.ForeignKey(CidadeModel)
     secretaria = models.ForeignKey(SecretariaModel)
 

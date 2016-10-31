@@ -12,7 +12,6 @@
                 <h1>Edição de CID</h1>
             {% endif %}
 
-            <br/>
             <form class="ui form" id="CidForm" method="post" action="{% url 'issem:cad_cid' %}">
                 {% csrf_token %}
 
@@ -28,26 +27,28 @@
                         <label>Descrição</label>
                         {{ form.descricao }}
                         {% if form.descricao.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.descricao.errors }}
                             </div>
                         {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>Gravidade</label>
-                        {{ form.gravidade }}
-                        {% if form.gravidade.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.gravidade.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="somente_numeros">
+                            {{ form.gravidade }}
+                            {% if form.gravidade.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.gravidade.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="one wide field">
                         <label>Status</label>
                         <div class="ui segment issem-input-checkbox">
                             {{ form.status }}
                             {% if form.status.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
+                                <div class="ui pointing red basic label">
                                     {{ form.status.errors }}
                                 </div>
                             {% endif %}

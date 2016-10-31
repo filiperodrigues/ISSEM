@@ -27,21 +27,25 @@
                     <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Tempo de consulta (minutos)</label>
-                        {{ form.tempo_consulta }}
-                        {% if form.tempo_consulta.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.tempo_consulta.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="dois_digitos">
+                            {{ form.tempo_consulta }}
+                            {% if form.tempo_consulta.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.tempo_consulta.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field">
                         <label>Tempo de Espera (minutos)</label>
-                        {{ form.tempo_espera }}
-                        {% if form.tempo_espera.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.tempo_espera.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="dois_digitos">
+                            {{ form.tempo_espera }}
+                            {% if form.tempo_espera.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.tempo_espera.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field"></div>
                 </div>
@@ -49,21 +53,25 @@
                     <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Início do atendimento (hora:minuto)</label>
-                        {{ form.inicio_atendimento }}
-                        {% if form.inicio_atendimento.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.inicio_atendimento.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="hora">
+                            {{ form.inicio_atendimento }}
+                            {% if form.inicio_atendimento.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.inicio_atendimento.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field">
                         <label>Limite de consultas diárias</label>
-                        {{ form.limite_consultas }}
-                        {% if form.limite_consultas.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.limite_consultas.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="dois_digitos">
+                            {{ form.limite_consultas }}
+                            {% if form.limite_consultas.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.limite_consultas.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field"></div>
                 </div>
@@ -71,12 +79,14 @@
                     <div class="six wide field"></div>
                     <div class="four wide field">
                         <label>GEP Agendamento</label>
-                        {{ form.gep_agendamento }}
-                        {% if form.gep_agendamento.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.gep_agendamento.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="dois_digitos">
+                            {{ form.gep_agendamento }}
+                            {% if form.gep_agendamento.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.gep_agendamento.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="six wide field"></div>
                 </div>

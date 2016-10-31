@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block body_tag %}
+    <body onload="calendar_input(); get_cidade_natural(); get_cidade_atual()">
+{% endblock %}
+
 {% block body_block %}
 
     <div class="ui centered row">
@@ -22,28 +26,32 @@
                         <label>Tipo de Dependente</label>
                         {{ form.tipo }}
                         {% if form.tipo.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.tipo.errors }}
                             </div>
                         {% endif %}
                     </div>
                     <div class="five wide field">
                         <label>Data de início</label>
-                        {{ form.data_inicial }}
-                        {% if form.data_inicial.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.data_inicial.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="data">
+                            {{ form.data_inicial }}
+                            {% if form.data_inicial.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.data_inicial.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="five wide field">
                         <label>Data de término</label>
-                        {{ form.data_final }}
-                        {% if form.data_final.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.data_final.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="data">
+                            {{ form.data_final }}
+                            {% if form.data_final.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.data_final.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
 

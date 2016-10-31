@@ -27,14 +27,12 @@
                     <div class="three wide field"></div>
                     <div class="ten wide field">
                         <label>Nome</label>
-                        <div class="somente_letras">
-                            {{ form.nome }}
-                            {% if form.nome.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.nome.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.nome.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="three wide field"></div>
                 </div>
@@ -42,14 +40,12 @@
                     <div class="three wide field"></div>
                     <div class="ten wide field">
                         <label>Observação</label>
-                        <div class="somente_letras">
-                            {{ form.observacao }}
-                            {% if form.observacao.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.observacao.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
+                        {{ form.observacao }}
+                        {% if form.observacao.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.observacao.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="three wide field"></div>
                 </div>

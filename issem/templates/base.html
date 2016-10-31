@@ -9,7 +9,9 @@
     <link type="text/css" rel="stylesheet" href="{% static 'semanticui/dist/semantic.css' %}"/>
 </head>
 
-<body>
+{% block body_tag %}
+    <body>
+{% endblock %}
 
 <header>
     <div class="ui fluid">

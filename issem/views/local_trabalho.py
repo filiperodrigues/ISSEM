@@ -1,5 +1,7 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
+
+from issem.models import EstadoModel
 from issem.models import LocalTrabalhoModel
 from issem.forms import LocalTrabalhoForm
 from django.views.generic.base import View
@@ -9,12 +11,13 @@ class LocalTrabalhoView(View):
     template = 'local_trabalho.html'
 
     def get(self, request, id=None):
-        if id:
+        if id:  # EDIÇÃO
             local_trabalho = LocalTrabalhoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = LocalTrabalhoForm(instance=local_trabalho)
-        else:
+        else:  # CADASTRO NOVO
             form = LocalTrabalhoForm()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
+        estados = EstadoModel.objects.all()
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
         if request.POST['id']:  # EDIÇÃO

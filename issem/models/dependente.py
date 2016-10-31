@@ -6,9 +6,9 @@ from issem.models.pessoa import PessoaModel
 
 
 class DependenteModel(PessoaModel):
-    tipo = models.ForeignKey(TipoDependenteModel)
-    data_inicial = models.DateField()
-    data_final = models.DateField()
+    tipo = models.ForeignKey(TipoDependenteModel, null=True, blank=True)
+    data_inicial = models.DateField(null=True, blank=True)
+    data_final = models.DateField(null=True, blank=True)
 
     def __unicode__(self):
         return self.nome

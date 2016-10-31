@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import DependenteModel
 from issem.forms import DependenteForm
 from django.views.generic.base import View
-from issem.models import EstadoModel
+from issem.models import EstadoModel, CidadeModel
 
 
 class DependenteView(View):
@@ -12,11 +12,12 @@ class DependenteView(View):
     def get(self, request, id=None):
         if id:
             dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            # estado = EstadoModel.objects.get(id=CidadeModel.objects.get(id=dependente.cidade_atual))
             form = DependenteForm(instance=dependente)
         else:
             form = DependenteForm()  # MODO CADASTRO: recebe o formulário vazio
-        estados = EstadoModel.objects.all()
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
+        # return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estado': estado})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
         if request.POST['id']:  # EDIÇÃO

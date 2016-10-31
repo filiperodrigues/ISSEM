@@ -2,6 +2,7 @@
 from django.db import models
 from issem.models.requerimento import RequerimentoModel
 
+
 class ExameRequerimentoModel(models.Model):
     descricao = models.CharField(max_length=1000)
     arquivo = models.FileField()

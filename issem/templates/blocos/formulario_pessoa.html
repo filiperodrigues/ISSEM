@@ -13,7 +13,7 @@
         <div class="somente_letras">
             {{ form.nome }}
             {% if form.nome.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.nome.errors }}
                 </div>
             {% endif %}
@@ -25,7 +25,7 @@
         <div class="cpf">
             {{ form.cpf }}
             {% if form.cpf.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.cpf.errors }}
                 </div>
             {% endif %}
@@ -36,7 +36,7 @@
         <div class="rg">
             {{ form.rg }}
             {% if form.rg.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.rg.errors }}
                 </div>
             {% endif %}</div>
@@ -47,7 +47,7 @@
         <div class="data">
             {{ form.data_nascimento }}
             {% if form.data_nascimento.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.data_nascimento.errors }}
                 </div>
             {% endif %}
@@ -60,7 +60,7 @@
         <label>Cargo</label>
         {{ form.cargo }}
         {% if form.cargo.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.cargo.errors }}
             </div>
         {% endif %}
@@ -69,7 +69,7 @@
         <label>Estado Civil</label>
         {{ form.estado_civil }}
         {% if form.estado_civil.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.estado_civil.errors }}
             </div>
         {% endif %}
@@ -79,7 +79,7 @@
         <div class="issem-input-radio">
             {{ form.sexo }}
             {% if form.sexo.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.sexo.errors }}
                 </div>
             {% endif %}
@@ -89,7 +89,7 @@
         <label>Tipo Sanguíneo</label>
         {{ form.tipo_sanguineo }}
         {% if form.tipo_sanguineo.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.tipo_sanguineo.errors }}
             </div>
         {% endif %}
@@ -99,7 +99,7 @@
         <div class="ui segment issem-input-checkbox">
             {{ form.doador }}
             {% if form.doador.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.doador.errors }}
                 </div>
             {% endif %}
@@ -112,7 +112,7 @@
         <label>E-mail</label>
         {{ form.email }}
         {% if form.email.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.email.errors }}
             </div>
         {% endif %}
@@ -122,7 +122,7 @@
         <div class="fone_ddd">
             {{ form.telefone_residencial }}
             {% if form.telefone_residencial.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.telefone_residencial.errors }}
                 </div>
             {% endif %}
@@ -134,7 +134,7 @@
         <div class="fone_ddd">
             {{ form.telefone_celular }}
             {% if form.telefone_celular.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.telefone_celular.errors }}
                 </div>
             {% endif %}
@@ -146,7 +146,7 @@
         <div class="cep">
             {{ form.cep }}
             {% if form.cep.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.cep.errors }}
                 </div>
             {% endif %}
@@ -160,7 +160,7 @@
         <label>Estado (Natural)</label>
         {{ form.estado_natural }}
         {% if form.estado_natural.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.estado_natural.errors }}
             </div>
         {% endif %}
@@ -169,17 +169,16 @@
         <label>Cidade Natural</label>
         {{ form.cidade_natural }}
         {% if form.cidade_natural.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.cidade_natural.errors }}
             </div>
         {% endif %}
-
     </div>
     <div class="four wide field">
         <label>Estado (Atual)</label>
         {{ form.estado_atual }}
         {% if form.estado_atual.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.estado_atual.errors }}
             </div>
         {% endif %}
@@ -188,7 +187,7 @@
         <label>Cidade Atual</label>
         {{ form.cidade_atual }}
         {% if form.cidade_atual.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.cidade_atual.errors }}
             </div>
         {% endif %}
@@ -200,17 +199,17 @@
         <label>Endereço</label>
         {{ form.endereco }}
         {% if form.endereco.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.endereco.errors }}
             </div>
         {% endif %}
     </div>
     <div class="four wide field">
         <label>Nº Residencial</label>
-        <div class="n_endereco">
+        <div class="dez_digitos">
             {{ form.numero_endereco }}
             {% if form.numero_endereco.errors %}
-                <div class="ui pointing red basic label issem-error-field">
+                <div class="ui pointing red basic label">
                     {{ form.numero_endereco.errors }}
                 </div>
             {% endif %}
@@ -220,7 +219,7 @@
         <label>Complemento</label>
         {{ form.complemento }}
         {% if form.complemento.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.complemento.errors }}
             </div>
         {% endif %}
@@ -229,7 +228,7 @@
         <label>Bairro</label>
         {{ form.bairro }}
         {% if form.bairro.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.bairro.errors }}
             </div>
         {% endif %}
@@ -242,7 +241,7 @@
         <label>Nome do pai</label>
         {{ form.nome_pai }}
         {% if form.nome_pai.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.nome_pai.errors }}
             </div>
         {% endif %}
@@ -251,7 +250,7 @@
         <label>Nome da mãe <i class="asterisk icon red"></i></label>
         {{ form.nome_mae }}
         {% if form.nome_mae.errors %}
-            <div class="ui pointing red basic label issem-error-field">
+            <div class="ui pointing red basic label">
                 {{ form.nome_mae.errors }}
             </div>
         {% endif %}

@@ -5,7 +5,7 @@ from django.db import models
 class CidModel(models.Model):
     descricao = models.CharField(max_length=128, null=False)
     status = models.BooleanField(default=0)
-    gravidade = models.PositiveIntegerField(null=False)
+    gravidade = models.CharField(null=False, max_length=128)
 
     def __unicode__(self):
         return self.descricao

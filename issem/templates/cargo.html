@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
 {% block body_block %}
 
@@ -26,14 +26,12 @@
                     <div class="five wide field"></div>
                     <div class="six wide field">
                         <label>Nome do cargo</label>
-                        <div class="somente_letras">
-                            {{ form.nome }}
-                            {% if form.nome.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.nome.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.nome.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="five wide field"></div>
                 </div>

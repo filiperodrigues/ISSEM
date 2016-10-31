@@ -85,6 +85,7 @@ urlpatterns = [
     ## CIDADE / ESTADO ##
     url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),
     url(r'^escolha_cidade_atual/$', CidadeView.as_view(), name='escolha_cidade_atual'),
+    url(r'^escolha_cidade_local_trabalho/$', CidadeView.as_view(), name='escolha_cidade_local_trabalho'),
 
     ## CONSULTA PARÂMETROS ##
     url(r'^cad/consulta_parametro/$', ConstultaParametrosView.as_view(), name='cad_consulta_parametros'),

@@ -7,4 +7,4 @@ class TipoDependenteForm(forms.ModelForm):
 
     class Meta:
         model = TipoDependenteModel
-        fields = ('descricao',)
+        fields = '__all__'

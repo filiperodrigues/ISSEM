@@ -7,4 +7,4 @@ class SecretariaForm(forms.ModelForm):
 
     class Meta:
         model = SecretariaModel
-        fields = ('nome',)
+        fields = '__all__'

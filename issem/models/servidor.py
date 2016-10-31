@@ -9,10 +9,10 @@ class ServidorModel(PessoaModel):
     crm = models.CharField(max_length=32, blank=True)
 
     def __unicode__(self):
-        return self.crm
+        return self.nome
 
     def __str__(self):
-        return self.crm
+        return self.nome
 
     class Meta:
         verbose_name = "Servidor"

@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block body_tag %}
+    <body onload="calendar_input()">
+{% endblock %}
+
 {% block body_block %}
 
     <div class="ui centered row">
@@ -27,7 +31,7 @@
                         <div class="data">
                             {{ form.data_inicial }}
                             {% if form.data_inicial.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
+                                <div class="ui pointing red basic label">
                                     {{ form.data_inicial.errors }}
                                 </div>
                             {% endif %}
@@ -38,7 +42,7 @@
                         <div class="data">
                             {{ form.data_final }}
                             {% if form.data_final.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
+                                <div class="ui pointing red basic label">
                                     {{ form.data_final.errors }}
                                 </div>
                             {% endif %}
@@ -49,7 +53,7 @@
                         <div class="data">
                             {{ form.data_retorno }}
                             {% if form.data_retorno.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
+                                <div class="ui pointing red basic label">
                                     {{ form.data_retorno.errors }}
                                 </div>
                             {% endif %}
@@ -60,7 +64,7 @@
                         <div class="data">
                             {{ form.data_pericia }}
                             {% if form.data_pericia.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
+                                <div class="ui pointing red basic label">
                                     {{ form.data_pericia.errors }}
                                 </div>
                             {% endif %}
@@ -71,21 +75,19 @@
                 <div class="fields">
                     <div class="eight wide field">
                         <label>Descrição:</label>
-                        <div class="somente_letras">
-                            {{ form.descricao }}
-                            {% if form.descricao.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.descricao.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
+                        {{ form.descricao }}
+                        {% if form.descricao.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.descricao.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>Data Portaria:</label>
                         <div class="data">
                             {{ form.data_portaria }}
                             {% if form.data_portaria.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
+                                <div class="ui pointing red basic label">
                                     {{ form.data_portaria.errors }}
                                 </div>
                             {% endif %}
@@ -93,39 +95,45 @@
                     </div>
                     <div class="four wide field">
                         <label>Nº Portaria:</label>
-                        {{ form.numero_portaria }}
-                        {% if form.numero_portaria.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.numero_portaria.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="somente_numeros">
+                            {{ form.numero_portaria }}
+                            {% if form.numero_portaria.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.numero_portaria.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
 
                 <div class="fields">
                     <div class="four wide field">
                         <label>Salário Máximo:</label>
-                        {{ form.salario_maximo }}
-                        {% if form.salario_maximo.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.salario_maximo.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="valor">
+                            {{ form.salario_maximo }}
+                            {% if form.salario_maximo.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.salario_maximo.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field">
                         <label>Carência:</label>
-                        {{ form.carencia }}
-                        {% if form.carencia.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.carencia.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="somente_numeros">
+                            {{ form.carencia }}
+                            {% if form.carencia.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.carencia.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="six wide field">
                         <label>Observação:</label>
                         {{ form.observacao }}
                         {% if form.observacao.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.observacao.errors }}
                             </div>
                         {% endif %}
@@ -135,7 +143,7 @@
                         <div class="ui segment issem-input-checkbox">
                             {{ form.concessao }}
                             {% if form.concessao.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
+                                <div class="ui pointing red basic label">
                                     {{ form.concessao.errors }}
                                 </div>
                             {% endif %}

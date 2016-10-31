@@ -6,7 +6,7 @@ class ProcedimentoMedicoModel(models.Model):
     codigo = models.CharField(max_length=250)
     descricao = models.CharField(max_length=1000)
     porte = models.CharField(max_length=250)
-    custo_operacao = models.FloatField(default=0)
+    custo_operacao = models.CharField(max_length=128)
 
     def __unicode__(self):
         return self.descricao

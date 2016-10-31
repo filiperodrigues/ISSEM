@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block body_tag %}
+    <body onload="calendar_input(); get_cidade_natural(); get_cidade_atual()">
+{% endblock %}
+
 {% block body_block %}
 
     <div class="ui centered row">
@@ -22,43 +26,49 @@
                         <label>Local de Trabalho</label>
                         {{ form.local_trabalho }}
                         {% if form.local_trabalho.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.local_trabalho.errors }}
                             </div>
                         {% endif %}
                     </div>
                     <div class="two wide field">
                         <label>PIS/PASEP/NIT</label>
-                        {{ form.pasep_pis_nit }}
-                        {% if form.pasep_pis_nit.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.pasep_pis_nit.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="somente_numeros">
+                            {{ form.pasep_pis_nit }}
+                            {% if form.pasep_pis_nit.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.pasep_pis_nit.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="two wide field">
                         <label>Documento legal</label>
-                        {{ form.documento_legal }}
-                        {% if form.documento_legal.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.documento_legal.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="somente_numeros">
+                            {{ form.documento_legal }}
+                            {% if form.documento_legal.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.documento_legal.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field">
                         <label>Data de Admissão</label>
-                        {{ form.data_admissao }}
-                        {% if form.data_admissao.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.data_admissao.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="data">
+                            {{ form.data_admissao }}
+                            {% if form.data_admissao.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.data_admissao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field">
                         <label>Dependente</label>
                         {{ form.dependente }}
                         {% if form.dependente.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.dependente.errors }}
                             </div>
                         {% endif %}
@@ -70,4 +80,5 @@
 
         </div>
     </div>
+
 {% endblock %}

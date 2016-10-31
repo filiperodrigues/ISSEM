@@ -156,10 +156,10 @@ def populate():
 
     # CONSULTA PARÂMETROS
     consulta_parametros = [
-        [20, 5,'10:45', 8],
+        [20, 5, 10, 8, 10],
     ]
     for cp in consulta_parametros:
-        add_consulta_parametros(cp[0], cp[1], cp[2], cp[3])
+        add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4])
 
 
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
@@ -168,66 +168,52 @@ def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
                                                 descricao=d, numero_portaria=np, data_portaria=dpt, salario_maximo=sm,
                                                 observacao=obs, carencia=ca)
 
-
 def add_cargo(n):
     return CargoModel.objects.get_or_create(nome=n)[0]
-
 
 def add_cid(d, s, g):
     return CidModel.objects.get_or_create(descricao=d, status=s, gravidade=g)[0]
 
-
 def add_cidade(id, n, uf):
     return CidadeModel.objects.get_or_create(id=id, nome=n, uf=uf)[0]
-
 
 def add_estado(id, n, uf):
     return EstadoModel.objects.get_or_create(id=id, nome=n, uf=uf)[0]
 
-
 def add_departamentos(n):
     return DepartamentoModel.objects.get_or_create(nome=n)[0]
-
 
 def add_tipo_dependente(n):
     return TipoDependenteModel.objects.get_or_create(descricao=n)
 
-
 def add_dependente():
     return
-
 
 def add_estado_civil(n):
     return EstadoCivilModel.objects.get_or_create(nome=n)
 
-
 def add_funcao(n, d):
     return FuncaoModel.objects.get_or_create(nome=n, descricao=d)
-
 
 def add_local_trabalho(n, cnpj, e, ne, c, b, cep, ci, s):
     return LocalTrabalhoModel.objects.get_or_create(nome=n, cnpj=cnpj, endereco=e, numero_endereco=ne, complemento=c,
                                                     bairro=b,
                                                     cep=cep, cidade=ci, secretaria=s)
 
-
 def add_procedimento_medico(c, d, p, co):
     return ProcedimentoMedicoModel.objects.get_or_create(codigo=c, descricao=d, porte=p, custo_operacao=co)
-
 
 def add_secretaria(n):
     return SecretariaModel.objects.get_or_create(nome=n)
 
-
 def add_tipo_exame(n, obs):
     return TipoExameModel.objects.get_or_create(nome=n, observacao=obs)
-
 
 def add_tipo_sanguineo(n):
     return TipoSanguineoModel.objects.get_or_create(nome=n)
 
-def add_consulta_parametros(tc, te, ia, lc):
-    return ConsultaParametrosModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia, limite_consultas=lc)
+def add_consulta_parametros(tc, te, ia, lc, ga):
+    return ConsultaParametrosModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia, limite_consultas=lc, gap_agendamento=ga)
 
 
 # Start execution here!

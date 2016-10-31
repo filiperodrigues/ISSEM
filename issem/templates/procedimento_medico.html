@@ -27,18 +27,20 @@
                     <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Código</label>
-                        {{ form.codigo }}
-                        {% if form.codigo.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.codigo.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="somente_numeros">
+                            {{ form.codigo }}
+                            {% if form.codigo.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.codigo.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field">
                         <label>Descrição</label>
                         {{ form.descricao }}
                         {% if form.descricao.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.descricao.errors }}
                             </div>
                         {% endif %}
@@ -51,19 +53,21 @@
                         <label>Porte</label>
                         {{ form.porte }}
                         {% if form.porte.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.porte.errors }}
                             </div>
                         {% endif %}
                     </div>
                     <div class="four wide field">
                         <label>Custo de Operação</label>
-                        {{ form.custo_operacao }}
-                        {% if form.custo_operacao.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.custo_operacao.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="valor">
+                            {{ form.custo_operacao }}
+                            {% if form.custo_operacao.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.custo_operacao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="four wide field"></div>
                 </div>

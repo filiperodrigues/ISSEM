@@ -7,4 +7,4 @@ class DepartamentoForm(forms.ModelForm):
 
     class Meta:
         model = DepartamentoModel
-        fields = ('nome',)
+        fields = '__all__'

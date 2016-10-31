@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block body_tag %}
+    <body onload="get_cidade_local_trabalho()">
+{% endblock %}
+
 {% block body_block %}
 
     <div class="ui centered row">
@@ -26,25 +30,27 @@
                         <label>Nome:</label>
                         {{ form.nome }}
                         {% if form.nome.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.nome.errors }}
                             </div>
                         {% endif %}
                     </div>
                     <div class="five wide field">
                         <label>CNPJ:</label>
-                        {{ form.cnpj }}
-                        {% if form.cnpj.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.cnpj.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="cnpj">
+                            {{ form.cnpj }}
+                            {% if form.cnpj.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.cnpj.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="five wide field">
                         <label>Secretaria:</label>
                         {{ form.secretaria }}
                         {% if form.secretaria.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.secretaria.errors }}
                             </div>
                         {% endif %}
@@ -59,54 +65,67 @@
                         <label>Endereço:</label>
                         {{ form.endereco }}
                         {% if form.endereco.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.endereco.errors }}
                             </div>
                         {% endif %}
                     </div>
                     <div class="five wide field">
                         <label>Número:</label>
-                        {{ form.numero_endereco }}
-                        {% if form.numero_endereco.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.numero_endereco.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="dez_digitos">
+                            {{ form.numero_endereco }}
+                            {% if form.numero_endereco.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.numero_endereco.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="five wide field">
                         <label>Complemento:</label>
                         {{ form.complemento }}
                         {% if form.complemento.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.complemento.errors }}
                             </div>
                         {% endif %}
                     </div>
                 </div>
                 <div class="fields">
-                    <div class="five wide field">
+                    <div class="four wide field">
                         <label>Bairro:</label>
                         {{ form.bairro }}
                         {% if form.bairro.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.bairro.errors }}
                             </div>
                         {% endif %}
                     </div>
-                    <div class="five wide field">
+                    <div class="four wide field">
                         <label>CEP:</label>
-                        {{ form.cep }}
-                        {% if form.cep.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.cep.errors }}
+                        <div class="cep">
+                            {{ form.cep }}
+                            {% if form.cep.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.cep.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="four wide field">
+                        <label>Estado</label>
+                        {{ form.estados }}
+                        {% if form.estados.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.estados.errors }}
                             </div>
                         {% endif %}
                     </div>
-                    <div class="five wide field">
-                        <label>Cidade:</label>
+                    <div class="four wide field">
+                        <label>Cidade</label>
                         {{ form.cidade }}
                         {% if form.cidade.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.cidade.errors }}
                             </div>
                         {% endif %}

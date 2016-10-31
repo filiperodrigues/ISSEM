@@ -3,10 +3,10 @@ from django.db import models
 
 
 class ConsultaParametrosModel(models.Model):
-    tempo_consulta = models.IntegerField(null=False)
-    tempo_espera = models.IntegerField(null=False)
+    tempo_consulta = models.CharField(null=False, max_length=2)
+    tempo_espera = models.CharField(null=False, max_length=2)
     inicio_atendimento = models.TimeField(null=False)
-    limite_consultas = models.IntegerField(null=False)
+    limite_consultas = models.CharField(null=False, max_length=128)
     gep_agendamento = models.CharField(null=False, max_length=8)
 
     def __unicode__(self):

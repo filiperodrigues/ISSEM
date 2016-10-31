@@ -2,6 +2,7 @@
 from django.db import models
 from issem.models.beneficio import BeneficioModel
 
+
 class RequerimentoModel(models.Model):
     beneficico = models.ForeignKey(BeneficioModel)
     data_requerimento = models.DateField()

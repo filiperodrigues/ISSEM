@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block body_tag %}
+    <body onload="calendar_input(); get_cidade_natural(); get_cidade_atual()">
+{% endblock %}
+
 {% block body_block %}
 
     <div class="ui centered row">
@@ -23,7 +27,7 @@
                         <label>Departamento</label>
                         {{ form.departamento }}
                         {% if form.departamento.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
+                            <div class="ui pointing red basic label">
                                 {{ form.departamento.errors }}
                             </div>
                         {% endif %}
@@ -33,7 +37,7 @@
                         <div class="crm">
                             {{ form.crm }}
                             {% if form.crm.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
+                                <div class="ui pointing red basic label">
                                     {{ form.crm.errors }}
                                 </div>
                             {% endif %}

@@ -1,63 +1,67 @@
-$(document).ready(
-    function () {
-        $('.cpf input').mask('000.000.000-00', {reverse: true});
-        $('.data input').mask('00/00/0000');
-        $('.hora').mask('00:00');
-        $('.minuto').mask('00');
-        $('.cep input').mask('00000-000');
-        $('.rg input').mask('000000000');
-        $('.n_endereco input').mask('000000000');
-        $('.fone_ddd input').mask('(00) 0000-00000');
-        $('.crm input').mask('00000000000000000000000000000000');
-        $('.somente_letras input').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
-            'translation': {
-                S: {pattern: /[A-Za-z ]/},
-            }
-        });
-        get_cidade_natural();
-        get_cidade_atual();
-        $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final").datepicker({
-            dateFormat: "dd/mm/yy",
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D']
-        });
-        $("#id_data_nascimento").datepicker({
-            dateFormat: "dd/mm/yy",
-            maxDate: '-18Y',
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-        });
-        $("#id_data_inicio_afastamento").datepicker({
-            dateFormat: "dd/mm/yy",
-            maxDate: 'today',
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-        });
-        $('.ui.dropdown').dropdown();
-        $('#id_estado_civil').dropdown();
-        $('#id_cargo').dropdown();
-        $('#id_tipo_sanguineo').dropdown();
-        $('#id_estado_natural').dropdown();
-        $('#id_estado_atual').dropdown();
-        $('#id_cidade_atual').dropdown();
-        $('#id_cidade_natural').dropdown();
-        $('#id_local_trabalho').dropdown();
-        $('#id_tipo').dropdown();
-        $('#id_departamento').dropdown();
-        $('#id_cidade').dropdown();
-        $('#id_secretaria').dropdown();
-        $('#id_orgao').dropdown();
-        $('.ui.modal')
-            .modal('setting', 'closable', false)
-            .modal('attach events', '#CadastroSecretaria', 'show');
+$(document).ready(function () {
 
+    // ===== MÁSCARAS ===== //
+    $('.cpf input').mask('000.000.000-00', {reverse: true});
+    $('.cnpj input').mask('00.000.000/0000-00', {reverse: true});
+    $('.hora input').mask('00:00');
+    $('.data input').mask('00/00/0000');
+    $('.dois_digitos input').mask('00');
+    $('.cep input').mask('00000-000');
+    $('.rg input').mask('000000000');
+    $('.dez_digitos input').mask('0000000000');
+    $('.fone_ddd input').mask('(00) 0000-00000');
+    $('.crm input').mask('00000000000000000000000000000000');
+    $('.valor input').mask('00000000000000000,00', {reverse: true});
+    $('.somente_numeros input').mask('00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    $('.somente_letras input').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
+        'translation': {
+            S: {pattern: /[A-Za-z ]/},
+        }
     });
+
+    // ===== ESTILIZAR DROPDOWNS ===== //
+    $('#id_estado_civil').dropdown();
+    $('#id_cargo').dropdown();
+    $('#id_tipo_sanguineo').dropdown();
+    $('#id_estado_natural').dropdown();
+    $('#id_estado_atual').dropdown();
+    $('#id_cidade_atual').dropdown();
+    $('#id_cidade_natural').dropdown();
+    $('#id_local_trabalho').dropdown();
+    $('#id_tipo').dropdown();
+    $('#id_departamento').dropdown();
+    $('#id_cidade').dropdown();
+    $('#id_estados').dropdown();
+    $('#id_secretaria').dropdown();
+    $('#id_orgao').dropdown();
+    $('.ui.dropdown').dropdown();
+    $('.ui.modal')
+        .modal('setting', 'closable', false)
+        .modal('attach events', '#CadastroSecretaria', 'show');
+
+    // ===== CALENDÁRIOS ===== //
+});
+
+function calendar_input(){
+    confDefault = {
+        dateFormat: "dd/mm/yy",
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D']
+    };
+    if ($("#id_data_nascimento")) {
+        conf = confDefault;
+        conf.maxDate = '-18Y';
+        $("#id_data_nascimento").datepicker(conf);
+    }
+    if ($("#id_data_inicio_afastamento")) {
+        conf = confDefault;
+        conf.maxDate = 'today';
+        $("#id_data_inicio_afastamento").datepicker(conf);
+    }
+    $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final").datepicker(confDefault);
+}
 
 function get_cidade_natural() {
     $.ajax({
@@ -94,6 +98,25 @@ function get_cidade_atual() {
                 options += '<option value="' + data[i].pk + '">' + data[i].fields['nome'] + '</option>';
             }
             $("select#id_cidade_atual").html(options);
+        }
+    });
+}
+
+function get_cidade_local_trabalho() {
+    $.ajax({
+        type: 'POST',
+        url: '/issem/escolha_cidade_local_trabalho/',
+        data: {
+            estado: $("select[name='estados']").val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+        dataType: 'json',
+        success: function (data) {
+            var options = '';
+            for (var i = 0; i < data.length; i++) {
+                options += '<option value="' + data[i].pk + '">' + data[i].fields['nome'] + '</option>';
+            }
+            $("select#id_cidade").html(options);
         }
     });
 }

@@ -7,4 +7,4 @@ class CidForm(forms.ModelForm):
 
     class Meta:
         model = CidModel
-        fields = ('id','descricao', 'status', 'gravidade')
+        fields = '__all__'

@@ -7,4 +7,4 @@ class FuncaoForm(forms.ModelForm):
 
     class Meta:
         model = FuncaoModel
-        fields = ('nome',)
+        fields = '__all__'
