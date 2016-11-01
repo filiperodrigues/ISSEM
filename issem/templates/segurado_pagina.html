@@ -11,9 +11,9 @@
 
                     {# DROPDOWN #}
                     <div class="menu">
-                        <a href="{% url 'issem:cad_agendamento' %}" class="item">Benefício por incapacidade</a>
-                        <div class="item">Choice 2</div>
-                        <div class="item">Choice 3</div>
+                        {% for beneficio in beneficios %}
+                            <a href="{% url 'issem:cad_requerimento' beneficio.id %} " class="item">{{ beneficio.descricao }}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

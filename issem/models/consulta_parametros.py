@@ -1,19 +1,20 @@
 # coding: utf-8
 from django.db import models
+import timedelta
 
 
 class ConsultaParametrosModel(models.Model):
-    tempo_consulta = models.CharField(null=False, max_length=2)
-    tempo_espera = models.CharField(null=False, max_length=2)
-    inicio_atendimento = models.TimeField(null=False)
-    limite_consultas = models.CharField(null=False, max_length=128)
-    gep_agendamento = models.CharField(null=False, max_length=8)
+    tempo_consulta = models.IntegerField(null=False)
+    tempo_espera = models.IntegerField(null=False)
+    inicio_atendimento = timedelta.fields.TimedeltaField()
+    limite_consultas = models.IntegerField(null=False)
+    gap_agendamento = models.IntegerField()
 
     def __unicode__(self):
-        return self.tempo_consulta
+        return "Parâmetro de consulta" + str(self.id)
 
     def __str__(self):
-        return self.tempo_consulta
+        return "Parâmetro de consulta" + str(self.id)
 
     class Meta:
         verbose_name = "Consulta Parâmetro"

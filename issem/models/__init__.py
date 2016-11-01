@@ -1,3 +1,4 @@
+
 from issem.models.beneficio import BeneficioModel
 from issem.models.cargo import CargoModel
 from issem.models.cid import CidModel

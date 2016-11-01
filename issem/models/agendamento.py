@@ -1,30 +1,20 @@
 # coding:utf-8
 from django.db import models
-from issem.models.segurado import SeguradoModel
 from issem.models.requerimento import RequerimentoModel
-from issem.models.servidor import ServidorModel
-from issem.models.cargo import CargoModel
-from issem.models.secretaria import SecretariaModel
-from issem.models.local_trabalho import LocalTrabalhoModel
+from datetime import datetime
 
 
 class AgendamentoModel(models.Model):
-    data_agendamento = models.DateField(null=False)
-    data_pericia = models.DateField()
-    servidor = models.ForeignKey(ServidorModel)
-    segurado = models.ForeignKey(SeguradoModel)
-    requerimento = models.ForeignKey(RequerimentoModel)
-    cargo = models.ForeignKey(CargoModel)
-    secretaria = models.ForeignKey(SecretariaModel)
-    local_trabalho = models.ForeignKey(LocalTrabalhoModel)
-    data_inicio_afastamento = models.DateField()
-    data_final_afastamento = models.DateField()
+    data_agendamento = models.DateField(blank=True, null=True)
+    data_pericia = models.DateField(blank=True, null=True)
+    hora_pericia = models.TimeField()
+    requerimento = models.ForeignKey(RequerimentoModel, null=True, blank=True)
 
     def __unicode__(self):
-        return self.data_agendamento
+        return str(datetime.combine(self.data_pericia, self.hora_pericia)) +str("   ID:") + str(self.id)
 
     def __str__(self):
-        return self.data_agendamento
+        return str(datetime.combine(self.data_pericia, self.hora_pericia)) +str("   ID:") + str(self.id)
 
     class Meta:
         verbose_name = "Agendamento"

@@ -40,6 +40,14 @@ $(document).ready(function () {
         .modal('attach events', '#CadastroSecretaria', 'show');
 
     // ===== CALENDÁRIOS ===== //
+    $("#id_data_inicio_afastamento, #id_data_final_afastamento").datepicker({
+            dateFormat: "dd/mm/yy",
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+        });
+
 });
 
 function calendar_input(){

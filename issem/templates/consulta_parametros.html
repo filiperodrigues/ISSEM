@@ -53,14 +53,14 @@
                     <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Início do atendimento (hora:minuto)</label>
-                        <div class="hora">
+{#                        <div class="hora">#}
                             {{ form.inicio_atendimento }}
                             {% if form.inicio_atendimento.errors %}
                                 <div class="ui pointing red basic label issem-error-field">
                                     {{ form.inicio_atendimento.errors }}
                                 </div>
                             {% endif %}
-                        </div>
+{#                        </div>#}
                     </div>
                     <div class="four wide field">
                         <label>Limite de consultas diárias</label>
@@ -78,12 +78,12 @@
                 <div class="fields">
                     <div class="six wide field"></div>
                     <div class="four wide field">
-                        <label>GEP Agendamento</label>
+                        <label>GAP Agendamento (em dias)</label>
                         <div class="dois_digitos">
-                            {{ form.gep_agendamento }}
-                            {% if form.gep_agendamento.errors %}
+                            {{ form.gap_agendamento }}
+                            {% if form.gap_agendamento.errors %}
                                 <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.gep_agendamento.errors }}
+                                    {{ form.gap_agendamento.errors }}
                                 </div>
                             {% endif %}
                         </div>

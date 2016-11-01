@@ -12,7 +12,7 @@ urlpatterns = [
     ## PÁGINAS ##
     url(r'^funcionario$', TemplateView.as_view(template_name='funcionario_pagina.html'), name='funcionario'),
     url(r'^medico$', TemplateView.as_view(template_name='medico_pagina.html'), name='medico'),
-    url(r'^segurado$', TemplateView.as_view(template_name='segurado_pagina.html'), name='segurado'),
+    url(r'^segurado$', views.ApresentaPaginaSegurado, name='segurado'),
 
 
     ## DEPARTAMENTO ##
@@ -92,7 +92,8 @@ urlpatterns = [
     url(r'^edita/consulta_parametro/(?P<id>\d+)/$', ConstultaParametrosView.as_view(), name='edita_consulta_parametros'),
     url(r'^deleta/consulta_parametro/(?P<id>[0-9]+)/$', views.ConsultaParametrosDelete, name='deleta_consulta_parametros'),
 
-    ## AGENDAMENTO ##
-    url(r'^cad/agendamento/$', AgendamentoView.as_view(), name='cad_agendamento'),
-
+    ## REQUERIMENTO / AGENDAMENTO ##
+    url(r'^cad/requerimento/(?P<id_beneficio>\d+)/$', RequerimentoView.as_view(), name='cad_requerimento'),
+    url(r'^edita/requerimento/(?P<id>\d+)/$', RequerimentoView.as_view(), name='edita_requerimento'),
+    url(r'^deleta/requerimento/(?P<id>[0-9]+)/$', views.RequerimentoDelete, name='deleta_requerimento')
 ]

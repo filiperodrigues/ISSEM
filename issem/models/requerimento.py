@@ -1,17 +1,25 @@
 # coding:utf-8
 from django.db import models
 from issem.models.beneficio import BeneficioModel
+from issem.models.segurado import SeguradoModel
+from issem.models.servidor import ServidorModel
 
 
 class RequerimentoModel(models.Model):
-    beneficico = models.ForeignKey(BeneficioModel)
-    data_requerimento = models.DateField()
+    beneficio = models.ForeignKey(BeneficioModel)
+    data_requerimento = models.DateField(blank=True)
+    servidor = models.ForeignKey(ServidorModel, null=True, blank=True)
+    segurado = models.ForeignKey(SeguradoModel, null=True, blank=True)
+    data_inicio_afastamento = models.DateField(blank=True)
+    data_final_afastamento = models.DateField(blank=True)
 
     def __unicode__(self):
-        return self.beneficico
+        nome = 'Requerimento ' + str(self.id)
+        return nome
 
     def __str__(self):
-        return self.beneficico
+        nome = 'Requerimento ' + str(self.id)
+        return nome
 
     class Meta:
         verbose_name = "Requerimento"

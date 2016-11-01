@@ -13,5 +13,6 @@ from issem.forms.tipo_dependente import TipoDependenteForm
 from issem.forms.tipo_exame import TipoExameForm
 from issem.forms.consulta_parametros import ConsultaParametrosForm
 from issem.forms.pessoa import PessoaForm
+from issem.forms.requerimento import RequerimentoForm
 from issem.forms.agendamento import AgendamentoForm
 
