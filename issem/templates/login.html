@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+
+    <div class="ui middle aligned center aligned grid">
+        <form class="ui large form" method="post">
+            <div class="ui segment red">
+                {% csrf_token %}
+                <div class="field">
+                    <label>Usuário:</label>
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        {{ form.username }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Senha:</label>
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        {{ form.password }}
+                    </div>
+                </div>
+                <input type="submit" name="submit" class="ui button blue" value="Login"/>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

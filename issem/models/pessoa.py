@@ -5,14 +5,13 @@ from issem.models.cidade import CidadeModel
 from issem.models.tipo_sanguineo import TipoSanguineoModel
 from issem.models.estado_civil import EstadoCivilModel
 from issem.models.cargo import CargoModel
+from django.contrib.auth.models import User
 
-
-class PessoaModel(models.Model):
+class PessoaModel(User):
     nome = models.CharField(max_length=128, null=False)
-    cpf = models.CharField(null=False, max_length=14, unique=True)
-    email = models.EmailField(max_length=128, blank=True)
-    sexo = models.CharField(max_length=1, blank=True, null=True)
-    data_nascimento = models.DateField(null=False)
+    cpf = models.CharField(null=False, max_length=14)
+    sexo = models.CharField(max_length=1, blank=True)
+    data_nascimento = models.DateField(blank=True)
     rg = models.CharField(null=False, max_length=9)
     telefone_residencial = models.CharField(max_length=15, blank=True)
     telefone_celular = models.CharField(max_length=15, blank=True)
@@ -32,13 +31,7 @@ class PessoaModel(models.Model):
 
     class Meta:
         abstract = True
-
-    def __unicode__(self):
-        return self.nome
-
-    def __str__(self):
-        return self.nome
-
-    class Meta:
         verbose_name = "Pessoa"
         verbose_name_plural = "Pessoas"
+
+

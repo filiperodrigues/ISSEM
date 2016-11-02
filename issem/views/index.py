@@ -2,8 +2,19 @@
 from django.shortcuts import render
 from issem.models import *
 
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
+
+from django.shortcuts import HttpResponse, HttpResponseRedirect
+#@login_required(login_url='/login.html')
+#@group_required('Servidor')
+
 
 def index(request):
+
+
+
     context_dict = {}
     context_dict['departamentos'] = DepartamentoModel.objects.all()
     context_dict['cids'] = CidModel.objects.all()

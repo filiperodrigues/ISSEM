@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'issem',
 )
 
@@ -105,4 +106,6 @@ STATIC_URL = '/static/' # You may find this is already defined as such.
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
+
+LOGIN_REDIRECT_URL = '/'
 

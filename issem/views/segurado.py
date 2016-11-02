@@ -3,11 +3,17 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import SeguradoModel
 from issem.forms import SeguradoForm
 from django.views.generic.base import View
-from issem.models import EstadoModel
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
 
 
 class SeguradoView(View):
     template = 'segurado.html'
+
+    def group_test(user):
+        return user.groups.filter(name='Servidor')
+
+    @method_decorator(user_passes_test(group_test))
 
     def get(self, request, id=None):
         if id:

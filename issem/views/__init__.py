@@ -13,6 +13,10 @@ from issem.views.segurado import *
 from issem.views.servidor import *
 from issem.views.tipo_dependente import *
 from issem.views.tipo_exame import *
+from issem.views.funcionario_pagina import *
+from issem.views.medico_pagina import *
+from issem.views.segurado_pagina import *
 from issem.views.consulta_parametros import *
 from issem.views.requerimento import *
 from issem.views.segurado_pagina import *
+from issem.views.pagina_404 import *

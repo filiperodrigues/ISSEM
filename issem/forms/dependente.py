@@ -10,6 +10,7 @@ class DependenteForm(PessoaForm):
     class Meta:
         model = DependenteModel
         fields = '__all__'
+        exclude = ('date_joined', 'is_active', 'groups', 'user', 'password',)
 
     def clean_data_final(self):
         data_inicial = self.cleaned_data.get('data_inicial')

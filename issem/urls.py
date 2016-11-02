@@ -8,12 +8,13 @@ from issem.views import *
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/issem/login/'}, name='logout'),
 
     ## PÁGINAS ##
-    url(r'^funcionario$', TemplateView.as_view(template_name='funcionario_pagina.html'), name='funcionario'),
-    url(r'^medico$', TemplateView.as_view(template_name='medico_pagina.html'), name='medico'),
+    url(r'^funcionario/$', PaginaFuncionarioView.as_view(), name='funcionario'),
+    url(r'^medico/$', PaginaMedicoView.as_view(), name='medico'),
     url(r'^segurado$', views.ApresentaPaginaSegurado, name='segurado'),
-
 
     ## DEPARTAMENTO ##
     url(r'^cad/departamento/$', DepartamentoView.as_view(), name='cad_departamento'),
@@ -95,5 +96,8 @@ urlpatterns = [
     ## REQUERIMENTO / AGENDAMENTO ##
     url(r'^cad/requerimento/(?P<id_beneficio>\d+)/$', RequerimentoView.as_view(), name='cad_requerimento'),
     url(r'^edita/requerimento/(?P<id>\d+)/$', RequerimentoView.as_view(), name='edita_requerimento'),
-    url(r'^deleta/requerimento/(?P<id>[0-9]+)/$', views.RequerimentoDelete, name='deleta_requerimento')
+    url(r'^deleta/requerimento/(?P<id>[0-9]+)/$', views.RequerimentoDelete, name='deleta_requerimento'),
+
+    ##404##
+    url(r'', Pagina404View.as_view(), name='404'),
 ]

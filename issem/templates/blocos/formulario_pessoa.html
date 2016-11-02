@@ -236,7 +236,6 @@
 </div>
 
 <div class="fields">
-    <div class="four wide field"></div>
     <div class="four wide field">
         <label>Nome do pai</label>
         {{ form.nome_pai }}
@@ -252,6 +251,24 @@
         {% if form.nome_mae.errors %}
             <div class="ui pointing red basic label">
                 {{ form.nome_mae.errors }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="four wide field">
+        <label>Usuário<i class="asterisk icon red"></i></label>
+        {{ form.username }}
+        {% if form.username.errors %}
+            <div class="ui pointing red basic label issem-error-field">
+                {{ form.username.errors }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="four wide field">
+        <label>Senha<i class="asterisk icon red"></i></label>
+        {{ form.password }}
+        {% if form.password.errors %}
+            <div class="ui pointing red basic label issem-error-field">
+                {{ form.password.errors }}
             </div>
         {% endif %}
     </div>

@@ -25,10 +25,10 @@
                     <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Departamento</label>
-                        {{ form.departamento }}
-                        {% if form.departamento.errors %}
+                        {{ form.groups }}
+                        {% if form.groups.errors %}
                             <div class="ui pointing red basic label">
-                                {{ form.departamento.errors }}
+                                {{ form.groups.errors }}
                             </div>
                         {% endif %}
                     </div>

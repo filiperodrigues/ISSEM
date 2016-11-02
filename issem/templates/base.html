@@ -16,26 +16,44 @@
 <header>
     <div class="ui fluid">
         <div class="ui container">
-            <a href="/">
-                <h2 class="ui header red">
-                    <img src="/static/images/1.png"/>
-                    <div class="content">
-                        ISSEM
-                        <div class="sub header">INSTITUTO DE SEGURIDADE DOS SERVIDORES MUNICIPAIS</div>
-                    </div>
-                </h2>
-            </a>
+            <h2 class="ui header red">
+                <img src="/static/images/1.png"/>
+                <div class="content">
+                    ISSEM
+                    <div class="sub header">INSTITUTO DE SEGURIDADE DOS SERVIDORES MUNICIPAIS</div>
+                </div>
+                <div class="ui right aligned sub header">
+                    {% if user.is_anonymous %}
+                        Acesse sua Conta
+                        <div class="ui right aligned sub header">
+                            <a href="{% url 'issem:login' %}">
+                                <i class="sign in icon"></i>
+                                <label>Logar</label>
+                            </a>
+                        </div>
+                    {% else %}
+                        {{ user }}
+
+                        <div class="ui right aligned sub header">
+                            <a href="{% url 'issem:logout' %}">
+                                <i class="sign out icon"></i>
+                                <label>Sair</label>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </h2>
         </div>
     </div>
 </header>
 
 {# ======= PARA TESTE ======= #}
-<nav class="ui menu large" style="position: absolute; margin-top:-30px; width: 100%">
+<nav class="ui menu large" >
     <div class="ui container">
         <a href="{% url 'issem:index' %}" class="item">Home</a>
-        <a href="{% url 'issem:funcionario' %}" class="item">Funcionário</a>
-        <a href="{% url 'issem:medico' %}" class="item">Médico</a>
-        <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>
+        {% if user.groups.all.0.name == 'Medico' or request.user.is_superuser %}<a href="{% url 'issem:medico' %}" class="item">Médico</a>{% endif %}
+        {% if user.groups.all.0.name == "Servidor" or request.user.is_superuser %}<a href="{% url 'issem:funcionario' %}" class="item">Servidor</a>{% endif %}
+        {% if user.groups.all.0.name == "Segurado" or request.user.is_superuser %}<a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
     </div>
 </nav>
 {# ======= PARA TESTE ======= #}

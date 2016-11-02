@@ -132,7 +132,7 @@ function get_cidade_local_trabalho() {
 function get_secretaria() {
     $.ajax({
         type: 'POST',
-        url: '/issem/add/secretaria/',
+        url: '/issem/cad/secretaria/',
         data: {
             sec: $("input[name='sec']").val(),
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
@@ -140,6 +140,7 @@ function get_secretaria() {
         dataType: 'json',
         success: function (dado) {
             var options = '';
+            options += '<option selected="selected" value="' + dado[dado.length-1].pk + '">' + dado[dado.length-1].fields['nome'] + '</option>';
             for (var i = dado.length - 1; i >= 0; i--) {
                 options += '<option value="' + dado[i].pk + '">' + dado[i].fields['nome'] + '</option>';
             }
@@ -180,3 +181,11 @@ function change_life() {
         return date;
     }
 }
+$('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
+;
