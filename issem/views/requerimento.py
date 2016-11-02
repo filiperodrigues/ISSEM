@@ -38,8 +38,6 @@ class RequerimentoView(View):
             form = RequerimentoForm(data=request.POST)
 
         if form.is_valid():
-            print ("é obrigatório")
-            # form.beneficio = beneficio.id
             form.save()
             requerimento = RequerimentoModel.objects.latest('id')
             id = requerimento.id
@@ -50,12 +48,11 @@ class RequerimentoView(View):
             prazo_pericia_final = requerimento.data_final_afastamento + timedelta(days=dias_gap_agendamento)
 
             if date.today() >= prazo_pericia_final:
-                print("não está no prazo")
+                msg = define_mensagem_prazo_expirado(prazo_pericia_final)
+                return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao})
             else:
-                print("tá no prazo")
                 for dia in range(1, dias_gap_agendamento + 2):
                     if dia <= dias_gap_agendamento:
-                        print("teste dia" + str(dia))
                         possivel_data_pericia = requerimento.data_final_afastamento + timedelta(days=dia)
                         data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia, consulta_parametros)
                         if (data_pericia != "") and (hora_pericia != ""):
@@ -78,7 +75,7 @@ class RequerimentoView(View):
         else:
             print(form.errors)
 
-        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_beneficio' : beneficio.id, 'beneficio_descricao' : beneficio.descricao})
 
 
 def RequerimentoDelete(request, id):
@@ -110,3 +107,11 @@ def define_mensagem_consulta(data_pericia, hora_pericia):
     mes = texto_msg[1]
     ano = texto_msg[0]
     return ("Sua consulta ficou agendada para %s/%s/%s às %s")%(dia, mes, ano, str(hora_pericia))
+
+def define_mensagem_prazo_expirado(prazo_pericia_final):
+    texto_msg = str(prazo_pericia_final)
+    texto_msg = texto_msg.split("-")
+    dia = texto_msg[2]
+    mes = texto_msg[1]
+    ano = texto_msg[0]
+    return ("O prazo para requerimento venceu dia %s/%s/%s. Consulte o ISSEM para mais informações.") % (dia, mes, ano)

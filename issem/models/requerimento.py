@@ -10,8 +10,8 @@ class RequerimentoModel(models.Model):
     data_requerimento = models.DateField(blank=True)
     servidor = models.ForeignKey(ServidorModel, null=True, blank=True)
     segurado = models.ForeignKey(SeguradoModel, null=True, blank=True)
-    data_inicio_afastamento = models.DateField(blank=True)
-    data_final_afastamento = models.DateField(blank=True)
+    data_inicio_afastamento = models.DateField()
+    data_final_afastamento = models.DateField()
 
     def __unicode__(self):
         nome = 'Requerimento ' + str(self.id)

@@ -21,14 +21,32 @@
                     {% else %}
                         <input type="hidden" name="id" value="{{ id }}">
                     {% endif %}
-                        <select id="id_beneficio" name="beneficio" type="hidden">
-                            <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
-                        </select>
-                        data requerimento {{ form.data_requerimento }}
-                        servidor {{ form.servidor }}
-                        segurado {{ form.segurado }}
-                        data inicio {{ form.data_inicio_afastamento }}
-                        data final {{ form.data_final_afastamento }}
+                    <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
+                        <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
+                    </select>
+                    <input id="id_data_requerimento" name="data_requerimento" type="hidden">
+                    <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Data início do afastamento <i class="asterisk icon red"></i></label>
+                            {{ form.data_inicio_afastamento }}
+                            {% if form.data_inicio_afastamento.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_inicio_afastamento.errors }}
+                                </div>
+                            {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Data final do afastamento <i class="asterisk icon red"></i></label>
+                            {{ form.data_final_afastamento }}
+                            {% if form.data_final_afastamento.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.data_final_afastamento.errors }}
+                                </div>
+                            {% endif %}
+                    </div>
+                    <div class="four wide field"></div>
+                    </div>
 
                     {% include 'blocos/buttons_form.html' %}
                 </form>
