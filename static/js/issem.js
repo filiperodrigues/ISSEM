@@ -40,7 +40,7 @@ $(document).ready(function () {
         .modal('attach events', '#CadastroSecretaria', 'show');
 
     // ===== CALENDÁRIOS ===== //
-    $("#id_data_inicio_afastamento, #id_data_final_afastamento").datepicker({
+    $("#id_data_inicio_afastamento, #id_data_final_afastamento, #id_data_pericia").datepicker({
             dateFormat: "dd/mm/yy",
             monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
             dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],

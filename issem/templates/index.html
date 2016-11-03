@@ -8,28 +8,10 @@
         <div class="ui existing segment">
             {% for agendamento in agendamentos %}
                 {{ agendamento.data_pericia }} {{ agendamento.hora_pericia }}&nbsp;
-                <a href="{% url 'issem:edita_requerimento' agendamento.id %}">
+                <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">
                     <i class="edit icon"></i>
                 </a>
-                <a href="{% url 'issem:deleta_requerimento' agendamento.id %}">
-                    <i class="remove icon"></i>
-                </a>
-                <br/>
-            {% endfor %}
-        </div>
-
-    </div>
-
-    <div class="ui segment">
-        <h2>Requerimentos</h2>
-
-        <div class="ui existing segment">
-            {% for requerimento in requerimentos %}
-                {{ requerimento.beneficio }}
-                <a href="{% url 'issem:edita_requerimento' requerimento.id %}">
-                    <i class="edit icon"></i>
-                </a>
-                <a href="{% url 'issem:deleta_requerimento' requerimento.id %}">
+                <a href="{% url 'issem:deleta_requerimento' agendamento.requerimento.id agendamento.id%}">
                     <i class="remove icon"></i>
                 </a>
                 <br/>

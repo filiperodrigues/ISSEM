@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered row">
+        <div class="ui segment">
+            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
+
+            {% if not id %}
+                <h1>Requerimento de {{ beneficio_descricao }}: tá na página de mensagem</h1>
+            {% else %}
+                <h1>Edição de Requerimento {{ beneficio_descricao }}</h1>
+            {% endif %}
+            <h5>{{ msg }}</h5>
+        </div>
+    </div>
+
+{% endblock %}

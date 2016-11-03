@@ -20,3 +20,4 @@ from issem.views.consulta_parametros import *
 from issem.views.requerimento import *
 from issem.views.segurado_pagina import *
 from issem.views.pagina_404 import *
+from issem.views.requerimento_servidor import *

@@ -5,7 +5,6 @@ from issem.forms import RequerimentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta
 
-
 class RequerimentoView(View):
     template = 'requerimento.html'
 
@@ -38,6 +37,9 @@ class RequerimentoView(View):
             form = RequerimentoForm(data=request.POST)
 
         if form.is_valid():
+            current_user = request.user
+            form.segurado = current_user
+            form.servidor = current_user
             form.save()
             requerimento = RequerimentoModel.objects.latest('id')
             id = requerimento.id
@@ -62,7 +64,6 @@ class RequerimentoView(View):
                             agendamento_form.requerimento_id = id
                             agendamento_form.save()
                             msg = define_mensagem_consulta(data_pericia, hora_pericia)
-                            print(msg)
                             return render(request, self.template, {'msg': msg, 'beneficio_descricao' : beneficio.descricao})
                             break
                     else:
@@ -78,8 +79,8 @@ class RequerimentoView(View):
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_beneficio' : beneficio.id, 'beneficio_descricao' : beneficio.descricao})
 
 
-def RequerimentoDelete(request, id):
-    requerimento = RequerimentoModel.objects.get(pk=id)
+def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
+    requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
     requerimento.delete()
     return HttpResponseRedirect('/')
 
@@ -91,7 +92,6 @@ def verifica_data_hora_pericia(dia, consulta_parametros):
     for data_pericia_dia in AgendamentoModel.objects.filter(data_pericia=dia):
         qtd_agendamentos_dia += 1
     if qtd_agendamentos_dia < consulta_parametros.limite_consultas:
-        print(dia)
         data_pericia = dia
         tempo_consulta = timedelta(minutes=consulta_parametros.tempo_consulta)
         tempo_espera = timedelta(minutes=consulta_parametros.tempo_espera)
@@ -115,3 +115,8 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
     mes = texto_msg[1]
     ano = texto_msg[0]
     return ("O prazo para requerimento venceu dia %s/%s/%s. Consulte o ISSEM para mais informações.") % (dia, mes, ano)
+
+def ApresentaAgendamentos(request):
+    context_dict = {}
+    context_dict['agendamentos'] = AgendamentoModel.objects.all().order_by('data_pericia')
+    return render(request, 'tabela_agendamentos.html', context_dict)

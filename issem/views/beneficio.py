@@ -8,6 +8,7 @@ from django.views.generic.base import View
 class BeneficioView(View):
     template = 'beneficio.html'
 
+
     def get(self, request, id=None):
         if id:
             beneficio = BeneficioModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
