@@ -14,10 +14,15 @@
                 <h1>Requerimento de {{ beneficio_descricao }}:</h1>
             {% else %}
                 <h1>Edição de Requerimento {{ beneficio_descricao }}</h1>
+                {{ edicao_define_agendamento }}
             {% endif %}
 
             {% if not msg %}
-                <form class="ui form" id="RequerimentoForm" method="post" action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">
+                    {% if not var_controle %}
+                        <form class="ui form" id="RequerimentoForm" method="post" action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">
+                    {% else %}
+                        <form class="ui form" id="RequerimentoForm" method="post" action="{% url 'issem:define_agendamento' 23 %}">
+                    {% endif %}
                     {% csrf_token %}
 
                     {% if not id %}

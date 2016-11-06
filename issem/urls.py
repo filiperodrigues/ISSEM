@@ -96,8 +96,9 @@ urlpatterns = [
     ## REQUERIMENTO / AGENDAMENTO ##
     url(r'^cad/requerimento/(?P<id_beneficio>\d+)/$', RequerimentoView.as_view(), name='cad_requerimento'),
     url(r'^cad/requerimento_servidor/(?P<id_beneficio>\d+)/$', RequerimentoServidorView.as_view(), name='cad_requerimento_servidor'),
-    url(r'^edita/requerimento/(?P<id_requerimento>\d+)/(?P<id_agendamento>\d+)/$', RequerimentoServidorView.as_view(), name='edita_requerimento'),
+    url(r'^edita/requerimento/servidor/(?P<id_requerimento>\d+)/(?P<id_agendamento>\d+)/$', RequerimentoServidorView.as_view(), name='edita_requerimento'),
     url(r'^deleta/requerimento/(?P<id_requerimento>[0-9]+)/(?P<id_agendamento>[0-9]+)/$', views.RequerimentoAgendamentoDelete, name='deleta_requerimento'),
+    url(r'^gera/agendamento/(?P<id_requerimento>\d+)/$', GeraAgendamentoServidorView.as_view(),name='define_agendamento'),
     url(r'^agenda/$', views.ApresentaAgendamentos, name='tabela_agendamentos'),
 
     ##404##

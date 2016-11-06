@@ -49,7 +49,7 @@ class RequerimentoView(View):
             dias_gap_agendamento = int(consulta_parametros.gap_agendamento)
             prazo_pericia_final = requerimento.data_final_afastamento + timedelta(days=dias_gap_agendamento)
 
-            if date.today() >= prazo_pericia_final:
+            if date.today() > prazo_pericia_final:
                 msg = define_mensagem_prazo_expirado(prazo_pericia_final)
                 return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao})
             else:
@@ -63,12 +63,15 @@ class RequerimentoView(View):
                             agendamento_form.hora_pericia = str(hora_pericia)
                             agendamento_form.requerimento_id = id
                             agendamento_form.save()
+                            # O ÚLTIMO REQUERIMENTO CADASTRADO CONTÉM UM AGENDAMENTO #
+                            obj = form.save(commit=False)
+                            obj.possui_agendamento = True
+                            obj.save()
                             msg = define_mensagem_consulta(data_pericia, hora_pericia)
                             return render(request, self.template, {'msg': msg, 'beneficio_descricao' : beneficio.descricao})
                             break
                     else:
                         msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
-                        requerimento.delete()
                         return render(request, self.template, {'msg': msg, 'beneficio_descricao' : beneficio.descricao})
                         break
             return HttpResponseRedirect('/')

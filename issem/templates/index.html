@@ -21,6 +21,21 @@
     </div>
 
     <div class="ui segment">
+        <h2>Requerimento sem agendamento</h2>
+
+        <div class="ui existing segment">
+            {% for requerimento in requerimentos %}
+                {{ requerimento.beneficio }} {{ requerimento.data_requerimento }}&nbsp;
+                <a href="{% url 'issem:define_agendamento' requerimento.id %}">
+                    Gerar agendamento
+                </a>
+                <br/>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="ui segment">
         <h2>Consulta parâmetros</h2>
 
         <div class="ui existing segment">

@@ -31,6 +31,6 @@ def index(request):
     context_dict['servidores'] = ServidorModel.objects.all()
     context_dict['consulta_parametros'] = ConsultaParametrosModel.objects.all()
     context_dict['agendamentos'] = AgendamentoModel.objects.all()
-    context_dict['requerimentos'] = RequerimentoModel.objects.all()
+    context_dict['requerimentos'] = RequerimentoModel.objects.filter(possui_agendamento = False)
 
     return render(request, 'index.html', context_dict)

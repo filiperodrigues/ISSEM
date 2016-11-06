@@ -12,6 +12,7 @@ class RequerimentoModel(models.Model):
     segurado = models.ForeignKey(SeguradoModel, null=True, blank=True)
     data_inicio_afastamento = models.DateField()
     data_final_afastamento = models.DateField()
+    possui_agendamento = models.BooleanField(default=0)
 
     def __unicode__(self):
         nome = 'Requerimento ' + str(self.id)
