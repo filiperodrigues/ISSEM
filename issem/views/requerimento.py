@@ -48,7 +48,8 @@ class RequerimentoView(View):
 
             dias_gap_agendamento = int(consulta_parametros.gap_agendamento)
             prazo_pericia_final = requerimento.data_final_afastamento + timedelta(days=dias_gap_agendamento)
-
+            data_limite_agendamento = prazo_pericia_final + timedelta(days=1)
+            print (data_limite_agendamento)
             if date.today() > prazo_pericia_final:
                 msg = define_mensagem_prazo_expirado(prazo_pericia_final)
                 return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao})
@@ -57,7 +58,7 @@ class RequerimentoView(View):
                     if dia <= dias_gap_agendamento:
                         possivel_data_pericia = requerimento.data_final_afastamento + timedelta(days=dia)
                         data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia, consulta_parametros)
-                        if (data_pericia != "") and (hora_pericia != ""):
+                        if (data_pericia != "") and (hora_pericia != "") and (data_pericia != date.today()):
                             agendamento_form.data_agendamento = date.today()
                             agendamento_form.data_pericia = data_pericia
                             agendamento_form.hora_pericia = str(hora_pericia)
