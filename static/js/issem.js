@@ -34,6 +34,7 @@ $(document).ready(function () {
     $('#id_estados').dropdown();
     $('#id_secretaria').dropdown();
     $('#id_orgao').dropdown();
+    $('#id_groups').dropdown();
     $('.ui.dropdown').dropdown();
     $('.ui.modal')
         .modal('setting', 'closable', false)

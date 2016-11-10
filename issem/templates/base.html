@@ -47,7 +47,6 @@
     </div>
 </header>
 
-{# ======= PARA TESTE ======= #}
 <nav class="ui menu large" >
     <div class="ui container">
         <a href="{% url 'issem:index' %}" class="item">Home</a>
@@ -56,7 +55,6 @@
         {% if user.groups.all.0.name == "Segurado" or request.user.is_superuser %}<a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
     </div>
 </nav>
-{# ======= PARA TESTE ======= #}
 
 <article>
     <div class="ui container issem-content">

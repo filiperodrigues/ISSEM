@@ -5,6 +5,7 @@ from issem.forms import RequerimentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta
 
+
 class RequerimentoView(View):
     template = 'requerimento.html'
 
@@ -17,14 +18,17 @@ class RequerimentoView(View):
             beneficio_descricao = ""
             beneficio_id = ""
         if id:
-            requerimento = RequerimentoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            requerimento = RequerimentoModel.objects.get(
+                pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             beneficio_id = requerimento.beneficio.id
             beneficio_descricao = requerimento.beneficio.descricao
             form = RequerimentoForm(instance=requerimento)
 
         else:
             form = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'beneficio_descricao' : beneficio_descricao, 'id_beneficio' : beneficio_id})
+        return render(request, self.template,
+                      {'form': form, 'method': 'get', 'id': id, 'beneficio_descricao': beneficio_descricao,
+                       'id_beneficio': beneficio_id})
 
     def post(self, request, id_beneficio=None):
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
@@ -57,7 +61,8 @@ class RequerimentoView(View):
                 for dia in range(1, dias_gap_agendamento + 2):
                     if dia <= dias_gap_agendamento:
                         possivel_data_pericia = requerimento.data_final_afastamento + timedelta(days=dia)
-                        data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia, consulta_parametros)
+                        data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia,
+                                                                                consulta_parametros)
                         if (data_pericia != "") and (hora_pericia != "") and (data_pericia != date.today()):
                             agendamento_form.data_agendamento = date.today()
                             agendamento_form.data_pericia = data_pericia
@@ -69,18 +74,20 @@ class RequerimentoView(View):
                             obj.possui_agendamento = True
                             obj.save()
                             msg = define_mensagem_consulta(data_pericia, hora_pericia)
-                            return render(request, self.template, {'msg': msg, 'beneficio_descricao' : beneficio.descricao})
+                            return render(request, self.template,
+                                          {'msg': msg, 'beneficio_descricao': beneficio.descricao})
                             break
                     else:
                         msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
-                        return render(request, self.template, {'msg': msg, 'beneficio_descricao' : beneficio.descricao})
+                        return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao})
                         break
             return HttpResponseRedirect('/')
 
         else:
             print(form.errors)
 
-        return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_beneficio' : beneficio.id, 'beneficio_descricao' : beneficio.descricao})
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_beneficio': beneficio.id,
+                                               'beneficio_descricao': beneficio.descricao})
 
 
 def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
@@ -110,7 +117,8 @@ def define_mensagem_consulta(data_pericia, hora_pericia):
     dia = texto_msg[2]
     mes = texto_msg[1]
     ano = texto_msg[0]
-    return ("Sua consulta ficou agendada para %s/%s/%s às %s")%(dia, mes, ano, str(hora_pericia))
+    return ("Sua consulta ficou agendada para %s/%s/%s às %s") % (dia, mes, ano, str(hora_pericia))
+
 
 def define_mensagem_prazo_expirado(prazo_pericia_final):
     texto_msg = str(prazo_pericia_final)
@@ -119,6 +127,7 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
     mes = texto_msg[1]
     ano = texto_msg[0]
     return ("O prazo para requerimento venceu dia %s/%s/%s. Consulte o ISSEM para mais informações.") % (dia, mes, ano)
+
 
 def ApresentaAgendamentos(request):
     context_dict = {}

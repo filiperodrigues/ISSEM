@@ -5,13 +5,11 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 
 
-
 class PaginaMedicoView(View):
-
     template = 'medico_pagina.html'
 
     def group_test(user):
-        return user.groups.filter(name='Medico')
+        return user.groups.filter(name='Médico')
 
     @method_decorator(user_passes_test(group_test))
 

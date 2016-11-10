@@ -3,7 +3,7 @@
 {% block body_block %}
 
     <div class="ui centered row">
-        <div class="ui segment">
+        <div class="ui segment issem-cad">
             <a href="{% url 'issem:segurado' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
@@ -13,7 +13,8 @@
             {% endif %}
 
             {% if not msg %}
-                <form class="ui form" id="RequerimentoForm" method="post" action="{% url 'issem:cad_requerimento' id_beneficio %}">
+                <form class="ui form" id="RequerimentoForm" method="post"
+                      action="{% url 'issem:cad_requerimento' id_beneficio %}">
                     {% csrf_token %}
 
                     {% if not id %}
@@ -21,36 +22,38 @@
                     {% else %}
                         <input type="hidden" name="id" value="{{ id }}">
                     {% endif %}
+
                     <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
                         <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
                     </select>
-                    <input id="id_data_requerimento" name="data_requerimento" type="hidden">
+
                     <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="four wide field">
-                        <label>Data início do afastamento <i class="asterisk icon red"></i></label>
+                        <div class="four wide field"></div>
+                        <div class="four wide field">
+                            <label>Data início do afastamento <i class="asterisk icon red"></i></label>
                             {{ form.data_inicio_afastamento }}
                             {% if form.data_inicio_afastamento.errors %}
                                 <div class="ui pointing red basic label issem-error-field">
                                     {{ form.data_inicio_afastamento.errors }}
                                 </div>
                             {% endif %}
-                    </div>
-                    <div class="four wide field">
-                        <label>Data final do afastamento <i class="asterisk icon red"></i></label>
+                        </div>
+                        <div class="four wide field">
+                            <label>Data final do afastamento <i class="asterisk icon red"></i></label>
                             {{ form.data_final_afastamento }}
                             {% if form.data_final_afastamento.errors %}
                                 <div class="ui pointing red basic label issem-error-field">
                                     {{ form.data_final_afastamento.errors }}
                                 </div>
                             {% endif %}
-                    </div>
-                    <div class="four wide field"></div>
+                        </div>
+                        <div class="four wide field"></div>
                     </div>
 
-                    {% include 'blocos/buttons_form.html' %}
                     {{ form.servidor }}
                     {{ form.segurado }}
+                
+                    {% include 'blocos/buttons_form.html' %}
                 </form>
 
             {% else %}

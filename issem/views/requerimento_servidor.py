@@ -5,8 +5,10 @@ from issem.forms import RequerimentoForm, AgendamentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta, datetime
 
+
 class RequerimentoServidorView(View):
     template = 'requerimento_servidor.html'
+
     def get(self, request, id_requerimento=None, id_beneficio=None, id_agendamento=None):
         if id_beneficio:
             beneficio = BeneficioModel.objects.get(pk=id_beneficio)
@@ -15,20 +17,23 @@ class RequerimentoServidorView(View):
         else:
             beneficio_descricao = ""
             beneficio_id = ""
+
         if id_requerimento:
-            requerimento = RequerimentoModel.objects.get(pk=id_requerimento)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            requerimento = RequerimentoModel.objects.get(
+                pk=id_requerimento)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             agendamento = AgendamentoModel.objects.get(pk=id_agendamento)
             beneficio_id = requerimento.beneficio.id
             beneficio_descricao = requerimento.beneficio.descricao
             form_requerimento = RequerimentoForm(instance=requerimento)
             form_agendamento = AgendamentoForm(instance=agendamento)
-
         else:
             form_requerimento = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
             form_agendamento = AgendamentoForm()
-        return render(request, self.template, {'form_requerimento': form_requerimento, 'form_agendamento' : form_agendamento,
-        'method': 'get', 'id': id_requerimento, 'beneficio_descricao' : beneficio_descricao,
-        'id_beneficio' : beneficio_id, 'id_agendamento' : id_agendamento})
+
+        return render(request, self.template,
+                      {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
+                       'method': 'get', 'id': id_requerimento, 'beneficio_descricao': beneficio_descricao,
+                       'id_beneficio': beneficio_id, 'id_agendamento': id_agendamento})
 
     def post(self, request, id_beneficio=None):
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
@@ -67,8 +72,9 @@ class RequerimentoServidorView(View):
                 form_agendamento_model.data_agendamento = date.today()
                 data_pericia = form_agendamento._raw_value('data_pericia')
                 data_pericia = data_pericia.split('/')
-                form_agendamento_model.data_pericia = datetime(int(data_pericia[2]), int(data_pericia[1]), int(data_pericia[0]))
-                form_agendamento_model.hora_pericia= form_agendamento._raw_value('hora_pericia')
+                form_agendamento_model.data_pericia = datetime(int(data_pericia[2]), int(data_pericia[1]),
+                                                               int(data_pericia[0]))
+                form_agendamento_model.hora_pericia = form_agendamento._raw_value('hora_pericia')
 
                 form_agendamento_model.save()
 
@@ -78,14 +84,16 @@ class RequerimentoServidorView(View):
         else:
             print(form_requerimento.errors)
 
-        return render(request, self.template, {'form_requerimento' : form_requerimento, 'form_agendamento': form_agendamento,
-                                               'method': 'post', 'id_beneficio': id_beneficio})
+        return render(request, self.template,
+                      {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
+                       'method': 'post', 'id_beneficio': id_beneficio})
 
 
 def RequerimentoDelete(request, id):
     requerimento = RequerimentoModel.objects.get(pk=id)
     requerimento.delete()
     return HttpResponseRedirect('/')
+
 
 def ApresentaAgendamentos(request):
     context_dict = {}

@@ -7,6 +7,7 @@ from issem.models.estado_civil import EstadoCivilModel
 from issem.models.cargo import CargoModel
 from django.contrib.auth.models import User
 
+
 class PessoaModel(User):
     nome = models.CharField(max_length=128, null=False)
     cpf = models.CharField(null=False, max_length=14)
