@@ -7,9 +7,6 @@ db.sqlite3
 #migrations
 00*_*
 
-#Pycharm
-.idea
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
