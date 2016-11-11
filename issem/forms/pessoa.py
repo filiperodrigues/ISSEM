@@ -2,9 +2,9 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from django import forms
-from django.contrib.auth.models import Group
 from issem.forms.utilitarios.cpf_validator import CPF
 from issem.models.estado import EstadoModel
+from issem.models.cidade import CidadeModel
 from issem.models.pessoa import PessoaModel
 
 
@@ -14,21 +14,31 @@ class PessoaForm(forms.ModelForm):
                              widget=forms.RadioSelect,
                              choices=generos,
                              )
+    estados = EstadoModel.objects.all()
+    cidades = CidadeModel.objects.all()
     estado_natural = forms.ModelChoiceField(required=False,
-                                            empty_label="Selecione um estado...",
-                                            queryset=EstadoModel.objects.all(),
-                                            widget=forms.Select(attrs={"onchange": "get_cidade_natural()", })
+                                            empty_label="Selecione um estado",
+                                            queryset=estados,
+                                            widget=forms.Select(attrs={"onchange": "get_cidade_natural()",
+                                                                       "class": "ui fluid search selection dropdown"})
                                             )
     estado_atual = forms.ModelChoiceField(required=False,
-                                          empty_label="Selecione um estado...",
-                                          queryset=EstadoModel.objects.all(),
-                                          widget=forms.Select(attrs={"onchange": "get_cidade_atual()", })
+                                          empty_label="Selecione um estado",
+                                          queryset=estados,
+                                          widget=forms.Select(attrs={"onchange": "get_cidade_atual()",
+                                                                     "class": "ui fluid search selection dropdown"})
+                                          )
+    cidade_natural = forms.ModelChoiceField(required=False,
+                                            empty_label="Selecione uma cidade",
+                                            queryset=cidades,
+                                            widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
+                                            )
+    cidade_atual = forms.ModelChoiceField(required=False,
+                                          empty_label="Selecione uma cidade",
+                                          queryset=cidades,
+                                          widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                           )
     password = forms.CharField(widget=forms.PasswordInput())
-
-    groups = forms.ModelChoiceField(required=True,
-                                    empty_label="Selecione um departamento...",
-                                    queryset=Group.objects.all())
 
     class Meta:
         model = PessoaModel
@@ -52,6 +62,9 @@ class PessoaForm(forms.ModelForm):
             return data_nascimento
         else:
             raise forms.ValidationError("Deve ter mais que 18 anos")
+
+    # def clean_password(self):
+
 
     def save(self, commit=True):
         user = super(PessoaForm, self).save(commit=False)

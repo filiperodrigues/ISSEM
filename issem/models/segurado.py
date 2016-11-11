@@ -7,10 +7,10 @@ from issem.models.dependente import DependenteModel
 
 
 class SeguradoModel(PessoaModel):
-    pasep_pis_nit = models.CharField(null=True, max_length=128)
+    pasep_pis_nit = models.CharField(blank=True, max_length=128)
     local_trabalho = models.ForeignKey(LocalTrabalhoModel, null=True)
-    data_admissao = models.DateField(null=True)
-    documento_legal = models.CharField(null=True, max_length=128)
+    data_admissao = models.DateField(blank=True)
+    documento_legal = models.CharField(blank=True, max_length=128)
     dependente = models.ManyToManyField(DependenteModel, blank=True)
 
     def __unicode__(self):

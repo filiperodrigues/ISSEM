@@ -4,14 +4,27 @@ from django import forms
 from issem.models.estado import EstadoModel
 from issem.forms.utilitarios.cnpj_validator import CNPJ
 from issem.models.local_trabalho import LocalTrabalhoModel
+from issem.models.secretaria import SecretariaModel
+from issem.models.cidade import CidadeModel
 
 
 class LocalTrabalhoForm(forms.ModelForm):
     estados = forms.ModelChoiceField(required=False,
-                                     empty_label="Selecione um estado...",
+                                     empty_label="Selecione um estado",
                                      queryset=EstadoModel.objects.all(),
-                                     widget=forms.Select(attrs={"onchange": "get_cidade_local_trabalho()"})
+                                     widget=forms.Select(attrs={"onchange": "get_cidade_local_trabalho()",
+                                                                "class": "ui fluid search selection dropdown"})
                                      )
+    cidade = forms.ModelChoiceField(required=False,
+                                    empty_label="Selecione uma cidade",
+                                    queryset=CidadeModel.objects.all(),
+                                    widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
+                                    )
+    secretaria = forms.ModelChoiceField(required=False,
+                                        empty_label="Selecione uma secretaria",
+                                        queryset=SecretariaModel.objects.all(),
+                                        widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
+                                        )
 
     class Meta:
         model = LocalTrabalhoModel

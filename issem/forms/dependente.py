@@ -5,7 +5,7 @@ from django import forms
 
 
 class DependenteForm(PessoaForm):
-    data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'change_life()'}))
+    data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'limita_data_final()'}))
 
     class Meta:
         model = DependenteModel

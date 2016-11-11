@@ -23,8 +23,8 @@
                 {% endif %}
 
                 <div class="fields">
-                    <div class="three wide field"></div>
-                    <div class="ten wide field">
+                    <div class="five wide field"></div>
+                    <div class="six wide field">
                         <label>Nome</label>
                         {{ form.nome }}
                         {% if form.nome.errors %}
@@ -33,11 +33,11 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="three wide field"></div>
+                    <div class="five wide field"></div>
                 </div>
                 <div class="fields">
-                    <div class="three wide field"></div>
-                    <div class="ten wide field">
+                    <div class="five wide field"></div>
+                    <div class="six wide field">
                         <label>Descrição</label>
                         {{ form.descricao }}
                         {% if form.descricao.errors %}
@@ -46,7 +46,7 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="three wide field"></div>
+                    <div class="five wide field"></div>
                 </div>
 
                 {% include 'blocos/buttons_form.html' %}

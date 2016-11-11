@@ -11,7 +11,6 @@ from django.contrib.auth.models import Group
 
 
 class ServidorView(View):
-
     template = 'servidor.html'
 
     def group_test(user):
