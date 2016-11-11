@@ -14,10 +14,10 @@ class SeguradoModel(PessoaModel):
     dependente = models.ManyToManyField(DependenteModel, blank=True)
 
     def __unicode__(self):
-        return self.pasep_pis_nit
+        return self.nome
 
     def __str__(self):
-        return self.pasep_pis_nit
+        return self.nome
 
     class Meta:
         verbose_name = "Segurado"

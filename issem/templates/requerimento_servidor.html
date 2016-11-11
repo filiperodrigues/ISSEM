@@ -15,7 +15,7 @@
             {% endif %}
 
             {% if not id %}
-                <h1>Requerimento de {{ beneficio_descricao }}:</h1>
+                <h1>Requerimento de {{ beneficio_descricao }}</h1>
             {% else %}
                 <h1>Edição de Requerimento {{ beneficio_descricao }}</h1>
                 {{ edicao_define_agendamento }}
@@ -41,6 +41,10 @@
 
             <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
                 <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
+            </select>
+
+            <select id="id_servidor" name="servidor" type="hidden" style="display:none">
+                <option value="{{ id_usuario }}"></option>
             </select>
 
             <div class="fields">

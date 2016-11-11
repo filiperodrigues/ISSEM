@@ -11,7 +11,7 @@
             <a href="{% url 'issem:segurado' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
-                <h1>Requerimento de {{ beneficio_descricao }}:</h1>
+                <h1>Requerimento de {{ beneficio_descricao }}</h1>
             {% else %}
                 <h1>Edição de Requerimento {{ beneficio_descricao }}</h1>
             {% endif %}
@@ -28,7 +28,11 @@
                     {% endif %}
 
                     <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
-                        <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
+                        <option value="{{ id_beneficio }}">beneficio</option>
+                    </select>
+
+                    <select id="id_segurado" name="segurado" type="hidden" style="display:none">
+                        <option value="{{ id_usuario }}"></option>
                     </select>
 
                     <div class="fields">
@@ -54,15 +58,13 @@
                         <div class="four wide field"></div>
                     </div>
 
-                    {{ form.servidor }}
-                    {{ form.segurado }}
-                
                     {% include 'blocos/buttons_form.html' %}
                 </form>
 
             {% else %}
                 <h5>{{ msg }}</h5>
             {% endif %}
+
 
         </div>
     </div>

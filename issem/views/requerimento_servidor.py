@@ -3,13 +3,17 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import RequerimentoModel, AgendamentoModel, ConsultaParametrosModel, BeneficioModel
 from issem.forms import RequerimentoForm, AgendamentoForm
 from django.views.generic.base import View
-from datetime import date, timedelta, datetime
+from datetime import date, datetime
+from django.contrib.auth.models import User
+
 
 
 class RequerimentoServidorView(View):
     template = 'requerimento_servidor.html'
 
     def get(self, request, id_requerimento=None, id_beneficio=None, id_agendamento=None):
+        usuario_logado = User.objects.get(pk=request.user.id)
+        id_usuario = usuario_logado.id
         if id_beneficio:
             beneficio = BeneficioModel.objects.get(pk=id_beneficio)
             beneficio_descricao = beneficio.descricao
@@ -33,11 +37,13 @@ class RequerimentoServidorView(View):
         return render(request, self.template,
                       {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
                        'method': 'get', 'id': id_requerimento, 'beneficio_descricao': beneficio_descricao,
-                       'id_beneficio': beneficio_id, 'id_agendamento': id_agendamento})
+                       'id_beneficio': beneficio_id, 'id_agendamento': id_agendamento, 'id_usuario' : id_usuario})
 
     def post(self, request, id_beneficio=None):
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
-        if request.POST['id']:  #
+        usuario_logado = User.objects.get(pk=request.user.id)
+        id_usuario = usuario_logado.id
+        if request.POST['id']:
             id_requerimento = request.POST['id']
             id_agendamento = request.POST['id_agendamento']
             requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
@@ -79,14 +85,14 @@ class RequerimentoServidorView(View):
                 form_agendamento_model.save()
 
             msg = "Consulta agendada"
-            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao})
+            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
 
         else:
             print(form_requerimento.errors)
 
         return render(request, self.template,
                       {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
-                       'method': 'post', 'id_beneficio': id_beneficio})
+                       'method': 'post', 'id_beneficio': id_beneficio, 'id_usuario' : id_usuario})
 
 
 def RequerimentoDelete(request, id):

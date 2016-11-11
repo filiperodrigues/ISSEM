@@ -6,7 +6,7 @@ import timedelta
 class ConsultaParametrosModel(models.Model):
     tempo_consulta = models.IntegerField(null=False)
     tempo_espera = models.IntegerField(null=False)
-    inicio_atendimento = timedelta.fields.TimedeltaField()
+    inicio_atendimento = models.TimeField()
     limite_consultas = models.IntegerField(null=False)
     gap_agendamento = models.IntegerField()
 

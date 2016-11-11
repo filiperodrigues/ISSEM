@@ -4,12 +4,15 @@ from issem.models import RequerimentoModel, AgendamentoModel, ConsultaParametros
 from issem.forms import RequerimentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta
+from django.contrib.auth.models import User
 
 
 class RequerimentoView(View):
     template = 'requerimento.html'
 
     def get(self, request, id=None, id_beneficio=None):
+        usuario_logado = User.objects.get(pk=request.user.id)
+        id_usuario = usuario_logado.id
         if id_beneficio:
             beneficio = BeneficioModel.objects.get(pk=id_beneficio)
             beneficio_descricao = beneficio.descricao
@@ -28,10 +31,12 @@ class RequerimentoView(View):
             form = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
         return render(request, self.template,
                       {'form': form, 'method': 'get', 'id': id, 'beneficio_descricao': beneficio_descricao,
-                       'id_beneficio': beneficio_id})
+                       'id_beneficio': beneficio_id, 'id_usuario' : id_usuario})
 
     def post(self, request, id_beneficio=None):
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
+        usuario_logado = User.objects.get(pk=request.user.id)
+        id_usuario = usuario_logado.id
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             requerimento = RequerimentoModel.objects.get(pk=id)
@@ -39,11 +44,7 @@ class RequerimentoView(View):
         else:  # CADASTRO NOVO
             id = None
             form = RequerimentoForm(data=request.POST)
-
         if form.is_valid():
-            current_user = request.user
-            form.segurado = current_user
-            form.servidor = current_user
             form.save()
             requerimento = RequerimentoModel.objects.latest('id')
             id = requerimento.id
@@ -52,17 +53,15 @@ class RequerimentoView(View):
 
             dias_gap_agendamento = int(consulta_parametros.gap_agendamento)
             prazo_pericia_final = requerimento.data_final_afastamento + timedelta(days=dias_gap_agendamento)
-            data_limite_agendamento = prazo_pericia_final + timedelta(days=1)
-            print (data_limite_agendamento)
             if date.today() > prazo_pericia_final:
                 msg = define_mensagem_prazo_expirado(prazo_pericia_final)
-                return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao})
+                return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
+                    , 'id_usuario': id_usuario})
             else:
                 for dia in range(1, dias_gap_agendamento + 2):
                     if dia <= dias_gap_agendamento:
                         possivel_data_pericia = requerimento.data_final_afastamento + timedelta(days=dia)
-                        data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia,
-                                                                                consulta_parametros)
+                        data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia,consulta_parametros)
                         if (data_pericia != "") and (hora_pericia != "") and (data_pericia != date.today()):
                             agendamento_form.data_agendamento = date.today()
                             agendamento_form.data_pericia = data_pericia
@@ -70,16 +69,17 @@ class RequerimentoView(View):
                             agendamento_form.requerimento_id = id
                             agendamento_form.save()
                             # O ÚLTIMO REQUERIMENTO CADASTRADO CONTÉM UM AGENDAMENTO #
-                            obj = form.save(commit=False)
-                            obj.possui_agendamento = True
-                            obj.save()
+                            obj_requerimento = form.save(commit=False)
+                            obj_requerimento.possui_agendamento = True
+                            obj_requerimento.save()
                             msg = define_mensagem_consulta(data_pericia, hora_pericia)
                             return render(request, self.template,
-                                          {'msg': msg, 'beneficio_descricao': beneficio.descricao})
+                                          {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
                             break
                     else:
                         msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
-                        return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao})
+                        return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
+                            , 'id_usuario': id_usuario})
                         break
             return HttpResponseRedirect('/')
 
@@ -87,7 +87,7 @@ class RequerimentoView(View):
             print(form.errors)
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_beneficio': beneficio.id,
-                                               'beneficio_descricao': beneficio.descricao})
+                                               'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
 
 
 def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
@@ -107,7 +107,10 @@ def verifica_data_hora_pericia(dia, consulta_parametros):
         tempo_consulta = timedelta(minutes=consulta_parametros.tempo_consulta)
         tempo_espera = timedelta(minutes=consulta_parametros.tempo_espera)
         tempo_somar_hora_de_abertura = (tempo_espera + tempo_consulta) * qtd_agendamentos_dia
-        hora_pericia = consulta_parametros.inicio_atendimento + tempo_somar_hora_de_abertura
+        inicio_atendimento_hora = consulta_parametros.inicio_atendimento.strftime("%H")
+        inicio_atendimento_minuto = consulta_parametros.inicio_atendimento.strftime("%M")
+        inicio_atendimento_hora = timedelta(hours=int(inicio_atendimento_hora), minutes=int(inicio_atendimento_minuto))
+        hora_pericia = inicio_atendimento_hora + tempo_somar_hora_de_abertura
     return (data_pericia, hora_pericia)
 
 
