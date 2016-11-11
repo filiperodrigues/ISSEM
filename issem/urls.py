@@ -11,10 +11,11 @@ urlpatterns = [
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/issem/login/'}, name='logout'),
 
+
     ## PÁGINAS ##
     url(r'^funcionario/$', PaginaFuncionarioView.as_view(), name='funcionario'),
     url(r'^medico/$', PaginaMedicoView.as_view(), name='medico'),
-    url(r'^segurado$', views.ApresentaPaginaSegurado, name='segurado'),
+    url(r'^segurado$', PaginaSeguradoView.as_view(), name='segurado'),
 
     ## DEPARTAMENTO ##
     url(r'^cad/departamento/$', DepartamentoView.as_view(), name='cad_departamento'),

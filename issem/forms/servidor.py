@@ -8,5 +8,6 @@ class ServidorForm(PessoaForm):
 
     class Meta:
         model = ServidorModel
+        fields = '__all__'
         exclude = ('date_joined', 'is_active',)
 

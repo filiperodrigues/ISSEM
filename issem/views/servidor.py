@@ -6,7 +6,7 @@ from django.views.generic.base import View
 from issem.models import EstadoModel
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-
+from django.contrib.auth.models import Group
 
 
 
@@ -29,7 +29,6 @@ class ServidorView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
 
     def post(self, request):
-        print(request.POST)
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             servidor = ServidorModel.objects.get(pk=id)
@@ -39,10 +38,12 @@ class ServidorView(View):
             form = ServidorForm(data=request.POST)
 
         if form.is_valid():
-
-            form = ServidorForm(data=request.POST)
             form.save()
 
+            gp = Group.objects.get(id=request.POST["groups"])
+            user = ServidorModel.objects.get(username=request.POST["username"])
+            user.groups.add(gp)
+            user.save()
 
             return HttpResponseRedirect('/')
         else:

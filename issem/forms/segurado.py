@@ -8,4 +8,4 @@ class SeguradoForm(PessoaForm):
     class Meta:
         model = SeguradoModel
         fields = '__all__'
-        exclude = ('date_joined', 'is_active','groups',)
+        exclude = ('date_joined', 'is_active', 'groups',)
