@@ -39,16 +39,6 @@ $(document).ready(function () {
     $('.ui.modal')
         .modal('setting', 'closable', false)
         .modal('attach events', '#CadastroSecretaria', 'show');
-
-    // ===== CALENDÁRIOS ===== //
-    $("#id_data_inicio_afastamento, #id_data_final_afastamento, #id_data_pericia").datepicker({
-            dateFormat: "dd/mm/yy",
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-        });
-
 });
 
 function calendar_input(){
@@ -59,17 +49,73 @@ function calendar_input(){
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D']
     };
-    if ($("#id_data_nascimento")) {
-        conf = confDefault;
-        conf.maxDate = '-18Y';
-        $("#id_data_nascimento").datepicker(conf);
+
+    $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento").datepicker(confDefault);
+    conf_dataNasc = confDefault;
+    conf_dataNasc.maxDate = '-18Y';
+    $("#id_data_nascimento").datepicker(conf_dataNasc);
+}
+
+function limita_data_final() {
+    var dateFormat = "dd/mm/yy",
+        from = $("#id_data_inicial")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3
+            })
+            .on("change", function () {
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+        to = $("#id_data_final").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3
+        })
+            .on("change", function () {
+                from.datepicker("option", "minDate", getDate(from));
+            });
+
+    function getDate(element) {
+        var date;
+        try {
+            date = $.datepicker.parseDate(dateFormat, element.value);
+        } catch (error) {
+            date = null;
+        }
+        return date;
     }
-    if ($("#id_data_inicio_afastamento")) {
-        conf = confDefault;
-        conf.maxDate = 'today';
-        $("#id_data_inicio_afastamento").datepicker(conf);
+}
+
+function limita_data_final_afastamento() {
+    var dateFormat = "dd/mm/yy",
+        from = $("#id_data_inicio_afastamento")
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3
+            })
+            .on("change", function () {
+                to.datepicker("option", "minDate", getDate(this));
+            }),
+        to = $("#id_data_final_afastamento").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3
+        })
+            .on("change", function () {
+                from.datepicker("option", "minDate", getDate(from));
+            });
+
+    function getDate(element) {
+        var date;
+        try {
+            date = $.datepicker.parseDate(dateFormat, element.value);
+        } catch (error) {
+            date = null;
+        }
+        return date;
     }
-    $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final").datepicker(confDefault);
 }
 
 function get_cidade_natural() {
@@ -151,37 +197,6 @@ function get_secretaria() {
     });
 }
 
-function change_life() {
-    var dateFormat = "dd/mm/yy",
-        from = $("#id_data_inicial")
-            .datepicker({
-                defaultDate: "+1w",
-                changeMonth: true,
-                numberOfMonths: 3
-            })
-            .on("change", function () {
-                to.datepicker("option", "minDate", getDate(this));
-            }),
-        to = $("#id_data_final").datepicker({
-            defaultDate: "+1w",
-            changeMonth: true,
-            numberOfMonths: 3
-        })
-            .on("change", function () {
-                from.datepicker("option", "minDate", getDate(from));
-            });
-
-    function getDate(element) {
-        var date;
-        try {
-            date = $.datepicker.parseDate(dateFormat, element.value);
-        } catch (error) {
-            date = null;
-        }
-
-        return date;
-    }
-}
 $('.message .close')
   .on('click', function() {
     window.history.back();
