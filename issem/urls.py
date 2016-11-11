@@ -102,6 +102,6 @@ urlpatterns = [
     url(r'^gera/agendamento/(?P<id_requerimento>\d+)/$', GeraAgendamentoServidorView.as_view(),name='define_agendamento'),
     url(r'^agenda/$', views.ApresentaAgendamentos, name='tabela_agendamentos'),
 
-    ##404##
-    url(r'', Pagina404View.as_view(), name='404'),
+    ## 404 ##
+    url(r'', TemplateView.as_view(template_name='404.html'), name='404'),
 ]
