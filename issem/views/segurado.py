@@ -10,11 +10,11 @@ from django.contrib.auth.models import Group
 
 class SeguradoView(View):
     template = 'segurado.html'
-    #
-    # def group_test(user):
-    #     return user.groups.filter(name='Servidor')
-    #
-    # @method_decorator(user_passes_test(group_test))
+
+    def group_test(user):
+        return user.groups.filter(name='Servidor')
+
+    @method_decorator(user_passes_test(group_test))
 
     def get(self, request, id=None):
         if id:

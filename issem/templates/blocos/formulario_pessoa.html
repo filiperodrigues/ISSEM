@@ -236,6 +236,7 @@
 </div>
 
 <div class="fields">
+    <div class="four wide field"></div>
     <div class="four wide field">
         <label>Nome do pai</label>
         {{ form.nome_pai }}
@@ -254,6 +255,14 @@
             </div>
         {% endif %}
     </div>
+    <div class="four wide field"></div>
+</div>
+
+<br/>
+<br/>
+
+<div class="fields">
+    <div class="two wide field"></div>
     <div class="four wide field">
         <label>Usuário<i class="asterisk icon red"></i></label>
         {{ form.username }}
@@ -272,4 +281,14 @@
             </div>
         {% endif %}
     </div>
+    <div class="four wide field">
+        <label>Confirme sua senha<i class="asterisk icon red"></i></label>
+        {{ form.password_checker }}
+        {% if form.password_checker.errors %}
+            <div class="ui pointing red basic label issem-error-field">
+                {{ form.password_checker.errors }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="two wide field"></div>
 </div>

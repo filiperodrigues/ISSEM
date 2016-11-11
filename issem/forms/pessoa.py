@@ -39,6 +39,7 @@ class PessoaForm(forms.ModelForm):
                                           widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                           )
     password = forms.CharField(widget=forms.PasswordInput())
+    password_checker = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = PessoaModel
@@ -63,8 +64,13 @@ class PessoaForm(forms.ModelForm):
         else:
             raise forms.ValidationError("Deve ter mais que 18 anos")
 
-    # def clean_password(self):
-
+    def clean_password_checker(self):
+        password = self.cleaned_data.get('password')
+        password_checker = self.cleaned_data.get('password_checker')
+        if password != password_checker:
+            raise forms.ValidationError("Senhas diferentes")
+        else:
+            return password_checker
 
     def save(self, commit=True):
         user = super(PessoaForm, self).save(commit=False)

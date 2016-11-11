@@ -9,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
 
 
-
 class ServidorView(View):
     template = 'servidor.html'
 
@@ -24,8 +23,7 @@ class ServidorView(View):
             form = ServidorForm(instance=servidor)
         else:  # CADASTRO NOVO
             form = ServidorForm()  # MODO CADASTRO: recebe o formulário vazio
-        estados = EstadoModel.objects.all()
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'estados': estados})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request):
         if request.POST['id']:  # EDIÇÃO
