@@ -136,3 +136,8 @@ def ApresentaAgendamentos(request):
     context_dict = {}
     context_dict['agendamentos'] = AgendamentoModel.objects.all().order_by('data_pericia')
     return render(request, 'tabela_agendamentos.html', context_dict)
+
+def ApresentaRequerimentosSemAgendamento(request):
+    context_dict = {}
+    context_dict['requerimentos'] = RequerimentoModel.objects.filter(possui_agendamento = False)
+    return render(request, 'tabela_requerimentos_sem_agendamento.html', context_dict)

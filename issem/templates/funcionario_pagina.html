@@ -11,7 +11,8 @@
 
                     {# DROPDOWN #}
                     <div class="menu">
-                        <a href="{% url 'issem:tabela_agendamentos' %}" class="item">Agenda</a>
+                        <a href="{% url 'issem:tabela_agendamentos' %}" class="item">Agenda <i class="calendar icon"></i></a>
+                        <a href="{% url 'issem:tabela_requerimentos_sem_agendamento' %}" class="item">Requerimentos sem agendamento</a>
                         {% for beneficio in beneficios %}
                             <a href="{% url 'issem:cad_requerimento_servidor' beneficio.id %} " class="item">{{ beneficio.descricao }}</a>
                         {% endfor %}
@@ -60,6 +61,7 @@
 
                     {# DROPDOWN #}
                     <div class="menu">
+                        <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Editar parâmetros de consulta</a>
                         <div class="item">Choice 1</div>
                         <div class="item">Choice 2</div>
                         <div class="item">Choice 3</div>
