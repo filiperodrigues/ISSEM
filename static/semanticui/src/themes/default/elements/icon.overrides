@@ -1,4 +1,4 @@
-/*
+/*
  * Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
  * License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
@@ -733,6 +733,7 @@ i.icon.teletype:before { content: "\f1e4"; }
 i.icon.power.cord:before { content: "\f1e6"; }
 i.icon.tty:before { content: "\f1e4"; }
 i.icon.cc:before { content: "\f20a"; }
+i.icon.first.order:before { content: "\f2b0"; }
 i.icon.plus.cart:before { content: "\f217"; }
 i.icon.arrow.down.cart:before { content: "\f218"; }
 i.icon.detective:before { content: "\f21b"; }

@@ -54,6 +54,7 @@ function calendar_input(){
     conf_dataNasc = confDefault;
     conf_dataNasc.maxDate = '-18Y';
     $("#id_data_nascimento").datepicker(conf_dataNasc);
+
 }
 
 function limita_data_final() {

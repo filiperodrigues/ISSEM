@@ -13,7 +13,15 @@ from django.shortcuts import HttpResponse, HttpResponseRedirect
 
 def index(request):
 
+    grupos = request.user.groups.all()
+    grupo = str(grupos[0])
 
+    if grupo == "Médico":
+        template = 'medico_pagina.html'
+    elif grupo == 'Segurado':
+        template = 'segurado_pagina.html'
+    else:
+        template = 'funcionario_pagina.html'
 
     context_dict = {}
     context_dict['departamentos'] = DepartamentoModel.objects.all()
@@ -33,4 +41,4 @@ def index(request):
     context_dict['agendamentos'] = AgendamentoModel.objects.all()
     context_dict['requerimentos'] = RequerimentoModel.objects.filter(possui_agendamento = False)
 
-    return render(request, 'index.html', context_dict)
+    return render(request, template, context_dict)
