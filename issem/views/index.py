@@ -23,6 +23,7 @@ def index(request):
     else:
         template = 'funcionario_pagina.html'
 
+
     context_dict = {}
     context_dict['departamentos'] = DepartamentoModel.objects.all()
     context_dict['cids'] = CidModel.objects.all()

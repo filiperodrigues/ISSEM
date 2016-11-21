@@ -35,13 +35,13 @@
                         <div class="ui right aligned sub header">
                             <div class="row">
                                 {% if user.groups.all.0.name == 'Médico' %}
-                                    <i class="ui  right large empire icon"></i>
+                                    <i class="ui  right large doctor icon"></i>
                                 {% endif %}
                                 {% if user.groups.all.0.name == 'Servidor' %}
-                                    <i class="ui  right large first order icon"></i>
+                                    <i class="ui  right large user icon"></i>
                                 {% endif %}
                                 {% if user.groups.all.0.name == 'Segurado' %}
-                                    <i class="ui  right large rebel icon"></i>
+                                    <i class="ui  right large child icon"></i>
                                 {% endif %}
                                 {{ user }}
 
