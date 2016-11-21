@@ -7,7 +7,7 @@ from issem.views import *
 
 
 urlpatterns = [
-    url(r'^$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
+    url(r'^$', views.index, name='index'),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/issem/login/'}, name='logout'),
 

@@ -166,7 +166,7 @@ def populate():
 
     # CONSULTA PARÂMETROS
     consulta_parametros = [
-        [20, 5, '10:45', 8, 4],
+        [20, 5, '08:00', 2, 2],
     ]
     for cp in consulta_parametros:
         add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4])
