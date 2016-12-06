@@ -1,28 +1,40 @@
 html, body {
     height: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 header {
-    padding-top: 3%;
-    padding-bottom: 1%;
-    background-color: #f8f8f8;
+    min-height: 20% !important;
+    padding-top: 2%;
     border-bottom: 1px solid #d4d4d4;
-    min-height: 14% !important;
+    background-color: #f8f8f8;
 }
 
-article {
-    padding-top: 1%;
-    padding-bottom: 2%;
-    min-height: 66% !important;
+nav{
+    min-height:7% !important;
+}
+
+section {
+    min-height: 60% !important;
 }
 
 footer {
+    min-height: 11% !important;
     padding-top: 2% !important;
-    min-height: 7% !important;
+}
+
+.issem-grid{
+    margin-top: 0 !important;
+}
+
+.issem-not-segment{
+    border: 0 !important;
+    box-shadow: none !important;
 }
 
 .issem-content {
-    margin-top: 15px;
+    padding-bottom: 1% !important;
 }
 
 .issem-dropdown {

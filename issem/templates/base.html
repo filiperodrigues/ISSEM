@@ -35,13 +35,13 @@
                         <div class="ui right aligned sub header">
                             <div class="row">
                                 {% if user.groups.all.0.name == 'Médico' %}
-                                    <i class="ui  right large doctor icon"></i>
+                                    <i class="ui right large doctor icon"></i>
                                 {% endif %}
                                 {% if user.groups.all.0.name == 'Servidor' %}
-                                    <i class="ui  right large user icon"></i>
+                                    <i class="ui right large user icon"></i>
                                 {% endif %}
                                 {% if user.groups.all.0.name == 'Segurado' %}
-                                    <i class="ui  right large child icon"></i>
+                                    <i class="ui right large child icon"></i>
                                 {% endif %}
                                 {{ user }}
 
@@ -61,21 +61,23 @@
     </div>
 </header>
 
-<nav class="ui menu large" >
+<nav class="ui menu large">
     <div class="ui container">
-{#        <a href="{% url 'issem:index' %}" class="item">Home</a>#}
-        {% if user.groups.all.0.name == 'Médico' or request.user.is_superuser %}<a href="{% url 'issem:medico' %}" class="item">Médico</a>{% endif %}
-        {% if user.groups.all.0.name == "Servidor" or request.user.is_superuser %}<a href="{% url 'issem:funcionario' %}" class="item">Servidor</a>{% endif %}
-        {% if user.groups.all.0.name == "Segurado" or request.user.is_superuser %}<a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
+        {% if user.groups.all.0.name == 'Médico' or request.user.is_superuser %}
+            <a href="{% url 'issem:medico' %}" class="item">Médico</a>{% endif %}
+        {% if user.groups.all.0.name == "Servidor" or request.user.is_superuser %}
+            <a href="{% url 'issem:funcionario' %}" class="item">Servidor</a>{% endif %}
+        {% if user.groups.all.0.name == "Segurado" or request.user.is_superuser %}
+            <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
     </div>
 </nav>
 
-<article>
+<section>
     <div class="ui container issem-content">
         {% block body_block %}
         {% endblock %}
     </div>
-</article>
+</section>
 
 <footer class="ui inverted vertical segment footer">
     <div class="ui centered grid">

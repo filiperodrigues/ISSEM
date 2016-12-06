@@ -41,7 +41,7 @@ $(document).ready(function () {
         .modal('attach events', '#CadastroSecretaria', 'show');
 });
 
-function calendar_input(){
+function calendar_input(dependente){
     confDefault = {
         dateFormat: "dd/mm/yy",
         monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -50,11 +50,14 @@ function calendar_input(){
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D']
     };
 
-    $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento").datepicker(confDefault);
-    conf_dataNasc = confDefault;
-    conf_dataNasc.maxDate = '-18Y';
-    $("#id_data_nascimento").datepicker(conf_dataNasc);
-
+    if(dependente == true) {
+        $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento, #id_data_nascimento").datepicker(confDefault);
+    }else{
+        $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento").datepicker(confDefault);
+        conf_dataNasc = confDefault;
+        conf_dataNasc.maxDate = '-18Y';
+        $("#id_data_nascimento").datepicker(conf_dataNasc);
+    }
 }
 
 function limita_data_final() {
