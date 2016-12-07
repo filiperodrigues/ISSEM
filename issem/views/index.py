@@ -1,25 +1,27 @@
 # coding:utf-8
-from django.shortcuts import render
-from issem.models import *
+from django.shortcuts import render, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from issem.models.requerimento import RequerimentoModel
 
 
 def index(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('issem:login'))
 
     grupos = request.user.groups.all()
+    if len(grupos) > 0:
+        grupo_1 = str(grupos[0])
 
-    if len(grupos) == 0:
-        return render(request, 'index.html')
+        context_dict = {}
 
-    grupo = str(grupos[0])
+        if grupo_1 == "Médico":
+            return HttpResponseRedirect(reverse('issem:medico'))
+        elif grupo_1 == 'Segurado':
+            return HttpResponseRedirect(reverse('issem:segurado'))
+        elif grupo_1 == 'Servidor':
+            context_dict['requerimentos'] = RequerimentoModel.objects.filter(possui_agendamento=False)
+            return render(request, 'funcionario_pagina.html', context_dict)
+        else:
+            return render(request, 'index.html')
 
-    context_dict = {}
-
-    if grupo == "Médico":
-        template = 'medico_pagina.html'
-    elif grupo == 'Segurado':
-        template = 'segurado_pagina.html'
-    else:
-        context_dict['requerimentos'] = RequerimentoModel.objects.filter(possui_agendamento=False)
-        template = 'funcionario_pagina.html'
-
-    return render(request, template, context_dict)
+    return render(request, 'index.html')

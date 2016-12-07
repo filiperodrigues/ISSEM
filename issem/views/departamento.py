@@ -6,6 +6,7 @@ from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 
+
 class DepartamentoView(View):
     template = 'departamento.html'
 

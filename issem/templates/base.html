@@ -63,11 +63,11 @@
 
 <nav class="ui menu large">
     <div class="ui container">
-        {% if user.groups.all.0.name == 'Médico' or request.user.is_superuser %}
+        {% if user.groups.all.0.name == 'Médico' %}
             <a href="{% url 'issem:medico' %}" class="item">Médico</a>{% endif %}
-        {% if user.groups.all.0.name == "Servidor" or request.user.is_superuser %}
+        {% if user.groups.all.0.name == "Servidor" %}
             <a href="{% url 'issem:funcionario' %}" class="item">Servidor</a>{% endif %}
-        {% if user.groups.all.0.name == "Segurado" or request.user.is_superuser %}
+        {% if user.groups.all.0.name == "Segurado" %}
             <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
     </div>
 </nav>

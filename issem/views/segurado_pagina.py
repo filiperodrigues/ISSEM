@@ -13,7 +13,6 @@ class PaginaSeguradoView(View):
 
     @method_decorator(user_passes_test(group_test))
 
-
     def get(self, request):
         context_dict = {}
         context_dict['beneficios'] = BeneficioModel.objects.all()

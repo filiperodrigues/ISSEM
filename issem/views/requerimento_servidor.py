@@ -7,7 +7,6 @@ from datetime import date, datetime
 from django.contrib.auth.models import User
 
 
-
 class RequerimentoServidorView(View):
     template = 'requerimento_servidor.html'
 

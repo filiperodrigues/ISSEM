@@ -5,6 +5,7 @@ from issem.forms import RequerimentoForm, AgendamentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta, datetime
 
+
 class GeraAgendamentoServidorView(View):
     template = 'requerimento_servidor.html'
     def get(self, request, id_requerimento=None, id_beneficio=None, id_agendamento=None):
