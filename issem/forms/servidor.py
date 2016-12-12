@@ -21,7 +21,7 @@ class ServidorForm(PessoaForm):
     def clean_crm(self):
         groups = self.cleaned_data.get('groups')
         crm = self.cleaned_data.get('crm')
-        if str(groups) == "Médico":
+        if str(groups) == "Técnico":
             if crm:
                 return crm
             else:

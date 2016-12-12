@@ -13,7 +13,7 @@ from django.contrib.auth.models import Group
 def populate():
 
     # GRUPOS
-    grupos = ['Servidor', 'Médico', 'Segurado']
+    grupos = ['Administrativo', 'Técnico', 'Segurado', 'Dependente']
     for g in grupos:
         add_grupo(g)
 

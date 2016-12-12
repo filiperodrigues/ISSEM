@@ -13,7 +13,7 @@ class PaginaFuncionarioView(View):
     template = 'funcionario_pagina.html'
 
     def group_test(user):
-        return user.groups.filter(name='Servidor')
+        return user.groups.filter(name='Administrativo')
 
     @method_decorator(user_passes_test(group_test))
 
