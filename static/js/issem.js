@@ -15,7 +15,7 @@ $(document).ready(function () {
     $('.somente_numeros input').mask('00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000');
     $('.somente_letras input').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
         'translation': {
-            S: {pattern: /[A-Za-z ]/},
+            S: {pattern: /[A-Za-zÀ-ú ]/},
         }
     });
 
@@ -38,7 +38,8 @@ $(document).ready(function () {
     $('.ui.dropdown').dropdown();
     $('.ui.modal')
         .modal('setting', 'closable', false)
-        .modal('attach events', '#CadastroSecretaria', 'show');
+        .modal('attach events', '#CadastroSecretaria', 'show')
+        .modal('attach events', '#ProximasConsultas', 'show');
 });
 
 function calendar_input(dependente){
@@ -91,16 +92,26 @@ function limita_data_final() {
     }
 }
 
+Date.prototype.addDays = function(days)
+{
+    var dat = new Date(this.valueOf());
+    dat.setDate(dat.getDate() + days);
+    return dat;
+}
+
 function limita_data_final_afastamento() {
     var dateFormat = "dd/mm/yy",
+
         from = $("#id_data_inicio_afastamento")
             .datepicker({
-                defaultDate: "+1w",
+                defaultDate: "+2w",
                 changeMonth: true,
                 numberOfMonths: 3
             })
             .on("change", function () {
-                to.datepicker("option", "minDate", getDate(this));
+                data = getDate(this)
+
+                to.datepicker("option", "minDate", data.addDays(15));
             }),
         to = $("#id_data_final_afastamento").datepicker({
             defaultDate: "+1w",

@@ -20,11 +20,11 @@ def populate():
     # BENEFÍCIOS
     beneficios = [
         [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício por incapacidade", 1, "2010-10-10", 3.500,
-         "Observação 1", 5],
+         "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
         [0, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Licença Adoção", 2, "2010-10-10", 4.000,
-         "Observação 1", 4],
+         "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 4],
         [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Prorrogação do benefício por incapacidade", 3, "2010-10-10", 4.500,
-         "Observação 1", 8],
+         "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 8],
     ]
     for b in beneficios:
         add_beneficio(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10])
@@ -36,13 +36,13 @@ def populate():
 
     # CIDs
     cids = [
-        ['Gripe', 1, 1],
-        ['Aids', 1, 4],
-        ['Autismo', 0, 4],
-        ['Retardado', 0, 5],
+        ['Gripe', 1, 1, 5646421],
+        ['Aids', 1, 4, 8974564],
+        ['Autismo', 0, 4, 213846213],
+        ['Retardado', 0, 5, 214564],
     ]
     for cid in cids:
-        add_cid(cid[0], cid[1], cid[2])
+        add_cid(cid[0], cid[1], cid[2], cid[3])
 
     # ESTADOS
     arq = open("estados.txt", "r")
@@ -187,8 +187,8 @@ def add_cargo(n):
     return CargoModel.objects.get_or_create(nome=n)[0]
 
 
-def add_cid(d, s, g):
-    return CidModel.objects.get_or_create(descricao=d, status=s, gravidade=g)[0]
+def add_cid(d, s, g, c):
+    return CidModel.objects.get_or_create(descricao=d, status=s, gravidade=g, cod_cid=c)[0]
 
 
 def add_cidade(id, n, uf):

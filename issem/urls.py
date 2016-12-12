@@ -104,4 +104,8 @@ urlpatterns = [
 
     ## 404 ##
     url(r'', TemplateView.as_view(template_name='404.html'), name='404'),
+
+    ## CONTATO ISSEM ##
+    url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),
+
 ]

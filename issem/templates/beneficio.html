@@ -11,7 +11,7 @@
             <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
-                <h1>Cadastro de novo Benefício:</h1>
+                <h1>Cadastro de Benefício:</h1>
             {% else %}
                 <h1>Edição de Benefício</h1>
             {% endif %}
@@ -150,6 +150,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="fields">
+                    <div class="sixteen wide field">
+                        <label>Documentos Necessários:</label>
+                        {{ form.doc_necessarios }}
+                        {% if form.doc_necessarios.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.doc_necessarios.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
 
                 {% include 'blocos/buttons_form.html' %}
             </form>

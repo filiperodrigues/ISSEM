@@ -11,10 +11,12 @@ class DependenteModel(PessoaModel):
     data_final = models.DateField(null=True, blank=True)
 
     def __unicode__(self):
-        return self.nome
+        nome = str(self.nome) + " " + str(self.id)
+        return nome
 
     def __str__(self):
-        return self.nome
+        nome = str(self.nome) + " " + str(self.id)
+        return nome
 
     class Meta:
         verbose_name = "Dependente"

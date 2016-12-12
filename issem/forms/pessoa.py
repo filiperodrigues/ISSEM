@@ -43,13 +43,13 @@ class PessoaForm(forms.ModelForm):
         model = PessoaModel
         fields = "__all__"
 
-    def clean_cpf(self):
-        cpf = self.cleaned_data.get('cpf')
-
-        if CPF(cpf).isValid():
-            return cpf
-        else:
-            raise forms.ValidationError("CPF inválido.")
+    # def clean_cpf(self):
+    #     cpf = self.cleaned_data.get('cpf')
+    #
+    #     if CPF(cpf).isValid():
+    #         return cpf
+    #     else:
+    #         raise forms.ValidationError("CPF inválido.")
 
     def clean_password_checker(self):
         password = self.cleaned_data.get('password')

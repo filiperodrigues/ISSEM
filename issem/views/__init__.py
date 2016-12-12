@@ -21,3 +21,4 @@ from issem.views.requerimento import *
 from issem.views.segurado_pagina import *
 from issem.views.requerimento_servidor import *
 from issem.views.gera_agendamento_servidor import *
+from issem.views.contato_issem import *

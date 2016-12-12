@@ -21,3 +21,4 @@ from issem.models.consulta_parametros import ConsultaParametrosModel
 from issem.models.requerimento import RequerimentoModel
 from issem.models.exame_requerimento import ExameRequerimentoModel
 from issem.models.agendamento import AgendamentoModel
+from issem.models.contatos_issem import ContatoIssemModel

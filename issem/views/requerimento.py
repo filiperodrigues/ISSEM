@@ -53,36 +53,42 @@ class RequerimentoView(View):
 
             dias_gap_agendamento = int(consulta_parametros.gap_agendamento)
             prazo_pericia_final = requerimento.data_final_afastamento + timedelta(days=dias_gap_agendamento)
-            if date.today() > prazo_pericia_final:
-                msg = define_mensagem_prazo_expirado(prazo_pericia_final)
+
+            tempo_dias_afastamento = requerimento.data_final_afastamento - requerimento.data_inicio_afastamento
+            if tempo_dias_afastamento < timedelta(days=15):
+                msg = "O prazo para agendamento automatico via sistema ISSEM é de no mínimo 15(quinze) dias de afastamento."
                 return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
                     , 'id_usuario': id_usuario})
             else:
-                for dia in range(1, dias_gap_agendamento + 2):
-                    if dia <= dias_gap_agendamento:
-                        possivel_data_pericia = requerimento.data_final_afastamento + timedelta(days=dia)
-                        data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia,consulta_parametros)
-                        if (data_pericia != "") and (hora_pericia != "") and (data_pericia != date.today()):
-                            agendamento_form.data_agendamento = date.today()
-                            agendamento_form.data_pericia = data_pericia
-                            agendamento_form.hora_pericia = str(hora_pericia)
-                            agendamento_form.requerimento_id = id
-                            agendamento_form.save()
-                            # O ÚLTIMO REQUERIMENTO CADASTRADO CONTÉM UM AGENDAMENTO #
-                            obj_requerimento = form.save(commit=False)
-                            obj_requerimento.possui_agendamento = True
-                            obj_requerimento.save()
-                            msg = define_mensagem_consulta(data_pericia, hora_pericia)
-                            return render(request, self.template,
-                                          {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
+                if date.today() > prazo_pericia_final:
+                    msg = define_mensagem_prazo_expirado(prazo_pericia_final)
+                    return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
+                        , 'id_usuario': id_usuario})
+                else:
+                    for dia in range(1, dias_gap_agendamento + 2):
+                        if dia <= dias_gap_agendamento:
+                            possivel_data_pericia = requerimento.data_final_afastamento + timedelta(days=dia)
+                            data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia,consulta_parametros)
+                            if (data_pericia != "") and (hora_pericia != "") and (data_pericia != date.today()):
+                                agendamento_form.data_agendamento = date.today()
+                                agendamento_form.data_pericia = data_pericia
+                                agendamento_form.hora_pericia = str(hora_pericia)
+                                agendamento_form.requerimento_id = id
+                                agendamento_form.save()
+                                # O ÚLTIMO REQUERIMENTO CADASTRADO CONTÉM UM AGENDAMENTO #
+                                obj_requerimento = form.save(commit=False)
+                                obj_requerimento.possui_agendamento = True
+                                obj_requerimento.save()
+                                msg = define_mensagem_consulta(data_pericia, hora_pericia, beneficio)
+                                return render(request, self.template,
+                                              {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
+                                break
+                        else:
+                            msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
+                            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
+                                , 'id_usuario': id_usuario})
                             break
-                    else:
-                        msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
-                        return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
-                            , 'id_usuario': id_usuario})
-                        break
-            return HttpResponseRedirect('/')
-
+                return HttpResponseRedirect('/')
         else:
             print(form.errors)
 
@@ -114,13 +120,14 @@ def verifica_data_hora_pericia(dia, consulta_parametros):
     return (data_pericia, hora_pericia)
 
 
-def define_mensagem_consulta(data_pericia, hora_pericia):
+def define_mensagem_consulta(data_pericia, hora_pericia, beneficio):
     texto_msg = str(data_pericia)
     texto_msg = texto_msg.split("-")
     dia = texto_msg[2]
     mes = texto_msg[1]
     ano = texto_msg[0]
-    return ("Sua consulta ficou agendada para %s/%s/%s às %s") % (dia, mes, ano, str(hora_pericia))
+    obs_beneficio = beneficio.observacao
+    return ("Sua consulta ficou agendada para %s/%s/%s às %s. %s") % (dia, mes, ano, str(hora_pericia), str(obs_beneficio))
 
 
 def define_mensagem_prazo_expirado(prazo_pericia_final):

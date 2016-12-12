@@ -15,4 +15,5 @@ from issem.forms.consulta_parametros import ConsultaParametrosForm
 from issem.forms.pessoa import PessoaForm
 from issem.forms.requerimento import RequerimentoForm
 from issem.forms.agendamento import AgendamentoForm
+from issem.forms.contato_issem import ContatoIssemForm
 

@@ -48,7 +48,9 @@
                         <a href="{% url 'issem:cad_departamento' %}" class="item">Departamento</a>
                         <a href="{% url 'issem:cad_cid' %}" class="item">CID</a>
                         <a href="{% url 'issem:cad_procedimento_medico' %}" class="item">Procedimento Médico</a>
-                        <a href="{% url 'issem:edita_consulta_parametros' 2 %}" class="item">Consultas Parâmetros</a>
+                        <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Consultas Parâmetros</a>
+                        <a href="{% url 'issem:cad_beneficio' %}" class="item">Benefícios</a>
+                        <a href="{% url 'issem:cad_contato_issem' %}" class="item">Contatos ISSEM</a>
                     </div>
                 </div>
             </div>
@@ -69,7 +71,52 @@
                 </div>
             </div>
         </div>
+        <div class="issem-proximasConsultas">
+            <div class="ui icon button red" id="ProximasConsultas">Próximas Consultas</div>
+        </div>
 
     </div>
+
+    <!-- MODAL -->
+    <div class="ui form modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Próximas Consultas
+        </div>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>DATA</th>
+                <th>HORA</th>
+                <th>SEGURADO</th>
+                <th>TELEFONE</th>
+                <th>AÇÕES</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for agendamento in proximos_agendamentos %}
+                <tr>
+                    <td>{{ agendamento.data_pericia }}</td>
+                    <td>{{ agendamento.hora_pericia }}</td>
+                    <td>{{ agendamento.requerimento.segurado }}</td>
+                    <td>{{ agendamento.requerimento.segurado.telefone_celular }} <br/> {{ agendamento.requerimento.segurado.telefone_residencial }}</td>
+
+                    <td>
+                        <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">
+                            <button class="ui icon button"><i class="edit icon"></i></button>
+                        </a>
+
+                        <a href="{% url 'issem:deleta_requerimento' agendamento.requerimento.id agendamento.id %}">
+                            <button class="ui icon button">
+                                <i class="remove icon"></i></button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+        </table>
+    </div>
+    <!-- /MODAL -->
 
 {% endblock %}

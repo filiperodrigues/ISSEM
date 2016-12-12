@@ -38,7 +38,11 @@
                     <div class="fields">
                         <div class="four wide field"></div>
                         <div class="four wide field">
-                            <label>Data início do afastamento <i class="asterisk icon red"></i></label>
+                            {% if beneficio_descricao == "Prorrogação do benefício por incapacidade" %}
+                                <label>Data início do benefício <i class="asterisk icon red"></i></label>
+                            {% else %}
+                                <label>Data início do afastamento <i class="asterisk icon red"></i></label>
+                            {% endif %}
                             {{ form.data_inicio_afastamento }}
                             {% if form.data_inicio_afastamento.errors %}
                                 <div class="ui pointing red basic label issem-error-field">
@@ -47,7 +51,11 @@
                             {% endif %}
                         </div>
                         <div class="four wide field">
-                            <label>Data final do afastamento <i class="asterisk icon red"></i></label>
+                            {% if beneficio_descricao == "Prorrogação do benefício por incapacidade" %}
+                                <label>Data final do benefício <i class="asterisk icon red"></i></label>
+                            {% else %}
+                                <label>Data final do afastamento <i class="asterisk icon red"></i></label>
+                            {% endif %}
                             {{ form.data_final_afastamento }}
                             {% if form.data_final_afastamento.errors %}
                                 <div class="ui pointing red basic label issem-error-field">

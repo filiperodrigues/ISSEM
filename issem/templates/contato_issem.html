@@ -1,20 +1,17 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-
     <div class="ui centered row">
         <div class="ui segment issem-cad">
-            <a href="{% url 'issem:funcionario' %}"><i class="big arrow circle left icon red"></i></a>
+            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
-                <h1>Cadastro de Procedimento Médico:</h1>
+                <h1>Cadastro de Contato ISSEM:</h1>
             {% else %}
-                <h1>Edição de Procedimento Médico:</h1>
+                <h1>Edição de Contato ISSEM</h1>
             {% endif %}
 
-            <br/>
-            <form class="ui form" id="ProcedimentoMedicoForm" method="post"
-                  action="{% url 'issem:cad_procedimento_medico' %}">
+            <form class="ui form" id="CidForm" method="post" action="{% url 'issem:cad_contato_issem' %}">
                 {% csrf_token %}
 
                 {% if not id %}
@@ -26,17 +23,17 @@
                 <div class="fields">
                     <div class="two wide field"></div>
                     <div class="four wide field">
-                        <label>Código</label>
+                        <label>Telefone</label>
                         <div class="somente_numeros">
-                            {{ form.codigo }}
-                            {% if form.codigo.errors %}
+                            {{ form.telefone }}
+                            {% if form.telefone.errors %}
                                 <div class="ui pointing red basic label">
-                                    {{ form.codigo.errors }}
+                                    {{ form.telefone.errors }}
                                 </div>
                             {% endif %}
                         </div>
                     </div>
-                    <div class="four wide field">
+                    <div class="six wide field">
                         <label>Descrição</label>
                         {{ form.descricao }}
                         {% if form.descricao.errors %}
@@ -45,18 +42,20 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="four wide field">
-                        <label>Valor</label>
-                        <div class="valor">
-                        {{ form.valor }}
-                        {% if form.valor.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.valor.errors }}
-                            </div>
-                        {% endif %}
+                    <div class="one wide field">
+                        <label>E-mail</label>
+                        <div class="ui segment issem-input-checkbox">
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.email.errors }}
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
+                    <div class="three wide field"></div>
                 </div>
+
                 {% include 'blocos/buttons_form.html' %}
             </form>
 

@@ -7,7 +7,7 @@
             <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
-                <h1>Cadastro de novo CID:</h1>
+                <h1>Cadastro de CID:</h1>
             {% else %}
                 <h1>Edição de CID</h1>
             {% endif %}
@@ -22,8 +22,19 @@
                 {% endif %}
 
                 <div class="fields">
-                    <div class="four wide field"></div>
+                    <div class="two wide field"></div>
                     <div class="four wide field">
+                        <label>Código do CID</label>
+                        <div class="somente_numeros">
+                            {{ form.cod_cid }}
+                            {% if form.cod_cid.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.cod_cid.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="six wide field">
                         <label>Descrição</label>
                         {{ form.descricao }}
                         {% if form.descricao.errors %}
@@ -32,9 +43,9 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="four wide field">
+                    <div class="one wide field">
                         <label>Gravidade</label>
-                        <div class="somente_numeros">
+                        <div class="ui segment issem-input-checkbox">
                             {{ form.gravidade }}
                             {% if form.gravidade.errors %}
                                 <div class="ui pointing red basic label">
