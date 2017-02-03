@@ -10,6 +10,10 @@
         <div class="ui segment">
             <a href="{% url 'issem:funcionario' %}"><i class="big arrow circle left icon red"></i></a>
 
+            {% if user.groups.all.0.name == 'Servidor' %}
+                <a href="{% url 'issem:apresenta_servidor' %}">Ver lista de servidores</a>
+            {% endif %}
+
             {% if not id %}
                 <h1>Cadastro de novo Servidor:</h1>
             {% else %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="row">
+            <div class="ten wide column">
+                <div class="ui segment red">
+                        <h2>Procedimentos Médicos</h2>
+                        <table class="ui celled table">
+                            <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                                <th>AÇÕES <a href="{% url 'issem:cad_procedimento_medico' %}" class="item"><i class="plus icon"></i></a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for procedimento_medico in procedimentos_medicos %}
+                                <tr>
+                                    <td>{{ procedimento_medico.codigo }}</td>
+                                    <td>{{ procedimento_medico.descricao }}</td>
+                                    <td>{{ procedimento_medico.valor }}</td>
+                                    <td><a href="{% url 'issem:edita_procedimento_medico' procedimento_medico.id %}">
+                                        <button class="ui icon button"><i class="edit icon"></i></button>
+                                    </a>
+
+                                        <a href="{% url 'issem:deleta_procedimento_medico' procedimento_medico.id %}">
+                                            <button class="ui icon button">
+                                                <i class="remove icon"></i></button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

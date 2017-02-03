@@ -142,12 +142,12 @@ def populate():
 
     # PROCEDIMENTOS MÉDICOS
     procedimentos_medicos = [
-        [100, 'Procedimento 1', 'Porte 1', 50.00],
-        [200, 'Procedimento 2', 'Porte 2', 80.00],
-        [300, 'Procedimento 3', 'Porte 3', 178.00],
+        [100, 'Procedimento 1', '50.00'],
+        [200, 'Procedimento 2', '80.00'],
+        [300, 'Procedimento 3', '178.00'],
     ]
     for pm in procedimentos_medicos:
-        add_procedimento_medico(pm[0], pm[1], pm[2], pm[3])
+        add_procedimento_medico(pm[0], pm[1], pm[2])
 
         # SEGURADOS
         ##### ENVOLVE A CLASSE PESSOA
@@ -237,8 +237,8 @@ def add_local_trabalho(n, cnpj, e, ne, c, b, cep, ci, s):
                                                     cep=cep, cidade=ci, secretaria=s)
 
 
-def add_procedimento_medico(c, d, p, co):
-    return ProcedimentoMedicoModel.objects.get_or_create(codigo=c, descricao=d, porte=p, custo_operacao=co)
+def add_procedimento_medico(c, d, v):
+    return ProcedimentoMedicoModel.objects.get_or_create(codigo=c, descricao=d, valor=v)
 
 
 def add_secretaria(n):

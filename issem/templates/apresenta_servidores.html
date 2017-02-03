@@ -12,13 +12,13 @@
                             <th>Nome</th>
                             <th>CPF</th>
                             <th>E-mail</th>
-                            <th>AÇÕES</th>
+                            <th>AÇÕES <a href="{% url 'issem:cad_servidor' %}" class="item"><i class="plus icon"></i></a></th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for servidor in servidores %}
                             <tr>
-                                <td>{{ servidor.nome }}</td>
+                                <td>{{ servidor }}</td>
                                 <td>{{ servidor.cpf }}</td>
                                 <td>{{ servidor.email }}</td>
 

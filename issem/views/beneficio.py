@@ -34,6 +34,10 @@ class BeneficioView(View):
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
+def ApresentaBeneficio(request):
+    context_dict = {}
+    context_dict['beneficios'] = BeneficioModel.objects.all()
+    return render(request, 'apresenta_beneficios.html', context_dict)
 
 def BeneficioDelete(request, id):
     beneficio = BeneficioModel.objects.get(pk=id)

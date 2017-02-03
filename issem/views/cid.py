@@ -45,3 +45,8 @@ def CidDelete(request, id):
     cid = CidModel.objects.get(pk=id)
     cid.delete()
     return HttpResponseRedirect('/')
+
+def ApresentaCid(request):
+    context_dict = {}
+    context_dict['cids'] = CidModel.objects.all()
+    return render(request, 'apresenta_cid.html', context_dict)

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="row">
+            <div class="ten wide column">
+                <div class="ui segment red">
+                        <h2>Dependentes</h2>
+                        <table class="ui celled table">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>E-mail</th>
+                                <th>AÇÕES <a href="{% url 'issem:cad_dependente' %}" class="item"><i class="plus icon"></i></a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for dependente in dependentes %}
+                                <tr>
+                                    <td>{{ dependente.nome }}</td>
+                                    <td>{{ dependente.cpf }}</td>
+                                    <td>{{ dependente.email }}</td>
+
+                                    <td><a href="{% url 'issem:edita_dependente' dependente.id %}">
+                                        <button class="ui icon button"><i class="edit icon"></i></button>
+                                    </a>
+
+                                        <a href="{% url 'issem:deleta_dependente' dependente.id %}">
+                                            <button class="ui icon button">
+                                                <i class="remove icon"></i></button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

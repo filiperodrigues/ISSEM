@@ -45,6 +45,11 @@ class DependenteView(View):
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
+def ApresentaDependente(request):
+    context_dict = {}
+    context_dict['dependentes'] = DependenteModel.objects.all()
+    return render(request, 'apresenta_dependentes.html', context_dict)
+
 
 def DependenteDelete(request, id):
     dependente = DependenteModel.objects.get(pk=id)

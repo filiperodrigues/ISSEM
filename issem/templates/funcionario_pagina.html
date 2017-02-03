@@ -24,12 +24,16 @@
         <div class="four wide column">
             <div class="ui menu">
                 <div class="ui dropdown fluid selection issem-dropdown">
-                    <h3 class="ui header"><i class="users icon"></i> Servidor/Segurado</h3>
+                    <h3 class="ui header"><i class="database icon"></i> Registros</h3>
 
                     {# DROPDOWN #}
                     <div class="menu">
                         <a href="{% url 'issem:apresenta_servidor' %}" class="item">Servidores</a>
                         <a href="{% url 'issem:apresenta_segurado' %}" class="item">Segurados</a>
+                        <a href="{% url 'issem:apresenta_dependente' %}" class="item">Dependentes</a>
+                        <a href="{% url 'issem:apresenta_cid' %}" class="item">CID's</a>
+                        <a href="{% url 'issem:apresenta_procedimento_medico' %}" class="item">Procedimentos Médicos</a>
+                        <a href="{% url 'issem:apresenta_beneficios' %}" class="item">Benefícios</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +49,8 @@
                         <a href="{% url 'issem:cad_segurado' %}" class="item">Segurado</a>
                         <a href="{% url 'issem:cad_dependente' %}" class="item">Dependente</a>
                         <a href="{% url 'issem:cad_servidor' %}" class="item">Servidor</a>
-                        <a href="{% url 'issem:cad_departamento' %}" class="item">Departamento</a>
+{#                        ============  REMOVIDO   ============  #}
+{#                        <a href="{% url 'issem:cad_departamento' %}" class="item">Departamento</a>#}
                         <a href="{% url 'issem:cad_cid' %}" class="item">CID</a>
                         <a href="{% url 'issem:cad_procedimento_medico' %}" class="item">Procedimento Médico</a>
                         <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Consultas Parâmetros</a>

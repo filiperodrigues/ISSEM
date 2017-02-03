@@ -58,4 +58,4 @@ def ServidorDelete(request, id):
 def ApresentaServidor(request):
     context_dict = {}
     context_dict['servidores'] = ServidorModel.objects.all()
-    return render(request, 'servidores.html', context_dict)
+    return render(request, 'apresenta_servidores.html', context_dict)

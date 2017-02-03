@@ -6,6 +6,7 @@ from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 
+
 class ContatoIssemView(View):
     template = 'contato_issem.html'
 
@@ -15,7 +16,6 @@ class ContatoIssemView(View):
     @method_decorator(user_passes_test(group_test))
 
     def get(self, request, id=None):
-        print("na view")
         if id:
             contato_issem = ContatoIssemModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = ContatoIssemForm(instance=contato_issem)
@@ -45,3 +45,9 @@ def ContatoIssemDelete(request, id):
     contato_issem = ContatoIssemModel.objects.get(pk=id)
     contato_issem.delete()
     return HttpResponseRedirect('/')
+
+def ApresentaContatoIssem(request):
+    context_dict = {}
+    context_dict['cadastrados'] = ContatoIssemModel.objects.all()
+    context_dict['model'] = "contato_issem"
+    return render(request, 'apresenta_contatos_issem.html', context_dict)

@@ -5,6 +5,10 @@
         <div class="ui segment issem-cad">
             <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
+            {% if user.groups.all.0.name == 'Servidor' %}
+                <a href="{% url 'issem:apresenta_contato_issem' %}">Ver lista de contatos</a>
+            {% endif %}
+
             {% if not id %}
                 <h1>Cadastro de Contato ISSEM:</h1>
             {% else %}
@@ -22,17 +26,6 @@
 
                 <div class="fields">
                     <div class="two wide field"></div>
-                    <div class="four wide field">
-                        <label>Telefone</label>
-                        <div class="somente_numeros">
-                            {{ form.telefone }}
-                            {% if form.telefone.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.telefone.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
                     <div class="six wide field">
                         <label>Descrição</label>
                         {{ form.descricao }}
@@ -42,16 +35,35 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="one wide field">
+                    <div class="four wide field">
+                        <label>Cargo</label>
+                        {{ form.cargo }}
+                        {% if form.cargo.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.cargo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Telefone</label>
+                        <div class="fone_ddd">
+                            {{ form.telefone }}
+                            {% if form.telefone.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.telefone.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="six wide field">
                         <label>E-mail</label>
-                        <div class="ui segment issem-input-checkbox">
-                            {{ form.email }}
+                        {{ form.email }}
                             {% if form.email.errors %}
                                 <div class="ui pointing red basic label">
                                     {{ form.email.errors }}
                                 </div>
                             {% endif %}
-                        </div>
+
                     </div>
                     <div class="three wide field"></div>
                 </div>

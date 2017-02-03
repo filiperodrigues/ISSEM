@@ -10,6 +10,10 @@
         <div class="ui segment">
             <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
 
+            {% if user.groups.all.0.name == 'Servidor' %}
+                <a href="{% url 'issem:apresenta_beneficios' %}">Ver lista de benefícios</a>
+            {% endif %}
+
             {% if not id %}
                 <h1>Cadastro de Benefício:</h1>
             {% else %}
@@ -148,17 +152,6 @@
                                 </div>
                             {% endif %}
                         </div>
-                    </div>
-                </div>
-                <div class="fields">
-                    <div class="sixteen wide field">
-                        <label>Documentos Necessários:</label>
-                        {{ form.doc_necessarios }}
-                        {% if form.doc_necessarios.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.doc_necessarios.errors }}
-                            </div>
-                        {% endif %}
                     </div>
                 </div>
 

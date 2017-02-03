@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        {% for cadastro in cadastrados %}
+            <div class="six wide column">
+                <div class="ui segment">
+                        <h3 class="ui header segment"><i class="ui right large user icon"></i>{{ cadastro.descricao }}</h3>
+                        <h3 class="ui header"><i class="users icon"></i>{{ cadastro.cargo }}</h3>
+                        <h5 class="ui header"><i class="mail outline icon"></i>{{ cadastro.email }}</h5>
+                        <h5 class="ui header"><i class="call square icon"></i>{{ cadastro.telefone }}</h5>
+                        {% if user.groups.all.0.name == 'Servidor' %}
+                                <a href="{% url 'issem:edita_contato_issem' cadastro.id %}">
+                                <button class="ui icon button"><i class="edit icon"></i></button></a>
+
+                                <a href="{% url 'issem:deleta_contato_issem' cadastro.id %}"><button class="ui icon button">
+                                <i class="remove icon"></i></button></a>
+                        {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

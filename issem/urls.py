@@ -16,25 +16,29 @@ urlpatterns = [
     url(r'^medico/$', PaginaMedicoView.as_view(), name='medico'),
     url(r'^segurado$', PaginaSeguradoView.as_view(), name='segurado'),
 
-    ## DEPARTAMENTO ##
-    url(r'^cad/departamento/$', DepartamentoView.as_view(), name='cad_departamento'),
-    url(r'^edita/departamento/(?P<id>\d+)/$', DepartamentoView.as_view(), name='edita_departamento'),
-    url(r'^deleta/departamento/(?P<id>[0-9]+)/$', views.DepartamentoDelete, name='deleta_departamento'),
+        # ============  REMOVIDO  ============
+        # ## DEPARTAMENTO ##
+        # url(r'^cad/departamento/$', DepartamentoView.as_view(), name='cad_departamento'),
+        # url(r'^edita/departamento/(?P<id>\d+)/$', DepartamentoView.as_view(), name='edita_departamento'),
+        # url(r'^deleta/departamento/(?P<id>[0-9]+)/$', views.DepartamentoDelete, name='deleta_departamento'),
 
     ## CID ##
     url(r'^cad/cid/$', CidView.as_view(), name='cad_cid'),
     url(r'^edita/cid/(?P<id>\d+)/$', CidView.as_view(), name='edita_cid'),
     url(r'^deleta/cid/(?P<id>[0-9]+)/$', views.CidDelete, name='deleta_cid'),
+    url(r'^apresenta/cid/$', views.ApresentaCid, name='apresenta_cid'),
 
     ## BENEFÍCIO ##
     url(r'^cad/beneficio/$', BeneficioView.as_view(), name='cad_beneficio'),
     url(r'^edita/beneficio/(?P<id>\d+)/$', BeneficioView.as_view(), name='edita_beneficio'),
     url(r'^deleta/beneficio/(?P<id>[0-9]+)/$', views.BeneficioDelete, name='deleta_beneficio'),
+    url(r'^apresenta/beneficio/$', views.ApresentaBeneficio, name='apresenta_beneficios'),
 
     ## PROCEDIMENTO MÉDICO ##
     url(r'^cad/procedimento_medico/$', ProcedimentoMedicoView.as_view(), name='cad_procedimento_medico'),
     url(r'^edita/procedimento_medico/(?P<id>\d+)/$', ProcedimentoMedicoView.as_view(), name='edita_procedimento_medico'),
     url(r'^deleta/procedimento_medico/(?P<id>[0-9]+)/$', views.ProcedimentoMedicoDelete, name='deleta_procedimento_medico'),
+    url(r'^apresenta/procedimento_medico/$', views.ApresentaProcedimentoMedico, name='apresenta_procedimento_medico'),
 
     ## FUNÇÃO ##
     url(r'^cad/funcao/$', FuncaoView.as_view(), name='cad_funcao'),
@@ -70,6 +74,7 @@ urlpatterns = [
     url(r'^cad/dependente/$', DependenteView.as_view(), name='cad_dependente'),
     url(r'^edita/dependente/(?P<id>\d+)/$', DependenteView.as_view(), name='edita_dependente'),
     url(r'^deleta/dependente/(?P<id>[0-9]+)/$', views.DependenteDelete, name='deleta_dependente'),
+    url(r'^apresenta/dependente/$', views.ApresentaDependente, name='apresenta_dependente'),
 
     ## SEGURADO ##
     url(r'^cad/segurado/$', SeguradoView.as_view(), name='cad_segurado'),
@@ -102,10 +107,17 @@ urlpatterns = [
     url(r'^agenda/$', views.ApresentaAgendamentos, name='tabela_agendamentos'),
     url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento, name='tabela_requerimentos_sem_agendamento'),
 
+    ## CONTATO ISSEM ##
+    url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),
+    url(r'^edita/contato_issem/(?P<id>\d+)/$', ContatoIssemView.as_view(), name='edita_contato_issem'),
+    url(r'^deleta/contato_issem/(?P<id>[0-9]+)/$', views.ContatoIssemDelete, name='deleta_contato_issem'),
+    url(r'^apresenta/contatos/$', views.ApresentaContatoIssem, name='apresenta_contato_issem'),
+
+
+
     ## 404 ##
     url(r'', TemplateView.as_view(template_name='404.html'), name='404'),
 
-    ## CONTATO ISSEM ##
-    url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),
+
 
 ]
