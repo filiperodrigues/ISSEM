@@ -18,12 +18,17 @@ class ServidorView(View):
     @method_decorator(user_passes_test(group_test))
 
     def get(self, request, id=None):
+        group_user = False
         if id:  # EDIÇÃO
             servidor = ServidorModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = ServidorForm(instance=servidor)
+
+            group_user = Group.objects.get(user=id).id
+            print(group_user)
+
         else:  # CADASTRO NOVO
             form = ServidorForm()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user})
 
     def post(self, request):
         if request.POST['id']:  # EDIÇÃO
@@ -33,13 +38,17 @@ class ServidorView(View):
         else:  # CADASTRO NOVO
             id = None
             form = ServidorForm(data=request.POST)
-
         if form.is_valid():
             form.save()
+
+            if Group.objects.get(user=id).id:
+                group_name = Group.objects.get(user=id)
+                group_name.user_set.remove(id)
 
             gp = Group.objects.get(id=request.POST["groups"])
             user = ServidorModel.objects.get(username=request.POST["username"])
             user.groups.add(gp)
+
             user.save()
 
             return HttpResponseRedirect('/')
