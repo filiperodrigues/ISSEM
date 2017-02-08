@@ -22,10 +22,7 @@ class ServidorView(View):
         if id:  # EDIÇÃO
             servidor = ServidorModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = ServidorForm(instance=servidor)
-
             group_user = Group.objects.get(user=id).id
-            print(group_user)
-
         else:  # CADASTRO NOVO
             form = ServidorForm()  # MODO CADASTRO: recebe o formulário vazio
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user})
@@ -41,7 +38,7 @@ class ServidorView(View):
         if form.is_valid():
             form.save()
 
-            if Group.objects.get(user=id).id:
+            if Group.objects.get(user=id):
                 group_name = Group.objects.get(user=id)
                 group_name.user_set.remove(id)
 
