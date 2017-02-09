@@ -11,11 +11,28 @@
 
                     {# DROPDOWN #}
                     <div class="menu">
-                        <a href="{% url 'issem:tabela_agendamentos' %}" class="item">Agenda <i class="calendar icon"></i></a>
-                        <a href="{% url 'issem:tabela_requerimentos_sem_agendamento' %}" class="item">Requerimentos sem agendamento</a>
+                        <a href="{% url 'issem:tabela_agendamentos' %}" class="item">Agenda <i
+                                class="calendar icon"></i></a>
+                        <a href="{% url 'issem:tabela_requerimentos_sem_agendamento' %}" class="item">Requerimentos sem
+                            agendamento</a>
                         {% for beneficio in beneficios %}
-                            <a href="{% url 'issem:cad_requerimento_servidor' beneficio.id %} " class="item">{{ beneficio.descricao }}</a>
+                            <a href="{% url 'issem:cad_requerimento_servidor' beneficio.id %} "
+                               class="item">{{ beneficio.descricao }}</a>
                         {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui menu">
+                <div class="ui dropdown fluid selection issem-dropdown">
+                    <h3 class="ui header"><i class="users icon"></i> Servidor/Segurado</h3>
+
+                    {# DROPDOWN #}
+                    <div class="menu">
+                        <a href="{% url 'issem:lista_servidores' %}" class="item">Servidores</a>
+                        <a href="{% url 'issem:lista_segurados' %}" class="item">Segurados</a>
                     </div>
                 </div>
             </div>
@@ -28,34 +45,12 @@
 
                     {# DROPDOWN #}
                     <div class="menu">
-                        <a href="{% url 'issem:apresenta_servidor' %}" class="item">Servidores</a>
-                        <a href="{% url 'issem:apresenta_segurado' %}" class="item">Segurados</a>
-                        <a href="{% url 'issem:apresenta_dependente' %}" class="item">Dependentes</a>
-                        <a href="{% url 'issem:apresenta_cid' %}" class="item">CID's</a>
-                        <a href="{% url 'issem:apresenta_procedimento_medico' %}" class="item">Procedimentos Médicos</a>
-                        <a href="{% url 'issem:apresenta_beneficios' %}" class="item">Benefícios</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="four wide column">
-            <div class="ui menu">
-                <div class="ui dropdown fluid selection issem-dropdown">
-                    <h3 class="ui header"><i class="plus icon"></i> Cadastros</h3>
-
-                    {# DROPDOWN #}
-                    <div class="menu">
-                        <a href="{% url 'issem:cad_segurado' %}" class="item">Segurado</a>
-                        <a href="{% url 'issem:cad_dependente' %}" class="item">Dependente</a>
-                        <a href="{% url 'issem:cad_servidor' %}" class="item">Servidor</a>
-{#                        ============  REMOVIDO   ============  #}
-{#                        <a href="{% url 'issem:cad_departamento' %}" class="item">Departamento</a>#}
-                        <a href="{% url 'issem:cad_cid' %}" class="item">CID</a>
-                        <a href="{% url 'issem:cad_procedimento_medico' %}" class="item">Procedimento Médico</a>
+                        <a href="{% url 'issem:lista_dependentes' %}" class="item">Dependentes</a>
+                        <a href="{% url 'issem:lista_cids' %}" class="item">CIDs</a>
+                        <a href="{% url 'issem:lista_procedimentos_medicos' %}" class="item">Procedimentos Médicos</a>
+                        <a href="{% url 'issem:lista_beneficios' %}" class="item">Benefícios</a>
                         <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Consultas Parâmetros</a>
-                        <a href="{% url 'issem:cad_beneficio' %}" class="item">Benefícios</a>
-                        <a href="{% url 'issem:cad_contato_issem' %}" class="item">Contatos ISSEM</a>
+                        <a href="{% url 'issem:lista_contatos_issem' %}" class="item">Contatos ISSEM</a>
                     </div>
                 </div>
             </div>
@@ -68,7 +63,8 @@
 
                     {# DROPDOWN #}
                     <div class="menu">
-                        <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Editar parâmetros de consulta</a>
+                        <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Editar parâmetros de
+                            consulta</a>
                         <div class="item">Choice 1</div>
                         <div class="item">Choice 2</div>
                         <div class="item">Choice 3</div>
@@ -104,7 +100,8 @@
                     <td>{{ agendamento.data_pericia }}</td>
                     <td>{{ agendamento.hora_pericia }}</td>
                     <td>{{ agendamento.requerimento.segurado }}</td>
-                    <td>{{ agendamento.requerimento.segurado.telefone_celular }} <br/> {{ agendamento.requerimento.segurado.telefone_residencial }}</td>
+                    <td>{{ agendamento.requerimento.segurado.telefone_celular }}
+                        <br/> {{ agendamento.requerimento.segurado.telefone_residencial }}</td>
 
                     <td>
                         <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <br/>
+    <div class="ui centered grid right floated right aligned six wide column">
+        <a href="{% url 'issem:cad_contato_issem' %}">
+            <div class="ui icon button green">
+                <i class="plus icon"></i> Adicionar Novo
+            </div>
+        </a>
+    </div>
+    <br/>
+
+    <div class="ui centered grid issem-grid">
+        {% for contato in contatos %}
+            <div class="five wide column">
+                <div class="ui centered segment">
+                    {% if contato.nome %}
+                        <h3 class="ui header segment"><i class="ui right large user icon"></i>{{ contato.nome }}</h3>
+                    {% else %}
+                        <h3 class="ui header segment"><i class="ui right large users icon"></i>{{ contato.departamento }}</h3>
+                    {% endif %}
+                    {% if contato.nome and contato.departamento %}
+                        <h3 class="ui header"><i class="users icon"></i>{{ contato.departamento }}</h3>
+                    {% endif %}
+                    {% if contato.cargo %}
+                    <h3 class="ui header"><i class="travel icon"></i>{{ contato.cargo }}</h3>
+                {% endif %}
+                {% if contato.email %}
+                    <h5 class="ui header"><i class="mail icon"></i>{{ contato.email }}</h5>
+                {% endif %}
+                    <h5 class="ui header"><i class="call square icon"></i>{{ contato.telefone }}</h5>
+                    <br/>
+
+                    {% if user.groups.all.0.name == 'Servidor' %}
+                        <div class="ui centered grid">
+                            <a href="{% url 'issem:edita_contato_issem' contato.id %}">
+                                <button class="ui icon large button blue"><i class="edit icon"></i></button>
+                            </a>
+
+                            <a href="{% url 'issem:deleta_contato_issem' contato.id %}">
+                                <div class="ui centered large icon button red">
+                                    <i class="remove icon"></i>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                <br/>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

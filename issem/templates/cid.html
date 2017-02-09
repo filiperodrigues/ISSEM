@@ -4,11 +4,7 @@
 
     <div class="ui centered row">
         <div class="ui segment issem-cad">
-            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
-
-            {% if user.groups.all.0.name == 'Servidor' %}
-                <a href="{% url 'issem:apresenta_cid' %}">Ver lista de cid's</a>
-            {% endif %}
+            <a href="{% url 'issem:lista_cids' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
                 <h1>Cadastro de CID:</h1>

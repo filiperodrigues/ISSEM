@@ -8,7 +8,6 @@ from django.views.generic.base import View
 class BeneficioView(View):
     template = 'beneficio.html'
 
-
     def get(self, request, id=None):
         if id:
             beneficio = BeneficioModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
@@ -34,10 +33,12 @@ class BeneficioView(View):
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
-def ApresentaBeneficio(request):
+
+def ListaBeneficios(request):
     context_dict = {}
     context_dict['beneficios'] = BeneficioModel.objects.all()
-    return render(request, 'apresenta_beneficios.html', context_dict)
+    return render(request, 'beneficios.html', context_dict)
+
 
 def BeneficioDelete(request, id):
     beneficio = BeneficioModel.objects.get(pk=id)

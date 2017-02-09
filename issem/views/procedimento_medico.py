@@ -46,7 +46,8 @@ def ProcedimentoMedicoDelete(request, id):
     procedimento_medico.delete()
     return HttpResponseRedirect('/')
 
-def ApresentaProcedimentoMedico(request):
+
+def ListaProcedimentosMedicos(request):
     context_dict = {}
     context_dict['procedimentos_medicos'] = ProcedimentoMedicoModel.objects.all()
-    return render(request, 'apresenta_procedimento_medico.html', context_dict)
+    return render(request, 'procedimentos_medicos.html', context_dict)

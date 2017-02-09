@@ -4,7 +4,7 @@ from issem.models.cargo import CargoModel
 from issem.models.cid import CidModel
 from issem.models.cidade import CidadeModel
 from issem.models.consulta_parametros import ConsultaParametrosModel
-from issem.models.contatos_issem import ContatoIssemModel
+from issem.models.contato_issem import ContatoIssemModel
 from issem.models.dependente import DependenteModel
 from issem.models.lixeira.departamento import DepartamentoModel
 from issem.models.estado import EstadoModel

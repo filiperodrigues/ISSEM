@@ -3,11 +3,7 @@
 {% block body_block %}
     <div class="ui centered row">
         <div class="ui segment issem-cad">
-            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
-
-            {% if user.groups.all.0.name == 'Servidor' %}
-                <a href="{% url 'issem:apresenta_contato_issem' %}">Ver lista de contatos</a>
-            {% endif %}
+            <a href="{% url 'issem:lista_contatos_issem' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
                 <h1>Cadastro de Contato ISSEM:</h1>
@@ -26,12 +22,12 @@
 
                 <div class="fields">
                     <div class="two wide field"></div>
-                    <div class="six wide field">
-                        <label>Descrição</label>
-                        {{ form.descricao }}
-                        {% if form.descricao.errors %}
+                    <div class="four wide field">
+                        <label>Nome</label>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}
                             <div class="ui pointing red basic label">
-                                {{ form.descricao.errors }}
+                                {{ form.nome.errors }}
                             </div>
                         {% endif %}
                     </div>
@@ -45,6 +41,19 @@
                         {% endif %}
                     </div>
                     <div class="four wide field">
+                        <label>Departamento</label>
+                        {{ form.departamento }}
+                        {% if form.departamento.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.departamento.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="two wide field"></div>
+                </div>
+                <div class="fields">
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
                         <label>Telefone</label>
                         <div class="fone_ddd">
                             {{ form.telefone }}
@@ -55,15 +64,25 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="six wide field">
+                    <div class="four wide field">
                         <label>E-mail</label>
                         {{ form.email }}
-                            {% if form.email.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.email.errors }}
-                                </div>
-                            {% endif %}
+                        {% if form.email.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.email.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field"></div>
+                </div>
 
+                <div class="fields">
+                    <div class="three wide field"></div>
+                    <div class="ten wide field">
+                        <div class="ui red message">
+                            Para cadastro de departamento, deixe em branco os campos <strong>Nome</strong> e <strong>Cargo</strong>.
+                            <br/>
+                        </div>
                     </div>
                     <div class="three wide field"></div>
                 </div>

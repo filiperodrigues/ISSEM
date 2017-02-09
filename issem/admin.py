@@ -18,7 +18,7 @@ from issem.models.segurado import SeguradoModel
 from issem.models.servidor import ServidorModel
 from issem.models.tipo_dependente import TipoDependenteModel
 from issem.models.tipo_exame import TipoExameModel
-from issem.models.contatos_issem import ContatoIssemModel
+from issem.models.contato_issem import ContatoIssemModel
 
 admin.site.register(CidModel)
 admin.site.register(DepartamentoModel)

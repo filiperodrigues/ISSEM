@@ -5,7 +5,6 @@ from django.views.generic import TemplateView
 from issem import views
 from issem.views import *
 
-
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
@@ -16,29 +15,31 @@ urlpatterns = [
     url(r'^medico/$', PaginaMedicoView.as_view(), name='medico'),
     url(r'^segurado$', PaginaSeguradoView.as_view(), name='segurado'),
 
-        # ============  REMOVIDO  ============
-        # ## DEPARTAMENTO ##
-        # url(r'^cad/departamento/$', DepartamentoView.as_view(), name='cad_departamento'),
-        # url(r'^edita/departamento/(?P<id>\d+)/$', DepartamentoView.as_view(), name='edita_departamento'),
-        # url(r'^deleta/departamento/(?P<id>[0-9]+)/$', views.DepartamentoDelete, name='deleta_departamento'),
+    # ============  REMOVIDO  ============
+    # ## DEPARTAMENTO ##
+    # url(r'^cad/departamento/$', DepartamentoView.as_view(), name='cad_departamento'),
+    # url(r'^edita/departamento/(?P<id>\d+)/$', DepartamentoView.as_view(), name='edita_departamento'),
+    # url(r'^deleta/departamento/(?P<id>[0-9]+)/$', views.DepartamentoDelete, name='deleta_departamento'),
 
     ## CID ##
     url(r'^cad/cid/$', CidView.as_view(), name='cad_cid'),
     url(r'^edita/cid/(?P<id>\d+)/$', CidView.as_view(), name='edita_cid'),
     url(r'^deleta/cid/(?P<id>[0-9]+)/$', views.CidDelete, name='deleta_cid'),
-    url(r'^apresenta/cid/$', views.ApresentaCid, name='apresenta_cid'),
+    url(r'^lista/cids/$', views.ListaCids, name='lista_cids'),
 
     ## BENEFÍCIO ##
     url(r'^cad/beneficio/$', BeneficioView.as_view(), name='cad_beneficio'),
     url(r'^edita/beneficio/(?P<id>\d+)/$', BeneficioView.as_view(), name='edita_beneficio'),
     url(r'^deleta/beneficio/(?P<id>[0-9]+)/$', views.BeneficioDelete, name='deleta_beneficio'),
-    url(r'^apresenta/beneficio/$', views.ApresentaBeneficio, name='apresenta_beneficios'),
+    url(r'^lista/beneficios/$', views.ListaBeneficios, name='lista_beneficios'),
 
     ## PROCEDIMENTO MÉDICO ##
     url(r'^cad/procedimento_medico/$', ProcedimentoMedicoView.as_view(), name='cad_procedimento_medico'),
-    url(r'^edita/procedimento_medico/(?P<id>\d+)/$', ProcedimentoMedicoView.as_view(), name='edita_procedimento_medico'),
-    url(r'^deleta/procedimento_medico/(?P<id>[0-9]+)/$', views.ProcedimentoMedicoDelete, name='deleta_procedimento_medico'),
-    url(r'^apresenta/procedimento_medico/$', views.ApresentaProcedimentoMedico, name='apresenta_procedimento_medico'),
+    url(r'^edita/procedimento_medico/(?P<id>\d+)/$', ProcedimentoMedicoView.as_view(),
+        name='edita_procedimento_medico'),
+    url(r'^deleta/procedimento_medico/(?P<id>[0-9]+)/$', views.ProcedimentoMedicoDelete,
+        name='deleta_procedimento_medico'),
+    url(r'^lista/procedimentos_medicos/$', views.ListaProcedimentosMedicos, name='lista_procedimentos_medicos'),
 
     ## FUNÇÃO ##
     url(r'^cad/funcao/$', FuncaoView.as_view(), name='cad_funcao'),
@@ -74,19 +75,19 @@ urlpatterns = [
     url(r'^cad/dependente/$', DependenteView.as_view(), name='cad_dependente'),
     url(r'^edita/dependente/(?P<id>\d+)/$', DependenteView.as_view(), name='edita_dependente'),
     url(r'^deleta/dependente/(?P<id>[0-9]+)/$', views.DependenteDelete, name='deleta_dependente'),
-    url(r'^apresenta/dependente/$', views.ApresentaDependente, name='apresenta_dependente'),
+    url(r'^lista/dependentes/$', views.ListaDependentes, name='lista_dependentes'),
 
     ## SEGURADO ##
     url(r'^cad/segurado/$', SeguradoView.as_view(), name='cad_segurado'),
     url(r'^edita/segurado/(?P<id>\d+)/$', SeguradoView.as_view(), name='edita_segurado'),
     url(r'^deleta/segurado/(?P<id>[0-9]+)/$', views.SeguradoDelete, name='deleta_segurado'),
-    url(r'^apresenta/segurado/$', views.ApresentaSegurado, name='apresenta_segurado'),
+    url(r'^lista/segurados/$', views.ListaSegurados, name='lista_segurados'),
 
     ## SERVIDOR ##
     url(r'^cad/servidor/$', ServidorView.as_view(), name='cad_servidor'),
     url(r'^edita/servidor/(?P<id>\d+)/$', ServidorView.as_view(), name='edita_servidor'),
     url(r'^deleta/servidor/(?P<id>[0-9]+)/$', views.ServidorDelete, name='deleta_servidor'),
-    url(r'^apresenta/servidor/$', views.ApresentaServidor, name='apresenta_servidor'),
+    url(r'^lista/servidores/$', views.ListaServidores, name='lista_servidores'),
 
     ## CIDADE / ESTADO ##
     url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),
@@ -95,29 +96,31 @@ urlpatterns = [
 
     ## CONSULTA PARÂMETROS ##
     url(r'^cad/consulta_parametro/$', ConstultaParametrosView.as_view(), name='cad_consulta_parametros'),
-    url(r'^edita/consulta_parametro/(?P<id>\d+)/$', ConstultaParametrosView.as_view(), name='edita_consulta_parametros'),
-    url(r'^deleta/consulta_parametro/(?P<id>[0-9]+)/$', views.ConsultaParametrosDelete, name='deleta_consulta_parametros'),
+    url(r'^edita/consulta_parametro/(?P<id>\d+)/$', ConstultaParametrosView.as_view(),
+        name='edita_consulta_parametros'),
+    url(r'^deleta/consulta_parametro/(?P<id>[0-9]+)/$', views.ConsultaParametrosDelete,
+        name='deleta_consulta_parametros'),
 
     ## REQUERIMENTO / AGENDAMENTO ##
     url(r'^cad/requerimento/(?P<id_beneficio>\d+)/$', RequerimentoView.as_view(), name='cad_requerimento'),
-    url(r'^cad/requerimento_servidor/(?P<id_beneficio>\d+)/$', RequerimentoServidorView.as_view(), name='cad_requerimento_servidor'),
-    url(r'^edita/requerimento/servidor/(?P<id_requerimento>\d+)/(?P<id_agendamento>\d+)/$', RequerimentoServidorView.as_view(), name='edita_requerimento'),
-    url(r'^deleta/requerimento/(?P<id_requerimento>[0-9]+)/(?P<id_agendamento>[0-9]+)/$', views.RequerimentoAgendamentoDelete, name='deleta_requerimento'),
-    url(r'^gera/agendamento/(?P<id_requerimento>\d+)/$', GeraAgendamentoServidorView.as_view(),name='define_agendamento'),
+    url(r'^cad/requerimento_servidor/(?P<id_beneficio>\d+)/$', RequerimentoServidorView.as_view(),
+        name='cad_requerimento_servidor'),
+    url(r'^edita/requerimento/servidor/(?P<id_requerimento>\d+)/(?P<id_agendamento>\d+)/$',
+        RequerimentoServidorView.as_view(), name='edita_requerimento'),
+    url(r'^deleta/requerimento/(?P<id_requerimento>[0-9]+)/(?P<id_agendamento>[0-9]+)/$',
+        views.RequerimentoAgendamentoDelete, name='deleta_requerimento'),
+    url(r'^gera/agendamento/(?P<id_requerimento>\d+)/$', GeraAgendamentoServidorView.as_view(),
+        name='define_agendamento'),
     url(r'^agenda/$', views.ApresentaAgendamentos, name='tabela_agendamentos'),
-    url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento, name='tabela_requerimentos_sem_agendamento'),
+    url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento,
+        name='tabela_requerimentos_sem_agendamento'),
 
     ## CONTATO ISSEM ##
     url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),
     url(r'^edita/contato_issem/(?P<id>\d+)/$', ContatoIssemView.as_view(), name='edita_contato_issem'),
     url(r'^deleta/contato_issem/(?P<id>[0-9]+)/$', views.ContatoIssemDelete, name='deleta_contato_issem'),
-    url(r'^apresenta/contatos/$', views.ApresentaContatoIssem, name='apresenta_contato_issem'),
-
-
+    url(r'^lista/contatos/$', views.ListaContatosIssem, name='lista_contatos_issem'),
 
     ## 404 ##
     url(r'', TemplateView.as_view(template_name='404.html'), name='404'),
-
-
-
 ]

@@ -8,7 +8,7 @@
 
     <div class="ui centered row">
         <div class="ui segment issem-cad">
-            <a href="{% url 'issem:segurado' %}"><i class="big arrow circle left icon red"></i></a>
+            <a href="{% url 'issem:lista_segurados' %}"><i class="big arrow circle left icon red"></i></a>
 
             {% if not id %}
                 <h1>Requerimento de {{ beneficio_descricao }}</h1>
@@ -27,13 +27,8 @@
                         <input type="hidden" name="id" value="{{ id }}">
                     {% endif %}
 
-                    <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
-                        <option value="{{ id_beneficio }}">beneficio</option>
-                    </select>
-
-                    <select id="id_segurado" name="segurado" type="hidden" style="display:none">
-                        <option value="{{ id_usuario }}"></option>
-                    </select>
+                    <input type="hidden" id="id_beneficio" value="{{ id_beneficio }}"/>
+                    <input type="hidden" id="id_segurado" value="{{ id_usuario }}"/>
 
                     <div class="fields">
                         <div class="four wide field"></div>
@@ -64,10 +59,20 @@
                             {% endif %}
                         </div>
                         <div class="four wide field"></div>
-
                     </div>
 
-                    <i class="asterisk icon red"></i>Só poderão ser realizados requerimentos online para afastamentos com períodos maiores que 15(quinze) dias.
+                    <div class="fields">
+                        <div class="two wide field"></div>
+                        <div class="twelve wide field">
+                            <div class="ui red message">
+                                Só poderão ser realizados requerimentos online para afastamentos com períodos maiores
+                                que 15(quinze) dias.
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="two wide field"></div>
+                    </div>
+
                     {% include 'blocos/buttons_form.html' %}
                 </form>
 

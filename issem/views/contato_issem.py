@@ -46,8 +46,9 @@ def ContatoIssemDelete(request, id):
     contato_issem.delete()
     return HttpResponseRedirect('/')
 
-def ApresentaContatoIssem(request):
+
+def ListaContatosIssem(request):
     context_dict = {}
-    context_dict['cadastrados'] = ContatoIssemModel.objects.all()
+    context_dict['contatos'] = ContatoIssemModel.objects.all()
     context_dict['model'] = "contato_issem"
-    return render(request, 'apresenta_contatos_issem.html', context_dict)
+    return render(request, 'contatos_issem.html', context_dict)
