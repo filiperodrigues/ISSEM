@@ -40,6 +40,17 @@ $(document).ready(function () {
         .modal('setting', 'closable', false)
         .modal('attach events', '#CadastroSecretaria', 'show')
         .modal('attach events', '#ProximasConsultas', 'show');
+
+
+
+
+    //grupo edicao
+
+    id_campo = $('#group_user').val()
+    $('#id_groups option[value='+id_campo+']').attr('selected', 'selected')
+    valor_campo = $('#id_groups option[value='+id_campo+']').text()
+    $('#div_group_user .selection.dropdown .text').text(valor_campo).removeClass('default')
+
 });
 
 function calendar_input(dependente){

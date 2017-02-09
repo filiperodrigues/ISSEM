@@ -44,6 +44,14 @@ def populate():
     for cid in cids:
         add_cid(cid[0], cid[1], cid[2], cid[3])
 
+    # CONTATOS ISSEM
+    cargo = CargoModel.objects.filter()[1]
+    contatos_issem = [
+        ['Inicial', 'inicial@email.com', 'descrição', cargo],
+    ]
+    for contato in contatos_issem:
+        add_contato_issem(contato[0], contato[1], contato[2], contato[3])
+
     # ESTADOS
     arq = open("estados.txt", "r")
     texto = arq.readlines()
@@ -190,6 +198,8 @@ def add_cargo(n):
 def add_cid(d, s, g, c):
     return CidModel.objects.get_or_create(descricao=d, status=s, gravidade=g, cod_cid=c)[0]
 
+def add_contato_issem(t, e, d, c):
+    return ContatoIssemModel.objects.get_or_create(telefone=t, email=e, descricao=d, cargo=c)[0]
 
 def add_cidade(id, n, uf):
     return CidadeModel.objects.get_or_create(id=id, nome=n, uf=uf)[0]
