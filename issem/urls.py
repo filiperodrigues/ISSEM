@@ -73,6 +73,7 @@ urlpatterns = [
 
     ## DEPENDENTE ##
     url(r'^cad/dependente/$', DependenteView.as_view(), name='cad_dependente'),
+    url(r'^cad/dependente_segurado/(?P<id_segurado>\d+)/z$', DependenteView.as_view(), name='cad_dependente_segurado'),
     url(r'^edita/dependente/(?P<id>\d+)/$', DependenteView.as_view(), name='edita_dependente'),
     url(r'^deleta/dependente/(?P<id>[0-9]+)/$', views.DependenteDelete, name='deleta_dependente'),
     url(r'^lista/dependentes/$', views.ListaDependentes, name='lista_dependentes'),

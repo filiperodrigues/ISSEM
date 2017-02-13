@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+    <div class="ui centered row">
+        <div class="ui segment issem-cad">
+            <a href="{% url 'issem:cad_segurado' %}"><i class="big arrow circle left icon red"></i></a>
+            <h3>Operação concluída com sucesso</h3>
+            <a href="{% url 'issem:cad_dependente_segurado' id_segurado %}" class="ui button green">Cadastrar dependente</a>
+            </br>
+            </br>
+            <a href="{% url 'issem:index' %}" class="ui button red">Página inicial</a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -22,6 +22,7 @@
 
                 <h4 class="ui dividing red header">Dados específicos do Segurado</h4>
                 <div class="fields">
+                    <div class="two wide field"></div>
                     <div class="four wide field">
                         <label>Local de Trabalho</label>
                         {{ form.local_trabalho }}
@@ -64,15 +65,15 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="four wide field">
-                        <label>Dependente</label>
-                        {{ form.dependente }}
-                        {% if form.dependente.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.dependente.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
+{#                    <div class="four wide field">#}
+{#                        <label>Dependente</label>#}
+{#                        {{ form.dependente }}#}
+{#                        {% if form.dependente.errors %}#}
+{#                            <div class="ui pointing red basic label">#}
+{#                                {{ form.dependente.errors }}#}
+{#                            </div>#}
+{#                        {% endif %}#}
+{#                    </div>#}
                 </div>
 
                 {% include 'blocos/buttons_form.html' %}

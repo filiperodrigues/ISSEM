@@ -21,7 +21,7 @@ class DependenteView(View):
             form = DependenteForm(instance=dependente)
         else:
             form = DependenteForm()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado' : id_segurado})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado': id_segurado})
 
     def post(self, request, id_segurado=None):
         if request.POST['id']:  # EDIÇÃO
@@ -34,16 +34,22 @@ class DependenteView(View):
 
         if form.is_valid():
             form.save()
-            # if id_segurado != None:
-            #     dependente_current = DependenteModel.objects.latest('id')
-            #     segurado = SeguradoModel.objects.get(pk=id_segurado)
-            #     print(segurado)
-            #     form_segurado = SeguradoForm(instance=segurado)
+            if id_segurado != None:
+                dependente_current = DependenteModel.objects.get(username=request.POST["username"])
+                segurado = SeguradoModel.objects.get(pk=id_segurado)
+                segurado.dependente = dependente_current
+                # form_segurado = SeguradoForm(instance=segurado, data=request.POST)
+                # print(form_segurado)
+                # obj = form_segurado.cleaned_data
+                # obj = form_segurado.save(commit=False)
+                # obj.dependente = segurado
+                # obj.save()
+                # form.save()
             return HttpResponseRedirect('/')
         else:
             print(form.errors)
 
-        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_segurado': id_segurado})
 
 def ListaDependentes(request):
     context_dict = {}

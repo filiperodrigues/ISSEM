@@ -44,13 +44,13 @@ def populate():
     for cid in cids:
         add_cid(cid[0], cid[1], cid[2], cid[3])
 
-    # CONTATOS ISSEM
-    cargo = CargoModel.objects.filter()[1]
-    contatos_issem = [
-        ['Inicial', 'inicial@email.com', 'descrição', cargo],
-    ]
-    for contato in contatos_issem:
-        add_contato_issem(contato[0], contato[1], contato[2], contato[3])
+    # # CONTATOS ISSEM
+    # cargo = CargoModel.objects.filter()[1]
+    # contatos_issem = [
+    #     ['Inicial', 'inicial@email.com', 'descrição', cargo],
+    # ]
+    # for contato in contatos_issem:
+    #     add_contato_issem(contato[0], contato[1], contato[2], contato[3])
 
     # ESTADOS
     arq = open("estados.txt", "r")

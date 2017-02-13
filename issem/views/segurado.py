@@ -40,8 +40,8 @@ class SeguradoView(View):
             user = SeguradoModel.objects.get(username=request.POST["username"])
             user.groups.add(gp)
             user.save()
-            # return render(request, 'blocos/mensagem_cadastro_concluido.html', {'id_segurado': user.id})
-            return render(request, 'blocos/mensagem_cadastro_concluido.html')
+            return render(request, 'blocos/mensagem_cadastro_concluido_segurado.html', {'id_segurado': user.id})
+            # return render(request, 'blocos/mensagem_cadastro_concluido_segurado.html')
 
         else:
             print(form.errors)

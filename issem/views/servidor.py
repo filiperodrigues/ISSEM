@@ -37,10 +37,10 @@ class ServidorView(View):
             form = ServidorForm(data=request.POST)
         if form.is_valid():
             form.save()
-
-            if Group.objects.get(user=id):
-                group_name = Group.objects.get(user=id)
-                group_name.user_set.remove(id)
+            if (id != None):
+                if Group.objects.get(user=id):
+                    group_name = Group.objects.get(user=id)
+                    group_name.user_set.remove(id)
 
             gp = Group.objects.get(id=request.POST["groups"])
             user = ServidorModel.objects.get(username=request.POST["username"])
