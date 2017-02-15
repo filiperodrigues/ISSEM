@@ -44,13 +44,15 @@ def populate():
     for cid in cids:
         add_cid(cid[0], cid[1], cid[2], cid[3])
 
-    # # CONTATOS ISSEM
-    # cargo = CargoModel.objects.filter()[1]
-    # contatos_issem = [
-    #     ['Inicial', 'inicial@email.com', 'descrição', cargo],
-    # ]
-    # for contato in contatos_issem:
-    #     add_contato_issem(contato[0], contato[1], contato[2], contato[3])
+    # CONTATOS ISSEM
+    contatos_issem = [
+        ['Eduardo Silva', 'Coordenador', 'Tecnologia da Informação', '(47)99999-9999', 'eduardo@ifc-araquari.edu.br'],
+        ['Ivo Riegel', 'Coordenador', 'Fábrica de Software', '(47)88888-8888', 'ivo.riegel@ifc-araquari.edu.br'],
+        ['Jonas Espíndola', 'Diretor', 'Direção', '(47)77777-7777', 'jonas.espindola@ifc-araquari.edu.br'],
+        ['', '', 'Secretaria', '(47)6666-6666', 'secretaria@ifc-araquari.edu.br'],
+    ]
+    for contato in contatos_issem:
+        add_contato_issem(contato[0], contato[1], contato[2], contato[3], contato[4])
 
     # ESTADOS
     arq = open("estados.txt", "r")
@@ -96,25 +98,6 @@ def populate():
     for ts in tipos_sanguineos:
         add_tipo_sanguineo(ts)
 
-    # SERVIDOR
-    ''' nome, cpf, email, sexo, data_nascimento, rg, telefone_residencial, telefone_celular, doador, endereco, numero_endereco,
-        complemento, bairro, cep, estado_civil, tipo_sanguineo, cargo, cidade_atual, cidade_natural, nome_pai, nome_mae '''
-    # estado_civil_solteiro = EstadoCivilModel.objects.filter()[0]
-    # tipo_sanguineo_o_positivo = TipoSanguineoModel.objects.filter()[0]
-    # cargo_tecnico = CargoModel.objects.filter()[0]
-    # cidade_1 = CidadeModel.objects.filter()[0]
-    # cidade_2 = CidadeModel.objects.filter()[1]
-    #
-    # servidores = [
-    #     ['Wagner Esser', '092.910.129-47', 'wagner@email.com', 'M', '1995-02-15', '5204512', '4756849265',
-    #      '47992826721', 'S', 'Afonso Moreira', '588', 'Casa', 'Boehmerwald', '89235100', estado_civil_solteiro,
-    #      tipo_sanguineo_o_positivo, cargo_tecnico, cidade_1, cidade_2, 'Paulo Esser', 'Albertina B. Esser', 'wagner',
-    #      ''],
-    # ]
-    # for s in servidores:
-    #     add_servidor(s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11], s[12], s[13],
-    #                  s[14], s[15], s[16], s[17], s[18], s[19], s[20])
-
     # FUNÇÕES
     funcoes = [
         ['Atendente', 'atender'],
@@ -157,12 +140,6 @@ def populate():
     for pm in procedimentos_medicos:
         add_procedimento_medico(pm[0], pm[1], pm[2])
 
-        # SEGURADOS
-        ##### ENVOLVE A CLASSE PESSOA
-
-        # SERVIDORES
-        ##### ENVOLVE A CLASSE PESSOA
-
     # TIPOS DE EXAME
     tipos_exame = [
         ['Exame 1', 'Descrição 1'],
@@ -179,94 +156,61 @@ def populate():
     for cp in consulta_parametros:
         add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4])
 
-
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
     return BeneficioModel.objects.get_or_create(concessao=c, data_inicial=di, data_final=df, data_retorno=dr,
                                                 data_pericia=dp,
                                                 descricao=d, numero_portaria=np, data_portaria=dpt, salario_maximo=sm,
                                                 observacao=obs, carencia=ca)
 
-
 def add_grupo(g):
     return Group.objects.get_or_create(name=g)[0]
-
 
 def add_cargo(n):
     return CargoModel.objects.get_or_create(nome=n)[0]
 
-
 def add_cid(d, s, g, c):
     return CidModel.objects.get_or_create(descricao=d, status=s, gravidade=g, cod_cid=c)[0]
 
-def add_contato_issem(t, e, d, c):
-    return ContatoIssemModel.objects.get_or_create(telefone=t, email=e, descricao=d, cargo=c)[0]
+def add_contato_issem(n, c, d, t, e):
+    return ContatoIssemModel.objects.get_or_create(nome=n, cargo=c, departamento=d, telefone=t, email=e)[0]
 
 def add_cidade(id, n, uf):
     return CidadeModel.objects.get_or_create(id=id, nome=n, uf=uf)[0]
 
-
 def add_estado(id, n, uf):
     return EstadoModel.objects.get_or_create(id=id, nome=n, uf=uf)[0]
-
 
 def add_departamentos(n):
     return DepartamentoModel.objects.get_or_create(nome=n)[0]
 
-
 def add_tipo_dependente(n):
     return TipoDependenteModel.objects.get_or_create(descricao=n)
-
-
-# def add_servidor(n, cpf, e, s, dn, rg, tr, tc, d, end, ne, co, b, cep, es, ts, c, ca, cn, np, nm):
-#     return ServidorModel.objects.get_or_create(nome=n, cpf=cpf, email=e, sexo=s, data_nascimento=dn, rg=rg,
-#                                                telefone_residencial=tr, telefone_celular=tc, doador=d, endereco=end,
-#                                                numero_endereco=ne, complemento=co, bairro=b, cep=cep, estado_civil=es,
-#                                                tipo_sanguineo=ts, cargo=c, cidade_atual=ca, cidade_natural=cn,
-#                                                nome_pai=np, nome_mae=nm)
-#
-#
-# def add_dependente(n, cpf, e, s, dn, rg, tr, tc, d, end, ne, co, b, cep, es, ts, c, ca, cn, np, nm):
-#     return DependenteModel.objects.get_or_create(nome=n, cpf=cpf, email=e, sexo=s, data_nascimento=dn, rg=rg,
-#                                                telefone_residencial=tr, telefone_celular=tc, doador=d, endereco=end,
-#                                                numero_endereco=ne, complemento=co, bairro=b, cep=cep, estado_civil=es,
-#                                                tipo_sanguineo=ts, cargo=c, cidade_atual=ca, cidade_natural=cn,
-#                                                nome_pai=np, nome_mae=nm)
-
 
 def add_estado_civil(n):
     return EstadoCivilModel.objects.get_or_create(nome=n)
 
-
 def add_funcao(n, d):
     return FuncaoModel.objects.get_or_create(nome=n, descricao=d)
 
-
 def add_local_trabalho(n, cnpj, e, ne, c, b, cep, ci, s):
     return LocalTrabalhoModel.objects.get_or_create(nome=n, cnpj=cnpj, endereco=e, numero_endereco=ne, complemento=c,
-                                                    bairro=b,
-                                                    cep=cep, cidade=ci, secretaria=s)
-
+                                                    bairro=b, cep=cep, cidade=ci, secretaria=s)
 
 def add_procedimento_medico(c, d, v):
     return ProcedimentoMedicoModel.objects.get_or_create(codigo=c, descricao=d, valor=v)
 
-
 def add_secretaria(n):
     return SecretariaModel.objects.get_or_create(nome=n)
-
 
 def add_tipo_exame(n, obs):
     return TipoExameModel.objects.get_or_create(nome=n, observacao=obs)
 
-
 def add_tipo_sanguineo(n):
     return TipoSanguineoModel.objects.get_or_create(nome=n)
-
 
 def add_consulta_parametros(tc, te, ia, lc, ga):
     return ConsultaParametrosModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia,
                                                          limite_consultas=lc, gap_agendamento=ga)
-
 
 # Start execution here!
 if __name__ == '__main__':

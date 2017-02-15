@@ -2,35 +2,50 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment red issem-cad">
+    <div class="ui centered grid issem-grid">
+        <div class="row">
+            <div class="sixteen wide column">
+                <div class="ui segment red">
 
-            <div class="fields">
-                <div class="ten wide column">
-                    <h2>Requerimentos sem agendamento</h2>
-                    <table class="ui celled table">
-                        <thead>
-                        <tr>
-                            <th>DATA REQUERIMENTO</th>
-                            <th>SEGURADO</th>
-                            <th>BENEFÍCIO</th>
-                            <th>AÇÕES</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for requerimento in requerimentos %}
+                    <div class="ui grid">
+                        <div class="left floated six wide column">
+                            <h2>Requerimentos sem agendamento</h2>
+                        </div>
+                    </div>
+
+                    {% if requerimentos %}
+                        <table class="ui celled table">
+                            <thead>
                             <tr>
-                                <td>{{ requerimento.data_requerimento }}</td>
-                                <td>{{ requerimento.segurado }}</td>
-                                <td>{{ requerimento.beneficio }}</td>
-                                <td>
-                                    <a href="{% url 'issem:define_agendamento' requerimento.id %}">Gerar agendamento</a>
-                                </td>
+                                <th>Data de Requerimento</th>
+                                <th>Segurado</th>
+                                <th>Benefício</th>
+                                <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+
+                            {% for requerimento in requerimentos %}
+                                <tr>
+                                    <td>{{ requerimento.data_requerimento }}</td>
+                                    <td>{{ requerimento.segurado }}</td>
+                                    <td>{{ requerimento.beneficio }}</td>
+                                    <td class="ui right aligned">
+                                        <a href="{% url 'issem:define_agendamento' requerimento.id %}">
+                                            <button class="ui icon button blue">Gerar agendamento <i
+                                                    class="calendar icon"></i></button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                        </table>
+                    {% else %}
+                        <div class="ui warning message">
+                            <div class="header"> Não existe agendamentos!</div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

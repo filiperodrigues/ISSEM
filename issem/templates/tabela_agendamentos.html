@@ -1,20 +1,26 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    <div class="ui centered row">
-        <div class="ui segment red issem-cad">
 
-            <div class="fields">
-                <div class="ten wide column">
-                    <h2>Agendamentos</h2>
+    <div class="ui centered grid issem-grid">
+        <div class="row">
+            <div class="sixteen wide column">
+                <div class="ui segment red">
+
+                    <div class="ui grid">
+                        <div class="left floated six wide column">
+                            <h2>Agendamentos</h2>
+                        </div>
+                    </div>
+
                     <table class="ui celled table">
                         <thead>
                         <tr>
-                            <th>DATA</th>
-                            <th>HORA</th>
-                            <th>SEGURADO</th>
-                            <th>BENEFÍCIO</th>
-                            <th>AÇÕES</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Segurado</th>
+                            <th>Benefício</th>
+                            <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,14 +31,15 @@
                                 <td>{{ agendamento.requerimento.segurado }}</td>
                                 <td>{{ agendamento.requerimento.beneficio }}</td>
 
-                                <td>
+                                <td class="ui right aligned">
                                     <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">
-                                        <button class="ui icon button"><i class="edit icon"></i></button>
+                                        <button class="ui icon button blue"><i class="edit icon"></i></button>
                                     </a>
 
                                     <a href="{% url 'issem:deleta_requerimento' agendamento.requerimento.id agendamento.id %}">
-                                        <button class="ui icon button">
-                                            <i class="remove icon"></i></button>
+                                        <button class="ui icon button red">
+                                            <i class="remove icon"></i>
+                                        </button>
                                     </a>
                                 </td>
                             </tr>
@@ -40,6 +47,7 @@
                         </tbody>
                         <tfoot>
                     </table>
+
                 </div>
             </div>
         </div>

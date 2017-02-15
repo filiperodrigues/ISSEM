@@ -36,24 +36,22 @@ $(document).ready(function () {
     $('#id_orgao').dropdown();
     $('#id_groups').dropdown();
     $('.ui.dropdown').dropdown();
-    $('.ui.modal')
-        .modal('setting', 'closable', false)
-        .modal('attach events', '#CadastroSecretaria', 'show')
-        .modal('attach events', '#ProximasConsultas', 'show');
-
-
-
+    // $('.ui.modal')
+    //     .modal('setting', 'closable', false)
+    //     .modal('attach events', '#CadastroSecretaria', 'show')
+    //     .modal('attach events', '#ProximasConsultas', 'show')
+    // ;
 
     //grupo edicao
 
     id_campo = $('#group_user').val()
-    $('#id_groups option[value='+id_campo+']').attr('selected', 'selected')
-    valor_campo = $('#id_groups option[value='+id_campo+']').text()
+    $('#id_groups option[value=' + id_campo + ']').attr('selected', 'selected')
+    valor_campo = $('#id_groups option[value=' + id_campo + ']').text()
     $('#div_group_user .selection.dropdown .text').text(valor_campo).removeClass('default')
 
 });
 
-function calendar_input(dependente){
+function calendar_input(dependente) {
     confDefault = {
         dateFormat: "dd/mm/yy",
         monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -62,9 +60,9 @@ function calendar_input(dependente){
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D']
     };
 
-    if(dependente == true) {
+    if (dependente == true) {
         $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento, #id_data_nascimento").datepicker(confDefault);
-    }else{
+    } else {
         $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento").datepicker(confDefault);
         conf_dataNasc = confDefault;
         conf_dataNasc.maxDate = '-18Y';
@@ -103,8 +101,7 @@ function limita_data_final() {
     }
 }
 
-Date.prototype.addDays = function(days)
-{
+Date.prototype.addDays = function (days) {
     var dat = new Date(this.valueOf());
     dat.setDate(dat.getDate() + days);
     return dat;
@@ -213,7 +210,7 @@ function get_secretaria() {
         dataType: 'json',
         success: function (dado) {
             var options = '';
-            options += '<option selected="selected" value="' + dado[dado.length-1].pk + '">' + dado[dado.length-1].fields['nome'] + '</option>';
+            options += '<option selected="selected" value="' + dado[dado.length - 1].pk + '">' + dado[dado.length - 1].fields['nome'] + '</option>';
             for (var i = dado.length - 1; i >= 0; i--) {
                 options += '<option value="' + dado[i].pk + '">' + dado[i].fields['nome'] + '</option>';
             }
@@ -224,7 +221,11 @@ function get_secretaria() {
 }
 
 $('.message .close')
-  .on('click', function() {
-    window.history.back();
-  })
+    .on('click', function () {
+        window.history.back();
+    })
 ;
+
+$('.abrirModalConsultas').click(function () {
+    $('.modalConsultas').modal('show');
+});
