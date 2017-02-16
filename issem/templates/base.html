@@ -18,7 +18,7 @@
         <div class="ui container">
             <div class="ui grid">
                 <div class="two wide column">
-                    <a href="{% url 'issem:index' %}"><img src="/static/images/1.png"/></a>
+                    <a href="{% url 'issem:index' %}"><img src="/static/images/issem.png"/></a>
                 </div>
                 <div class="eleven wide column">
                     <br/>
@@ -28,6 +28,7 @@
                             INSTITUTO DE SEGURIDADE DOS SERVIDORES MUNICIPAIS
                         </div>
                     </h2>
+                    <br/>
                 </div>
                 <div class="three wide column right aligned">
                     <div class="ui grid">
@@ -49,10 +50,10 @@
                                     Logar
                                 </a>
                             {% else %}
-                                {% if user.groups.all.0.name == 'Médico' %}
+                                {% if user.groups.all.0.name == 'Técnico' %}
                                     <i class="ui right large doctor icon"></i>
                                 {% endif %}
-                                {% if user.groups.all.0.name == 'Servidor' %}
+                                {% if user.groups.all.0.name == 'Administrativo' %}
                                     <i class="ui right large user icon"></i>
                                 {% endif %}
                                 {% if user.groups.all.0.name == 'Segurado' %}
@@ -75,10 +76,9 @@
 
 <nav class="ui menu large">
     <div class="ui container">
-            <a href="{% url 'issem:index' %}" class="item issem-icon-home"><i class="icon large home"></i></a>
-        {% if user.groups.all.0.name == 'Médico' %}
+        {% if user.groups.all.0.name == 'Técnico' %}
             <a href="{% url 'issem:medico' %}" class="item">Médico</a>{% endif %}
-        {% if user.groups.all.0.name == "Servidor" %}
+        {% if user.groups.all.0.name == "Administrativo" %}
             <a href="{% url 'issem:funcionario' %}" class="item">Servidor</a>{% endif %}
         {% if user.groups.all.0.name == "Segurado" %}
             <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
