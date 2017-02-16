@@ -49,8 +49,8 @@
                         <a href="{% url 'issem:lista_cids' %}" class="item">CIDs</a>
                         <a href="{% url 'issem:lista_procedimentos_medicos' %}" class="item">Procedimentos Médicos</a>
                         <a href="{% url 'issem:lista_beneficios' %}" class="item">Benefícios</a>
-                        <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Consultas Parâmetros</a>
-                        <a href="{% url 'issem:lista_contatos_issem' %}" class="item">Contatos ISSEM</a>
+                        <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Editar parâmetro de
+                            consulta</a>
                     </div>
                 </div>
             </div>
@@ -63,8 +63,6 @@
 
                     {# DROPDOWN #}
                     <div class="menu">
-                        <a href="{% url 'issem:edita_consulta_parametros' 1 %}" class="item">Editar parâmetros de
-                            consulta</a>
                         <div class="item">Choice 1</div>
                         <div class="item">Choice 2</div>
                         <div class="item">Choice 3</div>
@@ -72,53 +70,86 @@
                 </div>
             </div>
         </div>
+
         <div class="issem-proximasConsultas">
-            <div class="ui icon button red" id="ProximasConsultas">Próximas Consultas</div>
+            <div class="ui icon button red abrirModalConsultas">Próximas Consultas</div>
         </div>
 
     </div>
 
     <!-- MODAL -->
-    <div class="ui form modal">
-        <i class="close icon"></i>
-        <div class="header">
-            Próximas Consultas
+    {% if proximos_agendamentos %}
+        <div class="ui form modal modalConsultas">
+            <i class="close icon"></i>
+            <div class="header">
+                Próximas Consultas
+            </div>
+
+            <div class="content">
+                <table class="ui red celled table issem-table">
+                    <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Segurado</th>
+                        <th>Telefone</th>
+                        <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for agendamento in proximos_agendamentos %}
+                        <tr>
+                            <td>{{ agendamento.data_pericia }}</td>
+                            <td>{{ agendamento.hora_pericia }}</td>
+                            <td>{{ agendamento.requerimento.segurado }}</td>
+                            <td>
+                                {% if agendamento.requerimento.segurado.telefone_celular %}
+                                    agendamento.requerimento.segurado.telefone_celular
+                                {% else %}
+                                    ----
+                                {% endif %}
+                                {% if agendamento.requerimento.segurado.telefone_residencial %}
+                                    <br/>agendamento.requerimento.segurado.telefone_residencial
+                                {% endif %}
+                            </td>
+                            <td class="ui right aligned">
+                                <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">
+                                    <button class="ui icon button blue"><i class="edit icon"></i></button>
+                                </a>
+
+                                <a href="{% url 'issem:deleta_requerimento' agendamento.requerimento.id agendamento.id %}">
+                                    <button class="ui icon button red">
+                                        <i class="remove icon"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                    <tfoot>
+                </table>
+            </div>
+
+            <div class="actions"></div>
         </div>
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                <th>DATA</th>
-                <th>HORA</th>
-                <th>SEGURADO</th>
-                <th>TELEFONE</th>
-                <th>AÇÕES</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for agendamento in proximos_agendamentos %}
-                <tr>
-                    <td>{{ agendamento.data_pericia }}</td>
-                    <td>{{ agendamento.hora_pericia }}</td>
-                    <td>{{ agendamento.requerimento.segurado }}</td>
-                    <td>{{ agendamento.requerimento.segurado.telefone_celular }}
-                        <br/> {{ agendamento.requerimento.segurado.telefone_residencial }}</td>
 
-                    <td>
-                        <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">
-                            <button class="ui icon button"><i class="edit icon"></i></button>
-                        </a>
+    {% else %}
 
-                        <a href="{% url 'issem:deleta_requerimento' agendamento.requerimento.id agendamento.id %}">
-                            <button class="ui icon button">
-                                <i class="remove icon"></i></button>
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-            <tfoot>
-        </table>
-    </div>
+        <div class="ui small modal modalConsultas">
+            <i class="close icon"></i>
+            <div class="ui icon header">
+                <i class="remove icon"></i>
+                Sem consultas agendadas.
+            </div>
+            <div class="ui actions">
+                <div class="ui red ok inverted button">
+                    <i class="removeicon"></i>
+                    Fechar
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <!-- /MODAL -->
 
 {% endblock %}

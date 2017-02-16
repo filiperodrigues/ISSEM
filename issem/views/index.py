@@ -9,6 +9,7 @@ def index(request):
         return HttpResponseRedirect(reverse('issem:login'))
 
     grupos = request.user.groups.all()
+
     if len(grupos) > 0:
         grupo_1 = str(grupos[0])
 
@@ -19,8 +20,7 @@ def index(request):
         elif grupo_1 == 'Segurado':
             return HttpResponseRedirect(reverse('issem:segurado'))
         elif grupo_1 == 'Servidor':
-            context_dict['requerimentos'] = RequerimentoModel.objects.filter(possui_agendamento=False)
-            return render(request, 'funcionario_pagina.html', context_dict)
+            return HttpResponseRedirect(reverse('issem:funcionario'))
         else:
             return render(request, 'index.html')
 

@@ -18,12 +18,12 @@
         <div class="ui container">
             <div class="ui grid">
                 <div class="two wide column">
-                    <img src="/static/images/1.png"/>
+                    <a href="{% url 'issem:index' %}"><img src="/static/images/1.png"/></a>
                 </div>
                 <div class="eleven wide column">
                     <br/>
                     <h2 class="ui header red">
-                        ISSEM
+                        <a href="{% url 'issem:index' %}" class="issem-title">ISSEM</a>
                         <div class="sub header">
                             INSTITUTO DE SEGURIDADE DOS SERVIDORES MUNICIPAIS
                         </div>
@@ -75,6 +75,7 @@
 
 <nav class="ui menu large">
     <div class="ui container">
+            <a href="{% url 'issem:index' %}" class="item issem-icon-home"><i class="icon large home"></i></a>
         {% if user.groups.all.0.name == 'Médico' %}
             <a href="{% url 'issem:medico' %}" class="item">Médico</a>{% endif %}
         {% if user.groups.all.0.name == "Servidor" %}

@@ -31,7 +31,7 @@ class RequerimentoView(View):
             form = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
         return render(request, self.template,
                       {'form': form, 'method': 'get', 'id': id, 'beneficio_descricao': beneficio_descricao,
-                       'id_beneficio': beneficio_id, 'id_usuario' : id_usuario})
+                       'id_beneficio': beneficio_id, 'id_usuario': id_usuario})
 
     def post(self, request, id_beneficio=None):
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
