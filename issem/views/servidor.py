@@ -49,8 +49,8 @@ class ServidorView(View):
             user.save()
 
             return HttpResponseRedirect('/')
-        #else:
-         #   print(form.errors)
+        else:
+            print(form.errors)
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 

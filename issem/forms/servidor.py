@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group
 class ServidorForm(PessoaForm):
     groups = forms.ModelChoiceField(required=True,
                                     empty_label="Selecione um departamento...",
-                                    queryset=Group.objects.all().exclude(name='Segurado'),
+                                    queryset=Group.objects.all().exclude(name='Segurado').exclude(name='Dependente'),
                                     widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                     )
     class Meta:

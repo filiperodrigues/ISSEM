@@ -18,7 +18,7 @@
         <div class="ui container">
             <div class="ui grid">
                 <div class="two wide column">
-                    <a href="{% url 'issem:index' %}"><img src="/static/images/issem.png"/></a>
+                    <a href="{% url 'issem:index' %}"><img src="{% static 'images/issem.png' %}"/></a>
                 </div>
                 <div class="eleven wide column">
                     <br/>
@@ -76,12 +76,18 @@
 
 <nav class="ui menu large">
     <div class="ui container">
+        <a href="{% url 'issem:index' %}" class="item issem-icon-home"><i class="icon large home"></i></a>
         {% if user.groups.all.0.name == 'Técnico' %}
-            <a href="{% url 'issem:medico' %}" class="item">Médico</a>{% endif %}
+            <a href="{% url 'issem:medico' %}" class="item">Técnico</a>{% endif %}
         {% if user.groups.all.0.name == "Administrativo" %}
-            <a href="{% url 'issem:funcionario' %}" class="item">Servidor</a>{% endif %}
+            <a href="{% url 'issem:funcionario' %}" class="item">Administrativo</a>{% endif %}
         {% if user.groups.all.0.name == "Segurado" %}
             <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
+        <div class="right menu">
+            <div class="item">
+                teste
+            </div>
+        </div>
     </div>
 </nav>
 

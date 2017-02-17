@@ -15,11 +15,11 @@ def index(request):
 
         context_dict = {}
 
-        if grupo_1 == "Médico":
+        if grupo_1 == "Técnico":
             return HttpResponseRedirect(reverse('issem:medico'))
         elif grupo_1 == 'Segurado':
             return HttpResponseRedirect(reverse('issem:segurado'))
-        elif grupo_1 == 'Servidor':
+        elif grupo_1 == 'Administrativo':
             return HttpResponseRedirect(reverse('issem:funcionario'))
         else:
             return render(request, 'index.html')
