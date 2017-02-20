@@ -29,6 +29,7 @@ class RequerimentoView(View):
 
         else:
             form = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
+        print(form)
         return render(request, self.template,
                       {'form': form, 'method': 'get', 'id': id, 'beneficio_descricao': beneficio_descricao,
                        'id_beneficio': beneficio_id, 'id_usuario': id_usuario})
@@ -62,8 +63,7 @@ class RequerimentoView(View):
             else:
                 if date.today() > prazo_pericia_final:
                     msg = define_mensagem_prazo_expirado(prazo_pericia_final)
-                    return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
-                        , 'id_usuario': id_usuario})
+                    return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario': id_usuario})
                 else:
                     for dia in range(1, dias_gap_agendamento + 2):
                         if dia <= dias_gap_agendamento:
@@ -85,8 +85,7 @@ class RequerimentoView(View):
                                 break
                         else:
                             msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
-                            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
-                                , 'id_usuario': id_usuario})
+                            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario': id_usuario})
                             break
                 return HttpResponseRedirect('/')
         else:

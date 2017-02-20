@@ -15,11 +15,11 @@ class RequerimentoModel(models.Model):
     possui_agendamento = models.BooleanField(default=0)
 
     def __unicode__(self):
-        nome = 'Requerimento ' + str(self.id)
+        nome = str(self.data_requerimento) + " " + str(self.segurado.nome)
         return nome
 
     def __str__(self):
-        nome = 'Requerimento ' + str(self.id)
+        nome = str(self.data_requerimento) + " " + str(self.segurado.nome)
         return nome
 
     class Meta:

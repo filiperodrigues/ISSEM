@@ -27,8 +27,11 @@
                         <input type="hidden" name="id" value="{{ id }}">
                     {% endif %}
 
-                    <input type="hidden" id="id_beneficio" value="{{ id_beneficio }}"/>
-                    <input type="hidden" id="id_segurado" value="{{ id_usuario }}"/>
+                    <input type="hidden" id="beneficio" value="{{ id_beneficio }}" name="beneficio"/>
+                    <input type="hidden" id="segurado" value="{{ id_usuario }}" name="segurado"/>
+{#                    <select type="hidden" class="ui fluid search selection dropdown" id="id_segurado" name="segurado">#}
+{#                        <option value="{{ id_usuario }}" selected="selected">---------</option>#}
+{#                    </select>#}
 
                     <div class="fields">
                         <div class="four wide field"></div>

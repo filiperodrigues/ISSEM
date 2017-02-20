@@ -27,7 +27,7 @@
                           action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">
                 {% else %}
                     <form class="ui form" id="RequerimentoForm" method="post"
-                          action="{% url 'issem:define_agendamento' 23 %}">
+                          action="{% url 'issem:define_agendamento' id_requerimento %}">
                 {% endif %}
             {% csrf_token %}
 
@@ -46,6 +46,8 @@
             <select id="id_servidor" name="servidor" type="hidden" style="display:none">
                 <option value="{{ id_usuario }}"></option>
             </select>
+
+            <input id="id_possui_agendamento" name="possui_agendamento" type="hidden" value="True"/>
 
             <div class="fields">
                 <div class="five wide field"></div>

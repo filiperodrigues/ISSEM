@@ -116,6 +116,14 @@ urlpatterns = [
     url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento,
         name='tabela_requerimentos_sem_agendamento'),
 
+    ## LAUDO ##
+    url(r'^cad/laudo/(?P<id_tipo_laudo>\d+)/$', LaudoView.as_view(), name='cad_laudo'),
+    url(r'^cad/tipo_laudo/$', TipoLaudoView.as_view(), name='cad_tipo_laudo'),
+    url(r'^lista/tipo_laudo/$', views.ListaTiposLaudos, name='lista_tipo_laudo'),
+    url(r'^edita/tipo_laudo/(?P<id>\d+)/$', TipoLaudoView.as_view(), name='edita_tipo_laudo'),
+    url(r'^deleta/tipo_laudo/(?P<id>[0-9]+)/$', views.TipoLaudoDelete, name='deleta_tipo_laudo'),
+
+
     ## CONTATO ISSEM ##
     url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),
     url(r'^edita/contato_issem/(?P<id>\d+)/$', ContatoIssemView.as_view(), name='edita_contato_issem'),

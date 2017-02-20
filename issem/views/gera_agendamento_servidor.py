@@ -29,19 +29,20 @@ class GeraAgendamentoServidorView(View):
             form_requerimento = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
             form_agendamento = AgendamentoForm()
         return render(request, self.template, {'form_requerimento': form_requerimento, 'form_agendamento' : form_agendamento,
-        'method': 'get', 'id': id_requerimento, 'beneficio_descricao' : beneficio_descricao,
+        'method': 'get', 'id_requerimento': id_requerimento, 'beneficio_descricao' : beneficio_descricao,
         'id_beneficio' : beneficio_id, 'id_agendamento' : id_agendamento, 'var_controle' : var_controle})
 
     def post(self, request, id_requerimento=None):
         if request.POST['id']:  #
-            id_requerimento = request.POST['id']
+            # id_requerimento = request.POST['id']
+            print(id_requerimento)
             requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
             agendamento = AgendamentoModel()
             form_requerimento = RequerimentoForm(instance=requerimento, data=request.POST)
             form_agendamento = AgendamentoForm(instance=agendamento, data=request.POST)
         else:  # CADASTRO NOVO
             form_requerimento = RequerimentoForm(data=request.POST)
-            form_agendamento = AgendamentoForm()
+            form_agendamento = AgendamentoForm(data=request.POST)
 
         if form_requerimento.is_valid():
             current_user = request.user
@@ -62,9 +63,11 @@ class GeraAgendamentoServidorView(View):
             hora_pericia = form_agendamento._raw_value('hora_pericia')
             form_agendamento_model.hora_pericia = hora_pericia
             form_agendamento_model.save()
-            obj = form_requerimento.save(commit=False)
-            obj.possui_agendamento = True
-            obj.save()
+            # obj = requerimento.save(commit=False)
+
+            requerimento.possui_agendamento= True
+            requerimento.save()
+
             msg = define_mensagem_agendamento(data_pericia, hora_pericia)
             return render(request, self.template, {'msg': msg})
 
@@ -75,7 +78,6 @@ class GeraAgendamentoServidorView(View):
                                                'method': 'post', 'id_beneficio': requerimento.beneficio_id })
 
 def define_mensagem_agendamento(data_agendamento, hora_pericia):
-    print (data_agendamento)
     texto_msg = str(data_agendamento)
     texto_msg = texto_msg.split("-")
     dia = texto_msg[2][:2]

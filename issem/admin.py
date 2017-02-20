@@ -19,6 +19,7 @@ from issem.models.servidor import ServidorModel
 from issem.models.tipo_dependente import TipoDependenteModel
 from issem.models.tipo_exame import TipoExameModel
 from issem.models.contato_issem import ContatoIssemModel
+from issem.models.tipo_laudo import TipoLaudoModel
 
 admin.site.register(CidModel)
 admin.site.register(DepartamentoModel)
@@ -37,6 +38,7 @@ admin.site.register(ConsultaParametrosModel)
 admin.site.register(RequerimentoModel)
 admin.site.register(ExameRequerimentoModel)
 admin.site.register(AgendamentoModel)
+admin.site.register(TipoLaudoModel)
 admin.site.register(ContatoIssemModel)
 
 
