@@ -69,7 +69,7 @@ class GeraAgendamentoServidorView(View):
             requerimento.save()
 
             msg = define_mensagem_agendamento(data_pericia, hora_pericia)
-            return render(request, self.template, {'msg': msg})
+            return render(request, self.template, {'msg': msg,'beneficio_descricao':requerimento.beneficio.descricao})
 
         else:
             print(form_requerimento.errors)

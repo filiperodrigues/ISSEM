@@ -22,6 +22,9 @@ $(document).ready(function () {
     // ===== ESTILIZAR DROPDOWNS ===== //
     $('#id_estado_civil').dropdown();
     $('#id_cargo').dropdown();
+    $('#id_segurado').dropdown();
+    $('#id_requerimento').dropdown();
+    $('#id_medico').dropdown();
     $('#id_tipo_sanguineo').dropdown();
     $('#id_estado_natural').dropdown();
     $('#id_estado_atual').dropdown();
