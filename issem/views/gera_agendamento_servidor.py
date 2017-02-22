@@ -51,10 +51,9 @@ class GeraAgendamentoServidorView(View):
             form_requerimento.save()
 
             requerimento = RequerimentoModel.objects.get(pk = id_requerimento)
-            id = requerimento.id
 
             form_agendamento_model = AgendamentoModel()
-            form_agendamento_model.requerimento_id = id
+            form_agendamento_model.requerimento_id = id_requerimento
             form_agendamento_model.data_agendamento = date.today()
             data_pericia_form = form_agendamento._raw_value('data_pericia')
             data_pericia_split = data_pericia_form.split('/')

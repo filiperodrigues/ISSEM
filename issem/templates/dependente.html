@@ -15,7 +15,12 @@
             {% else %}
                 <h1>Edição de Dependente</h1>
             {% endif %}
-            <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:cad_dependente_segurado' id_segurado %}">
+
+            {% if id_segurado %}
+                <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:cad_dependente_segurado' id_segurado %}">
+            {% else %}
+                <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:cad_dependente' %}">
+            {% endif %}
 
                 {% include 'blocos/formulario_pessoa.html' %}
 

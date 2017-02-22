@@ -83,11 +83,11 @@
             <a href="{% url 'issem:funcionario' %}" class="item">Administrativo</a>{% endif %}
         {% if user.groups.all.0.name == "Segurado" %}
             <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
-        <div class="right menu">
-            <div class="item">
-                teste
-            </div>
-        </div>
+{#        <div class="right menu">#}
+{#            <div class="item">#}
+{#                teste#}
+{#            </div>#}
+{#        </div>#}
     </div>
 </nav>
 
