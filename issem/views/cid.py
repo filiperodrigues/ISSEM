@@ -48,6 +48,4 @@ def CidDelete(request, id):
 
 
 def ListaCids(request):
-    context_dict = {}
-    context_dict['cids'] = CidModel.objects.all()
-    return render(request, 'cids.html', context_dict)
+    return render(request, 'cids.html', {'cids': CidModel.objects.all()})

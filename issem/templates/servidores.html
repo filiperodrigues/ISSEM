@@ -20,39 +20,44 @@
                         </div>
                     </div>
 
-                    <table class="ui celled table">
-                        <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Email</th>
-                            <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for servidor in servidores %}
+                    {% if servidores %}
+                        <table class="ui celled table">
+                            <thead>
                             <tr>
-                                <td>{{ servidor.nome }}</td>
-                                <td>{{ servidor.cpf }}</td>
-                                <td>{{ servidor.email }}</td>
-
-                                <td class="ui right aligned">
-                                    <a href="{% url 'issem:edita_servidor' servidor.id %}">
-                                        <button class="ui icon button blue"><i class="edit icon"></i></button>
-                                    </a>
-
-                                    <a href="{% url 'issem:deleta_servidor' servidor.id %}">
-                                        <button class="ui icon button red">
-                                            <i class="remove icon"></i>
-                                        </button>
-                                    </a>
-                                </td>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Email</th>
+                                <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for servidor in servidores %}
+                                <tr>
+                                    <td>{{ servidor.nome }}</td>
+                                    <td>{{ servidor.cpf }}</td>
+                                    <td>{{ servidor.email }}</td>
 
+                                    <td class="ui right aligned">
+                                        <a href="{% url 'issem:edita_servidor' servidor.id %}">
+                                            <button class="ui icon button blue"><i class="edit icon"></i></button>
+                                        </a>
+
+                                        <a href="{% url 'issem:deleta_servidor' servidor.id %}">
+                                            <button class="ui icon button red">
+                                                <i class="remove icon"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                        </table>
+                    {% else %}
+                        <div class="ui warning message">
+                            <div class="header"> Não existem servidores cadastrados!</div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

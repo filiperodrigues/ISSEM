@@ -2,7 +2,7 @@
 
 {% block body_block %}
 
-    {% if user.groups.all.0.name == 'Servidor' %}
+    {% if user.groups.all.0.name == 'Administrativo' %}
         <br/>
         <div class="ui centered grid right floated right aligned six wide column">
             <a href="{% url 'issem:cad_contato_issem' %}">
@@ -35,7 +35,7 @@
                     {% endif %}
                     <h5 class="ui header"><i class="call square icon"></i>{{ contato.telefone }}</h5>
 
-                    {% if user.groups.all.0.name == 'Servidor' %}
+                    {% if user.groups.all.0.name == 'Administrativo' %}
                         <br/>
                         <div class="ui centered grid">
                             <a href="{% url 'issem:edita_contato_issem' contato.id %}">

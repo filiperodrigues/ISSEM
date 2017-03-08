@@ -20,40 +20,48 @@
                         </div>
                     </div>
 
-                    <table class="ui celled table">
-                        <thead>
-                        <tr>
-                            <th>Código do CID</th>
-                            <th>Descrição</th>
-                            <th>Gravidade</th>
-                            <th>Status</th>
-                            <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for cid in cids %}
+                    {% if cids %}
+
+                        <table class="ui celled table">
+                            <thead>
                             <tr>
-                                <td>{{ cid.cod_cid }}</td>
-                                <td>{{ cid.descricao }}</td>
-                                <td>{% if cid.gravidade %}Sim{% else %}Não{% endif %}</td>
-                                <td>{% if cid.status %}Sim{% else %}Não{% endif %}</td>
-
-                                <td class="ui right aligned">
-                                    <a href="{% url 'issem:edita_cid' cid.id %}">
-                                        <button class="ui icon button blue"><i class="edit icon"></i></button>
-                                    </a>
-
-                                    <a href="{% url 'issem:deleta_cid' cid.id %}">
-                                        <button class="ui icon button red">
-                                            <i class="remove icon"></i>
-                                        </button>
-                                    </a>
-                                </td>
+                                <th>Código do CID</th>
+                                <th>Descrição</th>
+                                <th>Gravidade</th>
+                                <th>Status</th>
+                                <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for cid in cids %}
+                                <tr>
+                                    <td>{{ cid.cod_cid }}</td>
+                                    <td>{{ cid.descricao }}</td>
+                                    <td>{% if cid.gravidade %}Sim{% else %}Não{% endif %}</td>
+                                    <td>{% if cid.status %}Sim{% else %}Não{% endif %}</td>
+
+                                    <td class="ui right aligned">
+                                        <a href="{% url 'issem:edita_cid' cid.id %}">
+                                            <button class="ui icon button blue"><i class="edit icon"></i></button>
+                                        </a>
+
+                                        <a href="{% url 'issem:deleta_cid' cid.id %}">
+                                            <button class="ui icon button red">
+                                                <i class="remove icon"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                        </table>
+
+                    {% else %}
+                        <div class="ui warning message">
+                            <div class="header"> Não existem CIDs cadastrados!</div>
+                        </div>
+                    {% endif %}
 
                 </div>
             </div>

@@ -22,8 +22,22 @@
                 {% endif %}
 
                 <div class="fields">
-                    <div class="two wide field"></div>
-                    <div class="four wide field">
+                    <div class="five wide field"></div>
+                    <div class="six wide field">
+                        <label>Descrição</label>
+                        {{ form.descricao }}
+                        {% if form.descricao.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.descricao.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="five wide field"></div>
+                </div>
+
+                <div class="fields">
+                    <div class="six wide field"></div>
+                    <div class="two wide field">
                         <label>Código do CID</label>
                         <div class="somente_numeros">
                             {{ form.cod_cid }}
@@ -33,15 +47,6 @@
                                 </div>
                             {% endif %}
                         </div>
-                    </div>
-                    <div class="six wide field">
-                        <label>Descrição</label>
-                        {{ form.descricao }}
-                        {% if form.descricao.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.descricao.errors }}
-                            </div>
-                        {% endif %}
                     </div>
                     <div class="one wide field">
                         <label>Gravidade</label>
@@ -65,7 +70,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="three wide field"></div>
+                    <div class="six wide field"></div>
                 </div>
 
                 {% include 'blocos/buttons_form.html' %}

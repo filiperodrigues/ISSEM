@@ -20,38 +20,45 @@
                         </div>
                     </div>
 
-                    <table class="ui celled table">
-                        <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Descrição</th>
-                            <th>Valor</th>
-                            <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for procedimento_medico in procedimentos_medicos %}
+                    {% if procedimentos_medicos %}
+                        <table class="ui celled table">
+                            <thead>
                             <tr>
-                                <td>{{ procedimento_medico.codigo }}</td>
-                                <td>{{ procedimento_medico.descricao }}</td>
-                                <td>R$ {{ procedimento_medico.valor }}</td>
-
-                                <td class="ui right aligned">
-                                    <a href="{% url 'issem:edita_procedimento_medico' procedimento_medico.id %}">
-                                        <button class="ui icon button blue"><i class="edit icon"></i></button>
-                                    </a>
-
-                                    <a href="{% url 'issem:deleta_procedimento_medico' procedimento_medico.id %}">
-                                        <button class="ui icon button red">
-                                            <i class="remove icon"></i>
-                                        </button>
-                                    </a>
-                                </td>
+                                <th>Codigo</th>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                                <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for procedimento_medico in procedimentos_medicos %}
+                                <tr>
+                                    <td>{{ procedimento_medico.codigo }}</td>
+                                    <td>{{ procedimento_medico.descricao }}</td>
+                                    <td>R$ {{ procedimento_medico.valor }}</td>
+
+                                    <td class="ui right aligned">
+                                        <a href="{% url 'issem:edita_procedimento_medico' procedimento_medico.id %}">
+                                            <button class="ui icon button blue"><i class="edit icon"></i></button>
+                                        </a>
+
+                                        <a href="{% url 'issem:deleta_procedimento_medico' procedimento_medico.id %}">
+                                            <button class="ui icon button red">
+                                                <i class="remove icon"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                        </table>
+
+                    {% else %}
+                        <div class="ui warning message">
+                            <div class="header"> Não existem procedimentos médicos cadastrados!</div>
+                        </div>
+                    {% endif %}
 
                 </div>
             </div>

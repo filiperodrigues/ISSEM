@@ -20,38 +20,44 @@
                         </div>
                     </div>
 
-                    <table class="ui celled table">
-                        <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Email</th>
-                            <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for segurado in segurados %}
+                    {% if segurados %}
+                        <table class="ui celled table">
+                            <thead>
                             <tr>
-                                <td>{{ segurado.nome }}</td>
-                                <td>{{ segurado.cpf }}</td>
-                                <td>{{ segurado.email }}</td>
-
-                                <td class="ui right aligned">
-                                    <a href="{% url 'issem:edita_segurado' segurado.id %}">
-                                        <button class="ui icon button blue"><i class="edit icon"></i></button>
-                                    </a>
-
-                                    <a href="{% url 'issem:deleta_segurado' segurado.id %}">
-                                        <button class="ui icon button red">
-                                            <i class="remove icon"></i>
-                                        </button>
-                                    </a>
-                                </td>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Email</th>
+                                <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for segurado in segurados %}
+                                <tr>
+                                    <td>{{ segurado.nome }}</td>
+                                    <td>{{ segurado.cpf }}</td>
+                                    <td>{{ segurado.email }}</td>
+
+                                    <td class="ui right aligned">
+                                        <a href="{% url 'issem:edita_segurado' segurado.id %}">
+                                            <button class="ui icon button blue"><i class="edit icon"></i></button>
+                                        </a>
+
+                                        <a href="{% url 'issem:deleta_segurado' segurado.id %}">
+                                            <button class="ui icon button red">
+                                                <i class="remove icon"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                        </table>
+                    {% else %}
+                        <div class="ui warning message">
+                            <div class="header"> Não existem segurados cadastrados!</div>
+                        </div>
+                    {% endif %}
 
                 </div>
             </div>
