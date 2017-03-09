@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block body_tag %}
+    <body onload="calendar_input()">
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="row">
+            <div class="sixteen wide column">
+                <div class="ui segment red">
+
+                    <div class="ui grid">
+                        <div class="left floated six wide column">
+                            <h2>Agenda Médica</h2>
+                        </div>
+                    </div>
+                    <form class="ui form" id="FiltroForm" method="post" action="{% url 'issem:filtro_agenda' %}">
+                        {% csrf_token %}
+                        <div class="data">
+                            <input type="date" required id="data_inicio_periodo" name="data_inicio_periodo" placeholder="Data início período" onfocus="limita_data_final()" class="data"/>
+                        </div>
+                        <div class="data">
+                            <input type="date" required id="data_fim_periodo" name="data_fim_periodo" placeholder="Data final período" class="data"/>
+                        </div>
+                        <input type="submit" name="submit" class="ui button green" value="Filtrar"/>
+                    </form>
+                    {% if agendamentos %}
+                        <table class="ui celled table">
+                            <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Segurado</th>
+                                <th>Benefício</th>
+                                <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for agendamento in agendamentos %}
+                                <tr>
+                                    <td>{{ agendamento.data_pericia }}</td>
+                                    <td>{{ agendamento.hora_pericia }}</td>
+                                    <td>{{ agendamento.requerimento.segurado }}</td>
+                                    <td>{{ agendamento.requerimento.beneficio }}</td>
+
+                                    <td class="ui right aligned">
+                                        <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">
+                                            <button class="ui icon button blue"><i class="edit icon"></i></button>
+                                        </a>
+
+                                        <a href="{% url 'issem:deleta_requerimento' agendamento.requerimento.id agendamento.id %}">
+                                            <button class="ui icon button red">
+                                                <i class="remove icon"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                        </table>
+                    {% else %}
+                        <div class="ui red message">
+                                Não existem agendamentos entre os períodos
+                                <br/>
+                            </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
