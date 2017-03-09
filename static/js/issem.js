@@ -66,7 +66,7 @@ function calendar_input(dependente) {
     if (dependente == true) {
         $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento, #id_data_nascimento").datepicker(confDefault);
     } else {
-        $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento").datepicker(confDefault);
+        $("#data_inicio_periodo, #data_fim_periodo, #id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento").datepicker(confDefault);
         conf_dataNasc = confDefault;
         conf_dataNasc.maxDate = '-18Y';
         $("#id_data_nascimento").datepicker(conf_dataNasc);
@@ -75,7 +75,7 @@ function calendar_input(dependente) {
 
 function limita_data_final() {
     var dateFormat = "dd/mm/yy",
-        from = $("#id_data_inicial")
+        from = $("#id_data_inicial, #data_inicio_periodo")
             .datepicker({
                 defaultDate: "+1w",
                 changeMonth: true,
@@ -84,7 +84,7 @@ function limita_data_final() {
             .on("change", function () {
                 to.datepicker("option", "minDate", getDate(this));
             }),
-        to = $("#id_data_final").datepicker({
+        to = $("#id_data_final, #data_fim_periodo").datepicker({
             defaultDate: "+1w",
             changeMonth: true,
             numberOfMonths: 3
@@ -113,7 +113,7 @@ Date.prototype.addDays = function (days) {
 function limita_data_final_afastamento() {
     var dateFormat = "dd/mm/yy",
 
-        from = $("#id_data_inicio_afastamento")
+        from = $("#id_data_inicio_afastamento, #data_inicio_periodo")
             .datepicker({
                 defaultDate: "+2w",
                 changeMonth: true,
@@ -124,7 +124,7 @@ function limita_data_final_afastamento() {
 
                 to.datepicker("option", "minDate", data.addDays(15));
             }),
-        to = $("#id_data_final_afastamento").datepicker({
+        to = $("#id_data_final_afastamento, #data_fim_periodo").datepicker({
             defaultDate: "+1w",
             changeMonth: true,
             numberOfMonths: 3

@@ -6,7 +6,6 @@ from django.views.generic.base import View
 from datetime import date, datetime
 from django.contrib.auth.models import User
 
-
 class RequerimentoServidorView(View):
     template = 'requerimento_servidor.html'
 
@@ -107,3 +106,18 @@ def ApresentaAgendamentos(request):
     context_dict = {}
     context_dict['agendamentos'] = AgendamentoModel.objects.all().order_by('data_pericia')
     return render(request, 'tabela_agendamentos.html', context_dict)
+
+def ApresentaAgendamentosMedico(request):
+    if request.POST:
+        data_inicio = str(request.POST['data_inicio_periodo']).split('/')
+        inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
+        data_inicio_formatada = str(inicio_ano +"-"+ inicio_mes +"-"+ inicio_dia)
+        data_fim = str(request.POST['data_fim_periodo']).split('/')
+        fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
+        data_fim_formatada = str(fim_ano +"-"+ fim_mes +"-"+ fim_dia)
+        context_dict = {}
+        context_dict['agendamentos'] = AgendamentoModel.objects.filter(data_pericia__range=(data_inicio_formatada,data_fim_formatada)).order_by('data_pericia')
+    else:
+        context_dict = {}
+        context_dict['agendamentos'] = AgendamentoModel.objects.filter(data_pericia=date.today()).order_by('data_pericia')
+    return render(request, 'agenda_medico.html', context_dict)
