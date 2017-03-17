@@ -18,15 +18,19 @@
                     </div>
                     <form class="ui form" id="FiltroForm" method="post" action="{% url 'issem:filtro_agenda' %}">
                         {% csrf_token %}
-                        <div class="data">
-                            <input type="date" required id="data_inicio_periodo" name="data_inicio_periodo" placeholder="Data início período" onfocus="limita_data_final()" class="data"/>
+                        <div class="fields">
+                            <div class="four wide field">
+                                {{ form.data_inicio_periodo }}
+                            </div>
+                            <div class="four wide field">
+                                {{ form.data_fim_periodo }}
+                            </div>
+                            <div class="four wide field">
+                                <input type="submit" name="submit" class="ui button green" value="Filtrar"/>
+                            </div>
                         </div>
-                        <div class="data">
-                            <input type="date" required id="data_fim_periodo" name="data_fim_periodo" placeholder="Data final período" class="data"/>
-                        </div>
-                        <input type="submit" name="submit" class="ui button green" value="Filtrar"/>
                     </form>
-                    {% if agendamentos %}
+                    {% if dados %}
                         <table class="ui celled table">
                             <thead>
                             <tr>
@@ -38,19 +42,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for agendamento in agendamentos %}
+                            {% for dado in dados %}
                                 <tr>
-                                    <td>{{ agendamento.data_pericia }}</td>
-                                    <td>{{ agendamento.hora_pericia }}</td>
-                                    <td>{{ agendamento.requerimento.segurado }}</td>
-                                    <td>{{ agendamento.requerimento.beneficio }}</td>
+                                    <td>{{ dado.data_pericia }}</td>
+                                    <td>{{ dado.hora_pericia }}</td>
+                                    <td>{{ dado.requerimento.segurado }}</td>
+                                    <td>{{ dado.requerimento.beneficio }}</td>
 
                                     <td class="ui right aligned">
-                                        <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">
+                                        <a href="{% url 'issem:edita_requerimento' dado.requerimento.id dado.id %}">
                                             <button class="ui icon button blue"><i class="edit icon"></i></button>
                                         </a>
 
-                                        <a href="{% url 'issem:deleta_requerimento' agendamento.requerimento.id agendamento.id %}">
+                                        <a href="{% url 'issem:deleta_requerimento' dado.requerimento.id dado.id %}">
                                             <button class="ui icon button red">
                                                 <i class="remove icon"></i>
                                             </button>
@@ -62,10 +66,16 @@
                             <tfoot>
                         </table>
                     {% else %}
-                        <div class="ui red message">
-                                Não existem agendamentos entre os períodos
-                                <br/>
+                        <div class="ui yellow message">
+                            <div class="header">
+                                Não existem dados cadastrados
                             </div>
+                        </div>
+                    {% endif %}
+                    {% if var_controle == 1 %}
+                        {% include 'blocos/pagination_filtro.html' %}
+                    {% else %}
+                        {% include 'blocos/pagination.html' %}
                     {% endif %}
                 </div>
             </div>

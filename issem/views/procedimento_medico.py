@@ -5,6 +5,7 @@ from issem.forms import ProcedimentoMedicoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from issem.views.pagination import pagination
 
 
 class ProcedimentoMedicoView(View):
@@ -48,6 +49,6 @@ def ProcedimentoMedicoDelete(request, id):
 
 
 def ListaProcedimentosMedicos(request):
-    context_dict = {}
-    context_dict['procedimentos_medicos'] = ProcedimentoMedicoModel.objects.all()
-    return render(request, 'procedimentos_medicos.html', context_dict)
+    procedimentos_medico = ProcedimentoMedicoModel.objects.all()
+    dados = pagination(procedimentos_medico, request.GET.get('page'))
+    return render(request, 'procedimentos_medicos.html', {'dados': dados})

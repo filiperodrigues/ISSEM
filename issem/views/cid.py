@@ -5,6 +5,7 @@ from issem.forms import CidForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from issem.views.pagination import pagination
 
 
 class CidView(View):
@@ -48,4 +49,6 @@ def CidDelete(request, id):
 
 
 def ListaCids(request):
-    return render(request, 'cids.html', {'cids': CidModel.objects.all()})
+    cids = CidModel.objects.all()
+    dados = pagination(cids, request.GET.get('page'))
+    return render(request, 'cids.html', {'dados': dados})

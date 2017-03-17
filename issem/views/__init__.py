@@ -25,3 +25,4 @@ from issem.views.tipo_exame import *
 from issem.views.contato_issem import *
 from issem.views.laudo import *
 from issem.views.tipo_laudo import *
+from issem.views.pagination import pagination

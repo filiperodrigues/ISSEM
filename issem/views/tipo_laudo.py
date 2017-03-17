@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import TipoLaudoModel
 from issem.forms import TipoLaudoForm
 from django.views.generic.base import View
+from issem.views.pagination import pagination
 
 
 class TipoLaudoView(View):
@@ -35,9 +36,9 @@ class TipoLaudoView(View):
 
 
 def ListaTiposLaudos(request):
-    context_dict = {}
-    context_dict['tipos_laudos'] = TipoLaudoModel.objects.all()
-    return render(request, 'tipos_laudos.html', context_dict)
+    tipo_laudos = TipoLaudoModel.objects.all()
+    dados = pagination(tipo_laudos, request.GET.get('page'))
+    return render(request, 'tipos_laudos.html', {'dados': dados})
 
 
 def TipoLaudoDelete(request, id):

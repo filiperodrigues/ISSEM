@@ -20,7 +20,7 @@
                         </div>
                     </div>
 
-                    {% if procedimentos_medicos %}
+                    {% if dados %}
                         <table class="ui celled table">
                             <thead>
                             <tr>
@@ -31,18 +31,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for procedimento_medico in procedimentos_medicos %}
+                            {% for dado in dados %}
                                 <tr>
-                                    <td>{{ procedimento_medico.codigo }}</td>
-                                    <td>{{ procedimento_medico.descricao }}</td>
-                                    <td>R$ {{ procedimento_medico.valor }}</td>
+                                    <td>{{ dado.codigo }}</td>
+                                    <td>{{ dado.descricao }}</td>
+                                    <td>R$ {{ dado.valor }}</td>
 
                                     <td class="ui right aligned">
-                                        <a href="{% url 'issem:edita_procedimento_medico' procedimento_medico.id %}">
+                                        <a href="{% url 'issem:edita_procedimento_medico' dado.id %}">
                                             <button class="ui icon button blue"><i class="edit icon"></i></button>
                                         </a>
 
-                                        <a href="{% url 'issem:deleta_procedimento_medico' procedimento_medico.id %}">
+                                        <a href="{% url 'issem:deleta_procedimento_medico' dado.id %}">
                                             <button class="ui icon button red">
                                                 <i class="remove icon"></i>
                                             </button>
@@ -55,10 +55,13 @@
                         </table>
 
                     {% else %}
-                        <div class="ui warning message">
-                            <div class="header"> Não existem procedimentos médicos cadastrados!</div>
+                        <div class="ui yellow message">
+                            <div class="header">
+                                Não existem dados cadastrados
+                            </div>
                         </div>
                     {% endif %}
+                    {% include 'blocos/pagination.html' %}
 
                 </div>
             </div>

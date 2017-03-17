@@ -1,10 +1,11 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
 from issem.models import RequerimentoModel, AgendamentoModel, ConsultaParametrosModel, BeneficioModel
-from issem.forms import RequerimentoForm, AgendamentoForm
+from issem.forms import RequerimentoForm, AgendamentoForm, FiltroAgendaForm
 from django.views.generic.base import View
 from datetime import date, datetime
 from django.contrib.auth.models import User
+from issem.views.pagination import pagination
 
 class RequerimentoServidorView(View):
     template = 'requerimento_servidor.html'
@@ -103,21 +104,32 @@ def RequerimentoDelete(request, id):
 
 
 def ApresentaAgendamentos(request):
-    context_dict = {}
-    context_dict['agendamentos'] = AgendamentoModel.objects.all().order_by('data_pericia')
-    return render(request, 'tabela_agendamentos.html', context_dict)
+    agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
+    dados = pagination(agendamentos, request.GET.get('page'))
+    return render(request, 'tabela_agendamentos.html', {'dados' : dados})
 
 def ApresentaAgendamentosMedico(request):
-    if request.POST:
-        data_inicio = str(request.POST['data_inicio_periodo']).split('/')
-        inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
-        data_inicio_formatada = str(inicio_ano +"-"+ inicio_mes +"-"+ inicio_dia)
-        data_fim = str(request.POST['data_fim_periodo']).split('/')
-        fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
-        data_fim_formatada = str(fim_ano +"-"+ fim_mes +"-"+ fim_dia)
-        context_dict = {}
-        context_dict['agendamentos'] = AgendamentoModel.objects.filter(data_pericia__range=(data_inicio_formatada,data_fim_formatada)).order_by('data_pericia')
+    var_controle = 0
+    if request.POST or 'page' in request.GET:
+        if 'page' not in request.GET:
+            data_inicio = str(request.POST['data_inicio_periodo']).split('/')
+            inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
+            data_inicio_formatada = str(inicio_ano +"-"+ inicio_mes +"-"+ inicio_dia)
+            data_fim = str(request.POST['data_fim_periodo']).split('/')
+            fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
+            data_fim_formatada = str(fim_ano +"-"+ fim_mes +"-"+ fim_dia)
+            var_controle = 1
+        else:
+            data_inicio_formatada = request.GET['data_inicio_formatada']
+            data_fim_formatada = request.GET['data_fim_formatada']
+            var_controle = 1
     else:
-        context_dict = {}
-        context_dict['agendamentos'] = AgendamentoModel.objects.filter(data_pericia=date.today()).order_by('data_pericia')
-    return render(request, 'agenda_medico.html', context_dict)
+        data_inicio_formatada = date.today()
+        data_fim_formatada = date.today()
+
+    agendamentos = AgendamentoModel.objects.filter(data_pericia__range=(data_inicio_formatada,data_fim_formatada)).order_by('data_pericia')
+
+    dados = pagination(agendamentos, request.GET.get('page'))
+    form = FiltroAgendaForm
+    return render(request, 'agenda_medico.html', {'dados': dados, 'form' : form, 'data_inicio_formatada' : data_inicio_formatada,
+                                                  'data_fim_formatada' : data_fim_formatada, 'var_controle' : var_controle})

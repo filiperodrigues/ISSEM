@@ -6,6 +6,7 @@ from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
+from issem.views.pagination import pagination
 
 
 class DependenteView(View):
@@ -48,9 +49,9 @@ class DependenteView(View):
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_segurado': id_segurado})
 
 def ListaDependentes(request):
-    context_dict = {}
-    context_dict['dependentes'] = DependenteModel.objects.all()
-    return render(request, 'dependentes.html', context_dict)
+    dependentes = DependenteModel.objects.all()
+    dados = pagination(dependentes, request.GET.get('page'))
+    return render(request, 'dependentes.html', {'dados': dados})
 
 
 def DependenteDelete(request, id):

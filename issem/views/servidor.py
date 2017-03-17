@@ -7,6 +7,7 @@ from issem.models import EstadoModel
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
+from issem.views.pagination import pagination
 
 
 class ServidorView(View):
@@ -62,6 +63,6 @@ def ServidorDelete(request, id):
 
 
 def ListaServidores(request):
-    context_dict = {}
-    context_dict['servidores'] = ServidorModel.objects.all()
-    return render(request, 'servidores.html', context_dict)
+    servidores = ServidorModel.objects.all()
+    dados = pagination(servidores, request.GET.get('page'))
+    return render(request, 'servidores.html', {'dados': dados})

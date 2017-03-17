@@ -42,10 +42,12 @@
                             <tfoot>
                         </table>
                     {% else %}
-                        <div class="ui warning message">
-                            <div class="header"> Não existem agendamentos!</div>
-                        </div>
-                    {% endif %}
+                    <div class="ui red message">
+                        Não existem dados entre os períodos
+                        <br/>
+                    </div>
+                {% endif %}
+                    {% include 'blocos/pagination.html' %}
                 </div>
             </div>
         </div>

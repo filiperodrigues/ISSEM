@@ -20,7 +20,7 @@
                         </div>
                     </div>
 
-                    {% if beneficios %}
+                    {% if dados %}
                         <table class="ui celled table">
                             <thead>
                             <tr>
@@ -31,18 +31,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for beneficio in beneficios %}
+                            {% for dado in dados %}
                                 <tr>
-                                    <td>{{ beneficio.descricao }}</td>
-                                    <td>{{ beneficio.numero_portaria }}</td>
-                                    <td>{% if beneficio.concessao %}Sim{% else %}Não{% endif %}</td>
+                                    <td>{{ dado.descricao }}</td>
+                                    <td>{{ dado.numero_portaria }}</td>
+                                    <td>{% if dado.concessao %}Sim{% else %}Não{% endif %}</td>
 
                                     <td class="ui right aligned">
-                                        <a href="{% url 'issem:edita_beneficio' beneficio.id %}">
+                                        <a href="{% url 'issem:edita_beneficio' dado.id %}">
                                             <button class="ui icon button blue"><i class="edit icon"></i></button>
                                         </a>
 
-                                        <a href="{% url 'issem:deleta_beneficio' beneficio.id %}">
+                                        <a href="{% url 'issem:deleta_beneficio' dado.id %}">
                                             <button class="ui icon button red">
                                                 <i class="remove icon"></i>
                                             </button>
@@ -54,10 +54,13 @@
                             <tfoot>
                         </table>
                     {% else %}
-                        <div class="ui warning message">
-                            <div class="header"> Não existem benefícios cadastrados!</div>
+                        <div class="ui yellow message">
+                            <div class="header">
+                                Não existem dados cadastrados
+                            </div>
                         </div>
                     {% endif %}
+                    {% include 'blocos/pagination.html' %}
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@
 
                     <div class="ui grid">
                         <div class="left floated six wide column">
-                            <h2>CIDs</h2>
+                            <h2>Cids</h2>
                         </div>
                         <div class="right floated right aligned six wide column">
                             <a href="{% url 'issem:cad_cid' %}">
@@ -20,12 +20,12 @@
                         </div>
                     </div>
 
-                    {% if cids %}
+                    {% if dados %}
 
                         <table class="ui celled table">
                             <thead>
                             <tr>
-                                <th>Código do CID</th>
+                                <th>Código do Cid</th>
                                 <th>Descrição</th>
                                 <th>Gravidade</th>
                                 <th>Status</th>
@@ -33,19 +33,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for cid in cids %}
+                            {% for dado in dados %}
                                 <tr>
-                                    <td>{{ cid.cod_cid }}</td>
-                                    <td>{{ cid.descricao }}</td>
-                                    <td>{% if cid.gravidade %}Sim{% else %}Não{% endif %}</td>
-                                    <td>{% if cid.status %}Sim{% else %}Não{% endif %}</td>
+                                    <td>{{ dado.cod_cid }}</td>
+                                    <td>{{ dado.descricao }}</td>
+                                    <td>{% if dado.gravidade %}Sim{% else %}Não{% endif %}</td>
+                                    <td>{% if dado.status %}Sim{% else %}Não{% endif %}</td>
 
                                     <td class="ui right aligned">
-                                        <a href="{% url 'issem:edita_cid' cid.id %}">
+                                        <a href="{% url 'issem:edita_cid' dado.id %}">
                                             <button class="ui icon button blue"><i class="edit icon"></i></button>
                                         </a>
 
-                                        <a href="{% url 'issem:deleta_cid' cid.id %}">
+                                        <a href="{% url 'issem:deleta_cid' dado.id %}">
                                             <button class="ui icon button red">
                                                 <i class="remove icon"></i>
                                             </button>
@@ -58,10 +58,13 @@
                         </table>
 
                     {% else %}
-                        <div class="ui warning message">
-                            <div class="header"> Não existem CIDs cadastrados!</div>
+                        <div class="ui yellow message">
+                            <div class="header">
+                                Não existem dados cadastrados
+                            </div>
                         </div>
                     {% endif %}
+                    {% include 'blocos/pagination.html' %}
 
                 </div>
             </div>

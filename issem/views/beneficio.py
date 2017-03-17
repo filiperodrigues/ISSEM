@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from issem.models import BeneficioModel
 from issem.forms import BeneficioForm
 from django.views.generic.base import View
+from issem.views.pagination import pagination
 
 
 class BeneficioView(View):
@@ -35,9 +36,9 @@ class BeneficioView(View):
 
 
 def ListaBeneficios(request):
-    context_dict = {}
-    context_dict['beneficios'] = BeneficioModel.objects.all()
-    return render(request, 'beneficios.html', context_dict)
+    beneficios = BeneficioModel.objects.all()
+    dados = pagination(beneficios, request.GET.get('page'))
+    return render(request, 'beneficios.html', {'dados': dados})
 
 
 def BeneficioDelete(request, id):

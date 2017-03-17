@@ -6,6 +6,7 @@ from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
+from issem.views.pagination import pagination
 
 
 class SeguradoView(View):
@@ -56,6 +57,6 @@ def SeguradoDelete(request, id):
 
 
 def ListaSegurados(request):
-    context_dict = {}
-    context_dict['segurados'] = SeguradoModel.objects.all()
-    return render(request, 'segurados.html', context_dict)
+    segurados = SeguradoModel.objects.all()
+    dados = pagination(segurados, request.GET.get('page'))
+    return render(request, 'segurados.html', {'dados': dados})

@@ -13,7 +13,7 @@
                         </div>
                     </div>
 
-                    {% if agendamentos %}
+                    {% if dados %}
                         <table class="ui celled table">
                             <thead>
                             <tr>
@@ -25,19 +25,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for agendamento in agendamentos %}
+                            {% for dado in dados %}
                                 <tr>
-                                    <td>{{ agendamento.data_pericia }}</td>
-                                    <td>{{ agendamento.hora_pericia }}</td>
-                                    <td>{{ agendamento.requerimento.segurado }}</td>
-                                    <td>{{ agendamento.requerimento.beneficio }}</td>
+                                    <td>{{ dado.data_pericia }}</td>
+                                    <td>{{ dado.hora_pericia }}</td>
+                                    <td>{{ dado.requerimento.segurado }}</td>
+                                    <td>{{ dado.requerimento.beneficio }}</td>
 
                                     <td class="ui right aligned">
-                                        <a href="{% url 'issem:edita_requerimento' agendamento.requerimento.id agendamento.id %}">
+                                        <a href="{% url 'issem:edita_requerimento' dado.requerimento.id dado.id %}">
                                             <button class="ui icon button blue"><i class="edit icon"></i></button>
                                         </a>
 
-                                        <a href="{% url 'issem:deleta_requerimento' agendamento.requerimento.id agendamento.id %}">
+                                        <a href="{% url 'issem:deleta_requerimento' dado.requerimento.id dado.id %}">
                                             <button class="ui icon button red">
                                                 <i class="remove icon"></i>
                                             </button>
@@ -48,11 +48,13 @@
                             </tbody>
                             <tfoot>
                         </table>
-                    {% else %}
-                        <div class="ui warning message">
-                            <div class="header"> Não existem agendamentos cadastrados!</div>
-                        </div>
-                    {% endif %}
+                {% else %}
+                    <div class="ui red message">
+                        Não existem dados entre os períodos
+                        <br/>
+                    </div>
+                {% endif %}
+                    {% include 'blocos/pagination.html' %}
 
                 </div>
             </div>
