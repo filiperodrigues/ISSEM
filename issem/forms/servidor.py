@@ -2,17 +2,18 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from django import forms
-from issem.forms.pessoa import PessoaForm
+from issem.forms.pessoa import CadPessoaForm
 from issem.models.servidor import ServidorModel
 from django.contrib.auth.models import Group
 
 
-class ServidorForm(PessoaForm):
+class ServidorFormCad(CadPessoaForm):
     groups = forms.ModelChoiceField(required=True,
                                     empty_label="Selecione um departamento...",
                                     queryset=Group.objects.all().exclude(name='Segurado').exclude(name='Dependente'),
                                     widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                     )
+
     class Meta:
         model = ServidorModel
         fields = '__all__'

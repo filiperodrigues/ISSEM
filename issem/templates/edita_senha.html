@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block body_tag %}
+    <body>
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="ui centered row">
+        <div class="ui segment">
+
+            {% if msg %}
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
+                </div>
+            {% endif %}
+
+            <br/>
+            <div class="ui grid">
+                <div class="left floated six wide column">
+                    <a href="{% url 'issem:lista_segurados' %}">
+                        <div class="ui labeled icon button basic">
+                            <i class="left arrow icon"></i> Voltar
+                        </div>
+                    </a>
+                </div>
+                <div class="issem-title-edit-page">
+                    <h1>Alteração de Senha</h1>
+                    <h3><i class="user icon"></i> {{ nome }}</h3>
+                    <br/>
+                </div>
+                <div class="right floated six wide column"></div>
+            </div>
+            <br/>
+
+            <form class="ui form" id="EditaSenhaForm" method="post" action="{% url 'issem:edita_senha' id %}">
+                {% csrf_token %}
+
+                {% if not id %}
+                    <input type="hidden" name="id" value="">
+                {% else %}
+                    <input type="hidden" name="id" value="{{ id }}">
+                {% endif %}
+
+                <div class="fields">
+                    <div class="six wide field"></div>
+                    <div class="four wide field">
+                        <label>Senha<i class="asterisk icon red"></i></label>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.password.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="six wide field"></div>
+                </div>
+                <div class="fields">
+                    <div class="six wide field"></div>
+                    <div class="four wide field">
+                        <label>Confirme sua senha<i class="asterisk icon red"></i></label>
+                        {{ form.password_checker }}
+                        {% if form.password_checker.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.password_checker.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="six wide field"></div>
+                </div>
+
+                {% include 'blocos/buttons_form.html' %}
+                <br/>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

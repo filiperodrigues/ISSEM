@@ -1,10 +1,10 @@
 # coding:utf-8
 from issem.models.dependente import DependenteModel
-from issem.forms.pessoa import PessoaForm
+from issem.forms.pessoa import CadPessoaForm
 from django import forms
 
 
-class DependenteForm(PessoaForm):
+class DependenteFormCad(CadPessoaForm):
     data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'limita_data_final()'}))
 
     class Meta:
