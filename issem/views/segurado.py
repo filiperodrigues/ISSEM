@@ -73,8 +73,10 @@ def SeguradoDelete(request, id):
 def ListaSegurados(request, msg=None, tipo_msg=None):
     context_dict = {}
     segurados = SeguradoModel.objects.all()
-    dados = pagination(segurados, request.GET.get('page'))
+    dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
     context_dict['dados'] = dados
+    context_dict['page_range'] = page_range
+    context_dict['ultima'] = ultima
 
     if msg:
         context_dict['msg'] = msg

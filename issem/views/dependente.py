@@ -50,8 +50,8 @@ class DependenteView(View):
 
 def ListaDependentes(request):
     dependentes = DependenteModel.objects.all()
-    dados = pagination(dependentes, request.GET.get('page'))
-    return render(request, 'dependentes.html', {'dados': dados})
+    dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
+    return render(request, 'dependentes.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima})
 
 
 def DependenteDelete(request, id):

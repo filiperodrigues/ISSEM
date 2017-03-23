@@ -1,5 +1,6 @@
 # coding: utf-8
 import os
+import string
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'issem_project.settings')
 
@@ -11,23 +12,34 @@ from issem.models import *
 from django.contrib.auth.models import Group
 
 def populate():
+    # BENEFÍCIOS
+    beneficios = [[1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício Populate" , 1, "2010-10-10", 3.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
+                  [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício por incapacidade", 1, "2010-10-10", 3.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
+                  [0, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Licença Adoção", 2, "2010-10-10", 4.000, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 4],
+                  [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Prorrogação do benefício por incapacidade", 3, "2010-10-10", 4.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 8],
+                  ]
+    for b in beneficios:
+        add_beneficio(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10])
+
+    #REQUERIMENTOS
+    requerimentos = []
+    for i in range(1,29):
+        requerimentos.append(["2010-04-15", "2010-05-25", "2012-06-"+str(i)])
+    for requerimento in requerimentos:
+        add_requerimento(requerimento[0], requerimento[1], requerimento[2])
+
+    #AGENDAMENTOS:
+    agendamentos = []
+    for j in range(1,29):
+        agendamentos.append(["2017-05-"+str(j), "2017-03-22", "14:30", j])
+
+    for agendamento in agendamentos:
+        add_agendamento(agendamento[0],agendamento[1],agendamento[2], agendamento[3])
 
     # GRUPOS
     grupos = ['Administrativo', 'Técnico', 'Segurado', 'Dependente']
     for g in grupos:
         add_grupo(g)
-
-    # BENEFÍCIOS
-    beneficios = [
-        [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício por incapacidade", 1, "2010-10-10", 3.500,
-         "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
-        [0, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Licença Adoção", 2, "2010-10-10", 4.000,
-         "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 4],
-        [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Prorrogação do benefício por incapacidade", 3, "2010-10-10", 4.500,
-         "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 8],
-    ]
-    for b in beneficios:
-        add_beneficio(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10])
 
     # CARGOS
     cargos = ['Chefe', 'Secretária', 'Técnico']
@@ -35,17 +47,27 @@ def populate():
         add_cargo(c)
 
     # TIPOS DE LAUDO
-    tipos_laudos = ['Inclusão de Dependente Inválido', 'Concessão de Aposentadoria por Invalidez', 'Laudo de Exame Médico Pericial', 'Laudo de Perícia Revisional']
+    letras = list(string.ascii_lowercase)
+    letras += letras
+    tipos_laudos = []
+    for a in letras:
+        tipos_laudos.append(a)
     for t in tipos_laudos:
         add_tipo_laudo(t)
 
     # CIDs
-    cids = [
-        ['Gripe', 1, 1, 5646421],
-        ['Aids', 1, 4, 8974564],
-        ['Autismo', 0, 4, 213846213],
-        ['Retardado', 0, 5, 214564],
-    ]
+    letras = list(string.ascii_lowercase)
+    letras+= letras
+    status = 0
+    gravidade = 0
+    cod_cid = 0
+    cids = []
+    for a in letras:
+        status+=1
+        gravidade+=1
+        cod_cid+=1
+        cids.append([a, status, gravidade, cod_cid])
+
     for cid in cids:
         add_cid(cid[0], cid[1], cid[2], cid[3])
 
@@ -137,11 +159,16 @@ def populate():
         add_local_trabalho(lt[0], lt[1], lt[2], lt[3], lt[4], lt[5], lt[6], lt[7], lt[8])
 
     # PROCEDIMENTOS MÉDICOS
-    procedimentos_medicos = [
-        [100, 'Procedimento 1', '50.00'],
-        [200, 'Procedimento 2', '80.00'],
-        [300, 'Procedimento 3', '178.00'],
-    ]
+    letras = list(string.ascii_lowercase)
+    letras += letras
+    valor = 0
+    codigo = 0
+    procedimentos_medicos = []
+    for a in letras:
+        valor += 1
+        codigo += 1
+        procedimentos_medicos.append([codigo, a, valor])
+
     for pm in procedimentos_medicos:
         add_procedimento_medico(pm[0], pm[1], pm[2])
 
@@ -161,11 +188,19 @@ def populate():
     for cp in consulta_parametros:
         add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4])
 
+def add_requerimento(dt_inicio, dt_fim, dt_requerimento):
+    beneficio = BeneficioModel.objects.get(id=1)
+    return RequerimentoModel.objects.get_or_create(beneficio=beneficio, data_inicio_afastamento=dt_inicio, data_final_afastamento=dt_fim, data_requerimento=dt_requerimento)
+
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
     return BeneficioModel.objects.get_or_create(concessao=c, data_inicial=di, data_final=df, data_retorno=dr,
                                                 data_pericia=dp,
                                                 descricao=d, numero_portaria=np, data_portaria=dpt, salario_maximo=sm,
                                                 observacao=obs, carencia=ca)
+
+def add_agendamento(dt_pericia, dt_agendamento, hr_pericia, requerimento):
+    obj_requerimento = RequerimentoModel.objects.get(id=requerimento)
+    return AgendamentoModel.objects.get_or_create(data_agendamento=dt_agendamento, data_pericia=dt_pericia, hora_pericia=hr_pericia, requerimento=obj_requerimento)
 
 def add_grupo(g):
     return Group.objects.get_or_create(name=g)[0]

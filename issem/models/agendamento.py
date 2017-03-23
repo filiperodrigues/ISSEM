@@ -11,10 +11,10 @@ class AgendamentoModel(models.Model):
     requerimento = models.ForeignKey(RequerimentoModel, null=True, blank=True)
 
     def __unicode__(self):
-        return str(datetime.combine(self.data_pericia, self.hora_pericia)) +str("   ID:") + str(self.id)
+        return str(datetime.combine(self.data_pericia, self.hora_pericia)) +str("   ID:") + str(self.id) + str(self.requerimento.id)
 
     def __str__(self):
-        return str(datetime.combine(self.data_pericia, self.hora_pericia)) +str("   ID:") + str(self.id)
+        return str(datetime.combine(self.data_pericia, self.hora_pericia)) +str("   ID:") + str(self.id) + str(self.requerimento.id)
 
     class Meta:
         verbose_name = "Agendamento"

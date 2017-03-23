@@ -50,5 +50,5 @@ def ProcedimentoMedicoDelete(request, id):
 
 def ListaProcedimentosMedicos(request):
     procedimentos_medico = ProcedimentoMedicoModel.objects.all()
-    dados = pagination(procedimentos_medico, request.GET.get('page'))
-    return render(request, 'procedimentos_medicos.html', {'dados': dados})
+    dados, page_range, ultima = pagination(procedimentos_medico, request.GET.get('page'))
+    return render(request, 'procedimentos_medicos.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima})

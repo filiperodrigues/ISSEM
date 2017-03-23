@@ -37,8 +37,8 @@ class TipoLaudoView(View):
 
 def ListaTiposLaudos(request):
     tipo_laudos = TipoLaudoModel.objects.all()
-    dados = pagination(tipo_laudos, request.GET.get('page'))
-    return render(request, 'tipos_laudos.html', {'dados': dados})
+    dados, page_range, ultima = pagination(tipo_laudos, request.GET.get('page'))
+    return render(request, 'tipos_laudos.html', {'dados': dados, 'page_range':page_range, 'ultima' : ultima})
 
 
 def TipoLaudoDelete(request, id):

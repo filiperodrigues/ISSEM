@@ -65,5 +65,5 @@ def ServidorDelete(request, id):
 
 def ListaServidores(request):
     servidores = ServidorModel.objects.all()
-    dados = pagination(servidores, request.GET.get('page'))
-    return render(request, 'servidores.html', {'dados': dados})
+    dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
+    return render(request, 'servidores.html', {'dados': dados, 'page_range': page_range, 'ultima' : ultima})

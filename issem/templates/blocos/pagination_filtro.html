@@ -4,6 +4,7 @@
         <div class="ui centered grid">
             <div class="ui pagination menu">
                 {% if dados.has_previous %}
+                    <a href="?page={{ 1 }}&data_inicio_formatada={{ data_inicio_formatada }}&data_fim_formatada={{ data_fim_formatada }}" class="icon item blue" style="color: #2185d0">1º</a>
                     <a href="?page={{ dados.previous_page_number }}&data_inicio_formatada={{ data_inicio_formatada }}&data_fim_formatada={{ data_fim_formatada }}" class="icon item"><i class="left arrow icon blue"></i></a>
                 {% else %}
                     <a href="#" class="icon item"><i class="left arrow icon"></i></a>
@@ -20,6 +21,7 @@
 
                 {% if dados.has_next %}
                     <a href="?page={{ dados.next_page_number }}&data_inicio_formatada={{ data_inicio_formatada }}&data_fim_formatada={{ data_fim_formatada }}" class="icon item"><i class="right arrow icon blue"></i></a>
+                    <a href="?page={{ ultima }}&data_inicio_formatada={{ data_inicio_formatada }}&data_fim_formatada={{ data_fim_formatada }}" class="icon item blue" style="color: #2185d0">Xº</a>
                 {% else %}
                     <a href="#" class="icon item"><i class="right arrow icon"></i></a>
                 {% endif %}
