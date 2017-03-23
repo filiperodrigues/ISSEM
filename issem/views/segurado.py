@@ -1,5 +1,5 @@
 # coding:utf-8
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render
 from issem.models import SeguradoModel
 from issem.forms import PessoaPasswordForm, SeguradoFormEdit, SeguradoFormCad
 from django.views.generic.base import View

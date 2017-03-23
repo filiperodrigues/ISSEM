@@ -1,6 +1,4 @@
 # coding:utf-8
-
-import datetime
 from django.db import models
 from issem.models.cidade import CidadeModel
 from issem.models.tipo_sanguineo import TipoSanguineoModel
