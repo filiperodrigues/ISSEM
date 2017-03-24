@@ -5,6 +5,7 @@ from issem.forms import RequerimentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta
 from django.contrib.auth.models import User
+from issem.views.pagination import pagination
 
 
 class RequerimentoView(View):
@@ -145,6 +146,7 @@ def ApresentaAgendamentos(request):
 
 
 def ApresentaRequerimentosSemAgendamento(request):
-    context_dict = {}
-    context_dict['requerimentos'] = RequerimentoModel.objects.filter(possui_agendamento = False)
-    return render(request, 'tabela_requerimentos_sem_agendamento.html', context_dict)
+
+    requerimentos = RequerimentoModel.objects.filter(possui_agendamento = False)
+    dados, page_range, ultima = pagination(requerimentos, request.GET.get('page'))
+    return render(request, 'tabela_requerimentos_sem_agendamento.html', {'dados': dados, 'page_range' : page_range, 'ultima' : ultima})

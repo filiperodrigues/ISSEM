@@ -16,6 +16,7 @@
                             <h2>Agenda Médica</h2>
                         </div>
                     </div>
+                </br>
                     <form class="ui form" id="FiltroForm" method="post" action="{% url 'issem:filtro_agenda' %}">
                         {% csrf_token %}
                         <div class="fields">
@@ -30,6 +31,7 @@
                             </div>
                         </div>
                     </form>
+                </br>
                     {% if dados %}
                         <table class="ui celled table">
                             <thead>
