@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+    <div class="ui centered row">
+        <div class="ui segment issem-cad">
+
+            {% if msg %}
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        NÃO EXISTE MSG
+                    </div>
+                </div>
+            {% endif %}
+
+            <a href="{% url 'issem:cad_dependente' %}"><i class="big arrow circle left icon red"></i></a>
+            <h3>Operação concluída com sucesso</h3>
+            </br>
+            </br>
+            <a href="{% url 'issem:index' %}" class="ui button red">Página inicial</a>
+        </div>
+    </div>
+
+{% endblock %}

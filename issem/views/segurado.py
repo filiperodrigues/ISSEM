@@ -20,15 +20,22 @@ class SeguradoView(View):
         if id:
             segurado = SeguradoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = SeguradoFormEdit(instance=segurado)
+            group_user = Group.objects.get(user=id)
+            id_group_user = group_user.id
         else:
             form = SeguradoFormCad()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
+            id_group_user = ""
+
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_group_user' : id_group_user})
 
     def post(self, request, id=None):
+        id_group_user = 0
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             segurado = SeguradoModel.objects.get(pk=id)
             form = SeguradoFormEdit(instance=segurado, data=request.POST)
+            group_user = Group.objects.get(user=id)
+            id_group_user = group_user.id
 
             if form.is_valid():
                 form.save()
@@ -59,7 +66,7 @@ class SeguradoView(View):
                 tipo_msg = 'red'
 
         return render(request, self.template,
-                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg})
+                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'id_group_user' : id_group_user})
 
 
 def SeguradoDelete(request, id):
@@ -86,32 +93,3 @@ def ListaSegurados(request, msg=None, tipo_msg=None):
     return render(request, 'segurados.html', context_dict)
 
 
-class EditaSenha(View):
-    template = "edita_senha.html"
-
-    def group_test(user):
-        return user.groups.filter(name='Administrativo')
-
-    @method_decorator(user_passes_test(group_test))
-    def get(self, request, id=None):
-        form = PessoaPasswordForm()
-        nome = SeguradoModel.objects.get(pk=id).nome
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'nome': nome})
-
-    def post(self, request, id=None):
-        id = int(request.POST['id'])
-        segurado = SeguradoModel.objects.get(pk=id)
-        form = PessoaPasswordForm(instance=segurado, data=request.POST)
-
-        if form.is_valid():
-            form.save()
-            msg = 'Senha alterada com sucesso!'
-            tipo_msg = 'green'
-        else:
-            print(form.errors)
-            msg = 'Erros encontrados!'
-            tipo_msg = 'red'
-
-        nome = SeguradoModel.objects.get(pk=id).nome
-        return render(request, self.template,
-                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'nome': nome})

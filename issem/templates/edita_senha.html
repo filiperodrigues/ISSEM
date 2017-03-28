@@ -34,8 +34,7 @@
                 <div class="right floated four wide column"></div>
             </div>
             <br/>
-
-            <form class="ui form" id="EditaSenhaForm" method="post" action="{% url 'issem:edita_senha' id %}">
+            <form class="ui form" id="EditaSenhaForm" method="post" action="{% url 'issem:edita_senha' id  id_group_user %}">
                 {% csrf_token %}
 
                 {% if not id %}

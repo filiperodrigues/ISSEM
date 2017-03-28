@@ -27,9 +27,21 @@
 
                             {% for dado in dados %}
                                 <tr>
-                                    <td>{{ dado.data_requerimento }}</td>
-                                    <td>{{ dado.segurado }}</td>
-                                    <td>{{ dado.beneficio }}</td>
+                                    {% if dado.data_requerimento != "" %}
+                                        <td>{{ dado.data_requerimento }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.segurado == "None" %}
+                                        <td>{{ dado.segurado }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.beneficio != "" %}
+                                        <td>{{ dado.beneficio }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
                                     <td class="ui right aligned">
                                         <a href="{% url 'issem:define_agendamento' dado.id %}">
                                             <button class="ui icon button blue">Gerar agendamento <i

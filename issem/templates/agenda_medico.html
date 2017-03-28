@@ -46,10 +46,26 @@
                             <tbody>
                             {% for dado in dados %}
                                 <tr>
-                                    <td>{{ dado.data_pericia }}</td>
-                                    <td>{{ dado.hora_pericia }}</td>
-                                    <td>{{ dado.requerimento.segurado }}</td>
-                                    <td>{{ dado.requerimento.beneficio }}</td>
+                                    {% if dado.data_pericia != "" %}
+                                        <td>{{ dado.data_pericia }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.hora_pericia != "" %}
+                                        <td>{{ dado.hora_pericia }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.requerimento.segurado == "None" %}
+                                        <td>{{ dado.requerimento.segurado }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.requerimento.beneficio != "" %}
+                                        <td>{{ dado.requerimento.beneficio }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
 
                                     <td class="ui right aligned">
                                         <a href="{% url 'issem:edita_requerimento' dado.requerimento.id dado.id %}">

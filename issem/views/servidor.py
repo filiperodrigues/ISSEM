@@ -1,7 +1,7 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
 from issem.models import ServidorModel
-from issem.forms import ServidorFormCad
+from issem.forms import ServidorFormCad, PessoaPasswordForm, ServidorFormEdit
 from django.views.generic.base import View
 from issem.models import EstadoModel
 from django.contrib.auth.decorators import user_passes_test
@@ -22,39 +22,58 @@ class ServidorView(View):
         group_user = False
         if id:  # EDIÇÃO
             servidor = ServidorModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
-            form = ServidorFormCad(instance=servidor)
-            group_user = Group.objects.get(user=id).id
+            form = ServidorFormEdit(instance=servidor)
+            group_user = Group.objects.get(user=id)
+            id_group_user = group_user.id
         else:  # CADASTRO NOVO
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user, 'id_group_user' : id_group_user})
+        # return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
-    def post(self, request):
+    def post(self, request, id=None):
+        id_group_user = 0
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             servidor = ServidorModel.objects.get(pk=id)
-            form = ServidorFormCad(instance=servidor, data=request.POST)
+            form = ServidorFormEdit(instance=servidor, data=request.POST)
+            group_user = Group.objects.get(user=id)
+            id_group_user = group_user.id
+
+            if form.is_valid():
+                form.save()
+                msg = 'Alterações realizadas com sucesso!'
+                tipo_msg = 'green'
+            else:
+                print(form.errors)
+                msg = 'Erros encontrados!'
+                tipo_msg = 'red'
+
         else:  # CADASTRO NOVO
             id = None
             form = ServidorFormCad(data=request.POST)
 
-        if form.is_valid():
-            form.save()
-            if (id != None):
-                if Group.objects.get(user=id):
-                    group_name = Group.objects.get(user=id)
-                    group_name.user_set.remove(id)
+            if form.is_valid():
+                form.save()
+                if (id != None):
+                    if Group.objects.get(user=id):
+                        group_name = Group.objects.get(user=id)
+                        group_name.user_set.remove(id)
 
-            gp = Group.objects.get(id=request.POST["groups"])
-            user = ServidorModel.objects.get(username=request.POST["username"])
-            user.groups.add(gp)
+                gp = Group.objects.get(id=request.POST["groups"])
+                user = ServidorModel.objects.get(username=request.POST["username"])
+                user.groups.add(gp)
+                user.save()
+                msg = 'Cadastro efetuado com sucesso!'
+                tipo_msg = 'green'
+                return render(request, 'blocos/mensagem_cadastro_concluido_servidor.html',
+                              {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
+                               'id_servidor': user.id})
+            else:
+                print(form.errors)
+                msg = 'Erros encontrados!'
+                tipo_msg = 'red'
 
-            user.save()
-
-            return HttpResponseRedirect('/')
-        else:
-            print(form.errors)
-
-        return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
+        return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'id_group_user' : id_group_user})
 
 
 def ServidorDelete(request, id):

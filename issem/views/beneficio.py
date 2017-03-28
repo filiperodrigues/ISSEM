@@ -36,12 +36,13 @@ class BeneficioView(View):
 
 
 def ListaBeneficios(request):
-    beneficios = BeneficioModel.objects.all()
+    beneficios = BeneficioModel.objects.filter(excluido=0)
     dados, page_range, ultima = pagination(beneficios, request.GET.get('page'))
     return render(request, 'beneficios.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima})
 
 
 def BeneficioDelete(request, id):
     beneficio = BeneficioModel.objects.get(pk=id)
-    beneficio.delete()
+    beneficio.excluido = True
+    beneficio.save()
     return HttpResponseRedirect('/')

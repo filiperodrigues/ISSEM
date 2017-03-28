@@ -33,9 +33,21 @@
                             <tbody>
                             {% for dado in dados %}
                                 <tr>
-                                    <td>{{ dado.nome }}</td>
-                                    <td>{{ dado.cpf }}</td>
-                                    <td>{{ dado.email }}</td>
+                                    {% if dado.nome != "" %}
+                                        <td>{{ dado.nome }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.cpf != "" %}
+                                        <td>{{ dado.cpf }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.email != "" %}
+                                        <td>{{ dado.email }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
 
                                     <td class="ui right aligned">
                                         <a href="{% url 'issem:edita_servidor' dado.id %}">

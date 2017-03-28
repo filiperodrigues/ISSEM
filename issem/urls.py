@@ -81,13 +81,14 @@ urlpatterns = [
     ## SEGURADO ##
     url(r'^cad/segurado/$', SeguradoView.as_view(), name='cad_segurado'),
     url(r'^edita/segurado/(?P<id>\d+)/$', SeguradoView.as_view(), name='edita_segurado'),
-    url(r'^edita/senha/(?P<id>\d+)/$', EditaSenha.as_view(), name='edita_senha'),
+    url(r'^edita/senha/servidor/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenha.as_view(), name='edita_senha'),
     url(r'^deleta/segurado/(?P<id>[0-9]+)/$', views.SeguradoDelete, name='deleta_segurado'),
     url(r'^lista/segurados/$', views.ListaSegurados, name='lista_segurados'),
 
     ## SERVIDOR ##
     url(r'^cad/servidor/$', ServidorView.as_view(), name='cad_servidor'),
     url(r'^edita/servidor/(?P<id>\d+)/$', ServidorView.as_view(), name='edita_servidor'),
+    url(r'^edita/senha/servidor/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenha.as_view(), name='edita_senha'),
     url(r'^deleta/servidor/(?P<id>[0-9]+)/$', views.ServidorDelete, name='deleta_servidor'),
     url(r'^lista/servidores/$', views.ListaServidores, name='lista_servidores'),
 

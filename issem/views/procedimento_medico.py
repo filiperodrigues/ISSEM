@@ -44,11 +44,12 @@ class ProcedimentoMedicoView(View):
 
 def ProcedimentoMedicoDelete(request, id):
     procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id)
-    procedimento_medico.delete()
+    procedimento_medico.excluido = True
+    procedimento_medico.save()
     return HttpResponseRedirect('/')
 
 
 def ListaProcedimentosMedicos(request):
-    procedimentos_medico = ProcedimentoMedicoModel.objects.all()
+    procedimentos_medico = ProcedimentoMedicoModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(procedimentos_medico, request.GET.get('page'))
     return render(request, 'procedimentos_medicos.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima})

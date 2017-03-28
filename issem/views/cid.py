@@ -44,11 +44,12 @@ class CidView(View):
 
 def CidDelete(request, id):
     cid = CidModel.objects.get(pk=id)
-    cid.delete()
+    cid.excluido = True
+    cid.save()
     return HttpResponseRedirect('/')
 
 
 def ListaCids(request):
-    cids = CidModel.objects.all()
+    cids = CidModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(cids, request.GET.get('page'))
     return render(request, 'cids.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima})

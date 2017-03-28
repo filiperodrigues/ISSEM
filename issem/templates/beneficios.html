@@ -33,9 +33,21 @@
                             <tbody>
                             {% for dado in dados %}
                                 <tr>
-                                    <td>{{ dado.descricao }}</td>
-                                    <td>{{ dado.numero_portaria }}</td>
-                                    <td>{% if dado.concessao %}Sim{% else %}Não{% endif %}</td>
+                                    {% if dado.descricao != "" %}
+                                        <td>{{ dado.descricao }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.numero_portaria != "" %}
+                                        <td>{{ dado.numero_portaria }}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
+                                    {% if dado.concessao != "" %}
+                                        <td>{% if dado.concessao %}Sim{% else %}Não{% endif %}</td>
+                                    {% else %}
+                                        <td>---</td>
+                                    {% endif %}
 
                                     <td class="ui right aligned">
                                         <a href="{% url 'issem:edita_beneficio' dado.id %}">

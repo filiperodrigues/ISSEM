@@ -28,6 +28,7 @@ class PessoaModel(User):
     cidade_natural = models.ForeignKey(CidadeModel, related_name="%(app_label)s_%(class)s_natural", null=True, blank=True)
     nome_pai = models.CharField(max_length=128, blank=True)
     nome_mae = models.CharField(max_length=128, null=False)
+    excluido = models.BooleanField(default=0)
 
     class Meta:
         abstract = True

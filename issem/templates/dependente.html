@@ -8,13 +8,40 @@
 
     <div class="ui centered row">
         <div class="ui segment">
-            <a href="{% url 'issem:lista_dependentes' %}"><i class="big arrow circle left icon red"></i></a>
+            {% if msg %}
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
+                </div>
+            {% endif %}
 
+            <br/>
             {% if not id %}
                 <h1>Cadastro de Dependente:</h1>
             {% else %}
-                <h1>Edição de Dependente</h1>
+                <div class="ui grid">
+                    <div class="left floated four wide column">
+                        <a href="{% url 'issem:lista_dependentes' %}">
+                            <div class="ui labeled icon button basic">
+                                <i class="left arrow icon"></i> Voltar
+                            </div>
+                        </a>
+                    </div>
+                    <div class="issem-title-edit-page">
+                        <h1>Edição de Dependente</h1>
+                    </div>
+                    <div class="right floated right aligned four wide column">
+                        <a href="{% url 'issem:edita_senha' id id_group_user %}">
+                            <div class="ui labeled icon button red">
+                                <i class="key icon"></i> Alterar Senha
+                            </div>
+                        </a>
+                    </div>
+                </div>
             {% endif %}
+
+            <br/>
 
             {% if id_segurado %}
                 <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:cad_dependente_segurado' id_segurado %}">
