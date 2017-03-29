@@ -27,6 +27,8 @@ class ServidorView(View):
             id_group_user = group_user.id
         else:  # CADASTRO NOVO
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
+            id_group_user = ""
+
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user, 'id_group_user' : id_group_user})
         # return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
@@ -78,11 +80,12 @@ class ServidorView(View):
 
 def ServidorDelete(request, id):
     servidor = ServidorModel.objects.get(pk=id)
-    servidor.delete()
+    servidor.excluido = True
+    servidor.save()
     return HttpResponseRedirect('/')
 
 
 def ListaServidores(request):
-    servidores = ServidorModel.objects.all()
+    servidores = ServidorModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
     return render(request, 'servidores.html', {'dados': dados, 'page_range': page_range, 'ultima' : ultima})

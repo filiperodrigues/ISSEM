@@ -79,5 +79,6 @@ def ListaDependentes(request):
 
 def DependenteDelete(request, id):
     dependente = DependenteModel.objects.get(pk=id)
-    dependente.delete()
+    dependente.excluido = True
+    dependente.save()
     return HttpResponseRedirect('/')

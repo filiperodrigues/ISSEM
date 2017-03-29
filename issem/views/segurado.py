@@ -71,7 +71,8 @@ class SeguradoView(View):
 
 def SeguradoDelete(request, id):
     segurado = SeguradoModel.objects.get(pk=id)
-    segurado.delete()
+    segurado.excluido = True
+    segurado.save()
     msg = "Segurado excluído com sucesso!"
     tipo_msg = "green"
     return ListaSegurados(request, msg, tipo_msg)
@@ -79,7 +80,7 @@ def SeguradoDelete(request, id):
 
 def ListaSegurados(request, msg=None, tipo_msg=None):
     context_dict = {}
-    segurados = SeguradoModel.objects.all()
+    segurados = SeguradoModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
     context_dict['dados'] = dados
     context_dict['page_range'] = page_range
