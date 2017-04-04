@@ -59,9 +59,10 @@ footer {
     padding: 20px 0 10px 0 !important;
 }
 
-.issem-cad {
-    text-align: center;
-}
+/* EXCLUIR */
+/*.issem-cad {*/
+    /*text-align: center;*/
+/*}*/
 
 .issem-input-small div {
     min-width: 8em !important;

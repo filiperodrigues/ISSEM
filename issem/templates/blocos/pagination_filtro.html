@@ -7,6 +7,7 @@
                     <a href="?page={{ 1 }}&data_inicio_formatada={{ data_inicio_formatada }}&data_fim_formatada={{ data_fim_formatada }}" class="icon item blue" style="color: #2185d0">Primeira</a>
                     <a href="?page={{ dados.previous_page_number }}&data_inicio_formatada={{ data_inicio_formatada }}&data_fim_formatada={{ data_fim_formatada }}" class="icon item"><i class="left arrow icon blue"></i></a>
                 {% else %}
+                    <a href="#" class="icon item blue">Primeira</a>
                     <a href="#" class="icon item"><i class="left arrow icon"></i></a>
                 {% endif %}
                 {% for page in dados.paginator.page_range %}
@@ -24,6 +25,7 @@
                     <a href="?page={{ ultima }}&data_inicio_formatada={{ data_inicio_formatada }}&data_fim_formatada={{ data_fim_formatada }}" class="icon item blue" style="color: #2185d0">Última</a>
                 {% else %}
                     <a href="#" class="icon item"><i class="right arrow icon"></i></a>
+                    <a href="#" class="icon item blue">Última</a>
                 {% endif %}
             </div>
         </div>
