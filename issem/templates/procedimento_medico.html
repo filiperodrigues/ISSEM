@@ -3,16 +3,68 @@
 {% block body_block %}
 
     <div class="ui centered row">
-        <div class="ui segment issem-cad">
-            <a href="{% url 'issem:lista_procedimentos_medicos' %}"><i class="big arrow circle left icon red"></i></a>
+        <div class="ui segment">
 
-            {% if not id %}
-                <h1>Cadastro de Procedimento Médico:</h1>
-            {% else %}
-                <h1>Edição de Procedimento Médico:</h1>
+            {% if msg %}
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
+                </div>
             {% endif %}
 
             <br/>
+            <div class="ui grid">
+                {% if not id %}
+                    <div class="left floated four wide column">
+                        <a href="{% url 'issem:lista_procedimentos_medicos' %}">
+                            <div class="ui labeled icon button basic">
+                                <i class="left arrow icon"></i> Voltar
+                            </div>
+                        </a>
+                    </div>
+                    <div class="issem-title-edit-page">
+                        <h1 class="ui header">
+                            <i class="warning sign icon"></i>
+                            <div class="content">
+                                Cadastro de Procedimento Médico
+                                <div class="sub header">
+                                    Preencha o formulário abaixo
+                                </div>
+                            </div>
+                        </h1>
+                    </div>
+                    <div class="right floated four wide column"></div>
+                {% else %}
+                    <div class="left floated four wide column">
+                        <a href="{% url 'issem:lista_procedimentos_medicos' %}">
+                            <div class="ui labeled icon button basic">
+                                <i class="left arrow icon"></i> Voltar
+                            </div>
+                        </a>
+                    </div>
+                    <div class="issem-title-edit-page">
+                        <h1 class="ui header">
+                            <i class="edit icon"></i>
+                            <div class="content">
+                                Edição de Procedimento Médico
+                                <div class="sub header">
+                                    Realize suas alterações no formulário abaixo
+                                </div>
+                            </div>
+                        </h1>
+                    </div>
+
+                    <div class="right floated right aligned four wide column">
+                        <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
+                            <i class="trash icon"></i> Excluir
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            <br/>
+            <br/>
+
             <form class="ui form" id="ProcedimentoMedicoForm" method="post"
                   action="{% url 'issem:cad_procedimento_medico' %}">
                 {% csrf_token %}
@@ -24,7 +76,7 @@
                 {% endif %}
 
                 <div class="fields">
-                    <div class="two wide field"></div>
+                    <div class="four wide field"></div>
                     <div class="four wide field">
                         <label>Código</label>
                         <div class="somente_numeros">
@@ -45,22 +97,48 @@
                             </div>
                         {% endif %}
                     </div>
+                    <div class="four wide field"></div>
+                </div>
+                <div class="fields">
+                    <div class="six wide field"></div>
                     <div class="four wide field">
                         <label>Valor</label>
                         <div class="valor">
-                        {{ form.valor }}
-                        {% if form.valor.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.valor.errors }}
-                            </div>
-                        {% endif %}
+                            {{ form.valor }}
+                            {% if form.valor.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.valor.errors }}
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
+                    <div class="six wide field"></div>
                 </div>
                 {% include 'blocos/buttons_form.html' %}
             </form>
 
         </div>
     </div>
+
+    {% if id %}
+        {#========== MODAL ==========#}
+        <div class="ui small modal modalConfirmacao">
+            <i class="close icon"></i>
+            <div class="ui icon header">
+                <i class="trash icon"></i>
+                Deseja realmente excluir?
+            </div>
+            <div class="ui actions">
+                <div class="ui green ok inverted button">
+                    Não
+                </div>
+                <a class="ui red ok inverted button" href="{% url 'issem:deleta_procedimento_medico' id %}">
+                    <i class="remove icon"></i>
+                    Sim
+                </a>
+            </div>
+        </div>
+        {#========== / MODAL ==========#}
+    {% endif %}
 
 {% endblock %}
