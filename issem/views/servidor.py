@@ -82,10 +82,10 @@ def ServidorDelete(request, id):
     servidor = ServidorModel.objects.get(pk=id)
     servidor.excluido = True
     servidor.save()
-    return HttpResponseRedirect('/')
+    return ListaServidores(request, msg="Servidor excluído com sucesso!", tipo_msg="green")
 
 
-def ListaServidores(request):
+def ListaServidores(request, msg=None, tipo_msg=None):
     servidores = ServidorModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
-    return render(request, 'servidores.html', {'dados': dados, 'page_range': page_range, 'ultima' : ultima})
+    return render(request, 'servidores.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

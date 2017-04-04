@@ -7,116 +7,130 @@
 {% block body_block %}
 
     <div class="ui centered row">
-        <div class="ui segment issem-cad">
-            {% if not msg %}
-                <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
-            {% else %}
-                <a href="{% url 'issem:tabela_agendamentos' %}"><i class="big arrow circle left icon red"></i></a>
-            {% endif %}
+        <div class="ui segment">
 
-            {% if not id %}
-                <h1>Requerimento de {{ beneficio_descricao }}</h1>
-            {% else %}
-                <h1>Edição de Requerimento {{ beneficio_descricao }}</h1>
-                {{ edicao_define_agendamento }}
-            {% endif %}
-
-            {% if not msg %}
-                {% if not var_controle %}
-                    <form class="ui form" id="RequerimentoForm" method="post"
-                          action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">
-                {% else %}
-                    <form class="ui form" id="RequerimentoForm" method="post"
-                          action="{% url 'issem:define_agendamento' id_requerimento %}">
-                {% endif %}
-            {% csrf_token %}
-
-            {% if not id %}
-                <input type="hidden" name="id" value="">
-                <input type="hidden" name="id_agendamento" value="">
-            {% else %}
-                <input type="hidden" name="id" value="{{ id }}">
-                <input type="hidden" name="id_agendamento" value="{{ id_agendamento }}">
-            {% endif %}
-
-            <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
-                <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
-            </select>
-
-            <select id="id_servidor" name="servidor" type="hidden" style="display:none">
-                <option value="{{ id_usuario }}"></option>
-            </select>
-
-            <input id="id_possui_agendamento" name="possui_agendamento" type="hidden" value="True"/>
-
-            <div class="fields">
-                <div class="five wide field"></div>
-                <div class="six wide field">
-                    <label>Segurado<i class="asterisk icon red"></i></label>
-                    {{ form_requerimento.segurado }}
-                    {% if form_requerimento.segurado.errors %}
-                        <div class="ui pointing red basic label issem-error-field">
-                            {{ form_requerimento.segurado.errors }}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="five wide field"></div>
-            </div>
-            <div class="fields">
-                <div class="four wide field"></div>
-                <div class="four wide field">
-                    <label>Data início do afastamento <i class="asterisk icon red"></i></label>
-                    {{ form_requerimento.data_inicio_afastamento }}
-                    {% if form_requerimento.data_inicio_afastamento.errors %}
-                        <div class="ui pointing red basic label issem-error-field">
-                            {{ form_requerimento.data_inicio_afastamento.errors }}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="four wide field">
-                    <label>Data final do afastamento <i class="asterisk icon red"></i></label>
-                    {{ form_requerimento.data_final_afastamento }}
-                    {% if form_requerimento.data_final_afastamento.errors %}
-                        <div class="ui pointing red basic label issem-error-field">
-                            {{ form_requerimento.data_final_afastamento.errors }}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="four wide field"></div>
-            </div>
-            <div class="fields">
-                <div class="four wide field"></div>
-                <div class="four wide field">
-                    <label>Data da perícia<i class="asterisk icon red"></i></label>
-                    {{ form_agendamento.data_pericia }}
-                    {% if form_agendamento.data_pericia.errors %}
-                        <div class="ui pointing red basic label issem-error-field">
-                            {{ form_agendamento.data_pericia.errors }}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="four wide field">
-                    <label>Hora da perícia <i class="asterisk icon red"></i></label>
-                    <div class="hora">
-                        {{ form_agendamento.hora_pericia }}
-                        {% if form_agendamento.hora_pericia.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form_agendamento.hora_pericia.errors }}
-                            </div>
-                        {% endif %}
+            {% if msg %}
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
                     </div>
                 </div>
-                <div class="four wide field"></div>
-            </div>
-
-            {% include 'blocos/buttons_form.html' %}
-            </form>
-
-            {% else %}
-                <h5>{{ msg }}</h5>
             {% endif %}
 
+                    <a href="{% url 'issem:index' %}">
+                        <div class="ui labeled icon button basic">
+                            <i class="left arrow icon"></i> Voltar
+                        </div>
+                    </a>
+            <div class="ui grid">
+                <div class="ui centered row eleven wide column">
+                    {% if not id %}
+                        <h1><i class="calendar icon"></i> Requerimento de {{ beneficio_descricao }}</h1>
+                    {% else %}
+                        <h1><i class="calendar icon"></i> Edição de Requerimento {{ beneficio_descricao }}</h1>
+                        {{ edicao_define_agendamento }}
+                    {% endif %}
+                <br/>
+                </div>
+
+            </div>
+
+        {% if not msg %}
+            {% if not var_controle %}
+                <form class="ui form" id="RequerimentoForm" method="post"
+                      action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">
+            {% else %}
+                <form class="ui form" id="RequerimentoForm" method="post"
+                      action="{% url 'issem:define_agendamento' id_requerimento %}">
+            {% endif %}
+        {% csrf_token %}
+
+        {% if not id %}
+            <input type="hidden" name="id" value="">
+            <input type="hidden" name="id_agendamento" value="">
+        {% else %}
+            <input type="hidden" name="id" value="{{ id }}">
+            <input type="hidden" name="id_agendamento" value="{{ id_agendamento }}">
+        {% endif %}
+
+        <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
+            <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
+        </select>
+
+        <select id="id_servidor" name="servidor" type="hidden" style="display:none">
+            <option value="{{ id_usuario }}"></option>
+        </select>
+
+        <input id="id_possui_agendamento" name="possui_agendamento" type="hidden" value="True"/>
+
+        <div class="fields">
+            <div class="five wide field"></div>
+            <div class="six wide field">
+                <label>Segurado<i class="asterisk icon red"></i></label>
+                {{ form_requerimento.segurado }}
+                {% if form_requerimento.segurado.errors %}
+                    <div class="ui pointing red basic label issem-error-field">
+                        {{ form_requerimento.segurado.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="five wide field"></div>
         </div>
+        <div class="fields">
+            <div class="four wide field"></div>
+            <div class="four wide field">
+                <label>Data início do afastamento <i class="asterisk icon red"></i></label>
+                {{ form_requerimento.data_inicio_afastamento }}
+                {% if form_requerimento.data_inicio_afastamento.errors %}
+                    <div class="ui pointing red basic label issem-error-field">
+                        {{ form_requerimento.data_inicio_afastamento.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="four wide field">
+                <label>Data final do afastamento <i class="asterisk icon red"></i></label>
+                {{ form_requerimento.data_final_afastamento }}
+                {% if form_requerimento.data_final_afastamento.errors %}
+                    <div class="ui pointing red basic label issem-error-field">
+                        {{ form_requerimento.data_final_afastamento.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="four wide field"></div>
+        </div>
+        <div class="fields">
+            <div class="four wide field"></div>
+            <div class="four wide field">
+                <label>Data da perícia<i class="asterisk icon red"></i></label>
+                {{ form_agendamento.data_pericia }}
+                {% if form_agendamento.data_pericia.errors %}
+                    <div class="ui pointing red basic label issem-error-field">
+                        {{ form_agendamento.data_pericia.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="four wide field">
+                <label>Hora da perícia <i class="asterisk icon red"></i></label>
+                <div class="hora">
+                    {{ form_agendamento.hora_pericia }}
+                    {% if form_agendamento.hora_pericia.errors %}
+                        <div class="ui pointing red basic label issem-error-field">
+                            {{ form_agendamento.hora_pericia.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="four wide field"></div>
+        </div>
+
+        {% include 'blocos/buttons_form.html' %}
+        </form>
+
+        {% else %}
+            <h5>{{ msg }}</h5>
+        {% endif %}
+
+    </div>
     </div>
 
 {% endblock %}

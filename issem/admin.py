@@ -9,7 +9,6 @@ from issem.models.consulta_parametros import ConsultaParametrosModel
 from issem.models.dependente import DependenteModel
 from issem.models.exame_requerimento import ExameRequerimentoModel
 from issem.models.funcao import FuncaoModel
-from issem.models.lixeira.departamento import DepartamentoModel
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.models.procedimento_medico import ProcedimentoMedicoModel
 from issem.models.requerimento import RequerimentoModel
@@ -22,7 +21,6 @@ from issem.models.contato_issem import ContatoIssemModel
 from issem.models.tipo_laudo import TipoLaudoModel
 
 admin.site.register(CidModel)
-admin.site.register(DepartamentoModel)
 admin.site.register(ProcedimentoMedicoModel)
 admin.site.register(BeneficioModel)
 admin.site.register(FuncaoModel)
@@ -40,7 +38,6 @@ admin.site.register(ExameRequerimentoModel)
 admin.site.register(AgendamentoModel)
 admin.site.register(TipoLaudoModel)
 admin.site.register(ContatoIssemModel)
-
 
 
 

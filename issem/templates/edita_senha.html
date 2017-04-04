@@ -20,21 +20,36 @@
             <br/>
             <div class="ui grid">
                 <div class="left floated four wide column">
-                    <a href="{% url 'issem:lista_segurados' %}">
-                        <div class="ui labeled icon button basic">
-                            <i class="left arrow icon"></i> Voltar
-                        </div>
-                    </a>
+                    {% if group == "Segurado" %}
+                        <a href="{% url 'issem:edita_segurado' id %}">
+                            <div class="ui labeled icon button basic">
+                                <i class="left arrow icon"></i> Voltar
+                            </div>
+                        </a>
+                    {% elif group == "Administrativo" %}
+                        <a href="{% url 'issem:edita_servidor' id %}">
+                            <div class="ui labeled icon button basic">
+                                <i class="left arrow icon"></i> Voltar
+                            </div>
+                        </a>
+                    {% endif %}
                 </div>
                 <div class="issem-title-edit-page">
-                    <h1>Alteração de Senha</h1>
-                    <h3><i class="user icon"></i> {{ nome }}</h3>
-                    <br/>
+                    <h1 class="ui header">
+                        <i class="key icon"></i>
+                        <div class="content">
+                            Alteração de Senha
+                        </div>
+                        <h4><i class="user icon"></i>Nome: {{ nome }}</h4>
+                    </h1>
                 </div>
                 <div class="right floated four wide column"></div>
             </div>
             <br/>
-            <form class="ui form" id="EditaSenhaForm" method="post" action="{% url 'issem:edita_senha' id  id_group_user %}">
+            <br/>
+
+            <form class="ui form" id="EditaSenhaForm" method="post"
+                  action="{% url 'issem:edita_senha' id  id_group_user %}">
                 {% csrf_token %}
 
                 {% if not id %}

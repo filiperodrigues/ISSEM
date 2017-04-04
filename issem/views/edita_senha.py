@@ -15,7 +15,6 @@ class EditaSenha(View):
         return user.groups.filter(name='Administrativo')
 
     @method_decorator(user_passes_test(group_test))
-
     def get(self, request, id=None, id_group=None):
         form = PessoaPasswordForm()
         group_user = Group.objects.get(pk=id_group)
@@ -25,19 +24,20 @@ class EditaSenha(View):
             nome = SeguradoModel.objects.get(pk=id).nome
         else:
             nome = DependenteModel.objects.get(pk=id).nome
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'nome': nome, 'id_group_user' : id_group})
+        return render(request, self.template,
+                      {'form': form, 'method': 'get', 'id': id, 'nome': nome, 'id_group_user': id_group, 'group': str(group_user)})
 
     def post(self, request, id=None, id_group=None):
         id = int(request.POST['id'])
         group_user = Group.objects.get(pk=id_group)
         if str(group_user) == "Administrativo":
-            nome = ServidorModel.objects.get(pk=id)
+            pessoa = ServidorModel.objects.get(pk=id)
         elif str(group_user) == "Segurado":
-            nome = SeguradoModel.objects.get(pk=id)
+            pessoa = SeguradoModel.objects.get(pk=id)
         else:
-            nome = DependenteModel.objects.get(pk=id)
+            pessoa = DependenteModel.objects.get(pk=id)
 
-        form = PessoaPasswordForm(instance=nome, data=request.POST)
+        form = PessoaPasswordForm(instance=pessoa, data=request.POST)
         if form.is_valid():
             form.save()
             msg = 'Senha alterada com sucesso!'
@@ -48,4 +48,5 @@ class EditaSenha(View):
             tipo_msg = 'red'
 
         return render(request, self.template,
-                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'nome': nome, 'id_group_user' : id_group})
+                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'nome': pessoa,
+                       'id_group_user': id_group, 'group': str(group_user)})

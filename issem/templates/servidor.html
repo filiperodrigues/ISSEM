@@ -8,6 +8,7 @@
 
     <div class="ui centered row">
         <div class="ui segment">
+
             {% if msg %}
                 <div class="ui {{ tipo_msg }} message">
                     <div class="header">
@@ -17,10 +18,8 @@
             {% endif %}
 
             <br/>
-            {% if not id %}
-                <h1>Cadastro de Servidor:</h1>
-            {% else %}
-                <div class="ui grid">
+            <div class="ui grid">
+                {% if not id %}
                     <div class="left floated four wide column">
                         <a href="{% url 'issem:lista_servidores' %}">
                             <div class="ui labeled icon button basic">
@@ -29,18 +28,50 @@
                         </a>
                     </div>
                     <div class="issem-title-edit-page">
-                        <h1>Edição de Servidor</h1>
+                        <h1 class="ui header">
+                            <i class="plus icon"></i>
+                            <div class="content">
+                                Cadastro de Servidor
+                                <div class="sub header">
+                                    Preencha o formulário abaixo
+                                </div>
+                            </div>
+                        </h1>
                     </div>
-                    <div class="right floated right aligned four wide column">
-                        <a href="{% url 'issem:edita_senha' id id_group_user %}">
-                            <div class="ui labeled icon button red">
-                                <i class="key icon"></i> Alterar Senha
+                    <div class="right floated four wide column"></div>
+                {% else %}
+                    <div class="left floated four wide column">
+                        <a href="{% url 'issem:lista_servidores' %}">
+                            <div class="ui labeled icon button basic">
+                                <i class="left arrow icon"></i> Voltar
                             </div>
                         </a>
                     </div>
-                </div>
-            {% endif %}
+                    <div class="issem-title-edit-page">
+                        <h1 class="ui header">
+                            <i class="edit icon"></i>
+                            <div class="content">
+                                Edição de Servidor
+                                <div class="sub header">
+                                    Realize suas alterações no formulário abaixo
+                                </div>
+                            </div>
+                        </h1>
+                    </div>
 
+                    <div class="right floated right aligned four wide column">
+                        <div class="ui vertical buttons">
+                            <a href="{% url 'issem:edita_senha' id id_group_user %}"
+                               class="ui labeled icon button secondary">
+                                <i class="key icon"></i> Alterar Senha
+                            </a>
+                            <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
+                                <i class="trash icon"></i> Excluir
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
             <br/>
 
             {% if not id %}
@@ -49,38 +80,61 @@
                 <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:edita_servidor' id %}">
             {% endif %}
 
-                {% include 'blocos/formulario_pessoa.html' %}
+            {% include 'blocos/formulario_pessoa.html' %}
 
-                <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
-                <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="four wide field" id="div_group_user">
-                        <label>Departamento <i class="asterisk icon red"></i></label>
-                        {{ form.groups }}
-                        <input type="hidden" name="group_user" value="{{ group_user }}" id="group_user">
-                        {% if form.groups.errors %}
+            <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
+            <div class="fields">
+                <div class="four wide field"></div>
+                <div class="four wide field" id="div_group_user">
+                    <label>Departamento <i class="asterisk icon red"></i></label>
+                    {{ form.groups }}
+                    <input type="hidden" name="group_user" value="{{ group_user }}" id="group_user">
+                    {% if form.groups.errors %}
+                        <div class="ui pointing red basic label">
+                            {{ form.groups.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="four wide field">
+                    <label>CRM</label>
+                    <div class="crm">
+                        {{ form.crm }}
+                        {% if form.crm.errors %}
                             <div class="ui pointing red basic label">
-                                {{ form.groups.errors }}
+                                {{ form.crm.errors }}
                             </div>
                         {% endif %}
                     </div>
-                    <div class="four wide field">
-                        <label>CRM</label>
-                        <div class="crm">
-                            {{ form.crm }}
-                            {% if form.crm.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.crm.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field"></div>
                 </div>
+                <div class="four wide field"></div>
+            </div>
 
-                {% include 'blocos/buttons_form.html' %}
+            {% include 'blocos/buttons_form.html' %}
             </form>
+
         </div>
     </div>
+
+
+    {% if id %}
+        {#========== MODAL ==========#}
+        <div class="ui small modal modalConfirmacao">
+            <i class="close icon"></i>
+            <div class="ui icon header">
+                <i class="trash icon"></i>
+                Deseja realmente excluir?
+            </div>
+            <div class="ui actions">
+                <div class="ui green ok inverted button">
+                    Não
+                </div>
+                <a class="ui red ok inverted button" href="{% url 'issem:deleta_servidor' id %}">
+                    <i class="remove icon"></i>
+                    Sim
+                </a>
+            </div>
+        </div>
+        {#========== / MODAL ==========#}
+    {% endif %}
 
 {% endblock %}

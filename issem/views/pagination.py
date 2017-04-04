@@ -1,9 +1,10 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
 def pagination(model, page):
     paginator = Paginator(model, 10)
-    limite_paginas_anteriores = 4
-    limite_paginas_seguintes = 5
+    limite_paginas_anteriores = 2
+    limite_paginas_seguintes = 3
     try:
         dados = paginator.page(page)
     except PageNotAnInteger:
@@ -19,6 +20,7 @@ def pagination(model, page):
     start_index = index - limite_paginas_anteriores if index >= limite_paginas_anteriores else 0
     end_index = index + limite_paginas_seguintes if index <= max_index - limite_paginas_seguintes else max_index
     # My new page range
+
     page_range = paginator.page_range[start_index:end_index]
 
-    return(dados, page_range, max_index)
+    return dados, page_range, max_index

@@ -7,11 +7,32 @@
             <div class="sixteen wide column">
                 <div class="ui segment red">
 
-                    <div class="ui grid">
-                        <div class="left floated six wide column">
-                            <h2>Requerimentos sem agendamento</h2>
+                    {% if msg %}
+                        <div class="ui {{ tipo_msg }} message">
+                            <div class="header">
+                                {{ msg }}
+                            </div>
                         </div>
+                    {% endif %}
+
+                    <br/>
+                    <div class="ui grid">
+                        <div class="left floated four wide column">
+                            <a href="{% url 'issem:funcionario' %}">
+                                <div class="ui labeled icon button basic">
+                                    <i class="left arrow icon"></i> Voltar
+                                </div>
+                            </a>
+                        </div>
+                        <div class="issem-title-edit-page">
+                            <h1 class="ui header">
+                                <i class="calendar icon"></i> Requerimentos sem agendamento
+                            </h1>
+                        </div>
+                        <div class="right floated four wide column"></div>
                     </div>
+                    <br/>
+                    <br/>
 
                     {% if dados %}
                         <table class="ui celled table">
@@ -42,10 +63,12 @@
                                     {% else %}
                                         <td>---</td>
                                     {% endif %}
+
                                     <td class="ui right aligned">
                                         <a href="{% url 'issem:define_agendamento' dado.id %}">
-                                            <button class="ui icon button blue">Gerar agendamento <i
-                                                    class="calendar icon"></i></button>
+                                            <div class="ui labeled icon button blue">
+                                                <i class="calendar icon"></i> Gerar agendamento
+                                            </div>
                                         </a>
                                     </td>
                                 </tr>

@@ -15,12 +15,6 @@ urlpatterns = [
     url(r'^medico/$', PaginaMedicoView.as_view(), name='medico'),
     url(r'^segurado$', PaginaSeguradoView.as_view(), name='segurado'),
 
-    # ============  REMOVIDO  ============
-    # ## DEPARTAMENTO ##
-    # url(r'^cad/departamento/$', DepartamentoView.as_view(), name='cad_departamento'),
-    # url(r'^edita/departamento/(?P<id>\d+)/$', DepartamentoView.as_view(), name='edita_departamento'),
-    # url(r'^deleta/departamento/(?P<id>[0-9]+)/$', views.DepartamentoDelete, name='deleta_departamento'),
-
     ## CID ##
     url(r'^cad/cid/$', CidView.as_view(), name='cad_cid'),
     url(r'^edita/cid/(?P<id>\d+)/$', CidView.as_view(), name='edita_cid'),
@@ -81,16 +75,17 @@ urlpatterns = [
     ## SEGURADO ##
     url(r'^cad/segurado/$', SeguradoView.as_view(), name='cad_segurado'),
     url(r'^edita/segurado/(?P<id>\d+)/$', SeguradoView.as_view(), name='edita_segurado'),
-    url(r'^edita/senha/servidor/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenha.as_view(), name='edita_senha'),
     url(r'^deleta/segurado/(?P<id>[0-9]+)/$', views.SeguradoDelete, name='deleta_segurado'),
     url(r'^lista/segurados/$', views.ListaSegurados, name='lista_segurados'),
 
     ## SERVIDOR ##
     url(r'^cad/servidor/$', ServidorView.as_view(), name='cad_servidor'),
     url(r'^edita/servidor/(?P<id>\d+)/$', ServidorView.as_view(), name='edita_servidor'),
-    url(r'^edita/senha/servidor/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenha.as_view(), name='edita_senha'),
     url(r'^deleta/servidor/(?P<id>[0-9]+)/$', views.ServidorDelete, name='deleta_servidor'),
     url(r'^lista/servidores/$', views.ListaServidores, name='lista_servidores'),
+
+    ## SEGURADO / SERVIDOR ##
+    url(r'^edita/senha/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenha.as_view(), name='edita_senha'),
 
     ## CIDADE / ESTADO ##
     url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),
@@ -126,7 +121,6 @@ urlpatterns = [
     url(r'^lista/tipo_laudo/$', views.ListaTiposLaudos, name='lista_tipo_laudo'),
     url(r'^edita/tipo_laudo/(?P<id>\d+)/$', TipoLaudoView.as_view(), name='edita_tipo_laudo'),
     url(r'^deleta/tipo_laudo/(?P<id>[0-9]+)/$', views.TipoLaudoDelete, name='deleta_tipo_laudo'),
-
 
     ## CONTATO ISSEM ##
     url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),

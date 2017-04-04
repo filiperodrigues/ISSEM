@@ -7,11 +7,31 @@
             <div class="sixteen wide column">
                 <div class="ui segment red">
 
-                    <div class="ui grid">
-                        <div class="left floated six wide column">
-                            <h2>Agendamentos</h2>
+                    {% if msg %}
+                        <div class="ui {{ tipo_msg }} message">
+                            <div class="header">
+                                {{ msg }}
+                            </div>
                         </div>
+                    {% endif %}
+
+                    <br/>
+                    <div class="ui grid">
+                        <div class="left floated four wide column">
+                            <a href="{% url 'issem:funcionario' %}">
+                                <div class="ui labeled icon button basic">
+                                    <i class="left arrow icon"></i> Voltar
+                                </div>
+                            </a>
+                        </div>
+                        <div class="issem-title-edit-page">
+                            <h1 class="ui header">
+                                <i class="calendar icon"></i> Agendamentos
+                            </h1>
+                        </div>
+                        <div class="right floated four wide column"></div>
                     </div>
+                    <br/>
 
                     {% if dados %}
                         <table class="ui celled table">
@@ -50,13 +70,9 @@
 
                                     <td class="ui right aligned">
                                         <a href="{% url 'issem:edita_requerimento' dado.requerimento.id dado.id %}">
-                                            <button class="ui icon button blue"><i class="edit icon"></i></button>
-                                        </a>
-
-                                        <a href="{% url 'issem:deleta_requerimento' dado.requerimento.id dado.id %}">
-                                            <button class="ui icon button red">
-                                                <i class="remove icon"></i>
-                                            </button>
+                                            <div class="ui labeled icon button">
+                                                <i class="edit icon"></i> Editar
+                                            </div>
                                         </a>
                                     </td>
                                 </tr>
@@ -64,12 +80,12 @@
                             </tbody>
                             <tfoot>
                         </table>
-                {% else %}
-                    <div class="ui red message">
-                        Não existem dados entre os períodos
-                        <br/>
-                    </div>
-                {% endif %}
+                    {% else %}
+                        <div class="ui red message">
+                            Não existem dados entre os períodos
+                            <br/>
+                        </div>
+                    {% endif %}
                     {% include 'blocos/pagination.html' %}
 
                 </div>

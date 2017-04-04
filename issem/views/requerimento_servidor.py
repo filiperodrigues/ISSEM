@@ -7,6 +7,7 @@ from datetime import date, datetime
 from django.contrib.auth.models import User
 from issem.views.pagination import pagination
 
+
 class RequerimentoServidorView(View):
     template = 'requerimento_servidor.html'
 

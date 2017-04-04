@@ -9,7 +9,6 @@ from issem.views.funcao import *
 from issem.views.funcionario_pagina import *
 from issem.views.gera_agendamento_servidor import *
 from issem.views.index import *
-from issem.views.lixeira.departamento import *
 from issem.views.local_trabalho import *
 from issem.views.medico_pagina import *
 from issem.views.procedimento_medico import *

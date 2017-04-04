@@ -232,3 +232,7 @@ $('.message .close')
 $('.abrirModalConsultas').click(function () {
     $('.modalConsultas').modal('show');
 });
+
+$('.abrirModalConfirmacao').click(function () {
+    $('.modalConfirmacao').modal('show');
+});

@@ -6,7 +6,6 @@ from issem.models.cidade import CidadeModel
 from issem.models.consulta_parametros import ConsultaParametrosModel
 from issem.models.contato_issem import ContatoIssemModel
 from issem.models.dependente import DependenteModel
-from issem.models.lixeira.departamento import DepartamentoModel
 from issem.models.estado import EstadoModel
 from issem.models.estado_civil import EstadoCivilModel
 from issem.models.exame_requerimento import ExameRequerimentoModel

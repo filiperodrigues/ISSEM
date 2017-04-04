@@ -71,14 +71,15 @@ class DependenteView(View):
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_segurado': id_segurado, 'msg': msg, 'tipo_msg': tipo_msg, 'id_group_user' : id_group_user})
 
-def ListaDependentes(request):
-    dependentes = DependenteModel.objects.filter(excluido=False)
-    dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
-    return render(request, 'dependentes.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima})
-
 
 def DependenteDelete(request, id):
     dependente = DependenteModel.objects.get(pk=id)
     dependente.excluido = True
     dependente.save()
-    return HttpResponseRedirect('/')
+    return ListaDependentes(request, msg="Dependente excluído com sucesso!", tipo_msg="green")
+
+
+def ListaDependentes(request, msg=None, tipo_msg=None):
+    dependentes = DependenteModel.objects.filter(excluido=False)
+    dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
+    return render(request, 'dependentes.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

@@ -105,11 +105,6 @@ def populate():
         add_cidade(id_cidade, nome_cidade, EstadoModel.objects.filter(pk=uf_estado)[0])
     arq.close()
 
-    # DEPARTAMENTOS
-    departamentos = ['Administrativo', 'Recursos Humanos', 'Tecnologia da Informação', 'Contabilidade']
-    for d in departamentos:
-        add_departamentos(d)
-
     # TIPOS DE DEPENDENTE
     tipos_dependente = ['Cônjuge', 'Incapaz', 'Pai', 'Mãe', 'Filho(a)', 'Irmão não emancipado']
     for td in tipos_dependente:
@@ -219,9 +214,6 @@ def add_cidade(id, n, uf):
 
 def add_estado(id, n, uf):
     return EstadoModel.objects.get_or_create(id=id, nome=n, uf=uf)[0]
-
-def add_departamentos(n):
-    return DepartamentoModel.objects.get_or_create(nome=n)[0]
 
 def add_tipo_dependente(n):
     return TipoDependenteModel.objects.get_or_create(descricao=n)
