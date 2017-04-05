@@ -30,7 +30,6 @@ class ServidorView(View):
             id_group_user = ""
 
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user, 'id_group_user' : id_group_user})
-        # return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     def post(self, request, id=None):
         id_group_user = 0

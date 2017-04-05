@@ -2,7 +2,7 @@
 from django import forms
 
 from issem.models.estado import EstadoModel
-from issem.forms.utilitarios.cnpj_validator import CNPJ
+from issem.forms.validators.cnpj_validator import ValidarCNPJ
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.models.secretaria import SecretariaModel
 from issem.models.cidade import CidadeModel
@@ -31,8 +31,4 @@ class LocalTrabalhoForm(forms.ModelForm):
         fields = '__all__'
 
     def clean_cnpj(self):
-        cnpj = self.cleaned_data.get('cnpj')
-        if CNPJ().validate(cnpj):
-            return cnpj
-        else:
-            raise forms.ValidationError("CNPJ inválido")
+        return ValidarCNPJ(self.cleaned_data.get('cnpj'))

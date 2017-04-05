@@ -1,5 +1,7 @@
 # coding:utf-8
 from django import forms
+
+from issem.forms.validators.generic_validators import ValidarDataInicialFinal
 from issem.models.requerimento import RequerimentoModel
 from issem.models.segurado import SeguradoModel
 from datetime import date
@@ -17,16 +19,7 @@ class RequerimentoForm(forms.ModelForm):
         fields = '__all__'
 
     def clean_data_final_afastamento(self):
-        data_inicio_afastamento = self.cleaned_data.get('data_inicio_afastamento')
-        data_final_afastamento = self.cleaned_data.get('data_final_afastamento')
-
-        if not data_inicio_afastamento:
-            raise forms.ValidationError("Defina uma data de início")
-
-        if data_inicio_afastamento <= data_final_afastamento:
-            return data_final_afastamento
-        else:
-            raise forms.ValidationError("Data final deve ser após a data de início")
+        return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
 
     def clean_data_requerimento(self):
         data_requerimento = date.today()

@@ -1,4 +1,13 @@
 # coding: utf-8
+from django.forms import forms
+
+
+def ValidarCNPJ(cnpj):
+    if CNPJ().validate(cnpj):
+        return cnpj
+    else:
+        raise forms.ValidationError("CNPJ inválido")
+
 
 class CNPJ:
     def __init__(self):

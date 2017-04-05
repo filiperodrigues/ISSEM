@@ -1,8 +1,7 @@
 # coding:utf-8
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from django import forms
 from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
+from issem.forms.validators.generic_validators import ValidarDataNascimento
 from issem.models.servidor import ServidorModel
 from django.contrib.auth.models import Group
 
@@ -31,15 +30,8 @@ class ServidorFormCad(CadPessoaForm):
             return crm
 
     def clean_data_nascimento(self):
-        data_nascimento = self.cleaned_data.get('data_nascimento')
-        data_gerada = datetime.now() - relativedelta(years=18)
-        data_gerada = data_gerada.date()
-        if data_nascimento == None:
-            raise forms.ValidationError("Este campo é obrigatório.")
-        elif data_nascimento <= data_gerada:
-            return data_nascimento
-        else:
-            raise forms.ValidationError("Deve ter mais que 18 anos")
+        return ValidarDataNascimento(self.cleaned_data.get('data_nascimento'))
+
 
 class ServidorFormEdit(PessoaEditForm):
     # local_trabalho = forms.ModelChoiceField(required=False,
@@ -69,12 +61,4 @@ class ServidorFormEdit(PessoaEditForm):
             return crm
 
     def clean_data_nascimento(self):
-        data_nascimento = self.cleaned_data.get('data_nascimento')
-        data_gerada = datetime.now() - relativedelta(years=18)
-        data_gerada = data_gerada.date()
-        if data_nascimento == None:
-            raise forms.ValidationError("Este campo é obrigatório.")
-        elif data_nascimento <= data_gerada:
-            return data_nascimento
-        else:
-            raise forms.ValidationError("Deve ter mais que 18 anos")
+        return ValidarDataNascimento(self.cleaned_data.get('data_nascimento'))

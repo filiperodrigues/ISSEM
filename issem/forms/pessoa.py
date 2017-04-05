@@ -1,5 +1,8 @@
 # coding:utf-8
 from django import forms
+
+from issem.forms.validators.cpf_validator import ValidarCPF
+from issem.forms.validators.generic_validators import ValidarPassword
 from issem.models.estado import EstadoModel
 from issem.models.cidade import CidadeModel
 from issem.models.pessoa import PessoaModel
@@ -42,21 +45,11 @@ class CadPessoaForm(forms.ModelForm):
         model = PessoaModel
         fields = "__all__"
 
-    # def clean_cpf(self):
-    #     cpf = self.cleaned_data.get('cpf')
-    #
-    #     if CPF(cpf).isValid():
-    #         return cpf
-    #     else:
-    #         raise forms.ValidationError("CPF inválido.")
+    def clean_cpf(self):
+        return ValidarCPF(self.cleaned_data.get('cpf'))
 
     def clean_password_checker(self):
-        password = self.cleaned_data.get('password')
-        password_checker = self.cleaned_data.get('password_checker')
-        if password != password_checker:
-            raise forms.ValidationError("Senhas diferentes")
-        else:
-            return password_checker
+        return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
 
     def save(self, commit=True):
         user = super(CadPessoaForm, self).save(commit=False)
@@ -100,13 +93,8 @@ class PessoaEditForm(forms.ModelForm):
         model = PessoaModel
         fields = "__all__"
 
-    # def clean_cpf(self):
-    #     cpf = self.cleaned_data.get('cpf')
-    #
-    #     if CPF(cpf).isValid():
-    #         return cpf
-    #     else:
-    #         raise forms.ValidationError("CPF inválido.")
+    def clean_cpf(self):
+        return ValidarCPF(self.cleaned_data.get('cpf'))
 
     def save(self, commit=True):
         user = super(PessoaEditForm, self).save(commit=False)
@@ -123,12 +111,7 @@ class PessoaPasswordForm(forms.ModelForm):
         fields = ['password']
 
     def clean_password_checker(self):
-        password = self.cleaned_data.get('password')
-        password_checker = self.cleaned_data.get('password_checker')
-        if password != password_checker:
-            raise forms.ValidationError("Senhas diferentes")
-        else:
-            return password_checker
+        return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
 
     def save(self, commit=True):
         user = super(PessoaPasswordForm, self).save(commit=False)

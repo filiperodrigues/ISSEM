@@ -3,19 +3,12 @@
 from django import forms
 import re
 
-# =============== COMO USAR =============== #
-"""
-    from cpf_validator import CPF
 
-    cpf = "xxx.xxx.xxx-xx"
-
+def ValidarCPF(cpf):
     if CPF(cpf).isValid():
         return cpf
     else:
         raise forms.ValidationError("CPF inválido.")
-"""
-# ========================================= #
-
 
 # traduz ###.###.###-## para ###########
 _translate = lambda cpf: ''.join(re.findall("\d", cpf))

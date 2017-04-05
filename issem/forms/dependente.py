@@ -1,4 +1,5 @@
 # coding:utf-8
+from issem.forms.validators.generic_validators import ValidarDataInicialFinal
 from issem.models.dependente import DependenteModel
 from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
 from django import forms
@@ -13,16 +14,7 @@ class DependenteFormCad(CadPessoaForm):
         exclude = ('date_joined', 'is_active')
 
     def clean_data_final(self):
-        data_inicial = self.cleaned_data.get('data_inicial')
-        data_final = self.cleaned_data.get('data_final')
-
-        if not data_inicial:
-            raise forms.ValidationError("Defina uma data inicial")
-
-        if data_inicial <= data_final:
-            return data_final
-        else:
-            raise forms.ValidationError("Data final deve ser após a data inicial")
+        return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
 
 
 class DependenteFormEdit(PessoaEditForm):
@@ -34,13 +26,4 @@ class DependenteFormEdit(PessoaEditForm):
         exclude = ('date_joined', 'is_active', 'password', 'username')
 
     def clean_data_final(self):
-        data_inicial = self.cleaned_data.get('data_inicial')
-        data_final = self.cleaned_data.get('data_final')
-
-        if not data_inicial:
-            raise forms.ValidationError("Defina uma data inicial")
-
-        if data_inicial <= data_final:
-            return data_final
-        else:
-            raise forms.ValidationError("Data final deve ser após a data inicial")
+        return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
