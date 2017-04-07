@@ -9,6 +9,7 @@ def ValidarDataInicialFinal(data_inicial, data_final):
     if not data_inicial:
         raise forms.ValidationError("Defina uma data inicial")
     elif not data_final:
+
         raise forms.ValidationError("Defina uma data final")
 
     if data_inicial <= data_final:

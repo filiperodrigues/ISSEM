@@ -3,89 +3,84 @@
 {% block body_block %}
 
     <div class="ui centered grid issem-grid">
-        <div class="row">
-            <div class="sixteen wide column">
-                <div class="ui segment red">
+        <div class="ui row segment issem-segment issem-segment-border">
 
-                    {% if msg %}
-                        <div class="ui {{ tipo_msg }} message">
-                            <div class="header">
-                                {{ msg }}
-                            </div>
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
                         </div>
-                    {% endif %}
-
-                    <br/>
-                    <div class="ui grid">
-                        <div class="left floated four wide column">
-                            <a href="{% url 'issem:funcionario' %}">
-                                <div class="ui labeled icon button basic">
-                                    <i class="left arrow icon"></i> Voltar
-                                </div>
-                            </a>
-                        </div>
-                        <div class="issem-title-edit-page">
-                            <h1 class="ui header">
-                                <i class="calendar icon"></i> Requerimentos sem agendamento
-                            </h1>
-                        </div>
-                        <div class="right floated four wide column"></div>
                     </div>
-                    <br/>
-                    <br/>
+                </div>
+            {% endif %}
 
-                    {% if dados %}
-                        <table class="ui celled table">
-                            <thead>
-                            <tr>
-                                <th>Data de requerimento</th>
-                                <th>Segurado</th>
-                                <th>Benefício</th>
-                                <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+            <div class="three wide column">
+                <a href="{% url 'issem:funcionario' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
 
-                            {% for dado in dados %}
-                                <tr>
-                                    {% if dado.data_requerimento != "" %}
-                                        <td>{{ dado.data_requerimento }}</td>
-                                    {% else %}
-                                        <td>---</td>
-                                    {% endif %}
-                                    {% if dado.segurado == "None" %}
-                                        <td>{{ dado.segurado }}</td>
-                                    {% else %}
-                                        <td>---</td>
-                                    {% endif %}
-                                    {% if dado.beneficio != "" %}
-                                        <td>{{ dado.beneficio }}</td>
-                                    {% else %}
-                                        <td>---</td>
-                                    {% endif %}
-
-                                    <td class="ui right aligned">
-                                        <a href="{% url 'issem:define_agendamento' dado.id %}">
-                                            <div class="ui labeled icon button blue">
-                                                <i class="calendar icon"></i> Gerar agendamento
-                                            </div>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                            <tfoot>
-                        </table>
-                    {% else %}
-                        <div class="ui yellow message">
-                            <div class="header">
-                                Não existem dados cadastrados
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% include 'blocos/pagination.html' %}
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    <h1><i class="calendar icon"></i> Requerimentos sem agendamento</h1>
                 </div>
             </div>
+
+            <div class="three wide column"></div>
+
+            {% if dados %}
+                <table class="ui celled table issem-table-form">
+                    <thead>
+                    <tr>
+                        <th>Data de requerimento</th>
+                        <th>Segurado</th>
+                        <th>Benefício</th>
+                        <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for dado in dados %}
+                        <tr>
+                            {% if dado.data_requerimento != "" %}
+                                <td>{{ dado.data_requerimento }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+                            {% if dado.segurado == "None" %}
+                                <td>{{ dado.segurado }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+                            {% if dado.beneficio != "" %}
+                                <td>{{ dado.beneficio }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+
+                            <td class="ui right aligned">
+                                <a href="{% url 'issem:define_agendamento' dado.id %}">
+                                    <div class="ui labeled icon button blue">
+                                        <i class="calendar icon"></i> Gerar agendamento
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                </table>
+            {% else %}
+                <div class="ui yellow message">
+                    <div class="header">
+                        Não existem dados cadastrados
+                    </div>
+                </div>
+            {% endif %}
+            {% include 'blocos/pagination.html' %}
         </div>
     </div>
 

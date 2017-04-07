@@ -40,7 +40,6 @@ class RequerimentoServidorView(View):
                        'id_beneficio': beneficio_id, 'id_agendamento': id_agendamento, 'id_usuario' : id_usuario})
 
     def post(self, request, id_beneficio=None):
-        print("aqui post")
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
         usuario_logado = User.objects.get(pk=request.user.id)
         id_usuario = usuario_logado.id
@@ -55,7 +54,6 @@ class RequerimentoServidorView(View):
             form_requerimento = RequerimentoForm(data=request.POST)
             form_agendamento = AgendamentoForm(data=request.POST)
 
-        print(form_requerimento)
         if form_requerimento.is_valid():
             current_user = request.user
             form_requerimento.segurado = current_user
@@ -90,7 +88,6 @@ class RequerimentoServidorView(View):
             return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
 
         else:
-            print('deu um pouco de ruim')
             print(form_requerimento.errors)
 
         return render(request, self.template,
@@ -108,6 +105,7 @@ def ApresentaAgendamentos(request):
     agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     return render(request, 'tabela_agendamentos.html', {'dados' : dados, 'page_range': page_range, 'ultima' : ultima})
+
 
 def ApresentaAgendamentosMedico(request):
     var_controle = 0
@@ -132,6 +130,6 @@ def ApresentaAgendamentosMedico(request):
 
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     form = FiltroAgendaForm
-    return render(request, 'agenda_medico.html', {'dados': dados, 'form' : form, 'data_inicio_formatada' : data_inicio_formatada,
+    return render(request, 'agenda_medica.html', {'dados': dados, 'form' : form, 'data_inicio_formatada' : data_inicio_formatada,
                                                   'data_fim_formatada' : data_fim_formatada, 'var_controle' : var_controle,
                                                   'page_range': page_range, 'ultima': ultima})

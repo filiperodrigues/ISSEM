@@ -8,6 +8,7 @@ from datetime import date, timedelta, datetime
 
 class GeraAgendamentoServidorView(View):
     template = 'requerimento_servidor.html'
+
     def get(self, request, id_requerimento=None, id_beneficio=None, id_agendamento=None):
         var_controle = "edicão ou definição de agendamento para um requerimento"
         if id_beneficio:
@@ -18,7 +19,8 @@ class GeraAgendamentoServidorView(View):
             beneficio_descricao = ""
             beneficio_id = ""
         if id_requerimento:
-            requerimento = RequerimentoModel.objects.get(pk=id_requerimento)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            requerimento = RequerimentoModel.objects.get(
+                pk=id_requerimento)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             agendamento = AgendamentoModel()
             beneficio_id = requerimento.beneficio.id
             beneficio_descricao = requerimento.beneficio.descricao
@@ -28,9 +30,10 @@ class GeraAgendamentoServidorView(View):
         else:
             form_requerimento = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
             form_agendamento = AgendamentoForm()
-        return render(request, self.template, {'form_requerimento': form_requerimento, 'form_agendamento' : form_agendamento,
-        'method': 'get', 'id_requerimento': id_requerimento, 'beneficio_descricao' : beneficio_descricao,
-        'id_beneficio' : beneficio_id, 'id_agendamento' : id_agendamento, 'var_controle' : var_controle})
+        return render(request, self.template,
+                      {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
+                       'method': 'get', 'id_requerimento': id_requerimento, 'beneficio_descricao': beneficio_descricao,
+                       'id_beneficio': beneficio_id, 'id_agendamento': id_agendamento, 'var_controle': var_controle})
 
     def post(self, request, id_requerimento=None):
         if request.POST['id']:  #
@@ -50,7 +53,7 @@ class GeraAgendamentoServidorView(View):
             form_requerimento.servidor = current_user
             form_requerimento.save()
 
-            requerimento = RequerimentoModel.objects.get(pk = id_requerimento)
+            requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
 
             form_agendamento_model = AgendamentoModel()
             form_agendamento_model.requerimento_id = id_requerimento
@@ -64,17 +67,19 @@ class GeraAgendamentoServidorView(View):
             form_agendamento_model.save()
             # obj = requerimento.save(commit=False)
 
-            requerimento.possui_agendamento= True
+            requerimento.possui_agendamento = True
             requerimento.save()
 
             msg = define_mensagem_agendamento(data_pericia, hora_pericia)
-            return render(request, self.template, {'msg': msg,'beneficio_descricao':requerimento.beneficio.descricao})
+            return render(request, self.template, {'msg': msg, 'beneficio_descricao': requerimento.beneficio.descricao})
 
         else:
             print(form_requerimento.errors)
 
-        return render(request, self.template, {'form_requerimento' : form_requerimento, 'form_agendamento': form_agendamento,
-                                               'method': 'post', 'id_beneficio': requerimento.beneficio_id })
+        return render(request, self.template,
+                      {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
+                       'method': 'post', 'id_beneficio': requerimento.beneficio_id})
+
 
 def define_mensagem_agendamento(data_agendamento, hora_pericia):
     texto_msg = str(data_agendamento)
@@ -84,10 +89,12 @@ def define_mensagem_agendamento(data_agendamento, hora_pericia):
     ano = texto_msg[0]
     return ("Consulta agendada para %s/%s/%s às %s") % (dia, mes, ano, str(hora_pericia))
 
+
 def RequerimentoDelete(request, id):
     requerimento = RequerimentoModel.objects.get(pk=id)
     requerimento.delete()
     return HttpResponseRedirect('/')
+
 
 def ApresentaAgendamentos(request):
     context_dict = {}

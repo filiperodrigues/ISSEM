@@ -6,144 +6,121 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment">
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment">
 
             {% if msg %}
-                <div class="ui {{ tipo_msg }} message">
-                    <div class="header">
-                        {{ msg }}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
                     </div>
                 </div>
             {% endif %}
 
-            <br/>
-            <div class="ui grid">
-                {% if not id %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:lista_dependentes' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
+            <div class="three wide column">
+                <a href="{% url 'issem:lista_dependentes' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
                     </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="plus icon"></i>
-                            <div class="content">
-                                Cadastro de Dependente
-                                <div class="sub header">
-                                    Preencha o formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
-                    <div class="right floated four wide column"></div>
-                {% else %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:lista_dependentes' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
-                    </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="edit icon"></i>
-                            <div class="content">
-                                Edição de Dependente
-                                <div class="sub header">
-                                    Realize suas alterações no formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
+                </a>
+            </div>
 
-                    <div class="right floated right aligned four wide column">
-                        <div class="ui vertical buttons">
-                            <a href="{% url 'issem:edita_senha' id id_group_user %}"
-                               class="ui labeled icon button secondary">
-                                <i class="key icon"></i> Alterar Senha
-                            </a>
-                            <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
-                                <i class="trash icon"></i> Excluir
-                            </a>
-                        </div>
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Cadastro de Dependente</h1>
+                    {% else %}
+                        <h1><i class="edit icon"></i> Edição de Dependente</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column">
+                {% if id %}
+                    <div class="ui right floated vertical buttons">
+                        <a href="{% url 'issem:edita_senha' id id_group_user %}"
+                           class="ui labeled icon button secondary">
+                            <i class="key icon"></i> Alterar Senha
+                        </a>
+                        <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
+                            <i class="trash icon"></i> Excluir
+                        </a>
                     </div>
                 {% endif %}
             </div>
-            <br/>
 
-            {% if id_segurado %}
-                <form class="ui form" id="DependenteForm" method="post"
-                      action="{% url 'issem:cad_dependente_segurado' id_segurado %}">
-            {% else %}
-                <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:cad_dependente' %}">
-            {% endif %}
+            <div class="sixteen wide column issem-table-form">
+                {% if id_segurado %}
+                    <form class="ui form" id="DependenteForm" method="post"
+                          action="{% url 'issem:cad_dependente_segurado' id_segurado %}">
+                {% else %}
+                    <form class="ui form" id="DependenteForm" method="post" action="{% url 'issem:cad_dependente' %}">
+                {% endif %}
 
-            {% include 'blocos/formulario_pessoa.html' %}
+                {% include 'blocos/formulario_pessoa.html' %}
 
-            <h4 class="ui dividing red header">Dados específicos do Dependente</h4>
-            <div class="fields">
-                <div class="six wide field">
-                    <label>Tipo de Dependente</label>
-                    {{ form.tipo }}
-                    {% if form.tipo.errors %}
-                        <div class="ui pointing red basic label">
-                            {{ form.tipo.errors }}
+                <h4 class="ui dividing red header">Dados específicos do Dependente</h4>
+                <div class="fields">
+                    <div class="six wide field">
+                        <label>Tipo de Dependente</label>
+                        {{ form.tipo }}
+                        {% if form.tipo.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.tipo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="five wide field">
+                        <label>Data de início <i class="asterisk icon red"></i></label>
+                        <div class="data">
+                            {{ form.data_inicial }}
+                            {% if form.data_inicial.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.data_inicial.errors }}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
-                <div class="five wide field">
-                    <label>Data de início <i class="asterisk icon red"></i></label>
-                    <div class="data">
-                        {{ form.data_inicial }}
-                        {% if form.data_inicial.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.data_inicial.errors }}
-                            </div>
-                        {% endif %}
+                    </div>
+                    <div class="five wide field">
+                        <label>Data de término <i class="asterisk icon red"></i></label>
+                        <div class="data">
+                            {{ form.data_final }}
+                            {% if form.data_final.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.data_final.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-                <div class="five wide field">
-                    <label>Data de término <i class="asterisk icon red"></i></label>
-                    <div class="data">
-                        {{ form.data_final }}
-                        {% if form.data_final.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.data_final.errors }}
-                            </div>
-                        {% endif %}
+
+                {% include 'blocos/buttons_form.html' %}
+                </form>
+
+            </div>
+        </div>
+
+        {% if id %}
+            {#========== MODAL ==========#}
+            <div class="ui small modal modalConfirmacao">
+                <i class="close icon"></i>
+                <div class="ui icon header">
+                    <i class="trash icon"></i>
+                    Deseja realmente excluir?
+                </div>
+                <div class="ui actions">
+                    <div class="ui green ok inverted button">
+                        Não
                     </div>
+                    <a class="ui red ok inverted button" href="{% url 'issem:deleta_dependente' id %}">
+                        <i class="remove icon"></i>
+                        Sim
+                    </a>
                 </div>
             </div>
-
-            {% include 'blocos/buttons_form.html' %}
-            </form>
-
-        </div>
-    </div>
-
-
-    {% if id %}
-        {#========== MODAL ==========#}
-        <div class="ui small modal modalConfirmacao">
-            <i class="close icon"></i>
-            <div class="ui icon header">
-                <i class="trash icon"></i>
-                Deseja realmente excluir?
-            </div>
-            <div class="ui actions">
-                <div class="ui green ok inverted button">
-                    Não
-                </div>
-                <a class="ui red ok inverted button" href="{% url 'issem:deleta_dependente' id %}">
-                    <i class="remove icon"></i>
-                    Sim
-                </a>
-            </div>
-        </div>
-        {#========== / MODAL ==========#}
-    {% endif %}
+            {#========== / MODAL ==========#}
+        {% endif %}
 
 {% endblock %}

@@ -16,19 +16,18 @@ class DependenteView(View):
         return user.groups.filter(name='Administrativo')
 
     @method_decorator(user_passes_test(group_test))
-
     def get(self, request, id=None, id_segurado=None):
         if id:
             dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = DependenteFormEdit(instance=dependente)
             group_user = Group.objects.get(user=id)
             id_group_user = group_user.id
-
         else:
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
 
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado': id_segurado, 'id_group_user' : id_group_user})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado': id_segurado,
+                                               'id_group_user': id_group_user})
 
     def post(self, request, id_segurado=None):
         id_group_user = 0
@@ -61,15 +60,17 @@ class DependenteView(View):
                 user.save()
                 msg = 'Cadastro efetuado com sucesso!'
                 tipo_msg = 'green'
-                return render(request, 'blocos/mensagem_cadastro_concluido_dependente.html',
-                              {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
-                               'id_servidor': user.id})
+                form = DependenteFormCad()
+                return render(request, self.template,
+                              {'form': form, 'msg': msg, 'tipo_msg': tipo_msg, 'id_segurado': id_segurado})
             else:
                 print(form.errors)
                 msg = 'Erros encontrados!'
                 tipo_msg = 'red'
 
-        return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_segurado': id_segurado, 'msg': msg, 'tipo_msg': tipo_msg, 'id_group_user' : id_group_user})
+        return render(request, self.template,
+                      {'form': form, 'method': 'post', 'id': id, 'id_segurado': id_segurado, 'msg': msg,
+                       'tipo_msg': tipo_msg, 'id_group_user': id_group_user})
 
 
 def DependenteDelete(request, id):
@@ -82,4 +83,5 @@ def DependenteDelete(request, id):
 def ListaDependentes(request, msg=None, tipo_msg=None):
     dependentes = DependenteModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
-    return render(request, 'dependentes.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+    return render(request, 'dependentes.html',
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

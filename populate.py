@@ -37,12 +37,12 @@ def populate():
         add_agendamento(agendamento[0],agendamento[1],agendamento[2], agendamento[3])
 
     # GRUPOS
-    grupos = ['Administrativo', 'Técnico', 'Segurado', 'Dependente']
+    grupos = ['Administrativo', 'Tecnico', 'Segurado', 'Dependente']
     for g in grupos:
         add_grupo(g)
 
     # CARGOS
-    cargos = ['Chefe', 'Secretária', 'Técnico']
+    cargos = ['Chefe', 'Secretária', 'Tecnico']
     for c in cargos:
         add_cargo(c)
 

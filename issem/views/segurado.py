@@ -26,7 +26,7 @@ class SeguradoView(View):
             form = SeguradoFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
 
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_group_user' : id_group_user})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_group_user': id_group_user})
 
     def post(self, request, id=None):
         id_group_user = 0
@@ -55,18 +55,18 @@ class SeguradoView(View):
                 user = SeguradoModel.objects.get(username=request.POST["username"])
                 user.groups.add(gp)
                 user.save()
-                msg = 'Cadastro efetuado com sucesso!'
+                msg = "Cadastro efetuado com sucesso!"
                 tipo_msg = 'green'
-                return render(request, 'blocos/mensagem_cadastro_concluido_segurado.html',
-                              {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
-                               'id_segurado': user.id})
+                form = SeguradoFormCad()
+                return render(request, self.template, {'form': form, 'msg': msg, 'tipo_msg': tipo_msg, 'id_segurado': user.id, 'nome': user.nome})
             else:
                 print(form.errors)
                 msg = 'Erros encontrados!'
                 tipo_msg = 'red'
 
         return render(request, self.template,
-                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'id_group_user' : id_group_user})
+                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
+                       'id_group_user': id_group_user})
 
 
 def SeguradoDelete(request, id):
@@ -92,5 +92,3 @@ def ListaSegurados(request, msg=None, tipo_msg=None):
         context_dict['tipo_msg'] = tipo_msg
 
     return render(request, 'segurados.html', context_dict)
-
-

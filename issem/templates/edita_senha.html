@@ -32,6 +32,18 @@
                                 <i class="left arrow icon"></i> Voltar
                             </div>
                         </a>
+                    {% elif group == "Tecnico" %}
+                        <a href="{% url 'issem:edita_servidor' id %}">
+                            <div class="ui labeled icon button basic">
+                                <i class="left arrow icon"></i> Voltar
+                            </div>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'issem:edita_dependente' id %}">
+                            <div class="ui labeled icon button basic">
+                                <i class="left arrow icon"></i> Voltar
+                            </div>
+                        </a>
                     {% endif %}
                 </div>
                 <div class="issem-title-edit-page">

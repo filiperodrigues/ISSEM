@@ -6,135 +6,125 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment">
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment">
 
             {% if msg %}
-                <div class="ui {{ tipo_msg }} message">
-                    <div class="header">
-                        {{ msg }}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                            <a href="{% url 'issem:cad_dependente_segurado' id_segurado %}">
+                                - Cadastrar um dependente ao segurado <u>{{ nome }}</u>.</a>
+                        </div>
                     </div>
                 </div>
             {% endif %}
 
-            <br/>
-            <div class="ui grid">
-                {% if not id %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:lista_segurados' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
+            <div class="three wide column">
+                <a href="{% url 'issem:lista_segurados' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
                     </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="plus icon"></i>
-                            <div class="content">
-                                Cadastro de Segurado
-                                <div class="sub header">
-                                    Preencha o formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
-                    <div class="right floated four wide column"></div>
-                {% else %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:lista_segurados' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
-                    </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="edit icon"></i>
-                            <div class="content">
-                                Edição de Segurado
-                                <div class="sub header">
-                                    Realize suas alterações no formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
+                </a>
+            </div>
 
-                    <div class="right floated right aligned four wide column">
-                        <div class="ui vertical buttons">
-                            <a href="{% url 'issem:edita_senha' id id_group_user %}"
-                               class="ui labeled icon button secondary">
-                                <i class="key icon"></i> Alterar Senha
-                            </a>
-                            <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
-                                <i class="trash icon"></i> Excluir
-                            </a>
-                        </div>
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Cadastro de Segurado</h1>
+                    {% else %}
+                        <h1><i class="edit icon"></i> Edição de Segurado</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column">
+                {% if id %}
+                    <div class="ui right floated vertical buttons">
+                        <a href="{% url 'issem:edita_senha' id id_group_user %}"
+                           class="ui labeled icon button secondary">
+                            <i class="key icon"></i> Alterar Senha
+                        </a>
+                        <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
+                            <i class="trash icon"></i> Excluir
+                        </a>
                     </div>
                 {% endif %}
             </div>
-            <br/>
 
-            {% if not id %}
-                <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:cad_segurado' %}">
-            {% else %}
-                <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:edita_segurado' id %}">
-            {% endif %}
+            <div class="sixteen wide column issem-table-form">
+                {% if not id %}
+                    <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:cad_segurado' %}">
+                {% else %}
+                    <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:edita_segurado' id %}">
+                {% endif %}
 
-            {% include 'blocos/formulario_pessoa.html' %}
+                {% include 'blocos/formulario_pessoa.html' %}
 
-            <h4 class="ui dividing red header">Dados específicos do Segurado</h4>
-            <div class="fields">
-                <div class="two wide field"></div>
-                <div class="four wide field">
-                    <label>Local de Trabalho</label>
-                    {{ form.local_trabalho }}
-                    {% if form.local_trabalho.errors %}
-                        <div class="ui pointing red basic label">
-                            {{ form.local_trabalho.errors }}
+                <h4 class="ui dividing red header">Dados específicos do Segurado</h4>
+                <div class="fields">
+                    <div class="two wide field"></div>
+                    <div class="four wide field">
+                        <label>Local de Trabalho</label>
+                        {{ form.local_trabalho }}
+                        {% if form.local_trabalho.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.local_trabalho.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="two wide field">
+                        <label>PIS/PASEP/NIT</label>
+                        <div class="somente_numeros">
+                            {{ form.pasep_pis_nit }}
+                            {% if form.pasep_pis_nit.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.pasep_pis_nit.errors }}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
-                <div class="two wide field">
-                    <label>PIS/PASEP/NIT</label>
-                    <div class="somente_numeros">
-                        {{ form.pasep_pis_nit }}
-                        {% if form.pasep_pis_nit.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.pasep_pis_nit.errors }}
-                            </div>
-                        {% endif %}
+                    </div>
+                    <div class="two wide field">
+                        <label>Documento legal</label>
+                        <div class="somente_numeros">
+                            {{ form.documento_legal }}
+                            {% if form.documento_legal.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.documento_legal.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="four wide field">
+                        <label>Data de Admissão</label>
+                        <div class="data">
+                            {{ form.data_admissao }}
+                            {% if form.data_admissao.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.data_admissao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-                <div class="two wide field">
-                    <label>Documento legal</label>
-                    <div class="somente_numeros">
-                        {{ form.documento_legal }}
-                        {% if form.documento_legal.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.documento_legal.errors }}
-                            </div>
-                        {% endif %}
+
+                {% if id %}
+                    <div class="ui grid center aligned">
+                        <div class="row">
+                            <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
+                                dependente</a>
+                        </div>
                     </div>
-                </div>
-                <div class="four wide field">
-                    <label>Data de Admissão</label>
-                    <div class="data">
-                        {{ form.data_admissao }}
-                        {% if form.data_admissao.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.data_admissao.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
+                    <br/>
+                {% endif %}
+
+                {% include 'blocos/buttons_form.html' %}
+                </form>
+
             </div>
-
-            {% include 'blocos/buttons_form.html' %}
-            </form>
-
         </div>
     </div>
-
 
     {% if id %}
         {#========== MODAL ==========#}
@@ -148,7 +138,7 @@
                 <div class="ui green ok inverted button">
                     Não
                 </div>
-                <a class="ui red ok inverted button" href="{% url 'issem:deleta_segurado' id %}">
+                <a class="ui red ok inverted button" href="{% url 'issem:deleta_servidor' id %}">
                     <i class="remove icon"></i>
                     Sim
                 </a>

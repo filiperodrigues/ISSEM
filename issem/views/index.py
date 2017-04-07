@@ -15,7 +15,7 @@ def index(request):
 
         context_dict = {}
 
-        if grupo_1 == "Técnico":
+        if grupo_1 == "Tecnico":
             return HttpResponseRedirect(reverse('issem:medico'))
         elif grupo_1 == 'Segurado':
             return HttpResponseRedirect(reverse('issem:segurado'))

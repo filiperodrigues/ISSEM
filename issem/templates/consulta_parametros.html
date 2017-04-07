@@ -2,146 +2,120 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment">
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
 
             {% if msg %}
-                <div class="ui {{ tipo_msg }} message">
-                    <div class="header">
-                        {{ msg }}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
                     </div>
                 </div>
             {% endif %}
 
-            <br/>
-            <div class="ui grid">
-                {% if not id %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:index' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
                     </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="plus icon"></i>
-                            <div class="content">
-                                Cadastro de Parâmetro de Consulta
-                                <div class="sub header">
-                                    Preencha o formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
-                    <div class="right floated four wide column"></div>
-                {% else %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:index' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
-                    </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="edit icon"></i>
-                            <div class="content">
-                                Edição de Parâmetro de Consulta
-                                <div class="sub header">
-                                    Realize suas alterações no formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
-
-                    <div class="right floated right aligned four wide column"></div>
-                {% endif %}
+                </a>
             </div>
-            <br/>
-            <br/>
 
-            <form class="ui form" id="ConsultaParametrosForm" method="post"
-                  action="{% url 'issem:cad_consulta_parametros' %}">
-                {% csrf_token %}
-
-                {% if not id %}
-                    <input type="hidden" name="id" value="">
-                {% else %}
-                    <input type="hidden" name="id" value="{{ id }}">
-                {% endif %}
-
-                <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="four wide field">
-                        <label>Tempo de consulta (minutos)</label>
-                        <div class="dois_digitos">
-                            {{ form.tempo_consulta }}
-                            {% if form.tempo_consulta.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.tempo_consulta.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field">
-                        <label>Tempo de Espera (minutos)</label>
-                        <div class="dois_digitos">
-                            {{ form.tempo_espera }}
-                            {% if form.tempo_espera.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.tempo_espera.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field"></div>
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if id %}
+                        <h1><i class="edit icon"></i> Edição de Parâmetro de Consulta</h1>
+                    {% endif %}
                 </div>
-                <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="four wide field">
-                        <label>Início do atendimento (hora:minuto)</label>
-                        <div class="hora">
-                            {{ form.inicio_atendimento }}
-                            {% if form.inicio_atendimento.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.inicio_atendimento.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field">
-                        <label>Limite de consultas diárias</label>
-                        <div class="dois_digitos">
-                            {{ form.limite_consultas }}
-                            {% if form.limite_consultas.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.limite_consultas.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field"></div>
-                </div>
-                <div class="fields">
-                    <div class="six wide field"></div>
-                    <div class="four wide field">
-                        <label>GAP Agendamento (em dias)</label>
-                        <div class="dois_digitos">
-                            {{ form.gap_agendamento }}
-                            {% if form.gap_agendamento.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.gap_agendamento.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="six wide field"></div>
-                </div>
+            </div>
 
-                {% include 'blocos/buttons_form.html' %}
-            </form>
+            <div class="three wide column"></div>
 
+            <div class="sixteen wide column issem-table-form">
+                <form class="ui form" id="ConsultaParametrosForm" method="post"
+                      action="{% url 'issem:cad_consulta_parametros' %}">
+                    {% csrf_token %}
+
+                    {% if not id %}
+                        <input type="hidden" name="id" value="">
+                    {% else %}
+                        <input type="hidden" name="id" value="{{ id }}">
+                    {% endif %}
+
+                    <div class="fields">
+                        <div class="four wide field"></div>
+                        <div class="four wide field">
+                            <label>Tempo de consulta (minutos)</label>
+                            <div class="dois_digitos">
+                                {{ form.tempo_consulta }}
+                                {% if form.tempo_consulta.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.tempo_consulta.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Tempo de Espera (minutos)</label>
+                            <div class="dois_digitos">
+                                {{ form.tempo_espera }}
+                                {% if form.tempo_espera.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.tempo_espera.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field"></div>
+                    </div>
+                    <div class="fields">
+                        <div class="four wide field"></div>
+                        <div class="four wide field">
+                            <label>Início do atendimento (hora:minuto)</label>
+                            <div class="hora">
+                                {{ form.inicio_atendimento }}
+                                {% if form.inicio_atendimento.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.inicio_atendimento.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Limite de consultas diárias</label>
+                            <div class="dois_digitos">
+                                {{ form.limite_consultas }}
+                                {% if form.limite_consultas.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.limite_consultas.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field"></div>
+                    </div>
+                    <div class="fields">
+                        <div class="six wide field"></div>
+                        <div class="four wide field">
+                            <label>GAP Agendamento (em dias)</label>
+                            <div class="dois_digitos">
+                                {{ form.gap_agendamento }}
+                                {% if form.gap_agendamento.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.gap_agendamento.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="six wide field"></div>
+                    </div>
+
+                    {% include 'blocos/buttons_form.html' %}
+                </form>
+
+            </div>
         </div>
     </div>
 

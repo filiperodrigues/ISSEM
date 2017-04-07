@@ -21,7 +21,7 @@ class ServidorFormCad(CadPessoaForm):
     def clean_crm(self):
         groups = self.cleaned_data.get('groups')
         crm = self.cleaned_data.get('crm')
-        if str(groups) == "Técnico":
+        if str(groups) == "Tecnico":
             if crm:
                 return crm
             else:
@@ -52,7 +52,7 @@ class ServidorFormEdit(PessoaEditForm):
     def clean_crm(self):
         groups = self.cleaned_data.get('groups')
         crm = self.cleaned_data.get('crm')
-        if str(groups) == "Técnico":
+        if str(groups) == "Tecnico":
             if crm:
                 return crm
             else:

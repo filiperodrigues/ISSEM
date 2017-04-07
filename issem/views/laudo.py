@@ -11,7 +11,7 @@ class LaudoView(View):
     template = 'laudo.html'
 
     def group_test(user):
-        return user.groups.filter(name='Técnico')
+        return user.groups.filter(name='Tecnico')
 
     @method_decorator(user_passes_test(group_test))
 

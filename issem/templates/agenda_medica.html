@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
+{% block body_tag %}
+    <body onload="calendar_input()">
+{% endblock %}
+
 {% block body_block %}
 
     <div class="ui centered grid issem-grid">
         <div class="ui row segment issem-segment issem-segment-border">
 
             {% if msg %}
-                <div class="sixteen wide column issem-div-message issem-segment-border">
+                <div class="sixteen wide column issem-div-message">
                     <div class="ui {{ tipo_msg }} message">
                         <div class="header">
                             {{ msg }}
@@ -16,7 +20,7 @@
             {% endif %}
 
             <div class="three wide column">
-                <a href="{% url 'issem:index' %}">
+                <a href="{% url 'issem:funcionario' %}">
                     <div class="ui labeled icon button basic">
                         <i class="left arrow icon"></i> Voltar
                     </div>
@@ -25,55 +29,69 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1><i class="list icon"></i> CIDs</h1>
+                    <h1><i class="calendar icon"></i> Agendamentos</h1>
                 </div>
             </div>
 
-            <div class="three wide column">
-                <a href="{% url 'issem:cad_cid' %}">
-                    <div class="ui right floated icon button green">
-                        <i class="plus icon"></i> Adicionar Novo
+            <div class="three wide column"></div>
+
+            <div class="sixteen wide column issem-form-filter">
+                <form class="ui form" id="FiltroForm" method="post" action="{% url 'issem:filtro_agenda' %}">
+                    {% csrf_token %}
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>Data Inicial</label>
+                            {{ form.data_inicio_periodo }}
+                        </div>
+                        <div class="four wide field">
+                            <label>Data Final</label>
+                            {{ form.data_fim_periodo }}
+                        </div>
+                        <div class="four wide field">
+                            <label>&ensp;</label>
+                            <input type="submit" name="submit" class="ui button green" value="Filtrar"/>
+                        </div>
                     </div>
-                </a>
+                </form>
             </div>
 
             {% if dados %}
                 <table class="ui celled table issem-table-form">
                     <thead>
                     <tr>
-                        <th>Código do Cid</th>
-                        <th>Descrição</th>
-                        <th>Gravidade</th>
-                        <th>Status</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Segurado</th>
+                        <th>Benefício</th>
                         <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for dado in dados %}
                         <tr>
-                            {% if dado.cod_cid != "" %}
-                                <td>{{ dado.cod_cid }}</td>
+                            {% if dado.data_pericia != "" %}
+                                <td>{{ dado.data_pericia }}</td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
-                            {% if dado.descricao != "" %}
-                                <td>{{ dado.descricao }}</td>
+                            {% if dado.hora_pericia != "" %}
+                                <td>{{ dado.hora_pericia }}</td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
-                            {% if dado.gravidade != "" %}
-                                <td>{% if dado.gravidade %}Sim{% else %}Não{% endif %}</td>
+                            {% if dado.requerimento.segurado == "None" %}
+                                <td>{{ dado.requerimento.segurado }}</td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
-                            {% if dado.status != "" %}
-                                <td>{% if dado.status %}Sim{% else %}Não{% endif %}</td>
+                            {% if dado.requerimento.beneficio != "" %}
+                                <td>{{ dado.requerimento.beneficio }}</td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
 
                             <td class="ui right aligned">
-                                <a href="{% url 'issem:edita_cid' dado.id %}">
+                                <a href="{% url 'issem:edita_requerimento' dado.requerimento.id dado.id %}">
                                     <div class="ui labeled icon button">
                                         <i class="edit icon"></i> Editar
                                     </div>
@@ -85,13 +103,17 @@
                     <tfoot>
                 </table>
 
-                {% include 'blocos/pagination.html' %}
+                {% if var_controle == 1 %}
+                    {% include 'blocos/pagination_filtro.html' %}
+                {% else %}
+                    {% include 'blocos/pagination.html' %}
+                {% endif %}
             {% else %}
                 <div class="sixteen wide column issem-div-message">
                     <br/>
                     <div class="ui yellow message">
                         <div class="header">
-                            Não existem dados cadastrados
+                            Não existem dados entre os períodos.
                         </div>
                     </div>
                 </div>

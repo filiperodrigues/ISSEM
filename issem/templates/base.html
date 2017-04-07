@@ -50,7 +50,7 @@
                                     Logar
                                 </a>
                             {% else %}
-                                {% if user.groups.all.0.name == 'Técnico' %}
+                                {% if user.groups.all.0.name == 'Tecnico' %}
                                     <i class="ui right large doctor icon"></i>
                                 {% endif %}
                                 {% if user.groups.all.0.name == 'Administrativo' %}
@@ -77,17 +77,12 @@
 <nav class="ui menu large">
     <div class="ui container">
         <a href="{% url 'issem:index' %}" class="item issem-icon-home"><i class="icon large home"></i></a>
-        {% if user.groups.all.0.name == 'Técnico' %}
+        {% if user.groups.all.0.name == 'Tecnico' %}
             <a href="{% url 'issem:medico' %}" class="item">Técnico</a>{% endif %}
         {% if user.groups.all.0.name == "Administrativo" %}
             <a href="{% url 'issem:funcionario' %}" class="item">Administrativo</a>{% endif %}
         {% if user.groups.all.0.name == "Segurado" %}
             <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
-{#        <div class="right menu">#}
-{#            <div class="item">#}
-{#                teste#}
-{#            </div>#}
-{#        </div>#}
     </div>
 </nav>
 

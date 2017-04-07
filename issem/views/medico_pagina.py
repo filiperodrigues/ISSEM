@@ -9,7 +9,7 @@ class PaginaMedicoView(View):
     template = 'medico_pagina.html'
 
     def group_test(user):
-        return user.groups.filter(name='Técnico')
+        return user.groups.filter(name='Tecnico')
 
     @method_decorator(user_passes_test(group_test))
 

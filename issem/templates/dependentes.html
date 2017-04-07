@@ -3,91 +3,92 @@
 {% block body_block %}
 
     <div class="ui centered grid issem-grid">
-        <div class="row">
-            <div class="sixteen wide column">
-                <div class="ui segment red">
+        <div class="ui row segment issem-segment issem-segment-border">
 
-                    {% if msg %}
-                        <div class="ui {{ tipo_msg }} message">
-                            <div class="header">
-                                {{ msg }}
-                            </div>
-                        </div>
-                    {% endif %}
-
-                    <div class="ui grid issem-grid issem-page">
-                        <div class="left floated four wide column">
-                            <a href="{% url 'issem:index' %}">
-                                <div class="ui labeled icon button basic">
-                                    <i class="left arrow icon"></i> Voltar
-                                </div>
-                            </a>
-                        </div>
-                        <div class="issem-title-edit-page">
-                            <h1><i class="users icon"></i> Dependentes</h1>
-                        </div>
-                        <div class="right floated right aligned four wide column">
-                            <a href="{% url 'issem:cad_dependente' %}">
-                                <div class="ui icon button green">
-                                    <i class="plus icon"></i> Adicionar Novo
-                                </div>
-                            </a>
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
                         </div>
                     </div>
+                </div>
+            {% endif %}
 
-                    {% if dados %}
-                        <table class="ui celled table">
-                            <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>CPF</th>
-                                <th>Email</th>
-                                <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for dado in dados %}
-                                <tr>
-                                    {% if dado.nome != "" %}
-                                        <td>{{ dado.nome }}</td>
-                                    {% else %}
-                                        <td>---</td>
-                                    {% endif %}
-                                    {% if dado.cpf != "" %}
-                                        <td>{{ dado.cpf }}</td>
-                                    {% else %}
-                                        <td>---</td>
-                                    {% endif %}
-                                    {% if dado.email != "" %}
-                                        <td>{{ dado.email }}</td>
-                                    {% else %}
-                                        <td>---</td>
-                                    {% endif %}
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
 
-                                    <td class="ui right aligned">
-                                        <a href="{% url 'issem:edita_dependente' dado.id %}">
-                                            <div class="ui labeled icon button">
-                                                <i class="edit icon"></i> Editar
-                                            </div>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                            <tfoot>
-                        </table>
-
-                    {% else %}
-                        <div class="ui yellow message">
-                            <div class="header">
-                                Não existem dados cadastrados
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% include 'blocos/pagination.html' %}
-
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    <h1><i class="group icon"></i> Dependentes</h1>
                 </div>
             </div>
+
+            <div class="three wide column">
+                <a href="{% url 'issem:cad_dependente' %}">
+                    <div class="ui right floated icon button green">
+                        <i class="plus icon"></i> Adicionar Novo
+                    </div>
+                </a>
+            </div>
+            {% if dados %}
+                <table class="ui celled table issem-table-form">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Email</th>
+                        <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dado in dados %}
+                        <tr>
+                            {% if dado.nome != "" %}
+                                <td>{{ dado.nome }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+                            {% if dado.cpf != "" %}
+                                <td>{{ dado.cpf }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+                            {% if dado.email != "" %}
+                                <td>{{ dado.email }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+
+                            <td class="ui right aligned">
+                                <a href="{% url 'issem:edita_dependente' dado.id %}">
+                                    <div class="ui labeled icon button">
+                                        <i class="edit icon"></i> Editar
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                </table>
+
+                {% include 'blocos/pagination.html' %}
+            {% else %}
+                <div class="sixteen wide column issem-div-message">
+                    <br/>
+                    <div class="ui yellow message">
+                        <div class="header">
+                            Não existem dados cadastrados
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 

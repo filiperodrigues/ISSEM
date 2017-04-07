@@ -17,7 +17,6 @@ class ServidorView(View):
         return user.groups.filter(name='Administrativo')
 
     @method_decorator(user_passes_test(group_test))
-
     def get(self, request, id=None):
         group_user = False
         if id:  # EDIÇÃO
@@ -29,7 +28,8 @@ class ServidorView(View):
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
 
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user, 'id_group_user' : id_group_user})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user,
+                                               'id_group_user': id_group_user})
 
     def post(self, request, id=None):
         id_group_user = 0
@@ -55,7 +55,7 @@ class ServidorView(View):
 
             if form.is_valid():
                 form.save()
-                if (id != None):
+                if id != None:
                     if Group.objects.get(user=id):
                         group_name = Group.objects.get(user=id)
                         group_name.user_set.remove(id)
@@ -66,15 +66,16 @@ class ServidorView(View):
                 user.save()
                 msg = 'Cadastro efetuado com sucesso!'
                 tipo_msg = 'green'
-                return render(request, 'blocos/mensagem_cadastro_concluido_servidor.html',
-                              {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
-                               'id_servidor': user.id})
+                form = ServidorFormCad()
+                return render(request, self.template, {'form': form, 'msg': msg, 'tipo_msg': tipo_msg})
             else:
                 print(form.errors)
                 msg = 'Erros encontrados!'
                 tipo_msg = 'red'
 
-        return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'id_group_user' : id_group_user})
+        return render(request, self.template,
+                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
+                       'id_group_user': id_group_user})
 
 
 def ServidorDelete(request, id):
@@ -87,4 +88,5 @@ def ServidorDelete(request, id):
 def ListaServidores(request, msg=None, tipo_msg=None):
     servidores = ServidorModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
-    return render(request, 'servidores.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+    return render(request, 'servidores.html',
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

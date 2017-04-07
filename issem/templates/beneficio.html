@@ -6,207 +6,185 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment">
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
 
             {% if msg %}
-                <div class="ui {{ tipo_msg }} message">
-                    <div class="header">
-                        {{ msg }}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
                     </div>
                 </div>
             {% endif %}
 
-            <br/>
-            <div class="ui grid">
-                {% if not id %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:lista_beneficios' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
+            <div class="three wide column">
+                <a href="{% url 'issem:lista_beneficios' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
                     </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="plus icon"></i>
-                            <div class="content">
-                                Cadastro de Benefício
-                                <div class="sub header">
-                                    Preencha o formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
-                    <div class="right floated four wide column"></div>
-                {% else %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:lista_beneficios' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
-                    </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="edit icon"></i>
-                            <div class="content">
-                                Edição de Benefício
-                                <div class="sub header">
-                                    Realize suas alterações no formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
+                </a>
+            </div>
 
-                    <div class="right floated right aligned four wide column">
-                        <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
-                            <i class="trash icon"></i> Excluir
-                        </a>
-                    </div>
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Cadastro de Benefício</h1>
+                    {% else %}
+                        <h1><i class="edit icon"></i> Edição de Benefício</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column">
+                {% if id %}
+                    <a class="ui right floated labeled icon button red abrirModalConfirmacao" href="#">
+                        <i class="trash icon"></i> Excluir
+                    </a>
                 {% endif %}
             </div>
-            <br/>
-            <br/>
 
-            <form class="ui form" id="BeneficioForm" method="post" action="{% url 'issem:cad_beneficio' %}">
-                {% csrf_token %}
+            <div class="sixteen wide column issem-table-form">
+                <form class="ui form" id="BeneficioForm" method="post" action="{% url 'issem:cad_beneficio' %}">
+                    {% csrf_token %}
 
-                {% if not id %}
-                    <input type="hidden" name="id" value="">
-                {% else %}
-                    <input type="hidden" name="id" value="{{ id }}">
-                {% endif %}
+                    {% if not id %}
+                        <input type="hidden" name="id" value="">
+                    {% else %}
+                        <input type="hidden" name="id" value="{{ id }}">
+                    {% endif %}
 
-                <div class="fields">
-                    <div class="four wide field">
-                        <label>Data Inicial:</label>
-                        <div class="data">
-                            {{ form.data_inicial }}
-                            {% if form.data_inicial.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.data_inicial.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field">
-                        <label>Data Final:</label>
-                        <div class="data">
-                            {{ form.data_final }}
-                            {% if form.data_final.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.data_final.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field">
-                        <label>Data Retorno:</label>
-                        <div class="data">
-                            {{ form.data_retorno }}
-                            {% if form.data_retorno.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.data_retorno.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field">
-                        <label>Data Perícia:</label>
-                        <div class="data">
-                            {{ form.data_pericia }}
-                            {% if form.data_pericia.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.data_pericia.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fields">
-                    <div class="eight wide field">
-                        <label>Descrição:</label>
-                        {{ form.descricao }}
-                        {% if form.descricao.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.descricao.errors }}
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>Data Inicial:</label>
+                            <div class="data">
+                                {{ form.data_inicial }}
+                                {% if form.data_inicial.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.data_inicial.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="four wide field">
-                        <label>Data Portaria:</label>
-                        <div class="data">
-                            {{ form.data_portaria }}
-                            {% if form.data_portaria.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.data_portaria.errors }}
-                                </div>
-                            {% endif %}
                         </div>
-                    </div>
-                    <div class="four wide field">
-                        <label>Nº Portaria:</label>
-                        <div class="somente_numeros">
-                            {{ form.numero_portaria }}
-                            {% if form.numero_portaria.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.numero_portaria.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fields">
-                    <div class="four wide field">
-                        <label>Salário Máximo:</label>
-                        <div class="valor">
-                            {{ form.salario_maximo }}
-                            {% if form.salario_maximo.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.salario_maximo.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field">
-                        <label>Carência:</label>
-                        <div class="somente_numeros">
-                            {{ form.carencia }}
-                            {% if form.carencia.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.carencia.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="six wide field">
-                        <label>Observação:</label>
-                        {{ form.observacao }}
-                        {% if form.observacao.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.observacao.errors }}
+                        <div class="four wide field">
+                            <label>Data Final:</label>
+                            <div class="data">
+                                {{ form.data_final }}
+                                {% if form.data_final.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.data_final.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-                        {% endif %}
+                        </div>
+                        <div class="four wide field">
+                            <label>Data Retorno:</label>
+                            <div class="data">
+                                {{ form.data_retorno }}
+                                {% if form.data_retorno.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.data_retorno.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Data Perícia:</label>
+                            <div class="data">
+                                {{ form.data_pericia }}
+                                {% if form.data_pericia.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.data_pericia.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                    <div class="two wide field">
-                        <label>Concessão:</label>
-                        <div class="ui segment issem-input-checkbox">
-                            {{ form.concessao }}
-                            {% if form.concessao.errors %}
+
+                    <div class="fields">
+                        <div class="eight wide field">
+                            <label>Descrição:</label>
+                            {{ form.descricao }}
+                            {% if form.descricao.errors %}
                                 <div class="ui pointing red basic label">
-                                    {{ form.concessao.errors }}
+                                    {{ form.descricao.errors }}
                                 </div>
                             {% endif %}
                         </div>
+                        <div class="four wide field">
+                            <label>Data Portaria:</label>
+                            <div class="data">
+                                {{ form.data_portaria }}
+                                {% if form.data_portaria.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.data_portaria.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Nº Portaria:</label>
+                            <div class="somente_numeros">
+                                {{ form.numero_portaria }}
+                                {% if form.numero_portaria.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.numero_portaria.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                {% include 'blocos/buttons_form.html' %}
-            </form>
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>Salário Máximo:</label>
+                            <div class="valor">
+                                {{ form.salario_maximo }}
+                                {% if form.salario_maximo.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.salario_maximo.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Carência:</label>
+                            <div class="somente_numeros">
+                                {{ form.carencia }}
+                                {% if form.carencia.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.carencia.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="six wide field">
+                            <label>Observação:</label>
+                            {{ form.observacao }}
+                            {% if form.observacao.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.observacao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Concessão:</label>
+                            <div class="ui segment issem-input-checkbox">
+                                {{ form.concessao }}
+                                {% if form.concessao.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.concessao.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
 
+                    {% include 'blocos/buttons_form.html' %}
+                </form>
+
+            </div>
         </div>
     </div>
 

@@ -17,22 +17,22 @@ class EditaSenha(View):
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, id_group=None):
         form = PessoaPasswordForm()
-        group_user = Group.objects.get(pk=id_group)
-        if str(group_user) == "Administrativo":
+        group_user = Group.objects.get(pk=id_group).name
+        if group_user == "Administrativo" or group_user == "Tecnico":
             nome = ServidorModel.objects.get(pk=id).nome
-        elif str(group_user) == "Segurado":
+        elif group_user == "Segurado":
             nome = SeguradoModel.objects.get(pk=id).nome
         else:
             nome = DependenteModel.objects.get(pk=id).nome
         return render(request, self.template,
-                      {'form': form, 'method': 'get', 'id': id, 'nome': nome, 'id_group_user': id_group, 'group': str(group_user)})
+                      {'form': form, 'method': 'get', 'id': id, 'nome': nome, 'id_group_user': id_group, 'group': group_user})
 
     def post(self, request, id=None, id_group=None):
         id = int(request.POST['id'])
-        group_user = Group.objects.get(pk=id_group)
-        if str(group_user) == "Administrativo":
+        group_user = Group.objects.get(pk=id_group).name
+        if group_user == "Administrativo" or group_user == "Tecnico":
             pessoa = ServidorModel.objects.get(pk=id)
-        elif str(group_user) == "Segurado":
+        elif group_user == "Segurado":
             pessoa = SeguradoModel.objects.get(pk=id)
         else:
             pessoa = DependenteModel.objects.get(pk=id)
@@ -49,4 +49,4 @@ class EditaSenha(View):
 
         return render(request, self.template,
                       {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'nome': pessoa,
-                       'id_group_user': id_group, 'group': str(group_user)})
+                       'id_group_user': id_group, 'group': group_user})

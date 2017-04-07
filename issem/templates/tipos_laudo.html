@@ -25,12 +25,12 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1><i class="list icon"></i> CIDs</h1>
+                    <h1><i class="list icon"></i> Tipos de Laudo</h1>
                 </div>
             </div>
 
             <div class="three wide column">
-                <a href="{% url 'issem:cad_cid' %}">
+                <a href="{% url 'issem:cad_tipo_laudo' %}">
                     <div class="ui right floated icon button green">
                         <i class="plus icon"></i> Adicionar Novo
                     </div>
@@ -41,39 +41,21 @@
                 <table class="ui celled table issem-table-form">
                     <thead>
                     <tr>
-                        <th>Código do Cid</th>
                         <th>Descrição</th>
-                        <th>Gravidade</th>
-                        <th>Status</th>
                         <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for dado in dados %}
                         <tr>
-                            {% if dado.cod_cid != "" %}
-                                <td>{{ dado.cod_cid }}</td>
-                            {% else %}
-                                <td>---</td>
-                            {% endif %}
-                            {% if dado.descricao != "" %}
-                                <td>{{ dado.descricao }}</td>
-                            {% else %}
-                                <td>---</td>
-                            {% endif %}
-                            {% if dado.gravidade != "" %}
-                                <td>{% if dado.gravidade %}Sim{% else %}Não{% endif %}</td>
-                            {% else %}
-                                <td>---</td>
-                            {% endif %}
-                            {% if dado.status != "" %}
-                                <td>{% if dado.status %}Sim{% else %}Não{% endif %}</td>
+                            {% if dado.nome != "" %}
+                                <td>{{ dado.nome }}</td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
 
                             <td class="ui right aligned">
-                                <a href="{% url 'issem:edita_cid' dado.id %}">
+                                <a href="{% url 'issem:edita_tipo_laudo' dado.id %}">
                                     <div class="ui labeled icon button">
                                         <i class="edit icon"></i> Editar
                                     </div>
