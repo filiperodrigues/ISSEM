@@ -1,7 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render
 from issem.models import ServidorModel, SeguradoModel
-from issem.forms import ServidorFormCad, SeguradoFormCad
 from django.views.generic.base import View
 from django.contrib.auth.models import Group
 
@@ -36,6 +35,5 @@ class PerfilView(View):
 
         return render(request, self.template, {'method': 'get', 'id': id, 'group_user': group_user, 'usuario': usuario})
 
-
-
-# class EditaPerfilView(View):
+# class EditaPerfil(View):
+#     template = edita

@@ -6,18 +6,28 @@
     <input type="hidden" name="id" value="{{ id }}">
 {% endif %}
 
-<h4 class="ui dividing red header">Dados específicos do Servidor</h4>
+<h4 class="ui dividing red header">Dados específicos do Segurado</h4>
 <div class="fields">
-    <div class="four wide field"></div>
-    <div class="four wide field" id="div_group_user">
-        <label> Departamento </label>
-        {{ usuario.groups.all.0.name }}
+    <div class="four wide field">
+        <label>Local de Trabalho</label>
+        {{ usuario.local_trabalho }}
     </div>
-    {% if user.groups.all.0.name == 'Técnico' %}
-        <div class="four wide field">
-            <label>CRM</label>
-            {{ usuario.crm }}
+    <div class="four wide field">
+        <label>PIS/PASEP/NIT</label>
+        <div class="somente_numeros">
+            {{ usuario.pasep_pis_nit }}
         </div>
-    {% endif %}
-    <div class="four wide field"></div>
+    </div>
+    <div class="four wide field">
+        <label>Documento legal</label>
+        <div class="somente_numeros">
+            {{ usuario.documento_legal }}
+        </div>
+    </div>
+    <div class="four wide field">
+        <label>Data de Admissão</label>
+        <div class="data">
+            {{ usuario.data_admissao }}
+        </div>
+    </div>
 </div>
