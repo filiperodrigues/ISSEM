@@ -1,0 +1,124 @@
+{% csrf_token %}
+
+{% if not id %}
+    <input type="hidden" name="id" value="">
+{% else %}
+    <input type="hidden" name="id" value="{{ id }}">
+{% endif %}
+
+<h4 class="ui dividing red header">Informações Pessoais</h4>
+<div class="fields">
+    <div class="four wide field">
+        <label> Nome </label>
+        {{ usuario.nome }}
+    </div>
+    <div class="four wide field">
+        <label> CPF </label>
+        {{ usuario.cpf }}
+    </div>
+    <div class="four wide field">
+        <label> RG </label>
+        {{ usuario.rg }}
+    </div>
+    <div class="four wide field">
+        <label> Data de Nascimento </label>
+        {{ usuario.data_nascimento }}
+    </div>
+</div>
+
+<div class="fields">
+    <div class="four wide field">
+        <label> Cargo </label>
+        {{ usuario.cargo }}
+    </div>
+    <div class="four wide field">
+        <label> Estado Civil </label>
+        {{ usuario.estado_civil }}
+    </div>
+    <div class="four wide field">
+        <label> Sexo </label>
+        {{ usuario.sexo }}
+    </div>
+    <div class="two wide field issem-input-small">
+        <label> Tipo Sanguíneo </label>
+        {{ usuario.tipo_sanguineo }}
+    </div>
+    <div class="two wide field">
+        <label> Doador </label>
+        {% if usuario.doador == True %}
+            Sim
+        {% else %}
+            Nao
+        {% endif %}
+    </div>
+</div>
+
+<div class="fields">
+    <div class="four wide field">
+        <label> E-mail </label>
+        {{ usuario.email }}
+    </div>
+    <div class="four wide field">
+        <label> Telefone Residencial </label>
+        {{ usuario.telefone_residencial }}
+    </div>
+    <div class="four wide field">
+        <label> Telefone Celular </label>
+        {{ usuario.telefone_celular }}
+    </div>
+    <div class="four wide field">
+        <label> CEP </label>
+        {{ usuario.cep }}
+    </div>
+</div>
+
+<div class="fields">
+    <div class="four wide field">
+        <label> Estado (Natural) </label>
+        {{ usuario.cidade_natural.uf }}
+    </div>
+    <div class="four wide field">
+        <label> Cidade Natural </label>
+        {{ usuario.cidade_natural }}
+    </div>
+    <div class="four wide field">
+        <label> Estado (Atual) </label>
+        {{ usuario.cidade_atual.uf }}
+    </div>
+    <div class="four wide field">
+        <label> Cidade Atual </label>
+        {{ usuario.cidade_atual }}
+    </div>
+</div>
+
+<div class="fields">
+    <div class="four wide field">
+        <label> Endereço </label>
+        {{ usuario.endereco }}
+    </div>
+    <div class="four wide field">
+        <label> Nº Residencial </label>
+        {{ usuario.numero_endereco }}
+    </div>
+    <div class="four wide field">
+        <label> Complemento </label>
+        {{ usuario.complemento }}
+    </div>
+    <div class="four wide field">
+        <label> Bairro </label>
+        {{ usuario.bairro }}
+    </div>
+</div>
+
+<div class="fields">
+    <div class="four wide field"></div>
+    <div class="four wide field">
+        <label> Nome do pai </label>
+        {{ usuario.nome_pai }}
+    </div>
+    <div class="four wide field">
+        <label> Nome da mãe </label>
+        {{ usuario.nome_mae }}
+    </div>
+    <div class="four wide field"></div>
+</div>

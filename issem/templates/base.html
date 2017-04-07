@@ -36,36 +36,7 @@
                             <a href="{% url 'issem:lista_contatos_issem' %}">
                                 <i class="text mail outline icon"></i>
                                 Contato
-                                <br/>
-                                <br/>
                             </a>
-                        </div>
-
-                        <div class="sixteen wide column">
-                            {% if user.is_anonymous %}
-                                Acesse sua Conta
-                                <a href="{% url 'issem:login' %}">
-                                    <br/>
-                                    <i class="sign in icon"></i>
-                                    Logar
-                                </a>
-                            {% else %}
-                                {% if user.groups.all.0.name == 'Tecnico' %}
-                                    <i class="ui right large doctor icon"></i>
-                                {% endif %}
-                                {% if user.groups.all.0.name == 'Administrativo' %}
-                                    <i class="ui right large user icon"></i>
-                                {% endif %}
-                                {% if user.groups.all.0.name == 'Segurado' %}
-                                    <i class="ui right large child icon"></i>
-                                {% endif %}
-                                {{ user }}
-                                <br/>
-                                <a href="{% url 'issem:logout' %}">
-                                    <i class="sign out icon"></i>
-                                    Sair
-                                </a>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -77,14 +48,52 @@
 <nav class="ui menu large">
     <div class="ui container">
         <a href="{% url 'issem:index' %}" class="item issem-icon-home"><i class="icon large home"></i></a>
-        {% if user.groups.all.0.name == 'Tecnico' %}
-            <a href="{% url 'issem:medico' %}" class="item">Técnico</a>{% endif %}
+        {% if user.groups.all.0.name == 'Técnico' %}
+            <div class="item">
+                Técnico
+            </div>
+        {% endif %}
         {% if user.groups.all.0.name == "Administrativo" %}
-            <a href="{% url 'issem:funcionario' %}" class="item">Administrativo</a>{% endif %}
+            <div class="item">
+                Administrativo
+            </div>
+        {% endif %}
         {% if user.groups.all.0.name == "Segurado" %}
-            <a href="{% url 'issem:segurado' %}" class="item">Segurado</a>{% endif %}
+            <div class="item">
+                Segurado
+            </div>
+        {% endif %}
+        <div class="right menu">
+            <div class="ui pointing dropdown link item">
+                {% if user.is_anonymous %}
+                    <a href="{% url 'issem:login' %}" class="issem-black">
+                        <h4>Acesse sua Conta!</h4>
+                    </a>
+                {% else %}
+                    {% if user.groups.all.0.name == 'Técnico' %}
+                        <i class="ui right large doctor icon"></i>
+                    {% elif user.groups.all.0.name == 'Administrativo' %}
+                        <i class="ui right large user icon"></i>
+                    {% elif user.groups.all.0.name == 'Segurado' %}
+                        <i class="ui right large child icon"></i>
+                    {% endif %}
+                    <span class="issem-bold">{{ user }}</span>
+                    <div class="menu">
+                        <a href="{% url 'issem:perfil' id=user.id %}" class="item">
+                            <i class="user icon"></i>
+                            Meu Perfil
+                        </a>
+                        <a href="{% url 'issem:logout' %}" class="item">
+                            <i class="sign out icon"></i>
+                            Sair
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </nav>
+
 
 <section>
     <div class="ui container issem-content">

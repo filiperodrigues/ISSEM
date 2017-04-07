@@ -26,3 +26,4 @@ from issem.views.laudo import *
 from issem.views.tipo_laudo import *
 from issem.views.pagination import pagination
 from issem.views.edita_senha import EditaSenha
+from issem.views.perfil import *

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered row">
+        <div class="ui segment">
+        <br/>
+            <div class="ui grid">
+                <div class="left floated  four wide column">
+                    <a href="{% url 'issem:lista_segurados' %}">
+                        <div class="ui labeled icon button basic">
+                            <i class="left arrow icon"></i> Voltar
+                        </div>
+                    </a>
+                </div>
+                <div class="issem-title-edit-page">
+                    <h1>Meu Perfil</h1>
+                </div>
+                <div class="right floated right aligned four wide column">
+                    <a href="#">
+                        <div class="ui labeled icon button blue">
+                            <i class="edit icon"></i> Alterar Perfil
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <form class="ui form">
+                {% include 'blocos/perfil_pessoa.html' %}
+
+                {% if usuario.groups.all.0.name == 'Administrativo' or usuario.groups.all.0.name == "Técnico" %}
+
+                    {% include 'blocos/perfil_servidor.html' %}
+
+                {% elif usuario.groups.all.0.name == "Segurado" %}
+
+                    {% include 'blocos/perfil_segurado.html' %}
+
+                {% endif %}
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

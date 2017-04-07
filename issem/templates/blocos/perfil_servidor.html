@@ -1,0 +1,23 @@
+{% csrf_token %}
+
+{% if not id %}
+    <input type="hidden" name="id" value="">
+{% else %}
+    <input type="hidden" name="id" value="{{ id }}">
+{% endif %}
+
+<h4 class="ui dividing red header">Dados específicos do Servidor</h4>
+<div class="fields">
+    <div class="four wide field"></div>
+    <div class="four wide field" id="div_group_user">
+        <label> Departamento </label>
+        {{ usuario.groups.all.0.name }}
+    </div>
+    {% if user.groups.all.0.name == 'Técnico' %}
+        <div class="four wide field">
+            <label>CRM</label>
+            {{ usuario.crm }}
+        </div>
+    {% endif %}
+    <div class="four wide field"></div>
+</div>

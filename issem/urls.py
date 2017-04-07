@@ -128,6 +128,9 @@ urlpatterns = [
     url(r'^deleta/contato_issem/(?P<id>[0-9]+)/$', views.ContatoIssemDelete, name='deleta_contato_issem'),
     url(r'^lista/contatos/$', views.ListaContatosIssem, name='lista_contatos_issem'),
 
+    ## PERFIL ##
+    url(r'^perfil/(?P<id>\d+)$', PerfilView.as_view(), name='perfil'),
+
     ## 404 ##
     url(r'', TemplateView.as_view(template_name='404.html'), name='404'),
 ]
