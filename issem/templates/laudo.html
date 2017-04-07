@@ -6,69 +6,40 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment">
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
 
             {% if msg %}
-                <div class="ui {{ tipo_msg }} message">
-                    <div class="header">
-                        {{ msg }}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
                     </div>
                 </div>
             {% endif %}
 
-            <br/>
-            <div class="ui grid">
-                {% if not id %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:index' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
                     </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="plus icon"></i>
-                            <div class="content">
-                                {{ tipo_laudo }}
-                                <div class="sub header">
-                                    Preencha o formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
-                    <div class="right floated four wide column"></div>
-                {% else %}
-                    <div class="left floated four wide column">
-                        <a href="{% url 'issem:index' %}">
-                            <div class="ui labeled icon button basic">
-                                <i class="left arrow icon"></i> Voltar
-                            </div>
-                        </a>
-                    </div>
-                    <div class="issem-title-edit-page">
-                        <h1 class="ui header">
-                            <i class="edit icon"></i>
-                            <div class="content">
-                                Edição de Laudo
-                                <div class="sub header">
-                                    Realize suas alterações no formulário abaixo
-                                </div>
-                            </div>
-                        </h1>
-                    </div>
-
-                    <div class="right floated right aligned four wide column">
-                        <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
-                            <i class="trash icon"></i> Excluir
-                        </a>
-                    </div>
-                {% endif %}
+                </a>
             </div>
-            <br/>
-            <br/>
 
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Cadastro de Laudo: {{ tipo_laudo }}</h1>
+                    {% else %}
+                        <h1><i class="edit icon"></i> Edição de Laudo: {{ tipo_laudo }}</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column"></div>
+
+            <div class="sixteen wide column issem-table-form">
 
 {#            {% if not msg %}#}
 {#                <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>#}
@@ -166,13 +137,10 @@
                 <div class="four wide field"></div>
             </div>
 
-            {% include 'blocos/buttons_form.html' %}
-            </form>
+                    {% include 'blocos/buttons_form.html' %}
+                </form>
 
-{#            {% else %}#}
-{#                <h5>{{ msg }}</h5>#}
-{#            {% endif %}#}
-
+            </div>
         </div>
     </div>
 

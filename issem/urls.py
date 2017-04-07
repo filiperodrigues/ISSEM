@@ -1,9 +1,9 @@
 # coding:utf-8
 from django.conf.urls import url
 from django.views.generic import TemplateView
-
 from issem import views
 from issem.views import *
+
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -24,8 +24,8 @@ urlpatterns = [
     ## BENEFÍCIO ##
     url(r'^cad/beneficio/$', BeneficioView.as_view(), name='cad_beneficio'),
     url(r'^edita/beneficio/(?P<id>\d+)/$', BeneficioView.as_view(), name='edita_beneficio'),
-    url(r'^deleta/beneficio/(?P<id>[0-9]+)/$', views.BeneficioDelete, name='deleta_beneficio'),
-    url(r'^lista/beneficios/$', views.ListaBeneficios, name='lista_beneficios'),
+    url(r'^deleta/beneficio/(?P<id>[0-9]+)/$', BeneficioView.BeneficioDelete, name='deleta_beneficio'),
+    url(r'^lista/beneficios/$', BeneficioView.ListaBeneficios, name='lista_beneficios'),
 
     ## PROCEDIMENTO MÉDICO ##
     url(r'^cad/procedimento_medico/$', ProcedimentoMedicoView.as_view(), name='cad_procedimento_medico'),

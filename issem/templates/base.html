@@ -49,19 +49,13 @@
     <div class="ui container">
         <a href="{% url 'issem:index' %}" class="item issem-icon-home"><i class="icon large home"></i></a>
         {% if user.groups.all.0.name == 'Técnico' %}
-            <div class="item">
-                Técnico
-            </div>
+            <a href="{% url 'issem:index' %}" class="item">Técnico</a>
         {% endif %}
         {% if user.groups.all.0.name == "Administrativo" %}
-            <div class="item">
-                Administrativo
-            </div>
+            <a href="{% url 'issem:index' %}" class="item">Administrativo</a>
         {% endif %}
         {% if user.groups.all.0.name == "Segurado" %}
-            <div class="item">
-                Segurado
-            </div>
+            <a href="{% url 'issem:index' %}" class="item">Segurado</a>
         {% endif %}
         <div class="right menu">
             <div class="ui pointing dropdown link item">

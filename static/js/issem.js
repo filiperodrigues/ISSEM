@@ -39,14 +39,8 @@ $(document).ready(function () {
     $('#id_orgao').dropdown();
     $('#id_groups').dropdown();
     $('.ui.dropdown').dropdown();
-    // $('.ui.modal')
-    //     .modal('setting', 'closable', false)
-    //     .modal('attach events', '#CadastroSecretaria', 'show')
-    //     .modal('attach events', '#ProximasConsultas', 'show')
-    // ;
 
     //grupo edicao
-
     id_campo = $('#group_user').val()
     $('#id_groups option[value=' + id_campo + ']').attr('selected', 'selected')
     valor_campo = $('#id_groups option[value=' + id_campo + ']').text()

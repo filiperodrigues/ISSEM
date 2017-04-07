@@ -6,81 +6,106 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment issem-cad">
-            <a href="{% url 'issem:lista_segurados' %}"><i class="big arrow circle left icon red"></i></a>
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
 
-            {% if not id %}
-                <h1>Requerimento de {{ beneficio_descricao }}</h1>
-            {% else %}
-                <h1>Edição de Requerimento {{ beneficio_descricao }}</h1>
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
             {% endif %}
 
-            {% if not msg %}
-                <form class="ui form" id="RequerimentoForm" method="post"
-                      action="{% url 'issem:cad_requerimento' id_beneficio %}">
-                    {% csrf_token %}
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
 
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
                     {% if not id %}
-                        <input type="hidden" name="id" value="">
+                        <h1><i class="plus icon"></i> Requerimento: {{ beneficio_descricao }}</h1>
                     {% else %}
-                        <input type="hidden" name="id" value="{{ id }}">
+                        <h1><i class="edit icon"></i> Edição do Requerimento: {{ beneficio_descricao }}</h1>
+                        <p>{{ edicao_define_agendamento }}</p>
                     {% endif %}
+                </div>
+            </div>
 
-                    <input type="hidden" id="beneficio" value="{{ id_beneficio }}" name="beneficio"/>
-                    <input type="hidden" id="segurado" value="{{ id_usuario }}" name="segurado"/>
+            <div class="three wide column"></div>
 
-                    <div class="fields">
-                        <div class="four wide field"></div>
-                        <div class="four wide field">
-                            {% if beneficio_descricao == "Prorrogação do benefício por incapacidade" %}
-                                <label>Data início do benefício <i class="asterisk icon red"></i></label>
-                            {% else %}
-                                <label>Data início do afastamento <i class="asterisk icon red"></i></label>
-                            {% endif %}
-                            {{ form.data_inicio_afastamento }}
-                            {% if form.data_inicio_afastamento.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.data_inicio_afastamento.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="four wide field">
-                            {% if beneficio_descricao == "Prorrogação do benefício por incapacidade" %}
-                                <label>Data final do benefício <i class="asterisk icon red"></i></label>
-                            {% else %}
-                                <label>Data final do afastamento <i class="asterisk icon red"></i></label>
-                            {% endif %}
-                            {{ form.data_final_afastamento }}
-                            {% if form.data_final_afastamento.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.data_final_afastamento.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="four wide field"></div>
-                    </div>
+            <div class="sixteen wide column issem-table-form">
 
-                    <div class="fields">
-                        <div class="two wide field"></div>
-                        <div class="twelve wide field">
-                            <div class="ui red message">
-                                Só poderão ser realizados requerimentos online para afastamentos com períodos maiores
-                                que 15(quinze) dias.
-                                <br/>
+                {% if not msg %}
+                    <form class="ui form" id="RequerimentoForm" method="post"
+                          action="{% url 'issem:cad_requerimento' id_beneficio %}">
+                        {% csrf_token %}
+
+                        {% if not id %}
+                            <input type="hidden" name="id" value="">
+                        {% else %}
+                            <input type="hidden" name="id" value="{{ id }}">
+                        {% endif %}
+
+                        <input type="hidden" id="beneficio" value="{{ id_beneficio }}" name="beneficio"/>
+                        <input type="hidden" id="segurado" value="{{ id_usuario }}" name="segurado"/>
+
+                        <div class="fields">
+                            <div class="four wide field"></div>
+                            <div class="four wide field">
+                                {% if beneficio_descricao == "Prorrogação do benefício por incapacidade" %}
+                                    <label>Data início do benefício <i class="asterisk icon red"></i></label>
+                                {% else %}
+                                    <label>Data início do afastamento <i class="asterisk icon red"></i></label>
+                                {% endif %}
+                                {{ form.data_inicio_afastamento }}
+                                {% if form.data_inicio_afastamento.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.data_inicio_afastamento.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
+                            <div class="four wide field">
+                                {% if beneficio_descricao == "Prorrogação do benefício por incapacidade" %}
+                                    <label>Data final do benefício <i class="asterisk icon red"></i></label>
+                                {% else %}
+                                    <label>Data final do afastamento <i class="asterisk icon red"></i></label>
+                                {% endif %}
+                                {{ form.data_final_afastamento }}
+                                {% if form.data_final_afastamento.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.data_final_afastamento.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="four wide field"></div>
                         </div>
-                        <div class="two wide field"></div>
-                    </div>
 
-                    {% include 'blocos/buttons_form.html' %}
-                </form>
+                        <div class="fields">
+                            <div class="two wide field"></div>
+                            <div class="twelve wide field">
+                                <div class="ui red message">
+                                    Só poderão ser realizados requerimentos online para afastamentos com períodos
+                                    maiores
+                                    que 15(quinze) dias.
+                                    <br/>
+                                </div>
+                            </div>
+                            <div class="two wide field"></div>
+                        </div>
 
-            {% else %}
-                <h5>{{ msg }}</h5>
-            {% endif %}
 
+                        {% include 'blocos/buttons_form.html' %}
+                    </form>
+                {% endif %}
 
+            </div>
         </div>
     </div>
 

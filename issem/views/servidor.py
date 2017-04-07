@@ -1,9 +1,8 @@
 # coding:utf-8
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render
 from issem.models import ServidorModel
-from issem.forms import ServidorFormCad, PessoaPasswordForm, ServidorFormEdit
+from issem.forms import ServidorFormCad, ServidorFormEdit
 from django.views.generic.base import View
-from issem.models import EstadoModel
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
@@ -31,6 +30,7 @@ class ServidorView(View):
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user,
                                                'id_group_user': id_group_user})
 
+    @method_decorator(user_passes_test(group_test))
     def post(self, request, id=None):
         id_group_user = 0
         if request.POST['id']:  # EDIÇÃO
@@ -80,8 +80,8 @@ class ServidorView(View):
 
 def ServidorDelete(request, id):
     servidor = ServidorModel.objects.get(pk=id)
-    servidor.excluido = True
-    servidor.save()
+    # servidor.excluido = True
+    # servidor.save()
     return ListaServidores(request, msg="Servidor excluído com sucesso!", tipo_msg="green")
 
 

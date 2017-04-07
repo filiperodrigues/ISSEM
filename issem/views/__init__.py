@@ -1,4 +1,4 @@
-from issem.views.beneficio import *
+from issem.views.beneficio import BeneficioView
 from issem.views.cargo import *
 from issem.views.cid import *
 from issem.views.cidade import *
