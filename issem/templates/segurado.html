@@ -56,72 +56,68 @@
             </div>
 
             <div class="sixteen wide column issem-table-form">
-                {% if not id %}
-                    <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:cad_segurado' %}">
-                {% else %}
-                    <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:edita_segurado' id %}">
-                {% endif %}
+                <form class="ui form" id="SeguradoForm" method="post" action="{% url 'issem:cad_segurado' %}">
 
-                {% include 'blocos/formulario_pessoa.html' %}
+                    {% include 'blocos/formulario_pessoa.html' %}
 
-                <h4 class="ui dividing red header">Dados específicos do Segurado</h4>
-                <div class="fields">
-                    <div class="two wide field"></div>
-                    <div class="four wide field">
-                        <label>Local de Trabalho</label>
-                        {{ form.local_trabalho }}
-                        {% if form.local_trabalho.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.local_trabalho.errors }}
+                    <h4 class="ui dividing red header">Dados específicos do Segurado</h4>
+                    <div class="fields">
+                        <div class="two wide field"></div>
+                        <div class="four wide field">
+                            <label>Local de Trabalho</label>
+                            {{ form.local_trabalho }}
+                            {% if form.local_trabalho.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.local_trabalho.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>PIS/PASEP/NIT</label>
+                            <div class="somente_numeros">
+                                {{ form.pasep_pis_nit }}
+                                {% if form.pasep_pis_nit.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.pasep_pis_nit.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="two wide field">
-                        <label>PIS/PASEP/NIT</label>
-                        <div class="somente_numeros">
-                            {{ form.pasep_pis_nit }}
-                            {% if form.pasep_pis_nit.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.pasep_pis_nit.errors }}
-                                </div>
-                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Documento legal</label>
+                            <div class="somente_numeros">
+                                {{ form.documento_legal }}
+                                {% if form.documento_legal.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.documento_legal.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <label>Data de Admissão</label>
+                            <div class="data">
+                                {{ form.data_admissao }}
+                                {% if form.data_admissao.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.data_admissao.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                    <div class="two wide field">
-                        <label>Documento legal</label>
-                        <div class="somente_numeros">
-                            {{ form.documento_legal }}
-                            {% if form.documento_legal.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.documento_legal.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="four wide field">
-                        <label>Data de Admissão</label>
-                        <div class="data">
-                            {{ form.data_admissao }}
-                            {% if form.data_admissao.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.data_admissao.errors }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
 
-                {% if id %}
-                    <div class="ui grid center aligned">
-                        <div class="row">
-                            <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
-                                dependente</a>
+                    {% if id %}
+                        <div class="ui grid center aligned">
+                            <div class="row">
+                                <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
+                                    dependente</a>
+                            </div>
                         </div>
-                    </div>
-                    <br/>
-                {% endif %}
+                        <br/>
+                    {% endif %}
 
-                {% include 'blocos/buttons_form.html' %}
+                    {% include 'blocos/buttons_form.html' %}
                 </form>
 
             </div>

@@ -82,11 +82,9 @@ class RequerimentoView(View):
                                 msg = define_mensagem_consulta(data_pericia, hora_pericia, beneficio)
                                 return render(request, self.template,
                                               {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
-                                break
                         else:
                             msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
                             return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario': id_usuario})
-                            break
                 return HttpResponseRedirect('/')
         else:
             print(form.errors)

@@ -37,7 +37,7 @@ class RequerimentoServidorView(View):
         return render(request, self.template,
                       {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
                        'method': 'get', 'id': id_requerimento, 'beneficio_descricao': beneficio_descricao,
-                       'id_beneficio': beneficio_id, 'id_agendamento': id_agendamento, 'id_usuario' : id_usuario})
+                       'id_beneficio': beneficio_id, 'id_agendamento': id_agendamento, 'id_usuario': id_usuario})
 
     def post(self, request, id_beneficio=None):
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
@@ -84,14 +84,19 @@ class RequerimentoServidorView(View):
                 form_agendamento_model.save()
 
             msg = "Consulta agendada"
-            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : usuario_logado.id, 'id_beneficio': id_beneficio})
-
+            tipo_msg = 'green'
+            return render(request, self.template,
+                          {'msg': msg, 'tipo_msg': tipo_msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario': usuario_logado.id,
+                           'id_beneficio': id_beneficio})
         else:
             print(form_requerimento.errors)
+            beneficio = BeneficioModel.objects.get(pk=id_beneficio)
+            beneficio_descricao = beneficio.descricao
 
         return render(request, self.template,
                       {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
-                       'method': 'post', 'id_beneficio': id_beneficio, 'id_usuario' : usuario_logado.id })
+                       'beneficio_descricao': beneficio_descricao,
+                       'method': 'post', 'id_beneficio': id_beneficio, 'id_usuario': usuario_logado.id})
 
 
 def RequerimentoDelete(request, id):
@@ -103,7 +108,7 @@ def RequerimentoDelete(request, id):
 def ApresentaAgendamentos(request):
     agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
-    return render(request, 'tabela_agendamentos.html', {'dados' : dados, 'page_range': page_range, 'ultima' : ultima})
+    return render(request, 'tabela_agendamentos.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima})
 
 
 def ApresentaAgendamentosMedico(request):
@@ -112,10 +117,10 @@ def ApresentaAgendamentosMedico(request):
         if 'page' not in request.GET:
             data_inicio = str(request.POST['data_inicio_periodo']).split('/')
             inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
-            data_inicio_formatada = str(inicio_ano +"-"+ inicio_mes +"-"+ inicio_dia)
+            data_inicio_formatada = str(inicio_ano + "-" + inicio_mes + "-" + inicio_dia)
             data_fim = str(request.POST['data_fim_periodo']).split('/')
             fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
-            data_fim_formatada = str(fim_ano +"-"+ fim_mes +"-"+ fim_dia)
+            data_fim_formatada = str(fim_ano + "-" + fim_mes + "-" + fim_dia)
             var_controle = 1
         else:
             data_inicio_formatada = request.GET['data_inicio_formatada']
@@ -125,10 +130,12 @@ def ApresentaAgendamentosMedico(request):
         data_inicio_formatada = date.today()
         data_fim_formatada = date.today()
 
-    agendamentos = AgendamentoModel.objects.filter(data_pericia__range=(data_inicio_formatada,data_fim_formatada)).order_by('data_pericia')
+    agendamentos = AgendamentoModel.objects.filter(
+        data_pericia__range=(data_inicio_formatada, data_fim_formatada)).order_by('data_pericia')
 
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     form = FiltroAgendaForm
-    return render(request, 'agenda_medica.html', {'dados': dados, 'form' : form, 'data_inicio_formatada' : data_inicio_formatada,
-                                                  'data_fim_formatada' : data_fim_formatada, 'var_controle' : var_controle,
-                                                  'page_range': page_range, 'ultima': ultima})
+    return render(request, 'agenda_medica.html',
+                  {'dados': dados, 'form': form, 'data_inicio_formatada': data_inicio_formatada,
+                   'data_fim_formatada': data_fim_formatada, 'var_controle': var_controle,
+                   'page_range': page_range, 'ultima': ultima})
