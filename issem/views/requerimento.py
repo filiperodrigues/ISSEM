@@ -34,7 +34,7 @@ class RequerimentoView(View):
                       {'form': form, 'method': 'get', 'id': id, 'beneficio_descricao': beneficio_descricao,
                        'id_beneficio': beneficio_id, 'id_usuario': id_usuario})
 
-    def post(self, request, id_beneficio=None):
+    def post(self, request, id_beneficio=None, msg=None, tipo_msg=None):
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
         usuario_logado = User.objects.get(pk=request.user.id)
         id_usuario = usuario_logado.id
@@ -58,7 +58,8 @@ class RequerimentoView(View):
             tempo_dias_afastamento = requerimento.data_final_afastamento - requerimento.data_inicio_afastamento
             if tempo_dias_afastamento < timedelta(days=15):
                 msg = "O prazo para agendamento automatico via sistema ISSEM é de no mínimo 15(quinze) dias de afastamento."
-                return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao
+                tipo_msg = 'red'
+                return render(request, self.template, {'msg': msg, 'tipo_msg': tipo_msg, 'beneficio_descricao': beneficio.descricao
                     , 'id_usuario': id_usuario})
             else:
                 if date.today() > prazo_pericia_final:

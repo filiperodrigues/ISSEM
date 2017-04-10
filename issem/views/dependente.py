@@ -17,20 +17,23 @@ class DependenteView(View):
 
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, id_segurado=None):
-        if id:
+        segurado = None
+        id_group_user = None
+        if not id and id_segurado:
+            segurado = SeguradoModel.objects.get(pk=id_segurado)
+            form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio, para um segurado específico
+        elif id and not id_segurado:
             dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = DependenteFormEdit(instance=dependente)
-            group_user = Group.objects.get(user=id)
-            id_group_user = group_user.id
+            id_group_user = Group.objects.get(user=id).id
         else:
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio
-            id_group_user = ""
 
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado': id_segurado,
-                                               'id_group_user': id_group_user})
+                                               'id_group_user': id_group_user, 'segurado': segurado})
 
     def post(self, request, id_segurado=None):
-        id_group_user = 0
+        id_group_user = None
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             dependente = DependenteModel.objects.get(pk=id)
@@ -49,6 +52,8 @@ class DependenteView(View):
 
         else:  # CADASTRO NOVO
             id = None
+            id_segurado = request.POST['id_segurado']
+            segurado = SeguradoModel.objects.get(pk=id_segurado)
             form = DependenteFormCad(data=request.POST)
 
             if form.is_valid():
@@ -58,6 +63,8 @@ class DependenteView(View):
                 user = DependenteModel.objects.get(username=request.POST["username"])
                 user.groups.add(gp)
                 user.save()
+                segurado.dependente.add(user)
+                segurado.save()
                 msg = 'Cadastro efetuado com sucesso!'
                 tipo_msg = 'green'
                 form = DependenteFormCad()

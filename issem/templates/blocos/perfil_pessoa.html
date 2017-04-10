@@ -1,12 +1,5 @@
-{% csrf_token %}
-
-{% if not id %}
-    <input type="hidden" name="id" value="">
-{% else %}
-    <input type="hidden" name="id" value="{{ id }}">
-{% endif %}
-
 <h4 class="ui dividing red header">Informações Pessoais</h4>
+
 <div class="fields">
     <div class="four wide field">
         <label> Nome </label>

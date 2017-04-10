@@ -29,8 +29,11 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    {% if not id %}
+                    {% if not id and not segurado%}
                         <h1><i class="plus icon"></i> Cadastro de Dependente</h1>
+                    {% elif segurado %}
+                        <h1><i class="plus icon"></i> Cadastro de Dependente</h1>
+                        <h3>Para o(a) segurado(a): "{{ segurado.nome }}"</h3>
                     {% else %}
                         <h1><i class="edit icon"></i> Edição de Dependente</h1>
                     {% endif %}
@@ -95,6 +98,12 @@
                         </div>
                     </div>
                 </div>
+
+                {% if segurado%}
+                    <input type="hidden" name="id_segurado" value="{{ segurado.id }}"/>
+                {% else %}
+                    <input type="hidden" name="id_segurado" value="#"/>
+                {% endif %}
 
                 {% include 'blocos/buttons_form.html' %}
                 </form>

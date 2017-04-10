@@ -16,7 +16,7 @@
                             {{ msg }}
                             {% if id_segurado %}
                                 <a href="{% url 'issem:cad_dependente_segurado' id_segurado %}">
-                                    - Cadastrar um dependente ao segurado <u>{{ nome }}</u>.</a>
+                                    <u>- Cadastrar um dependente ao segurado {{ nome }}</u>.</a>
                             {% endif %}
                         </div>
                     </div>

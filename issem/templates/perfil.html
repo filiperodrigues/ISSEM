@@ -2,30 +2,40 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment">
-        <br/>
-            <div class="ui grid">
-                <div class="left floated  four wide column">
-                    <a href="{% url 'issem:index' %}">
-                        <div class="ui labeled icon button basic">
-                            <i class="left arrow icon"></i> Voltar
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
                         </div>
-                    </a>
+                    </div>
                 </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1>Meu Perfil</h1>
-                </div>
-                <div class="right floated right aligned four wide column">
-{#                    <a href="#">#}
-{#                        <div class="ui labeled icon button blue">#}
-{#                            <i class="edit icon"></i> Alterar Perfil#}
-{#                        </div>#}
-{#                    </a>#}
+                    <h1><i class="user icon"></i> {{ usuario.nome }}</h1>
                 </div>
             </div>
 
-            <form class="ui form">
+            <div class="three wide column">
+                {#                <a class="ui right floated labeled icon button blue" href="#">#}
+                {#                    <i class="edit icon"></i> Alterar Perfil#}
+                {#                </a>#}
+            </div>
+
+            <div class="ui form sixteen wide column issem-table-form">
                 {% include 'blocos/perfil_pessoa.html' %}
 
                 {% if usuario.groups.all.0.name == 'Administrativo' or usuario.groups.all.0.name == "Tecnico" %}
@@ -37,8 +47,8 @@
                     {% include 'blocos/perfil_segurado.html' %}
 
                 {% endif %}
-            </form>
 
+            </div>
         </div>
     </div>
 

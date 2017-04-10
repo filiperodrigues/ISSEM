@@ -10,29 +10,25 @@ class PerfilView(View):
 
     def get(self, request, id=None):
         usuario = User.objects.get(pk=id)
-        group_user = usuario.groups.all()[0]
+        grupo = usuario.groups.get()
 
-        if group_user != "":
-
-            if str(group_user) == "Administrativo" or str(group_user) == "Tecnico":
-                group_user = False
+        if grupo != "":
+            if str(grupo) == "Administrativo" or str(grupo) == "Tecnico":
+                grupo = False
                 if id:  # EDIÇÃO
                     usuario = ServidorModel.objects.get(pk=id)
-                    group_user = Group.objects.get(user=id).id
+                    grupo = Group.objects.get(user=id).id
 
-            elif str(group_user) == 'Segurado':
-                group_user = False
+            elif str(grupo) == 'Segurado':
+                grupo = False
                 if id:  # EDIÇÃO
                     usuario = SeguradoModel.objects.get(pk=id)
-                    group_user = Group.objects.get(user=id).id
+                    grupo = Group.objects.get(user=id).id
 
-            elif str(group_user) == 'Dependente':
-                group_user = False
+            elif str(grupo) == 'Dependente':
+                grupo = False
                 if id:  # EDIÇÃO
                     usuario = DependenteModel.objects.get(pk=id)
-                    group_user = Group.objects.get(user=id).id
+                    grupo = Group.objects.get(user=id).id
 
-        return render(request, self.template, {'method': 'get', 'id': id, 'group_user': group_user, 'usuario': usuario})
-
-# class EditaPerfil(View):
-#     template = edita
+        return render(request, self.template, {'method': 'get', 'id': id, 'group_user': grupo, 'usuario': usuario})
