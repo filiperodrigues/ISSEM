@@ -19,7 +19,7 @@ class PaginaFuncionarioView(View):
 
     def get(self, request):
         context_dict = {}
-        context_dict['beneficios'] = BeneficioModel.objects.all()
+        context_dict['beneficios'] = BeneficioModel.objects.filter(excluido=0)
         hoje_mais_um_dia = date.today() + timedelta(days=1)
         hoje_mais_dois_dias = date.today() + timedelta(days=2)
         context_dict['proximos_agendamentos'] = AgendamentoModel.objects.filter(Q(data_pericia=hoje_mais_um_dia) | Q(data_pericia=hoje_mais_dois_dias)).order_by('data_pericia')

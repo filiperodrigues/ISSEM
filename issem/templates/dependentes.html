@@ -50,7 +50,9 @@
                     {% for dado in dados %}
                         <tr>
                             {% if dado.nome != "" %}
-                                <td>{{ dado.nome }}</td>
+                                <td>
+                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.nome }}</a>
+                                </td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}

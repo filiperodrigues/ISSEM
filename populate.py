@@ -31,11 +31,7 @@ def populate():
         add_cargo(c)
 
     # TIPOS DE LAUDO
-    letras = list(string.ascii_lowercase)
-    letras += letras
-    tipos_laudos = []
-    for a in letras:
-        tipos_laudos.append(a)
+    tipos_laudos = ["Laudo 1", "Laudo 2", "Laudo 3"]
     for t in tipos_laudos:
         add_tipo_laudo(t)
 
@@ -138,16 +134,11 @@ def populate():
         add_local_trabalho(lt[0], lt[1], lt[2], lt[3], lt[4], lt[5], lt[6], lt[7], lt[8])
 
     # PROCEDIMENTOS MÉDICOS
-    letras = list(string.ascii_lowercase)
-    letras += letras
-    valor = 0
-    codigo = 0
-    procedimentos_medicos = []
-    for a in letras:
-        valor += 1
-        codigo += 1
-        procedimentos_medicos.append([codigo, a, valor])
-
+    procedimentos_medicos = [
+        [54, "Procedimento Médico 1", 45],
+        [55, "Procedimento Médico 2", 46],
+        [56, "Procedimento Médico 3", 47],
+    ]
     for pm in procedimentos_medicos:
         add_procedimento_medico(pm[0], pm[1], pm[2])
 

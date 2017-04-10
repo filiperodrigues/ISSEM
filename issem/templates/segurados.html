@@ -51,7 +51,9 @@
                     {% for dado in dados %}
                         <tr>
                             {% if dado.nome != "" %}
-                                <td>{{ dado.nome }}</td>
+                                <td>
+                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.nome }}</a>
+                                </td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
@@ -70,11 +72,6 @@
                                 <a href="{% url 'issem:edita_segurado' dado.id %}">
                                     <div class="ui labeled icon button">
                                         <i class="edit icon"></i> Editar
-                                    </div>
-                                </a>
-                                <a href="{% url 'issem:perfil' dado.id %}">
-                                    <div class="ui labeled icon button">
-                                        <i class="edit icon"></i> Perfil
                                     </div>
                                 </a>
                             </td>
