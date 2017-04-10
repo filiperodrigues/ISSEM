@@ -36,9 +36,7 @@ class GeraAgendamentoServidorView(View):
                        'id_beneficio': beneficio_id, 'id_agendamento': id_agendamento, 'var_controle': var_controle})
 
     def post(self, request, id_requerimento=None):
-        if request.POST['id']:  #
-            # id_requerimento = request.POST['id']
-            print(id_requerimento)
+        if request.POST['id']:
             requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
             agendamento = AgendamentoModel()
             form_requerimento = RequerimentoForm(instance=requerimento, data=request.POST)
@@ -70,10 +68,11 @@ class GeraAgendamentoServidorView(View):
             requerimento.possui_agendamento = True
             requerimento.save()
 
-            msg = define_mensagem_agendamento(data_pericia, hora_pericia)
-            return render(request, self.template, {'msg': msg, 'beneficio_descricao': requerimento.beneficio.descricao})
+            msg_cadastro_concluido = define_mensagem_agendamento(data_pericia, hora_pericia)
+            return render(request, self.template, {'msg': msg_cadastro_concluido, 'beneficio_descricao': requerimento.beneficio.descricao, 'id_beneficio': requerimento.beneficio.id})
 
         else:
+            requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
             print(form_requerimento.errors)
 
         return render(request, self.template,

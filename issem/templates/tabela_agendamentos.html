@@ -55,7 +55,7 @@
                             {% else %}
                                 <td>---</td>
                             {% endif %}
-                            {% if dado.requerimento.segurado == "None" %}
+                            {% if dado.requerimento.segurado != "None" %}
                                 <td>{{ dado.requerimento.segurado }}</td>
                             {% else %}
                                 <td>---</td>

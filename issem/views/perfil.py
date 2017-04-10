@@ -1,36 +1,37 @@
 # coding:utf-8
 from django.shortcuts import render
-from issem.models import ServidorModel, SeguradoModel
+from issem.models import ServidorModel, SeguradoModel, DependenteModel
 from django.views.generic.base import View
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
 
 class PerfilView(View):
     template = 'perfil.html'
 
     def get(self, request, id=None):
-        grupos = request.user.groups.all()
+        grupo = User.objects.get(id=id)
         group_user = None
         usuario = None
-        if len(grupos) > 0:
-            grupo_1 = str(grupos[0])
+        print(grupo)
+        if grupo != "":
+            # grupo_1 = str(grupos[0])
 
-            if grupo_1 == "Técnico":
+            if str(grupo) == "servidor" or str(grupo) == "medico":
                 group_user = False
                 if id:  # EDIÇÃO
                     usuario = ServidorModel.objects.get(pk=id)
                     group_user = Group.objects.get(user=id).id
 
-            elif grupo_1 == 'Segurado':
+            elif str(grupo) == 'segurado':
                 group_user = False
                 if id:  # EDIÇÃO
                     usuario = SeguradoModel.objects.get(pk=id)
                     group_user = Group.objects.get(user=id).id
 
-            elif grupo_1 == 'Administrativo':
+            elif str(grupo) == 'dependente':
                 group_user = False
                 if id:  # EDIÇÃO
-                    usuario = ServidorModel.objects.get(pk=id)
+                    usuario = DependenteModel.objects.get(pk=id)
                     group_user = Group.objects.get(user=id).id
 
         return render(request, self.template, {'method': 'get', 'id': id, 'group_user': group_user, 'usuario': usuario})

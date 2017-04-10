@@ -13,28 +13,12 @@ from django.contrib.auth.models import Group
 
 def populate():
     # BENEFÍCIOS
-    beneficios = [[1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício Populate" , 1, "2010-10-10", 3.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
-                  [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício por incapacidade", 1, "2010-10-10", 3.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
+    beneficios = [[1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício por incapacidade", 1, "2010-10-10", 3.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
                   [0, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Licença Adoção", 2, "2010-10-10", 4.000, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 4],
                   [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Prorrogação do benefício por incapacidade", 3, "2010-10-10", 4.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 8],
                   ]
     for b in beneficios:
         add_beneficio(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10])
-
-    #REQUERIMENTOS
-    requerimentos = []
-    for i in range(1,29):
-        requerimentos.append(["2010-04-15", "2010-05-25", "2012-06-"+str(i)])
-    for requerimento in requerimentos:
-        add_requerimento(requerimento[0], requerimento[1], requerimento[2])
-
-    #AGENDAMENTOS:
-    agendamentos = []
-    for j in range(1,29):
-        agendamentos.append(["2017-05-"+str(j), "2017-03-22", "14:30", j])
-
-    for agendamento in agendamentos:
-        add_agendamento(agendamento[0],agendamento[1],agendamento[2], agendamento[3])
 
     # GRUPOS
     grupos = ['Administrativo', 'Tecnico', 'Segurado', 'Dependente']
@@ -183,19 +167,11 @@ def populate():
     for cp in consulta_parametros:
         add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4])
 
-def add_requerimento(dt_inicio, dt_fim, dt_requerimento):
-    beneficio = BeneficioModel.objects.get(id=1)
-    return RequerimentoModel.objects.get_or_create(beneficio=beneficio, data_inicio_afastamento=dt_inicio, data_final_afastamento=dt_fim, data_requerimento=dt_requerimento)
-
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
     return BeneficioModel.objects.get_or_create(concessao=c, data_inicial=di, data_final=df, data_retorno=dr,
                                                 data_pericia=dp,
                                                 descricao=d, numero_portaria=np, data_portaria=dpt, salario_maximo=sm,
                                                 observacao=obs, carencia=ca)
-
-def add_agendamento(dt_pericia, dt_agendamento, hr_pericia, requerimento):
-    obj_requerimento = RequerimentoModel.objects.get(id=requerimento)
-    return AgendamentoModel.objects.get_or_create(data_agendamento=dt_agendamento, data_pericia=dt_pericia, hora_pericia=hr_pericia, requerimento=obj_requerimento)
 
 def add_grupo(g):
     return Group.objects.get_or_create(name=g)[0]

@@ -17,19 +17,11 @@
                     <h1>Meu Perfil</h1>
                 </div>
                 <div class="right floated right aligned four wide column">
-                    {% if usuario.groups.all.0.name == 'Administrativo' or usuario.groups.all.0.name == "Técnico" %}
                     <a href="{% url 'issem:edita_servidor' usuario.id %}">
                         <div class="ui labeled icon button blue">
                             <i class="edit icon"></i> Alterar Perfil
                         </div>
                     </a>
-                    {% elif usuario.groups.all.0.name == "Segurado" %}
-                    <a href="{% url 'issem:edita_segurado' usuario.id %}">
-                        <div class="ui labeled icon button blue">
-                            <i class="edit icon"></i> Alterar Perfil
-                        </div>
-                    </a>
-                    {% endif %}
                 </div>
             </div>
 

@@ -18,11 +18,8 @@ class RequerimentoForm(forms.ModelForm):
         model = RequerimentoModel
         fields = '__all__'
 
-    # def clean_data_final_afastamento(self):
-    #     print("ENTRANDO NO CLEAN !!!")
-    #     print(self.cleaned_data.get('data_inicial'))
-    #     return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
-    #
+    def clean_data_final_afastamento(self):
+        return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
 
     def clean_data_requerimento(self):
         data_requerimento = date.today()

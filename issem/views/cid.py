@@ -50,6 +50,6 @@ def CidDelete(request, id):
 
 
 def ListaCids(request, msg=None, tipo_msg=None):
-    servidores = CidModel.objects.filter(excluido=False)
-    dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
+    cids = CidModel.objects.filter(excluido=False)
+    dados, page_range, ultima = pagination(cids, request.GET.get('page'))
     return render(request, 'cids.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
