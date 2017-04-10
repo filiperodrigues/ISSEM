@@ -34,15 +34,14 @@ class BeneficioView(View):
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
-
-def ListaBeneficios(request):
-    beneficios = BeneficioModel.objects.filter(excluido=0)
-    dados, page_range, ultima = pagination(beneficios, request.GET.get('page'))
-    return render(request, 'beneficios.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima})
-
-
 def BeneficioDelete(request, id):
     beneficio = BeneficioModel.objects.get(pk=id)
     beneficio.excluido = True
     beneficio.save()
-    return HttpResponseRedirect('/')
+    return ListaBeneficios(request, msg="Benefício excluído com sucesso!", tipo_msg="green")
+
+def ListaBeneficios(request, msg=None, tipo_msg=None):
+    beneficios = BeneficioModel.objects.filter(excluido=0)
+    dados, page_range, ultima = pagination(beneficios, request.GET.get('page'))
+    return render(request, 'beneficios.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+

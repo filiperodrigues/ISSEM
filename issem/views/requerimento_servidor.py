@@ -42,7 +42,6 @@ class RequerimentoServidorView(View):
     def post(self, request, id_beneficio=None):
         beneficio = BeneficioModel.objects.get(pk=id_beneficio)
         usuario_logado = User.objects.get(pk=request.user.id)
-        id_usuario = usuario_logado.id
         if request.POST['id']:
             id_requerimento = request.POST['id']
             id_agendamento = request.POST['id_agendamento']
@@ -85,14 +84,14 @@ class RequerimentoServidorView(View):
                 form_agendamento_model.save()
 
             msg = "Consulta agendada"
-            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
+            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : usuario_logado.id, 'id_beneficio': id_beneficio})
 
         else:
             print(form_requerimento.errors)
 
         return render(request, self.template,
                       {'form_requerimento': form_requerimento, 'form_agendamento': form_agendamento,
-                       'method': 'post', 'id_beneficio': id_beneficio, 'id_usuario' : id_usuario})
+                       'method': 'post', 'id_beneficio': id_beneficio, 'id_usuario' : usuario_logado.id })
 
 
 def RequerimentoDelete(request, id):

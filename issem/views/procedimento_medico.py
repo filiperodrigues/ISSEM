@@ -46,10 +46,10 @@ def ProcedimentoMedicoDelete(request, id):
     procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id)
     procedimento_medico.excluido = True
     procedimento_medico.save()
-    return HttpResponseRedirect('/')
+    return ListaProcedimentosMedicos(request, msg="Procedimento Médico excluído com sucesso!", tipo_msg="green")
 
 
-def ListaProcedimentosMedicos(request):
+def ListaProcedimentosMedicos(request, msg=None, tipo_msg=None):
     procedimentos_medico = ProcedimentoMedicoModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(procedimentos_medico, request.GET.get('page'))
-    return render(request, 'procedimentos_medicos.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima})
+    return render(request, 'procedimentos_medicos.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

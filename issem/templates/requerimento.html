@@ -6,9 +6,26 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment issem-cad">
-            <a href="{% url 'issem:lista_segurados' %}"><i class="big arrow circle left icon red"></i></a>
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
 
             {% if not id %}
                 <h1>Requerimento de {{ beneficio_descricao }}</h1>
@@ -76,8 +93,6 @@
                     {% include 'blocos/buttons_form.html' %}
                 </form>
 
-            {% else %}
-                <h5>{{ msg }}</h5>
             {% endif %}
 
 

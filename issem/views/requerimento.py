@@ -30,7 +30,6 @@ class RequerimentoView(View):
 
         else:
             form = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
-        print(form)
         return render(request, self.template,
                       {'form': form, 'method': 'get', 'id': id, 'beneficio_descricao': beneficio_descricao,
                        'id_beneficio': beneficio_id, 'id_usuario': id_usuario})
@@ -93,7 +92,7 @@ class RequerimentoView(View):
             print(form.errors)
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_beneficio': beneficio.id,
-                                               'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
+                                               'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario, 'msg': msg})
 
 
 def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):

@@ -65,7 +65,6 @@
                     <input type="hidden" name="id" value="{{ id }}">
                     <input type="hidden" name="id_agendamento" value="{{ id_agendamento }}">
                 {% endif %}
-
                 <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
                     <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
                 </select>
@@ -139,8 +138,6 @@
                 {% include 'blocos/buttons_form.html' %}
                 </form>
 
-                {% else %}
-                    <h5>{{ msg }}</h5>
                 {% endif %}
 
             </div>

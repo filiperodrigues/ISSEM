@@ -35,14 +35,14 @@ class TipoLaudoView(View):
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
 
-def ListaTiposLaudos(request):
+def ListaTiposLaudos(request, msg=None, tipo_msg=None):
     tipo_laudos = TipoLaudoModel.objects.filter(excluido=0)
     dados, page_range, ultima = pagination(tipo_laudos, request.GET.get('page'))
-    return render(request, 'tipos_laudo.html', {'dados': dados, 'page_range':page_range, 'ultima' : ultima})
+    return render(request, 'tipos_laudo.html', {'dados': dados, 'page_range':page_range, 'ultima' : ultima, 'msg': msg, 'tipo_msg': tipo_msg})
 
 
 def TipoLaudoDelete(request, id):
     tipo_Laudo = TipoLaudoModel.objects.get(pk=id)
     tipo_Laudo.excluido = True
     tipo_Laudo.save()
-    return HttpResponseRedirect('/')
+    return ListaTiposLaudos(request, msg="Tipo de Laudo excluído com sucesso!", tipo_msg="green")
