@@ -52,6 +52,7 @@ class RequerimentoServidorView(View):
         else:  # CADASTRO NOVO
             form_requerimento = RequerimentoForm(data=request.POST)
             form_agendamento = AgendamentoForm(data=request.POST)
+            id_requerimento = ""
 
         if form_requerimento.is_valid():
             current_user = request.user

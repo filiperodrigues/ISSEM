@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:segurado' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    <h1><i class="calendar icon"></i> Meus Requerimentos</h1>
+                </div>
+            </div>
+
+            <div class="three wide column"></div>
+
+            {% if dados %}
+                <table class="ui celled table issem-table-form">
+                    <thead>
+                    <tr>
+                        <th>Benefício</th>
+                        <th>Data do agendamento</th>
+                        <th>Houve consulta</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dado in dados %}
+                        <tr>
+                            {% if dado.beneficio != "" %}
+                                <td>{{ dado.beneficio }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+                            {% if dado.data_requerimento != "" %}
+                                <td>{{ dado.data_requerimento }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+                            {% if dado.possui_agendamento %}
+                                <td>Sim</td>
+                            {% else %}
+                                <td>Não</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                </table>
+
+                {% include 'blocos/pagination.html' %}
+            {% else %}
+                <div class="sixteen wide column issem-div-message">
+                    <br/>
+                    <div class="ui yellow message">
+                        <div class="header">
+                            Não existem dados entre os períodos.
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

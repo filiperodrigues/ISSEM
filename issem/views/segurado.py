@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render
-from issem.models import SeguradoModel
+from issem.models import SeguradoModel, RequerimentoModel
 from issem.forms import PessoaPasswordForm, SeguradoFormEdit, SeguradoFormCad
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
@@ -92,3 +92,13 @@ def ListaSegurados(request, msg=None, tipo_msg=None):
         context_dict['tipo_msg'] = tipo_msg
 
     return render(request, 'segurados.html', context_dict)
+
+def ListaRequerimentosSegurado(request, id=None):
+    context_dict = {}
+    requerimentos = RequerimentoModel.objects.filter(segurado=id)
+    print(requerimentos)
+    dados, page_range, ultima = pagination(requerimentos, request.GET.get('page'))
+    context_dict['dados'] = dados
+    context_dict['page_range'] = page_range
+    context_dict['ultima'] = ultima
+    return render(request, 'requerimentos_segurado.html', context_dict)

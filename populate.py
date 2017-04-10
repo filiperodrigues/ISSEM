@@ -36,18 +36,18 @@ def populate():
         add_tipo_laudo(t)
 
     # CIDs
-    letras = list(string.ascii_lowercase)
-    letras+= letras
-    status = 0
-    gravidade = 0
-    cod_cid = 0
-    cids = []
-    for a in letras:
-        status+=1
-        gravidade+=1
-        cod_cid+=1
-        cids.append([a, status, gravidade, cod_cid])
-
+    cids = [
+            ["Gripe", 0, 0, 465],
+            ["Rinite", 0, 0, 456],
+            ["Asma/Bronquite", 0, 0, 321],
+            ["Pressão alta", 0, 0, 147],
+            ["Depressão", 0, 0, 951],
+            ["Tireóide", 0, 0, 753],
+            ["Diabetes", 0, 0, 145],
+            ["Osteoporose", 0, 0, 654],
+            ["Dor nos Braços/Mãos", 0, 0, 959],
+            ["Gastrite Crônica", 0, 0, 124],
+            ]
     for cid in cids:
         add_cid(cid[0], cid[1], cid[2], cid[3])
 
