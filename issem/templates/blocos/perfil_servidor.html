@@ -13,10 +13,15 @@
         <label> Departamento </label>
         {{ usuario.groups.all.0.name }}
     </div>
-    {% if user.groups.all.0.name == 'Técnico' %}
+
+    {% if usuario.crm %}
         <div class="four wide field">
             <label>CRM</label>
             {{ usuario.crm }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
         </div>
     {% endif %}
     <div class="four wide field"></div>

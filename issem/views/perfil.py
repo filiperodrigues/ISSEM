@@ -9,26 +9,24 @@ class PerfilView(View):
     template = 'perfil.html'
 
     def get(self, request, id=None):
-        grupo = User.objects.get(id=id)
-        group_user = None
-        usuario = None
-        print(grupo)
-        if grupo != "":
-            # grupo_1 = str(grupos[0])
+        usuario = User.objects.get(pk=id)
+        group_user = usuario.groups.all()[0]
 
-            if str(grupo) == "servidor" or str(grupo) == "medico":
+        if group_user != "":
+
+            if str(group_user) == "Administrativo" or str(group_user) == "Tecnico":
                 group_user = False
                 if id:  # EDIÇÃO
                     usuario = ServidorModel.objects.get(pk=id)
                     group_user = Group.objects.get(user=id).id
 
-            elif str(grupo) == 'segurado':
+            elif str(group_user) == 'Segurado':
                 group_user = False
                 if id:  # EDIÇÃO
                     usuario = SeguradoModel.objects.get(pk=id)
                     group_user = Group.objects.get(user=id).id
 
-            elif str(grupo) == 'dependente':
+            elif str(group_user) == 'Dependente':
                 group_user = False
                 if id:  # EDIÇÃO
                     usuario = DependenteModel.objects.get(pk=id)

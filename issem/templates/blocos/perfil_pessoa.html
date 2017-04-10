@@ -27,95 +27,242 @@
 </div>
 
 <div class="fields">
-    <div class="four wide field">
-        <label> Cargo </label>
-        {{ usuario.cargo }}
-    </div>
-    <div class="four wide field">
-        <label> Estado Civil </label>
-        {{ usuario.estado_civil }}
-    </div>
-    <div class="four wide field">
-        <label> Sexo </label>
-        {{ usuario.sexo }}
-    </div>
-    <div class="two wide field issem-input-small">
-        <label> Tipo Sanguíneo </label>
-        {{ usuario.tipo_sanguineo }}
-    </div>
+    {% if usuario.cargo %}
+        <div class="four wide field">
+            <label> Cargo </label>
+            {{ usuario.cargo }}
+        </div>
+    {% else %}
+        <div class="four wide field">
+            <label> Cargo </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.estado_civil %}
+        <div class="four wide field">
+            <label> Estado Civil </label>
+            {{ usuario.estado_civil }}
+        </div>
+    {% else %}
+        <div class="four wide field">
+            <label> Estado Civil </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.sexo %}
+        <div class="four wide field">
+            <label> Sexo </label>
+            {{ usuario.sexo }}
+        </div>
+    {% else %}
+        <div class="four wide field">
+            <label> Sexo </label>
+            -----------
+        </div>
+    {% endif %}
+    {% if usuario.tipo_sanguineo %}
+        <div class="two wide field issem-input-small">
+            <label> Tipo Sanguíneo </label>
+            {{ usuario.tipo_sanguineo }}
+        </div>
+    {% else %}
+        <div class="two wide field issem-input-small">
+            <label> Tipo Sanguíneo </label>
+            -----------
+        </div>
+    {% endif %}
+
     <div class="two wide field">
         <label> Doador </label>
-        {% if usuario.doador == True %}
+        {% if usuario.doador %}
             Sim
         {% else %}
-            Nao
+            Não
         {% endif %}
     </div>
 </div>
 
 <div class="fields">
-    <div class="four wide field">
-        <label> E-mail </label>
-        {{ usuario.email }}
-    </div>
-    <div class="four wide field">
-        <label> Telefone Residencial </label>
-        {{ usuario.telefone_residencial }}
-    </div>
-    <div class="four wide field">
-        <label> Telefone Celular </label>
-        {{ usuario.telefone_celular }}
-    </div>
-    <div class="four wide field">
-        <label> CEP </label>
-        {{ usuario.cep }}
-    </div>
+
+    {% if usuario.email %}
+        <div class="four wide field">
+            <label> E-mail </label>
+            {{ usuario.email }}
+        </div>
+    {% else %}
+        <div class="four wide field">
+            <label> E-mail </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.telefone_residencial %}
+        <div class="four wide field">
+            <label> Telefone Residencial </label>
+            {{ usuario.telefone_residencial }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Telefone Residencial </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.telefone_celular %}
+        <div class="four wide field">
+            <label> Telefone Celular </label>
+            {{ usuario.telefone_celular }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Telefone Celular </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.cep %}
+        <div class="four wide field">
+            <label> CEP </label>
+            {{ usuario.cep }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> CEP </label>
+            -----------
+        </div>
+    {% endif %}
 </div>
 
 <div class="fields">
-    <div class="four wide field">
-        <label> Estado (Natural) </label>
-        {{ usuario.cidade_natural.uf }}
-    </div>
-    <div class="four wide field">
-        <label> Cidade Natural </label>
-        {{ usuario.cidade_natural }}
-    </div>
-    <div class="four wide field">
-        <label> Estado (Atual) </label>
-        {{ usuario.cidade_atual.uf }}
-    </div>
-    <div class="four wide field">
-        <label> Cidade Atual </label>
-        {{ usuario.cidade_atual }}
-    </div>
+    {% if usuario.cidade_natural.uf %}
+        <div class="four wide field">
+            <label> Estado (Natural) </label>
+            {{ usuario.cidade_natural.uf }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Estado (Natural) </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.cidade_natural %}
+        <div class="four wide field">
+            <label> Cidade Natural </label>
+            {{ usuario.cidade_natural }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Cidade (Natural) </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.cidade_atual.uf %}
+        <div class="four wide field">
+            <label> Estado (Atual) </label>
+            {{ usuario.cidade_atual.uf }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Estado (Atual) </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.cidade_atual %}
+        <div class="four wide field">
+            <label> Cidade (Atual) </label>
+            {{ usuario.cidade_atual }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Cidade (Atual) </label>
+            -----------
+        </div>
+    {% endif %}
 </div>
 
 <div class="fields">
-    <div class="four wide field">
-        <label> Endereço </label>
-        {{ usuario.endereco }}
-    </div>
-    <div class="four wide field">
-        <label> Nº Residencial </label>
-        {{ usuario.numero_endereco }}
-    </div>
-    <div class="four wide field">
-        <label> Complemento </label>
-        {{ usuario.complemento }}
-    </div>
-    <div class="four wide field">
-        <label> Bairro </label>
-        {{ usuario.bairro }}
-    </div>
+    {% if usuario.endereco %}
+        <div class="four wide field">
+            <label> Endereço </label>
+            {{ usuario.endereco }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Endereço </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.numero_endereco %}
+        <div class="four wide field">
+            <label> Nº Residencial </label>
+            {{ usuario.numero_endereco }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Nº Residencial </label>
+            -----------
+        </div>
+    {% endif %}
+
+
+    {% if usuario.complemento %}
+        <div class="four wide field">
+            <label> Complemento </label>
+            {{ usuario.complemento }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Complemento </label>
+            -----------
+        </div>
+    {% endif %}
+
+    {% if usuario.bairro %}
+        <div class="four wide field">
+            <label> Bairro </label>
+            {{ usuario.bairro }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Bairro </label>
+            -----------
+        </div>
+    {% endif %}
 </div>
 
 <div class="fields">
     <div class="four wide field"></div>
-    <div class="four wide field">
-        <label> Nome do pai </label>
-        {{ usuario.nome_pai }}
-    </div>
+
+    {% if usuario.nome_pai %}
+        <div class="four wide field">
+            <label> Nome do pai </label>
+            {{ usuario.nome_pai }}
+        </div>
+
+    {% else %}
+        <div class="four wide field">
+            <label> Nome do pai </label>
+            -----------
+        </div>
+    {% endif %}
+
     <div class="four wide field">
         <label> Nome da mãe </label>
         {{ usuario.nome_mae }}
