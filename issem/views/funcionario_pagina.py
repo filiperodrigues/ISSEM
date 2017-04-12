@@ -10,7 +10,7 @@ from django.db.models import Q
 
 class PaginaFuncionarioView(View):
 
-    template = 'funcionario_pagina.html'
+    template = 'paineis/funcionario_pagina.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')

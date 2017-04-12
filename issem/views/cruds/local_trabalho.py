@@ -8,7 +8,7 @@ from django.views.generic.base import View
 
 
 class LocalTrabalhoView(View):
-    template = 'local_trabalho.html'
+    template = 'cruds/local_trabalho.html'
 
     def get(self, request, id=None):
         if id:  # EDIÇÃO

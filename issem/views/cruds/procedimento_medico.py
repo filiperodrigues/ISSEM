@@ -9,7 +9,7 @@ from issem.views.pagination import pagination
 
 
 class ProcedimentoMedicoView(View):
-    template = 'procedimento_medico.html'
+    template = 'cruds/procedimento_medico.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -52,4 +52,4 @@ def ProcedimentoMedicoDelete(request, id):
 def ListaProcedimentosMedicos(request, msg=None, tipo_msg=None):
     procedimentos_medico = ProcedimentoMedicoModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(procedimentos_medico, request.GET.get('page'))
-    return render(request, 'procedimentos_medicos.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+    return render(request, 'listas/procedimentos_medicos.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

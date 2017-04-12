@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 
 
 class PaginaSeguradoView(View):
-    template = 'segurado_pagina.html'
+    template = 'paineis/segurado_pagina.html'
 
     def group_test(user):
         return user.groups.filter(name='Segurado')
@@ -17,4 +17,4 @@ class PaginaSeguradoView(View):
         context_dict = {}
         context_dict['beneficios'] = BeneficioModel.objects.all()
         context_dict['msg'] = 0
-        return render(request, 'segurado_pagina.html', context_dict)
+        return render(request, self.template, context_dict)

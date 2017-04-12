@@ -6,7 +6,7 @@ from django.views.generic.base import View
 
 
 class CargoView(View):
-    template = 'cargo.html'
+    template = 'cruds/cargo.html'
 
     def get(self, request, id=None):
         if id:

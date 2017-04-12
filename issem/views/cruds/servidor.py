@@ -10,7 +10,7 @@ from issem.views.pagination import pagination
 
 
 class ServidorView(View):
-    template = 'servidor.html'
+    template = 'cruds/servidor.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -88,5 +88,5 @@ def ServidorDelete(request, id):
 def ListaServidores(request, msg=None, tipo_msg=None):
     servidores = ServidorModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
-    return render(request, 'servidores.html',
+    return render(request, 'listas/servidores.html',
                   {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

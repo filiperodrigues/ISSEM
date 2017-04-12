@@ -7,7 +7,7 @@ from datetime import date, timedelta, datetime
 
 
 class GeraAgendamentoServidorView(View):
-    template = 'requerimento_servidor.html'
+    template = 'cruds/requerimento_servidor.html'
 
     def get(self, request, id_requerimento=None, id_beneficio=None, id_agendamento=None):
         var_controle = "edicão ou definição de agendamento para um requerimento"
@@ -98,4 +98,4 @@ def RequerimentoDelete(request, id):
 def ApresentaAgendamentos(request):
     context_dict = {}
     context_dict['agendamentos'] = AgendamentoModel.objects.all().order_by('data_pericia')
-    return render(request, 'tabela_agendamentos.html', context_dict)
+    return render(request, 'listas/tabela_agendamentos.html', context_dict)

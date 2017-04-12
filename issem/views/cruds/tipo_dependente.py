@@ -6,7 +6,7 @@ from django.views.generic.base import View
 
 
 class TipoDependenteView(View):
-    template = 'tipo_dependente.html'
+    template = 'cruds/tipo_dependente.html'
 
     def get(self, request, id=None):
         if id:

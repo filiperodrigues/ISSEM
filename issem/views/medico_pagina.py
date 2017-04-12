@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from issem.models import TipoLaudoModel
 
 class PaginaMedicoView(View):
-    template = 'medico_pagina.html'
+    template = 'paineis/medico_pagina.html'
 
     def group_test(user):
         return user.groups.filter(name='Tecnico')

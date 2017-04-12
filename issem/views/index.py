@@ -22,6 +22,6 @@ def index(request):
         elif grupo_1 == 'Administrativo':
             return HttpResponseRedirect(reverse('issem:funcionario'))
         else:
-            return render(request, 'index.html')
+            return render(request, 'paineis/index.html')
 
-    return render(request, 'index.html')
+    return render(request, 'paineis/index.html')

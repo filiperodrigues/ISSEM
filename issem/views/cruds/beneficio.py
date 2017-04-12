@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 
 
 class BeneficioView(View):
-    template = 'beneficio.html'
+    template = 'cruds/beneficio.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -77,7 +77,7 @@ class BeneficioView(View):
     def ListaBeneficios(self, request, msg=None, tipo_msg=None):
         beneficios = BeneficioModel.objects.filter(excluido=0)
         dados, page_range, ultima = pagination(beneficios, request.GET.get('page'))
-        return render(request, 'beneficios.html',
+        return render(request, 'listas/beneficios.html',
                       {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
 
     @classmethod

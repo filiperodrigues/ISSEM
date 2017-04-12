@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group
 
 
 class EditaSenha(View):
-    template = "edita_senha.html"
+    template = "cruds/edita_senha.html"
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')

@@ -6,7 +6,7 @@ from django.views.generic.base import View
 
 
 class TipoExameView(View):
-    template = 'tipo_exame.html'
+    template = 'cruds/tipo_exame.html'
 
     def get(self, request, id=None):
         if id:

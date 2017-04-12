@@ -9,7 +9,7 @@ from issem.views.pagination import pagination
 
 
 class RequerimentoServidorView(View):
-    template = 'requerimento_servidor.html'
+    template = 'cruds/requerimento_servidor.html'
 
     def get(self, request, id_requerimento=None, id_beneficio=None, id_agendamento=None):
         usuario_logado = User.objects.get(pk=request.user.id)
@@ -109,7 +109,7 @@ def RequerimentoDelete(request, id):
 def ApresentaAgendamentos(request):
     agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
-    return render(request, 'tabela_agendamentos.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima})
+    return render(request, 'listas/tabela_agendamentos.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima})
 
 
 def ApresentaAgendamentosMedico(request):
@@ -136,7 +136,7 @@ def ApresentaAgendamentosMedico(request):
 
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     form = FiltroAgendaForm
-    return render(request, 'agenda_medica.html',
+    return render(request, 'listas/agenda_medica.html',
                   {'dados': dados, 'form': form, 'data_inicio_formatada': data_inicio_formatada,
                    'data_fim_formatada': data_fim_formatada, 'var_controle': var_controle,
                    'page_range': page_range, 'ultima': ultima})

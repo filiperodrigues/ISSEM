@@ -9,7 +9,7 @@ from issem.views.pagination import pagination
 
 
 class RequerimentoView(View):
-    template = 'requerimento.html'
+    template = 'cruds/requerimento.html'
 
     def get(self, request, id=None, id_beneficio=None):
         usuario_logado = User.objects.get(pk=request.user.id)
@@ -140,11 +140,11 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
 def ApresentaAgendamentos(request):
     context_dict = {}
     context_dict['agendamentos'] = AgendamentoModel.objects.all().order_by('data_pericia')
-    return render(request, 'tabela_agendamentos.html', context_dict)
+    return render(request, 'listas/tabela_agendamentos.html', context_dict)
 
 
 def ApresentaRequerimentosSemAgendamento(request):
 
     requerimentos = RequerimentoModel.objects.filter(possui_agendamento = False)
     dados, page_range, ultima = pagination(requerimentos, request.GET.get('page'))
-    return render(request, 'tabela_requerimentos_sem_agendamento.html', {'dados': dados, 'page_range' : page_range, 'ultima' : ultima})
+    return render(request, 'listas/tabela_requerimentos_sem_agendamento.html', {'dados': dados, 'page_range' : page_range, 'ultima' : ultima})

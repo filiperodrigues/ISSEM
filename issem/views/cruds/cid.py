@@ -9,7 +9,7 @@ from issem.views.pagination import pagination
 
 
 class CidView(View):
-    template = 'cid.html'
+    template = 'cruds/cid.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -52,4 +52,4 @@ def CidDelete(request, id):
 def ListaCids(request, msg=None, tipo_msg=None):
     cids = CidModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(cids, request.GET.get('page'))
-    return render(request, 'cids.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+    return render(request, 'listas/cids.html', {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

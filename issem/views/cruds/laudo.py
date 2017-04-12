@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 
 
 class LaudoView(View):
-    template = 'laudo.html'
+    template = 'cruds/laudo.html'
 
     def group_test(user):
         return user.groups.filter(name='Tecnico')

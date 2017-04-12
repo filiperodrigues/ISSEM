@@ -7,7 +7,7 @@ from issem.views.pagination import pagination
 
 
 class TipoLaudoView(View):
-    template = 'tipo_laudo.html'
+    template = 'cruds/tipo_laudo.html'
 
     def get(self, request, id=None):
         if id:
@@ -38,7 +38,7 @@ class TipoLaudoView(View):
 def ListaTiposLaudos(request, msg=None, tipo_msg=None):
     tipo_laudos = TipoLaudoModel.objects.filter(excluido=0)
     dados, page_range, ultima = pagination(tipo_laudos, request.GET.get('page'))
-    return render(request, 'tipos_laudo.html', {'dados': dados, 'page_range':page_range, 'ultima' : ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+    return render(request, 'listas/tipos_laudo.html', {'dados': dados, 'page_range':page_range, 'ultima' : ultima, 'msg': msg, 'tipo_msg': tipo_msg})
 
 
 def TipoLaudoDelete(request, id):

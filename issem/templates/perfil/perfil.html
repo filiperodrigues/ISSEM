@@ -36,15 +36,15 @@
             </div>
 
             <div class="ui form sixteen wide column issem-table-form">
-                {% include 'blocos/perfil_pessoa.html' %}
+                {% include 'perfil/perfil_pessoa.html' %}
 
                 {% if usuario.groups.all.0.name == 'Administrativo' or usuario.groups.all.0.name == "Tecnico" %}
 
-                    {% include 'blocos/perfil_servidor.html' %}
+                    {% include 'perfil/perfil_servidor.html' %}
 
                 {% elif usuario.groups.all.0.name == "Segurado" %}
 
-                    {% include 'blocos/perfil_segurado.html' %}
+                    {% include 'perfil/perfil_segurado.html' %}
 
                 {% endif %}
 

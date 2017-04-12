@@ -10,7 +10,7 @@ from issem.views.pagination import pagination
 
 
 class DependenteView(View):
-    template = 'dependente.html'
+    template = 'cruds/dependente.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -90,5 +90,5 @@ def DependenteDelete(request, id):
 def ListaDependentes(request, msg=None, tipo_msg=None):
     dependentes = DependenteModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
-    return render(request, 'dependentes.html',
+    return render(request, 'listas/dependentes.html',
                   {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

@@ -7,7 +7,7 @@ from django.core import serializers
 
 
 class SecretariaView(View):
-    template = 'secretaria.html'
+    template = 'cruds/secretaria.html'
 
     def get(self, request, id=None):
         if id:

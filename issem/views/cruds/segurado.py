@@ -10,7 +10,7 @@ from issem.views.pagination import pagination
 
 
 class SeguradoView(View):
-    template = 'segurado.html'
+    template = 'cruds/segurado.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -91,7 +91,7 @@ def ListaSegurados(request, msg=None, tipo_msg=None):
     if tipo_msg:
         context_dict['tipo_msg'] = tipo_msg
 
-    return render(request, 'segurados.html', context_dict)
+    return render(request, 'listas/segurados.html', context_dict)
 
 def ListaRequerimentosSegurado(request, id=None):
     context_dict = {}
@@ -101,4 +101,4 @@ def ListaRequerimentosSegurado(request, id=None):
     context_dict['dados'] = dados
     context_dict['page_range'] = page_range
     context_dict['ultima'] = ultima
-    return render(request, 'requerimentos_segurado.html', context_dict)
+    return render(request, 'listas/requerimentos_segurado.html', context_dict)

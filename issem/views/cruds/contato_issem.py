@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 
 
 class ContatoIssemView(View):
-    template = 'contato_issem.html'
+    template = 'cruds/contato_issem.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -51,4 +51,4 @@ def ListaContatosIssem(request):
     context_dict = {}
     context_dict['contatos'] = ContatoIssemModel.objects.all()
     context_dict['model'] = "contato_issem"
-    return render(request, 'contatos_issem.html', context_dict)
+    return render(request, 'listas/contatos_issem.html', context_dict)

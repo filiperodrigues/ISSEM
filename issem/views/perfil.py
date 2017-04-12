@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group, User
 
 
 class PerfilView(View):
-    template = 'perfil.html'
+    template = 'perfil/perfil.html'
 
     def get(self, request, id=None):
         usuario = User.objects.get(pk=id)

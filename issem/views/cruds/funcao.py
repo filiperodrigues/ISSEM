@@ -6,7 +6,7 @@ from django.views.generic.base import View
 
 
 class FuncaoView(View):
-    template = 'funcao.html'
+    template = 'cruds/funcao.html'
 
     def get(self, request, id=None):
         if id:

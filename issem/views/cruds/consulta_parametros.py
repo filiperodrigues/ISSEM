@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 
 
 class ConstultaParametrosView(View):
-    template = 'consulta_parametros.html'
+    template = 'cruds/consulta_parametros.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
