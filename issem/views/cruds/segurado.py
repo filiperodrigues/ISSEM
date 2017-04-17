@@ -13,7 +13,7 @@ class SeguradoView(View):
     template = 'cruds/segurado.html'
 
     def group_test(user):
-        return user.groups.filter(name='Administrativo')
+        return user.groups.filter(name='Administrativo') or user.groups.filter(name='Segurado')
 
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None):

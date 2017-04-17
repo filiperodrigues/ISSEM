@@ -13,7 +13,7 @@ class ServidorView(View):
     template = 'cruds/servidor.html'
 
     def group_test(user):
-        return user.groups.filter(name='Administrativo')
+        return user.groups.filter(name='Administrativo') or user.groups.filter(name='Tecnico')
 
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None):
@@ -80,8 +80,8 @@ class ServidorView(View):
 
 def ServidorDelete(request, id):
     servidor = ServidorModel.objects.get(pk=id)
-    # servidor.excluido = True
-    # servidor.save()
+    servidor.excluido = True
+    servidor.save()
     return ListaServidores(request, msg="Servidor excluído com sucesso!", tipo_msg="green")
 
 

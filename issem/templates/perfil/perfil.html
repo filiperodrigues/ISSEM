@@ -30,15 +30,35 @@
             </div>
 
             <div class="three wide column">
-                {#                <a class="ui right floated labeled icon button blue" href="#">#}
-                {#                    <i class="edit icon"></i> Alterar Perfil#}
-                {#                </a>#}
+                {% if usuario.groups.all.0.name == "Administrativo" or usuario.groups.all.0.name == "Tecnico" %}
+
+                    <a class="ui right floated labeled icon button blue"
+                       href="{% url 'issem:edita_servidor' usuario.id %}">
+                        <i class="edit icon"></i> Alterar Perfil
+                    </a>
+
+                {% elif usuario.groups.all.0.name == "Segurado" %}
+
+
+                    <a class="ui right floated labeled icon button blue"
+                       href="{% url 'issem:edita_segurado' usuario.id %}">
+                        <i class="edit icon"></i> Alterar Perfil
+                    </a>
+
+                {% else %}
+
+                    <a class="ui right floated labeled icon button blue"
+                       href="{% url 'issem:edita_dependente' usuario.id %}">
+                        <i class="edit icon"></i> Alterar Perfil
+                    </a>
+
+                {% endif %}
             </div>
 
             <div class="ui form sixteen wide column issem-table-form">
                 {% include 'perfil/perfil_pessoa.html' %}
 
-                {% if usuario.groups.all.0.name == 'Administrativo' or usuario.groups.all.0.name == "Tecnico" %}
+                {% if usuario.groups.all.0.name == "Administrativo" or usuario.groups.all.0.name == "Tecnico" %}
 
                     {% include 'perfil/perfil_servidor.html' %}
 

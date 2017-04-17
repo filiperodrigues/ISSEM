@@ -69,14 +69,12 @@
                         <div class="six wide field"></div>
                         <div class="two wide field">
                             <label>Código do CID</label>
-                            <div class="somente_numeros">
-                                {{ form.cod_cid }}
-                                {% if form.cod_cid.errors %}
-                                    <div class="ui pointing red basic label">
-                                        {{ form.cod_cid.errors }}
-                                    </div>
-                                {% endif %}
-                            </div>
+                            {{ form.cod_cid }}
+                            {% if form.cod_cid.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.cod_cid.errors }}
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="one wide field">
                             <label>Gravidade</label>

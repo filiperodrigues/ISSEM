@@ -15,20 +15,21 @@ class PerfilView(View):
         if grupo != "":
             if str(grupo) == "Administrativo" or str(grupo) == "Tecnico":
                 grupo = False
-                if id:  # EDIÇÃO
+                if id:
                     usuario = ServidorModel.objects.get(pk=id)
                     grupo = Group.objects.get(user=id).id
 
             elif str(grupo) == 'Segurado':
                 grupo = False
-                if id:  # EDIÇÃO
+                if id:
                     usuario = SeguradoModel.objects.get(pk=id)
                     grupo = Group.objects.get(user=id).id
 
             elif str(grupo) == 'Dependente':
                 grupo = False
-                if id:  # EDIÇÃO
+                if id:
                     usuario = DependenteModel.objects.get(pk=id)
                     grupo = Group.objects.get(user=id).id
 
         return render(request, self.template, {'method': 'get', 'id': id, 'group_user': grupo, 'usuario': usuario})
+

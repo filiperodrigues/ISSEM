@@ -64,7 +64,7 @@
                         <h4>Acesse sua Conta!</h4>
                     </a>
                 {% else %}
-                    {% if user.groups.all.0.name == 'Técnico' %}
+                    {% if user.groups.all.0.name == 'Tecnico' %}
                         <i class="ui right large doctor icon"></i>
                     {% elif user.groups.all.0.name == 'Administrativo' %}
                         <i class="ui right large user icon"></i>
