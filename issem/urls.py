@@ -115,6 +115,7 @@ urlpatterns = [
     url(r'^agenda/medica/filtro/$', views.ApresentaAgendamentosMedico, name='filtro_agenda'),
     url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento,
         name='tabela_requerimentos_sem_agendamento'),
+    url(r'^comprovante_agendamento/pdf/(?P<msg>.+)/(?P<id_usuario>\d+)/$', views.GeraComprovanteAgendamento, name='comprovante_agendamento'),
 
     ## LAUDO ##
     url(r'^cad/laudo/(?P<id_tipo_laudo>\d+)/$', LaudoView.as_view(), name='cad_laudo'),

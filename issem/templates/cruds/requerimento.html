@@ -14,6 +14,8 @@
                     <div class="ui {{ tipo_msg }} message">
                         <div class="header">
                             {{ msg }}
+                            <br>
+                            <a href="{% url 'issem:comprovante_agendamento' msg id_usuario %}"> Comprovante (opcional)</a>
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,15 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import RequerimentoModel, AgendamentoModel, ConsultaParametrosModel, BeneficioModel
+from issem.models import RequerimentoModel, AgendamentoModel, ConsultaParametrosModel, BeneficioModel, SeguradoModel
 from issem.forms import RequerimentoForm
 from django.views.generic.base import View
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from django.contrib.auth.models import User
 from issem.views.pagination import pagination
-
+import reportlab
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
+import string
 
 class RequerimentoView(View):
     template = 'cruds/requerimento.html'
@@ -81,6 +84,7 @@ class RequerimentoView(View):
                                 obj_requerimento.possui_agendamento = True
                                 obj_requerimento.save()
                                 msg = define_mensagem_consulta(data_pericia, hora_pericia, beneficio)
+
                                 return render(request, self.template,
                                               {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
                         else:
@@ -93,6 +97,32 @@ class RequerimentoView(View):
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_beneficio': beneficio.id,
                                                'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario, 'msg': msg})
 
+
+def GeraComprovanteAgendamento(self, msg=None, id_usuario=None):
+    seguado = SeguradoModel.objects.get(pk=id_usuario)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="comprovante_agendamento.pdf"'
+    p = canvas.Canvas(response)
+    p.setLineWidth(.1)
+    msg1=msg[:msg.find('.')+1]
+    msg2=msg[msg.find('.')+2:]
+
+    p.drawImage('/home/vinicius/ISSEM/static/images/issem_comprovante.jpg', 250,750, mask=[0,255,0,255,0,255], width=60, height=60)
+
+    p.drawString(50,730, msg1)
+    p.drawString(50,718, msg2)
+    p.drawString(50, 710, "_______________________________________")
+    p.setFont("Helvetica", 10)
+    p.drawString(50, 695, "Agendado para: " + seguado.nome + (" (CPF: "+seguado.cpf + ")"))
+    p.drawString(50, 685, "Data atendimento: " )
+    p.drawString(50, 675, "Horário de início da consulta: " )
+    p.setFont("Helvetica" ,8)
+    p.drawString(50,665,"_______________________________________")
+    p.drawString(50, 655, "Documento gerado em: " + str(datetime.now().strftime("%d/%m/%Y às %H:%M:%S")))
+
+    p.showPage()
+    p.save()
+    return response
 
 def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
     requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
@@ -124,7 +154,7 @@ def define_mensagem_consulta(data_pericia, hora_pericia, beneficio):
     dia = texto_msg[2]
     mes = texto_msg[1]
     ano = texto_msg[0]
-    obs_beneficio = beneficio.observacao
+    obs_beneficio = beneficio.observacao.encode('utf-8').strip()
     return ("Sua consulta ficou agendada para %s/%s/%s às %s. %s") % (dia, mes, ano, str(hora_pericia), str(obs_beneficio))
 
 
