@@ -1,5 +1,5 @@
 # coding:utf-8
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from issem.models import CargoModel
 from issem.forms import CargoForm
 from django.views.generic.base import View
@@ -18,7 +18,7 @@ class CargoView(View):
         context_dict = {}
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                cargo = get_object_or_404(CargoModel, pk=id)
+                cargo = CargoModel.objects.get(pk=id)
                 form = CargoForm(instance=cargo)
             except:
                 msg = 'Não foi possível fazer a consulta!'
@@ -87,8 +87,8 @@ class CargoView(View):
         context_dict = {}
         try:
             cargo = CargoModel.objects.get(pk=id)
-            # cargo.excluido = True
-            # cargo.save()
+            cargo.excluido = True
+            cargo.save()
             msg = 'Exclusão efetuada com sucesso!'
             tipo_msg = 'green'
         except:

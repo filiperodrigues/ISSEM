@@ -94,11 +94,8 @@ urlpatterns = [
     url(r'^escolha_cidade_local_trabalho/$', CidadeView.as_view(), name='escolha_cidade_local_trabalho'),
 
     # CONSULTA PARÂMETROS
-    url(r'^cad/consulta_parametro/$', ConstultaParametrosView.as_view(), name='cad_consulta_parametros'),
-    url(r'^edita/consulta_parametro/(?P<id>\d+)/$', ConstultaParametrosView.as_view(),
-        name='edita_consulta_parametros'),
-    url(r'^deleta/consulta_parametro/(?P<id>[0-9]+)/$', views.ConsultaParametrosDelete,
-        name='deleta_consulta_parametros'),
+    url(r'^edita/parametros_consulta/$', ParametrosConsultaView.as_view(),
+        name='edita_parametros_consulta'),
 
     # REQUERIMENTO / AGENDAMENTO
     url(r'^cad/requerimento/(?P<id_beneficio>\d+)/$', RequerimentoView.as_view(), name='cad_requerimento'),
