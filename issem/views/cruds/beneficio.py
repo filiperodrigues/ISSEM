@@ -87,9 +87,9 @@ class BeneficioView(View):
             beneficio = BeneficioModel.objects.get(pk=id)
             beneficio.excluido = True
             beneficio.save()
-            msg = 'Benefício excluído com sucesso!'
+            msg = 'Exclusão efetuada com sucesso!'
             tipo_msg = 'green'
         except:
-            msg = 'Ocorreu erro na exclusão do benefício!'
+            msg = 'Ocorreu erro durante a exclusão!'
             tipo_msg = 'red'
         return BeneficioView.ListaBeneficios(request, msg, tipo_msg)

@@ -2,6 +2,16 @@
 
 {% block body_block %}
 
+    {% if msg %}
+        <div class="sixteen wide column issem-div-message">
+            <div class="ui {{ tipo_msg }} message">
+                <div class="header">
+                    {{ msg }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     {% if user.groups.all.0.name == 'Administrativo' %}
         <br/>
         <div class="ui centered grid right floated right aligned six wide column">

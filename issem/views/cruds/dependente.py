@@ -62,6 +62,7 @@ class DependenteView(View):
                 gp = Group.objects.get(name='Dependente')
                 user = DependenteModel.objects.get(username=request.POST["username"])
                 user.groups.add(gp)
+                user.is_active = False
                 user.save()
                 segurado.dependente.add(user)
                 segurado.save()

@@ -4,6 +4,16 @@
 
     <div class="ui centered grid issem-grid">
 
+        {% if msg %}
+            <div class="sixteen wide column">
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
         <div class="four wide column">
             <div class="ui menu">
                 <div class="ui dropdown fluid selection issem-dropdown">
