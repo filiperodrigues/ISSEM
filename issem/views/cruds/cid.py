@@ -18,7 +18,7 @@ class CidView(View):
     def get(self, request, id=None, msg=None, tipo_msg=None):
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                cid = CidModel.objects.get(pk=id)
+                cid = CidModel.objects.get(pk=id, excluido=0)
                 form = CidForm(instance=cid)
             except:
                 msg = 'Não foi possível fazer a consulta!'
@@ -34,7 +34,7 @@ class CidView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                cid = CidModel.objects.get(pk=id)
+                cid = CidModel.objects.get(pk=id, excluido=0)
                 form = CidForm(instance=cid, data=request.POST)
             except:
                 msg = 'Ocorreram erros durante as alterações, tente novamente!'
@@ -82,7 +82,7 @@ class CidView(View):
 
     @classmethod
     @method_decorator(user_passes_test(group_test))
-    def CidDelete(self, request, id):
+    def CidDelete(self, request, id=None):
         try:
             cid = CidModel.objects.get(pk=id)
             cid.excluido = True

@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class ConsultaParametrosModel(models.Model):
+class ParametrosConsultaModel(models.Model):
     tempo_consulta = models.IntegerField(null=False)
     tempo_espera = models.IntegerField(null=False)
     inicio_atendimento = models.TimeField()
@@ -10,10 +10,10 @@ class ConsultaParametrosModel(models.Model):
     gap_agendamento = models.IntegerField()
 
     def __unicode__(self):
-        return "Parâmetro de consulta" + str(self.id)
+        return "Parâmetro de consulta"
 
     def __str__(self):
-        return "Parâmetro de consulta" + str(self.id)
+        return "Parâmetro de consulta"
 
     class Meta:
         verbose_name = "Consulta Parâmetro"

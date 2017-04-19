@@ -9,6 +9,7 @@ class PerfilView(View):
     template = 'perfil/perfil.html'
 
     def get(self, request, id=None):
+        segurado = None
         usuario = User.objects.get(pk=id)
         grupo = usuario.groups.get()
 
@@ -30,6 +31,7 @@ class PerfilView(View):
                 if id:
                     usuario = DependenteModel.objects.get(pk=id)
                     grupo = Group.objects.get(user=id).id
+                    segurado = SeguradoModel.objects.get(dependente__id=id)
 
-        return render(request, self.template, {'method': 'get', 'id': id, 'group_user': grupo, 'usuario': usuario})
+        return render(request, self.template, {'method': 'get', 'id': id, 'group_user': grupo, 'usuario': usuario, 'segurado': segurado})
 

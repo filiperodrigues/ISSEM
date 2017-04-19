@@ -18,7 +18,7 @@ class CargoView(View):
         context_dict = {}
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                cargo = CargoModel.objects.get(pk=id)
+                cargo = CargoModel.objects.get(pk=id, excluido=0)
                 form = CargoForm(instance=cargo)
             except:
                 msg = 'Não foi possível fazer a consulta!'
@@ -37,7 +37,7 @@ class CargoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                cargo = CargoModel.objects.get(pk=id)
+                cargo = CargoModel.objects.get(pk=id, excluido=0)
                 form = CargoForm(instance=cargo, data=request.POST)
             except:
                 msg = 'Ocorreram erros durante as alterações, tente novamente!'
@@ -83,7 +83,7 @@ class CargoView(View):
 
     @classmethod
     @method_decorator(user_passes_test(group_test))
-    def CargoDelete(self, request, id):
+    def CargoDelete(self, request, id=None):
         context_dict = {}
         try:
             cargo = CargoModel.objects.get(pk=id)

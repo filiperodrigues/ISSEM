@@ -26,6 +26,9 @@
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
                     <h1><i class="user icon"></i> {{ usuario.nome }}</h1>
+                    {% if segurado %}
+                        <h3>Segurado(a): "{{ segurado.nome }}"</h3>
+                    {% endif %}
                 </div>
             </div>
 

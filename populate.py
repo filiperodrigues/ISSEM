@@ -211,7 +211,7 @@ def add_tipo_laudo(n):
     return TipoLaudoModel.objects.get_or_create(nome=n)
 
 def add_consulta_parametros(tc, te, ia, lc, ga):
-    return ConsultaParametrosModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia,
+    return ParametrosConsultaModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia,
                                                          limite_consultas=lc, gap_agendamento=ga)
 
 # Start execution here!

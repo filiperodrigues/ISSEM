@@ -1,4 +1,4 @@
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% block body_tag %}
     <body onload="calendar_input(dependente=true); get_cidade_natural(); get_cidade_atual()">
@@ -29,13 +29,12 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    {% if not id and not segurado%}
+                    {% if not id and segurado%}
                         <h1><i class="plus icon"></i> Cadastro de Dependente</h1>
-                    {% elif segurado %}
-                        <h1><i class="plus icon"></i> Cadastro de Dependente</h1>
-                        <h3>Para o(a) segurado(a): "{{ segurado.nome }}"</h3>
+                        <h3>Segurado(a): "{{ segurado.nome }}"</h3>
                     {% else %}
                         <h1><i class="edit icon"></i> Edição de Dependente</h1>
+                        <h3>Segurado(a): "{{ segurado.nome }}"</h3>
                     {% endif %}
                 </div>
             </div>
@@ -99,7 +98,7 @@
                     </div>
                 </div>
 
-                {% if segurado%}
+                {% if segurado %}
                     <input type="hidden" name="id_segurado" value="{{ segurado.id }}"/>
                 {% else %}
                     <input type="hidden" name="id_segurado" value="#"/>

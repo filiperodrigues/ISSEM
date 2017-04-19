@@ -24,11 +24,11 @@ class DependenteView(View):
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio, para um segurado específico
         elif id and not id_segurado:
             dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            segurado = SeguradoModel.objects.get(dependente__id=id)
             form = DependenteFormEdit(instance=dependente)
             id_group_user = Group.objects.get(user=id).id
         else:
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio
-
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado': id_segurado,
                                                'id_group_user': id_group_user, 'segurado': segurado})
 
@@ -37,6 +37,7 @@ class DependenteView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             dependente = DependenteModel.objects.get(pk=id)
+            segurado = SeguradoModel.objects.get(dependente=dependente)
             form = DependenteFormEdit(instance=dependente, data=request.POST)
             group_user = Group.objects.get(user=id)
             id_group_user = group_user.id
@@ -77,7 +78,7 @@ class DependenteView(View):
                 tipo_msg = 'red'
 
         return render(request, self.template,
-                      {'form': form, 'method': 'post', 'id': id, 'id_segurado': id_segurado, 'msg': msg,
+                      {'form': form, 'method': 'post', 'id': id, 'segurado': segurado, 'msg': msg,
                        'tipo_msg': tipo_msg, 'id_group_user': id_group_user})
 
 

@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import RequerimentoModel, AgendamentoModel, ConsultaParametrosModel, BeneficioModel, SeguradoModel
+from issem.models import RequerimentoModel, AgendamentoModel, ParametrosConsultaModel, BeneficioModel, SeguradoModel
 from issem.forms import RequerimentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta, datetime
@@ -53,7 +53,7 @@ class RequerimentoView(View):
             requerimento = RequerimentoModel.objects.latest('id')
             id = requerimento.id
             agendamento_form = AgendamentoModel()
-            consulta_parametros = ConsultaParametrosModel.objects.get(id=1)
+            consulta_parametros = ParametrosConsultaModel.objects.get(id=1)
 
             dias_gap_agendamento = int(consulta_parametros.gap_agendamento)
             prazo_pericia_final = requerimento.data_final_afastamento + timedelta(days=dias_gap_agendamento)

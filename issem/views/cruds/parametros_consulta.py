@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render
-from issem.models import ConsultaParametrosModel
+from issem.models import ParametrosConsultaModel
 from issem.forms import ConsultaParametrosForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
@@ -17,7 +17,7 @@ class ParametrosConsultaView(View):
     def get(self, request, msg=None, tipo_msg=None):
         context_dict = {}
         try:
-            consulta_parametros = ConsultaParametrosModel.objects.get(pk=1)
+            consulta_parametros = ParametrosConsultaModel.objects.get()
             form = ConsultaParametrosForm(instance=consulta_parametros)
         except:
             msg = 'Não foi possível fazer a consulta!'
@@ -36,7 +36,7 @@ class ParametrosConsultaView(View):
         context_dict = {}
         valido = False
         try:
-            consulta_parametros = ConsultaParametrosModel.objects.get(pk=1)
+            consulta_parametros = ParametrosConsultaModel.objects.get(pk=1)
             form = ConsultaParametrosForm(instance=consulta_parametros, data=request.POST)
         except:
             msg = 'Ocorreram erros duranthe as alterações, tente novamente!'

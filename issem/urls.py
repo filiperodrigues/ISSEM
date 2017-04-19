@@ -124,8 +124,8 @@ urlpatterns = [
     # CONTATO ISSEM
     url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),
     url(r'^edita/contato_issem/(?P<id>\d+)/$', ContatoIssemView.as_view(), name='edita_contato_issem'),
-    url(r'^deleta/contato_issem/(?P<id>[0-9]+)/$', views.ContatoIssemDelete, name='deleta_contato_issem'),
-    url(r'^lista/contatos/$', views.ListaContatosIssem, name='lista_contatos_issem'),
+    url(r'^deleta/contato_issem/(?P<id>[0-9]+)/$', ContatoIssemView.ContatoIssemDelete, name='deleta_contato_issem'),
+    url(r'^lista/contatos/$', ContatoIssemView.ListaContatosIssem, name='lista_contatos_issem'),
 
     # PERFIL
     url(r'^perfil/(?P<id>\d+)$', PerfilView.as_view(), name='perfil'),

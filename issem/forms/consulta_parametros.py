@@ -1,10 +1,10 @@
 # coding: utf-8
 from django import forms
-from issem.models import ConsultaParametrosModel
+from issem.models import ParametrosConsultaModel
 
 
 class ConsultaParametrosForm(forms.ModelForm):
 
     class Meta:
-        model = ConsultaParametrosModel
+        model = ParametrosConsultaModel
         fields = '__all__'

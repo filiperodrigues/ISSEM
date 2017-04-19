@@ -18,7 +18,7 @@ class BeneficioView(View):
     def get(self, request, id=None, msg=None, tipo_msg=None):
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                beneficio = BeneficioModel.objects.get(pk=id)
+                beneficio = BeneficioModel.objects.get(pk=id, excluido=0)
                 form = BeneficioForm(instance=beneficio)
             except:
                 msg = 'Não foi possível fazer a consulta!'
@@ -34,7 +34,7 @@ class BeneficioView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                beneficio = BeneficioModel.objects.get(pk=id)
+                beneficio = BeneficioModel.objects.get(pk=id, excluido=0)
                 form = BeneficioForm(instance=beneficio, data=request.POST)
             except:
                 msg = 'Ocorreram erros durante as alterações, tente novamente!'
@@ -82,7 +82,7 @@ class BeneficioView(View):
 
     @classmethod
     @method_decorator(user_passes_test(group_test))
-    def BeneficioDelete(self, request, id):
+    def BeneficioDelete(self, request, id=None):
         try:
             beneficio = BeneficioModel.objects.get(pk=id)
             beneficio.excluido = True
