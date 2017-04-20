@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import RequerimentoModel, AgendamentoModel, ParametrosConsultaModel, BeneficioModel, SeguradoModel
+from issem.models import RequerimentoModel, AgendamentoModel, BeneficioModel, SeguradoModel, ParametrosConfiguracaoModel
 from issem.forms import RequerimentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta, datetime
@@ -53,7 +53,7 @@ class RequerimentoView(View):
             requerimento = RequerimentoModel.objects.latest('id')
             id = requerimento.id
             agendamento_form = AgendamentoModel()
-            consulta_parametros = ParametrosConsultaModel.objects.get(id=1)
+            consulta_parametros = ParametrosConfiguracaoModel.objects.get(id=1)
 
             dias_gap_agendamento = int(consulta_parametros.gap_agendamento)
             prazo_pericia_final = requerimento.data_final_afastamento + timedelta(days=dias_gap_agendamento)
@@ -65,31 +65,48 @@ class RequerimentoView(View):
                 return render(request, self.template, {'msg': msg, 'tipo_msg': tipo_msg, 'beneficio_descricao': beneficio.descricao
                     , 'id_usuario': id_usuario})
             else:
-                if date.today() > prazo_pericia_final:
-                    msg = define_mensagem_prazo_expirado(prazo_pericia_final)
-                    return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario': id_usuario})
-                else:
-                    for dia in range(1, dias_gap_agendamento + 2):
-                        if dia <= dias_gap_agendamento:
-                            possivel_data_pericia = requerimento.data_final_afastamento + timedelta(days=dia)
-                            data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia,consulta_parametros)
-                            if (data_pericia != "") and (hora_pericia != "") and (data_pericia != date.today()):
-                                agendamento_form.data_agendamento = date.today()
-                                agendamento_form.data_pericia = data_pericia
-                                agendamento_form.hora_pericia = str(hora_pericia)
-                                agendamento_form.requerimento_id = id
-                                agendamento_form.save()
-                                # O ÚLTIMO REQUERIMENTO CADASTRADO CONTÉM UM AGENDAMENTO #
-                                obj_requerimento = form.save(commit=False)
-                                obj_requerimento.possui_agendamento = True
-                                obj_requerimento.save()
-                                msg = define_mensagem_consulta(data_pericia, hora_pericia, beneficio)
+                data_admissao = SeguradoModel.objects.get(pk=id_usuario).data_admissao
+                data_admissao_mais_um_ano = data_admissao + timedelta(days=consulta_parametros.tempo_minimo_exercicio)
 
+                if date.today() > data_admissao_mais_um_ano:
+                    if date.today() > prazo_pericia_final:
+                        msg = define_mensagem_prazo_expirado(prazo_pericia_final)
+                        return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao,
+                                                               'id_usuario': id_usuario})
+                    else:
+                        for dia in range(1, dias_gap_agendamento + 2):
+                            if dia <= dias_gap_agendamento:
+                                possivel_data_pericia = requerimento.data_final_afastamento + timedelta(days=dia)
+                                data_pericia, hora_pericia = verifica_data_hora_pericia(possivel_data_pericia,
+                                                                                        consulta_parametros)
+                                if (data_pericia != "") and (hora_pericia != "") and (data_pericia != date.today()):
+                                    agendamento_form.data_agendamento = date.today()
+                                    agendamento_form.data_pericia = data_pericia
+                                    agendamento_form.hora_pericia = str(hora_pericia)
+                                    agendamento_form.requerimento_id = id
+                                    agendamento_form.save()
+                                    # O ÚLTIMO REQUERIMENTO CADASTRADO CONTÉM UM AGENDAMENTO #
+                                    obj_requerimento = form.save(commit=False)
+                                    obj_requerimento.possui_agendamento = True
+                                    obj_requerimento.save()
+                                    hora_pericia_msg = str(hora_pericia)
+                                    msg_valida = define_mensagem_consulta(data_pericia, hora_pericia_msg[:len(hora_pericia_msg)-3]+"h", beneficio)
+
+                                    return render(request, self.template,
+                                                  {'msg_valida': msg_valida, 'beneficio_descricao': beneficio.descricao,
+                                                   'id_usuario': id_usuario, 'id_agendamento' : agendamento_form.id, 'id_beneficio' : beneficio.id})
+                            else:
+                                msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
                                 return render(request, self.template,
-                                              {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario})
-                        else:
-                            msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
-                            return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario': id_usuario})
+                                              {'msg': msg, 'beneficio_descricao': beneficio.descricao,
+                                               'id_usuario': id_usuario, 'obj_agendamento' : agendamento_form.id})
+
+                else:
+                    msg = ("Servidor deve ter mais de 1(UM) ano de exercício para realizar agendamentos automáticos. Entre em contato com o ISSEM")
+                    return render(request, self.template,
+                                  {'msg': msg, 'beneficio_descricao': beneficio.descricao,
+                                   'id_usuario': id_usuario})
+
                 return HttpResponseRedirect('/')
         else:
             print(form.errors)
@@ -98,8 +115,9 @@ class RequerimentoView(View):
                                                'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario, 'msg': msg})
 
 
-def GeraComprovanteAgendamento(self, msg=None, id_usuario=None):
+def GeraComprovanteAgendamento(self, msg=None, id_usuario=None, id_agendamento=None):
     seguado = SeguradoModel.objects.get(pk=id_usuario)
+    agendamento = AgendamentoModel.objects.get(pk=id_agendamento)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="comprovante_agendamento.pdf"'
     p = canvas.Canvas(response)
@@ -114,12 +132,14 @@ def GeraComprovanteAgendamento(self, msg=None, id_usuario=None):
     p.drawString(50, 710, "_______________________________________")
     p.setFont("Helvetica", 10)
     p.drawString(50, 695, "Agendado para: " + seguado.nome + (" (CPF: "+seguado.cpf + ")"))
-    p.drawString(50, 685, "Data atendimento: " )
-    p.drawString(50, 675, "Horário de início da consulta: " )
+    p.drawString(50, 685, "Data atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[5:7] + "/" +
+    str(agendamento.data_pericia)[0:4])
+    p.drawString(50, 675, "Horário da consulta: " + str(agendamento.hora_pericia)[:5] + "h")
     p.setFont("Helvetica" ,8)
     p.drawString(50,665,"_______________________________________")
     p.drawString(50, 655, "Documento gerado em: " + str(datetime.now().strftime("%d/%m/%Y às %H:%M:%S")))
-
+    p.setFont("Helvetica", 6)
+    p.drawString(50, 645, "*NÃO É NECESSÁRIO IMPRIMIR ESTE DOCUMENTO")
     p.showPage()
     p.save()
     return response
@@ -168,9 +188,10 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
 
 
 def ApresentaAgendamentos(request):
-    context_dict = {}
-    context_dict['agendamentos'] = AgendamentoModel.objects.all().order_by('data_pericia')
-    return render(request, 'listas/tabela_agendamentos.html', context_dict)
+    agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
+    dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
+    return render(request, 'listas/tabela_agendamentos.html',
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima})
 
 
 def ApresentaRequerimentosSemAgendamento(request):

@@ -5,7 +5,6 @@ from issem.models.agendamento import AgendamentoModel
 from issem.models.beneficio import BeneficioModel
 from issem.models.cargo import CargoModel
 from issem.models.cid import CidModel
-from issem.models.parametros_consulta import ParametrosConsultaModel
 from issem.models.dependente import DependenteModel
 from issem.models.exame_requerimento import ExameRequerimentoModel
 from issem.models.funcao import FuncaoModel
@@ -19,6 +18,7 @@ from issem.models.tipo_dependente import TipoDependenteModel
 from issem.models.tipo_exame import TipoExameModel
 from issem.models.contato_issem import ContatoIssemModel
 from issem.models.tipo_laudo import TipoLaudoModel
+from issem.models.parametros_configuracao import ParametrosConfiguracaoModel
 
 admin.site.register(CidModel)
 admin.site.register(ProcedimentoMedicoModel)
@@ -32,12 +32,12 @@ admin.site.register(LocalTrabalhoModel)
 admin.site.register(ServidorModel)
 admin.site.register(DependenteModel)
 admin.site.register(SeguradoModel)
-admin.site.register(ParametrosConsultaModel)
 admin.site.register(RequerimentoModel)
 admin.site.register(ExameRequerimentoModel)
 admin.site.register(AgendamentoModel)
 admin.site.register(TipoLaudoModel)
 admin.site.register(ContatoIssemModel)
+admin.site.register(ParametrosConfiguracaoModel)
 
 
 

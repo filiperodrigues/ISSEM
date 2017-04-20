@@ -9,13 +9,23 @@
     <div class="ui centered grid issem-grid">
         <div class="ui row segment issem-segment issem-segment-border">
 
+            {% if msg_valida %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg_valida }}
+                            <br>
+                            <a href="{% url 'issem:comprovante_agendamento' msg_valida id_agendamento id_usuario %}"> Comprovante (opcional)</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
             {% if msg %}
                 <div class="sixteen wide column issem-div-message">
                     <div class="ui {{ tipo_msg }} message">
                         <div class="header">
                             {{ msg }}
-                            <br>
-                            <a href="{% url 'issem:comprovante_agendamento' msg id_usuario %}"> Comprovante (opcional)</a>
                         </div>
                     </div>
                 </div>
@@ -44,7 +54,7 @@
 
             <div class="sixteen wide column issem-table-form">
 
-                {% if not msg %}
+                {% if not msg and not msg_valida %}
                     <form class="ui form" id="RequerimentoForm" method="post"
                           action="{% url 'issem:cad_requerimento' id_beneficio %}">
                         {% csrf_token %}

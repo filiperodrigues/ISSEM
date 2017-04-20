@@ -17,6 +17,8 @@ class ServidorView(View):
 
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None):
+        print("teste")
+
         group_user = False
         if id:  # EDIÇÃO
             servidor = ServidorModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
@@ -26,7 +28,7 @@ class ServidorView(View):
         else:  # CADASTRO NOVO
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
-
+        print(form)
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user,
                                                'id_group_user': id_group_user})
 
@@ -41,7 +43,11 @@ class ServidorView(View):
             id_group_user = group_user.id
 
             if form.is_valid():
-                form.save()
+                form.save(commit=False)
+                group_user.user_set.remove(id)
+                servidor.groups.add(form.cleaned_data['groups'])
+                servidor.save()
+
                 msg = 'Alterações realizadas com sucesso!'
                 tipo_msg = 'green'
             else:
@@ -75,7 +81,7 @@ class ServidorView(View):
 
         return render(request, self.template,
                       {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
-                       'id_group_user': id_group_user})
+                       'id_group_user': id_group_user, 'group_user' : group_user})
 
 
 def ServidorDelete(request, id):

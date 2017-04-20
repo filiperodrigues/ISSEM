@@ -153,10 +153,10 @@ def populate():
 
     # CONSULTA PARÂMETROS
     consulta_parametros = [
-        [20, 5, '08:00', 2, 2],
+        [20, 5, '08:00', 2, 2, 365],
     ]
     for cp in consulta_parametros:
-        add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4])
+        add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4], cp[5])
 
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
     return BeneficioModel.objects.get_or_create(concessao=c, data_inicial=di, data_final=df, data_retorno=dr,
@@ -210,9 +210,9 @@ def add_tipo_sanguineo(n):
 def add_tipo_laudo(n):
     return TipoLaudoModel.objects.get_or_create(nome=n)
 
-def add_consulta_parametros(tc, te, ia, lc, ga):
-    return ParametrosConsultaModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia,
-                                                         limite_consultas=lc, gap_agendamento=ga)
+def add_consulta_parametros(tc, te, ia, lc, ga, tm):
+    return ParametrosConfiguracaoModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia,
+                                                         limite_consultas=lc, gap_agendamento=ga, tempo_minimo_exercicio=tm)
 
 # Start execution here!
 if __name__ == '__main__':

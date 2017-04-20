@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render
-from issem.models import ParametrosConsultaModel
+from issem.models import ParametrosConfiguracaoModel
 from issem.forms import ConsultaParametrosForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test

@@ -3,7 +3,7 @@ from issem.models.beneficio import BeneficioModel
 from issem.models.cargo import CargoModel
 from issem.models.cid import CidModel
 from issem.models.cidade import CidadeModel
-from issem.models.parametros_consulta import ParametrosConsultaModel
+from issem.models.parametros_configuracao import ParametrosConfiguracaoModel
 from issem.models.contato_issem import ContatoIssemModel
 from issem.models.dependente import DependenteModel
 from issem.models.estado import EstadoModel
@@ -22,4 +22,5 @@ from issem.models.tipo_exame import TipoExameModel
 from issem.models.tipo_sanguineo import TipoSanguineoModel
 from issem.models.laudo import LaudoModel
 from issem.models.tipo_laudo import TipoLaudoModel
+
 

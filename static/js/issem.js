@@ -39,12 +39,22 @@ $(document).ready(function () {
     $('#id_orgao').dropdown();
     $('#id_groups').dropdown();
     $('.ui.dropdown').dropdown();
+    //
+    // //grupo edicao
+    // id_campo = $('#group_user').val()
+    // $('#id_groups option[value=' + id_campo + ']').attr('selected', 'selected')
+    // valor_campo = $('#id_groups option[value=' + id_campo + ']').text()
+    // $('#div_group_user .selection.dropdown .text').text(valor_campo).removeClass('default')
+    //
+    campo = $('#group_user').val()
+    $('.departamento .search').val(campo)
+    valor_campo = '0'
+    $('.departamento .search').change(function () {
+        valor_campo = $('.departamento .search').val()
+    })
+    $('#group_user').val(valor_campo)
 
-    //grupo edicao
-    id_campo = $('#group_user').val()
-    $('#id_groups option[value=' + id_campo + ']').attr('selected', 'selected')
-    valor_campo = $('#id_groups option[value=' + id_campo + ']').text()
-    $('#div_group_user .selection.dropdown .text').text(valor_campo).removeClass('default')
+
 
 });
 
