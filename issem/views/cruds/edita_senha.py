@@ -14,7 +14,6 @@ class EditaSenha(View):
     def group_test(user):
         return user.groups.filter(name='Administrativo')
 
-    @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, id_group=None):
         form = PessoaPasswordForm()
         group_user = Group.objects.get(pk=id_group).name

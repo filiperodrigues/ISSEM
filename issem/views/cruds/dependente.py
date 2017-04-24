@@ -19,18 +19,25 @@ class DependenteView(View):
     def get(self, request, id=None, id_segurado=None):
         segurado = None
         id_group_user = None
+        msg = None
+        tipo_msg = None
         if not id and id_segurado:
             segurado = SeguradoModel.objects.get(pk=id_segurado)
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio, para um segurado específico
         elif id and not id_segurado:
             dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
-            segurado = SeguradoModel.objects.get(dependente__id=id)
+            try:
+                segurado = SeguradoModel.objects.get(dependente__id=id)
+            except:
+                segurado = None
+                msg = 'Dependente não está associado à nenhum segurado!'
+                tipo_msg = 'red'
             form = DependenteFormEdit(instance=dependente)
             id_group_user = Group.objects.get(user=id).id
         else:
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado': id_segurado,
-                                               'id_group_user': id_group_user, 'segurado': segurado})
+                                               'id_group_user': id_group_user, 'segurado': segurado, 'msg': msg, 'tipo_msg': tipo_msg})
 
     def post(self, request, id_segurado=None):
         id_group_user = None
@@ -67,11 +74,11 @@ class DependenteView(View):
                 user.save()
                 segurado.dependente.add(user)
                 segurado.save()
-                msg = 'Cadastro efetuado com sucesso!'
+                msg = 'Cadastro efetuado com sucessooooo!'
                 tipo_msg = 'green'
                 form = DependenteFormCad()
                 return render(request, self.template,
-                              {'form': form, 'msg': msg, 'tipo_msg': tipo_msg, 'id_segurado': id_segurado})
+                              {'form': form, 'msg': msg, 'tipo_msg': tipo_msg, 'id_segurado': id_segurado, 'segurado': segurado})
             else:
                 print(form.errors)
                 msg = 'Erros encontrados!'

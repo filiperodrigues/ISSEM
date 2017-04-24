@@ -2,9 +2,15 @@
 
 {% block body_block %}
 
-    <div class="ui warning message">
-        <div class="header"> Bem vindo Administrador!</div>
-        <p>Acesse o <a href="{% url 'admin:index' %}">painel de controle</a> para alterações no sistema!</p>
-    </div>
+    {% if msg %}
+        <div class="ui {{ tipo_msg }} message">
+            <div class="header">{{ msg }}</div>
+        </div>
+    {% else %}
+        <div class="ui warning message">
+            <div class="header"> Bem vindo Administrador!</div>
+            <p>Acesse o <a href="{% url 'admin:index' %}">painel de controle</a> para alterações no sistema!</p>
+        </div>
+    {% endif %}
 
 {% endblock %}

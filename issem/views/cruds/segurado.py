@@ -26,7 +26,7 @@ class SeguradoView(View):
             form = SeguradoFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
 
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_group_user': id_group_user})
+        return render(request, self.template, {'form': form, 'id': id, 'id_group_user': id_group_user})
 
     def post(self, request, id=None):
         id_group_user = 0
