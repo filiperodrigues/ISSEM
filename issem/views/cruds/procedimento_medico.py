@@ -50,6 +50,14 @@ def ProcedimentoMedicoDelete(request, id):
 
 
 def ListaProcedimentosMedicos(request, msg=None, tipo_msg=None):
-    procedimentos_medico = ProcedimentoMedicoModel.objects.filter(excluido=False)
+    if request.GET:
+        pm1 = ProcedimentoMedicoModel.objects.filter(descricao__icontains=request.GET.get('campo'), excluido=0)
+        pm2 = ProcedimentoMedicoModel.objects.filter(valor__icontains=request.GET.get('campo'), excluido=0)
+        pm3 = ProcedimentoMedicoModel.objects.filter(codigo__contains=request.GET.get('campo'), excluido=0)
+        procedimentos_medico = list(pm1) + list(pm2) + list(pm3)
+        procedimentos_medico = list(set(procedimentos_medico))
+    else:
+        procedimentos_medico = ProcedimentoMedicoModel.objects.filter(excluido=False)
+
     dados, page_range, ultima = pagination(procedimentos_medico, request.GET.get('page'))
     return render(request, 'listas/procedimentos_medicos.html', {'dados': dados, 'page_range':page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

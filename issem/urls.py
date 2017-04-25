@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^edita/cid/(?P<id>\d+)/$', CidView.as_view(), name='edita_cid'),
     url(r'^deleta/cid/(?P<id>[0-9]+)/$', CidView.CidDelete, name='deleta_cid'),
     url(r'^lista/cids/$', CidView.ListaCids, name='lista_cids'),
+    url(r'^campo/lista/?$', CidView.ListaCids, name='campo_pesquisa_cids'),
 
     # BENEFÍCIO
     url(r'^cad/beneficio/$', BeneficioView.as_view(), name='cad_beneficio'),

@@ -101,7 +101,14 @@ def DependenteDelete(request, id):
 
 
 def ListaDependentes(request, msg=None, tipo_msg=None):
-    dependentes = DependenteModel.objects.filter(excluido=False)
+    if request.GET:
+        dependente1 = DependenteModel.objects.filter(cpf__contains=request.GET.get('campo'), excluido=0)
+        dependente2 = DependenteModel.objects.filter(nome__contains=request.GET.get('campo'), excluido=0)
+        dependente3 = DependenteModel.objects.filter(email__contains=request.GET.get('campo'), excluido=0)
+        dependentes = list(dependente1) + list(dependente2) + list(dependente3)
+        dependentes = list(set(dependentes))
+    else:
+        dependentes = DependenteModel.objects.filter(excluido=False)
     dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
     return render(request, 'listas/dependentes.html',
                   {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

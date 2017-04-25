@@ -18,4 +18,3 @@ from issem.forms.tipo_exame import TipoExameForm
 from issem.forms.laudo import LaudoForm
 from issem.forms.tipo_laudo import TipoLaudoForm
 from issem.forms.filtro_agenda import FiltroAgendaForm
-

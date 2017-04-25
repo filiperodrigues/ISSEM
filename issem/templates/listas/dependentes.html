@@ -30,6 +30,17 @@
             </div>
 
             <div class="three wide column"></div>
+
+            <div class="three wide column">
+                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_dependentes' %}">
+                    {% csrf_token %}
+                    <input type="text" id="id_campo" name="campo" required="False">
+                    <input type="submit" name="submit" class="ui button blue" value="Pesquisar"/>
+                </form>
+            </div>
+
+            <div class="thirteen wide column"></div>
+
             {% if dados %}
                 <table class="ui celled table issem-table-form">
                     <thead>

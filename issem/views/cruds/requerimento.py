@@ -9,7 +9,10 @@ from issem.views.pagination import pagination
 import reportlab
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
+from issem_project.settings import STATIC_URL
 import string
+from django.contrib.staticfiles.storage import staticfiles_storage
+
 
 
 class RequerimentoView(View):
@@ -106,8 +109,7 @@ class RequerimentoView(View):
                                                'id_usuario': id_usuario, 'obj_agendamento': agendamento_form.id})
 
                 else:
-                    msg = (
-                    "Servidor deve ter mais de 1(UM) ano de exercício para realizar agendamentos automáticos. Entre em contato com o ISSEM")
+                    msg = ("Servidor deve ter mais de 1(UM) ano de exercício para realizar agendamentos automáticos. Entre em contato com o ISSEM")
                     return render(request, self.template,
                                   {'msg': msg, 'beneficio_descricao': beneficio.descricao,
                                    'id_usuario': id_usuario})
@@ -121,7 +123,7 @@ class RequerimentoView(View):
                                                'msg': msg})
 
 
-def GeraComprovanteAgendamento(self, msg=None, id_usuario=None, id_agendamento=None):
+def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendamento=None):
     seguado = SeguradoModel.objects.get(pk=id_usuario)
     agendamento = AgendamentoModel.objects.get(pk=id_agendamento)
     response = HttpResponse(content_type='application/pdf')
@@ -130,9 +132,10 @@ def GeraComprovanteAgendamento(self, msg=None, id_usuario=None, id_agendamento=N
     p.setLineWidth(.1)
     msg1 = msg[:msg.find('.') + 1]
     msg2 = msg[msg.find('.') + 2:]
-
-    p.drawImage('/home/ISSEM/static/images/issem_comprovante.jpg', 250, 750, mask=[0, 255, 0, 255, 0, 255], width=60,
-                height=60)
+    prefix = 'https://' if request.is_secure() else 'http://'
+    image_url = prefix + request.get_host() + STATIC_URL + "/images/issem_comprovante.jpg"
+    # image="http://127.0.0.1:8000/static/images/issem_comprovante.jpg"
+    p.drawImage(image_url, 250, 750, mask=[0, 255, 0, 255, 0, 255], width=60, height=60)
 
     p.drawString(50, 730, msg1)
     p.drawString(50, 718, msg2)
@@ -206,15 +209,33 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
     return ("O prazo para requerimento venceu dia %s/%s/%s. Consulte o ISSEM para mais informações.") % (dia, mes, ano)
 
 
-def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
-    agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
+def ApresentaAgendamentos(request):
+    var_controle = 0
+    if request.GET or 'page' in request.GET:
+        if 'page' not in request.GET:
+            data_inicio = str(request.GET.get('data_inicial')).split('/')
+            inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
+            data_inicio_formatada = str(inicio_ano + "-" + inicio_mes + "-" + inicio_dia)
+            data_fim = str(request.GET.get('data_final')).split('/')
+            fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
+            data_fim_formatada = str(fim_ano + "-" + fim_mes + "-" + fim_dia)
+            agendamentos = AgendamentoModel.objects.filter(data_pericia__range=(data_inicio_formatada, data_fim_formatada)).order_by('data_pericia')
+            var_controle = 1
+
+        else:
+            var_controle = 1
+            agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
+
+    else:
+        agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
+
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     return render(request, 'listas/tabela_agendamentos.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'var_controle' : var_controle})
 
 
-def ApresentaRequerimentosSemAgendamento(request, msg=None, tipo_msg=None):
+def ApresentaRequerimentosSemAgendamento(request):
     requerimentos = RequerimentoModel.objects.filter(possui_agendamento=False)
     dados, page_range, ultima = pagination(requerimentos, request.GET.get('page'))
     return render(request, 'listas/tabela_requerimentos_sem_agendamento.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima})
