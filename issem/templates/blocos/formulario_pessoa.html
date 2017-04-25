@@ -258,7 +258,7 @@
     <div class="four wide field"></div>
 </div>
 
-{% if not id %}
+{% if not id and not dependente %}
     <br/>
     <br/>
 
@@ -293,4 +293,8 @@
         </div>
         <div class="two wide field"></div>
     </div>
+{% endif %}
+
+{% if dependente %}
+    {{ form.username }}{{ form.password }}{{ form.password_checker }}
 {% endif %}

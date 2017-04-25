@@ -125,7 +125,7 @@ def GeraComprovanteAgendamento(self, msg=None, id_usuario=None, id_agendamento=N
     msg1=msg[:msg.find('.')+1]
     msg2=msg[msg.find('.')+2:]
 
-    p.drawImage('/home/vinicius/ISSEM/static/images/issem_comprovante.jpg', 250,750, mask=[0,255,0,255,0,255], width=60, height=60)
+    p.drawImage('/home/ISSEM/static/images/issem_comprovante.jpg', 250,750, mask=[0,255,0,255,0,255], width=60, height=60)
 
     p.drawString(50,730, msg1)
     p.drawString(50,718, msg2)

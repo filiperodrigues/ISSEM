@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
 from issem.views.pagination import pagination
-
+from issem.views.cruds.pass_generator import mkpass
 
 class DependenteView(View):
     template = 'cruds/dependente.html'
@@ -24,6 +24,7 @@ class DependenteView(View):
         if not id and id_segurado:
             segurado = SeguradoModel.objects.get(pk=id_segurado)
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio, para um segurado específico
+
         elif id and not id_segurado:
             dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
@@ -36,8 +37,9 @@ class DependenteView(View):
             id_group_user = Group.objects.get(user=id).id
         else:
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio
+
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado': id_segurado,
-                                               'id_group_user': id_group_user, 'segurado': segurado, 'msg': msg, 'tipo_msg': tipo_msg})
+                                               'id_group_user': id_group_user, 'segurado': segurado, 'dependente':True, 'msg': msg, 'tipo_msg': tipo_msg})
 
     def post(self, request, id_segurado=None):
         id_group_user = None
@@ -71,10 +73,12 @@ class DependenteView(View):
                 user = DependenteModel.objects.get(username=request.POST["username"])
                 user.groups.add(gp)
                 user.is_active = False
+                user.set_password(mkpass())
+                user.username = user.cpf
                 user.save()
                 segurado.dependente.add(user)
                 segurado.save()
-                msg = 'Cadastro efetuado com sucessooooo!'
+                msg = 'Cadastro efetuado com sucesso!'
                 tipo_msg = 'green'
                 form = DependenteFormCad()
                 return render(request, self.template,
@@ -86,7 +90,7 @@ class DependenteView(View):
 
         return render(request, self.template,
                       {'form': form, 'method': 'post', 'id': id, 'segurado': segurado, 'msg': msg,
-                       'tipo_msg': tipo_msg, 'id_group_user': id_group_user})
+                       'tipo_msg': tipo_msg, 'id_group_user': id_group_user, 'dependente':True})
 
 
 def DependenteDelete(request, id):
