@@ -55,7 +55,6 @@ $(document).ready(function () {
     $('#group_user').val(valor_campo)
 
 
-
 });
 
 function calendar_input(dependente) {
@@ -240,3 +239,10 @@ $('.abrirModalConsultas').click(function () {
 $('.abrirModalConfirmacao').click(function () {
     $('.modalConfirmacao').modal('show');
 });
+
+function modalRequerimento(id) {
+    html = "<div class='ui green ok inverted button'>Não</div>" +
+        "<a class='ui red ok inverted button IDAgendamento' href='/issem/deleta/requerimento_sem_agendamento/"
+        + id + "/'><i class='remove icon'></i>Sim</a>";
+    document.getElementById("teste").innerHTML = html;
+}

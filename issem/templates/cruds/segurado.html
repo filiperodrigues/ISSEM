@@ -16,7 +16,7 @@
                             {{ msg }}
                             {% if id_segurado %}
                                 <a href="{% url 'issem:cad_dependente_segurado' id_segurado %}">
-                                    <u>- Cadastrar um dependente ao segurado {{ nome }}</u>.</a>
+                                    - <u>Cadastrar um dependente ao segurado {{ nome }}</u>.</a>
                             {% endif %}
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="four wide field">
-                            <label>Data de Admissão</label>
+                            <label>Data de Admissão <i class="asterisk icon red"></i></label>
                             <div class="data">
                                 {{ form.data_admissao }}
                                 {% if form.data_admissao.errors %}

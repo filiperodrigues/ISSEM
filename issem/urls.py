@@ -4,7 +4,6 @@ from django.views.generic import TemplateView
 from issem import views
 from issem.views import *
 
-
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
@@ -77,7 +76,8 @@ urlpatterns = [
     url(r'^edita/segurado/(?P<id>\d+)/$', SeguradoView.as_view(), name='edita_segurado'),
     url(r'^deleta/segurado/(?P<id>[0-9]+)/$', views.SeguradoDelete, name='deleta_segurado'),
     url(r'^lista/segurados/$', views.ListaSegurados, name='lista_segurados'),
-    url(r'^lista/requerimentos/segurado/(?P<id>[0-9]+)/$', views.ListaRequerimentosSegurado, name='requerimentos_segurado'),
+    url(r'^lista/requerimentos/segurado/(?P<id>[0-9]+)/$', views.ListaRequerimentosSegurado,
+        name='requerimentos_segurado'),
 
     # SERVIDOR
     url(r'^cad/servidor/$', ServidorView.as_view(), name='cad_servidor'),
@@ -105,6 +105,8 @@ urlpatterns = [
         RequerimentoServidorView.as_view(), name='edita_requerimento'),
     url(r'^deleta/requerimento/(?P<id_requerimento>[0-9]+)/(?P<id_agendamento>[0-9]+)/$',
         views.RequerimentoAgendamentoDelete, name='deleta_requerimento'),
+    url(r'^deleta/requerimento_sem_agendamento/(?P<id>[0-9]+)/$',
+        views.RequerimentoSemAgendamentoDelete, name='deleta_requerimento_sem_agendamento'),
     url(r'^gera/agendamento/(?P<id_requerimento>\d+)/$', GeraAgendamentoServidorView.as_view(),
         name='define_agendamento'),
     url(r'^agenda/$', views.ApresentaAgendamentos, name='tabela_agendamentos'),
@@ -112,7 +114,8 @@ urlpatterns = [
     url(r'^agenda/medica/filtro/$', views.ApresentaAgendamentosMedico, name='filtro_agenda'),
     url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento,
         name='tabela_requerimentos_sem_agendamento'),
-    url(r'^comprovante_agendamento/pdf/(?P<msg>.+)/(?P<id_agendamento>\d+)/(?P<id_usuario>\d+)/$', views.GeraComprovanteAgendamento, name='comprovante_agendamento'),
+    url(r'^comprovante_agendamento/pdf/(?P<msg>.+)/(?P<id_agendamento>\d+)/(?P<id_usuario>\d+)/$',
+        views.GeraComprovanteAgendamento, name='comprovante_agendamento'),
 
     # LAUDO
     url(r'^cad/laudo/(?P<id_tipo_laudo>\d+)/$', LaudoView.as_view(), name='cad_laudo'),

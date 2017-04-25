@@ -11,6 +11,7 @@ from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 import string
 
+
 class RequerimentoView(View):
     template = 'cruds/requerimento.html'
 
@@ -62,8 +63,9 @@ class RequerimentoView(View):
             if tempo_dias_afastamento < timedelta(days=15):
                 msg = "O prazo para agendamento automatico via sistema ISSEM é de no mínimo 15(quinze) dias de afastamento."
                 tipo_msg = 'red'
-                return render(request, self.template, {'msg': msg, 'tipo_msg': tipo_msg, 'beneficio_descricao': beneficio.descricao
-                    , 'id_usuario': id_usuario})
+                return render(request, self.template,
+                              {'msg': msg, 'tipo_msg': tipo_msg, 'beneficio_descricao': beneficio.descricao
+                                  , 'id_usuario': id_usuario})
             else:
                 data_admissao = SeguradoModel.objects.get(pk=id_usuario).data_admissao
                 data_admissao_mais_um_ano = data_admissao + timedelta(days=consulta_parametros.tempo_minimo_exercicio)
@@ -90,19 +92,22 @@ class RequerimentoView(View):
                                     obj_requerimento.possui_agendamento = True
                                     obj_requerimento.save()
                                     hora_pericia_msg = str(hora_pericia)
-                                    msg_valida = define_mensagem_consulta(data_pericia, hora_pericia_msg[:len(hora_pericia_msg)-3]+"h", beneficio)
+                                    msg_valida = define_mensagem_consulta(data_pericia, hora_pericia_msg[:len(
+                                        hora_pericia_msg) - 3] + "h", beneficio)
 
                                     return render(request, self.template,
                                                   {'msg_valida': msg_valida, 'beneficio_descricao': beneficio.descricao,
-                                                   'id_usuario': id_usuario, 'id_agendamento' : agendamento_form.id, 'id_beneficio' : beneficio.id})
+                                                   'id_usuario': id_usuario, 'id_agendamento': agendamento_form.id,
+                                                   'id_beneficio': beneficio.id})
                             else:
                                 msg = ("Não há datas disponíveis para consulta. Entre em contato com o ISSEM")
                                 return render(request, self.template,
                                               {'msg': msg, 'beneficio_descricao': beneficio.descricao,
-                                               'id_usuario': id_usuario, 'obj_agendamento' : agendamento_form.id})
+                                               'id_usuario': id_usuario, 'obj_agendamento': agendamento_form.id})
 
                 else:
-                    msg = ("Servidor deve ter mais de 1(UM) ano de exercício para realizar agendamentos automáticos. Entre em contato com o ISSEM")
+                    msg = (
+                    "Servidor deve ter mais de 1(UM) ano de exercício para realizar agendamentos automáticos. Entre em contato com o ISSEM")
                     return render(request, self.template,
                                   {'msg': msg, 'beneficio_descricao': beneficio.descricao,
                                    'id_usuario': id_usuario})
@@ -112,7 +117,8 @@ class RequerimentoView(View):
             print(form.errors)
 
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id, 'id_beneficio': beneficio.id,
-                                               'beneficio_descricao': beneficio.descricao, 'id_usuario' : id_usuario, 'msg': msg})
+                                               'beneficio_descricao': beneficio.descricao, 'id_usuario': id_usuario,
+                                               'msg': msg})
 
 
 def GeraComprovanteAgendamento(self, msg=None, id_usuario=None, id_agendamento=None):
@@ -122,21 +128,24 @@ def GeraComprovanteAgendamento(self, msg=None, id_usuario=None, id_agendamento=N
     response['Content-Disposition'] = 'attachment; filename="comprovante_agendamento.pdf"'
     p = canvas.Canvas(response)
     p.setLineWidth(.1)
-    msg1=msg[:msg.find('.')+1]
-    msg2=msg[msg.find('.')+2:]
+    msg1 = msg[:msg.find('.') + 1]
+    msg2 = msg[msg.find('.') + 2:]
 
-    p.drawImage('/home/ISSEM/static/images/issem_comprovante.jpg', 250,750, mask=[0,255,0,255,0,255], width=60, height=60)
+    p.drawImage('/home/ISSEM/static/images/issem_comprovante.jpg', 250, 750, mask=[0, 255, 0, 255, 0, 255], width=60,
+                height=60)
 
-    p.drawString(50,730, msg1)
-    p.drawString(50,718, msg2)
+    p.drawString(50, 730, msg1)
+    p.drawString(50, 718, msg2)
     p.drawString(50, 710, "_______________________________________")
     p.setFont("Helvetica", 10)
-    p.drawString(50, 695, "Agendado para: " + seguado.nome + (" (CPF: "+seguado.cpf + ")"))
-    p.drawString(50, 685, "Data atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[5:7] + "/" +
-    str(agendamento.data_pericia)[0:4])
+    p.drawString(50, 695, "Agendado para: " + seguado.nome + (" (CPF: " + seguado.cpf + ")"))
+    p.drawString(50, 685,
+                 "Data atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[
+                                                                                  5:7] + "/" +
+                 str(agendamento.data_pericia)[0:4])
     p.drawString(50, 675, "Horário da consulta: " + str(agendamento.hora_pericia)[:5] + "h")
-    p.setFont("Helvetica" ,8)
-    p.drawString(50,665,"_______________________________________")
+    p.setFont("Helvetica", 8)
+    p.drawString(50, 665, "_______________________________________")
     p.drawString(50, 655, "Documento gerado em: " + str(datetime.now().strftime("%d/%m/%Y às %H:%M:%S")))
     p.setFont("Helvetica", 6)
     p.drawString(50, 645, "*NÃO É NECESSÁRIO IMPRIMIR ESTE DOCUMENTO")
@@ -144,10 +153,19 @@ def GeraComprovanteAgendamento(self, msg=None, id_usuario=None, id_agendamento=N
     p.save()
     return response
 
+
 def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
     requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
     requerimento.delete()
     return HttpResponseRedirect('/')
+
+
+def RequerimentoSemAgendamentoDelete(request, id):
+    requerimento = RequerimentoModel.objects.get(pk=id)
+    requerimento.delete()
+    msg = "Solicitação de agendamento excluída com sucesso."
+    tipo_msg = "green"
+    return ApresentaRequerimentosSemAgendamento(request, msg, tipo_msg)
 
 
 def verifica_data_hora_pericia(dia, consulta_parametros):
@@ -175,7 +193,8 @@ def define_mensagem_consulta(data_pericia, hora_pericia, beneficio):
     mes = texto_msg[1]
     ano = texto_msg[0]
     obs_beneficio = beneficio.observacao.encode('utf-8').strip()
-    return ("Sua consulta ficou agendada para %s/%s/%s às %s. %s") % (dia, mes, ano, str(hora_pericia), str(obs_beneficio))
+    return ("Sua consulta ficou agendada para %s/%s/%s às %s. %s") % (
+    dia, mes, ano, str(hora_pericia), str(obs_beneficio))
 
 
 def define_mensagem_prazo_expirado(prazo_pericia_final):
@@ -187,15 +206,15 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
     return ("O prazo para requerimento venceu dia %s/%s/%s. Consulte o ISSEM para mais informações.") % (dia, mes, ano)
 
 
-def ApresentaAgendamentos(request):
+def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
     agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     return render(request, 'listas/tabela_agendamentos.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima})
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
 
 
-def ApresentaRequerimentosSemAgendamento(request):
-
-    requerimentos = RequerimentoModel.objects.filter(possui_agendamento = False)
+def ApresentaRequerimentosSemAgendamento(request, msg=None, tipo_msg=None):
+    requerimentos = RequerimentoModel.objects.filter(possui_agendamento=False)
     dados, page_range, ultima = pagination(requerimentos, request.GET.get('page'))
-    return render(request, 'listas/tabela_requerimentos_sem_agendamento.html', {'dados': dados, 'page_range' : page_range, 'ultima' : ultima})
+    return render(request, 'listas/tabela_requerimentos_sem_agendamento.html',
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})

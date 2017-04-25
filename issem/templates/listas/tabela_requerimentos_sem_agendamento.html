@@ -67,6 +67,10 @@
                                         <i class="calendar icon"></i> Gerar agendamento
                                     </div>
                                 </a>
+                                <a class="ui right floated icon button red abrirModalConfirmacao"
+                                   onclick="modalRequerimento({{ dado.id }})" href="#">
+                                    <i class="trash icon"></i>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -86,5 +90,18 @@
             {% include 'blocos/pagination.html' %}
         </div>
     </div>
+
+    {#========== MODAL ==========#}
+    <div class="ui small modal modalConfirmacao">
+        <i class="close icon"></i>
+        <div class="ui icon header">
+            <i class="trash icon"></i>
+            Deseja realmente excluir?
+        </div>
+        <div class="ui actions" id="teste">
+            <!-- /GERADO POR JS -->
+        </div>
+    </div>
+    {#========== / MODAL ==========#}
 
 {% endblock %}

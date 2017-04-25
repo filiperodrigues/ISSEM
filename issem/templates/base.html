@@ -74,10 +74,12 @@
                     <span class="issem-bold">{{ user }}</span>
                     <i class="angle down icon"></i>
                     <div class="menu">
-                        <a href="{% url 'issem:perfil' id=user.id %}" class="item">
-                            <i class="user icon"></i>
-                            Meu Perfil
-                        </a>
+                        {% if not user.is_superuser %}
+                            <a href="{% url 'issem:perfil' id=user.id %}" class="item">
+                                <i class="user icon"></i>
+                                Meu Perfil
+                            </a>
+                        {% endif %}
                         <a href="{% url 'issem:logout' %}" class="item">
                             <i class="sign out icon"></i>
                             Sair

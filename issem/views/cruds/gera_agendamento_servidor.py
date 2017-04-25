@@ -89,7 +89,7 @@ def define_mensagem_agendamento(data_agendamento, hora_pericia):
     return ("Consulta agendada para %s/%s/%s às %s") % (dia, mes, ano, str(hora_pericia))
 
 
-def RequerimentoDelete(request, id):
+def RequerimentoDelete(request, id=None):
     requerimento = RequerimentoModel.objects.get(pk=id)
     requerimento.delete()
     return HttpResponseRedirect('/')

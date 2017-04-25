@@ -19,5 +19,3 @@ def mkpass(size=16):
         random.shuffle(chars)
 
     return passwd
-
-print(mkpass())
