@@ -1,6 +1,6 @@
 # coding:utf-8
 from django import forms
-from issem.forms.validators.generic_validators import ValidarDataInicialFinal
+from issem.forms.validators.generic_validators import ValidarDataRequerimento
 from issem.models.requerimento import RequerimentoModel
 from issem.models.segurado import SeguradoModel
 from datetime import date
@@ -19,7 +19,7 @@ class RequerimentoForm(forms.ModelForm):
         fields = '__all__'
 
     def clean_data_final_afastamento(self):
-        return ValidarDataInicialFinal(self.cleaned_data.get('data_inicio_afastamento'),
+        return ValidarDataRequerimento(self.cleaned_data.get('data_inicio_afastamento'),
                                        self.cleaned_data.get('data_final_afastamento'))
 
     def clean_data_requerimento(self):

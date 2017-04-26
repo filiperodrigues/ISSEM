@@ -136,3 +136,10 @@ footer {
 .issem-form-filter{
     margin-top: 40px !important;
 }
+
+.issem-green{
+    color: green;
+}
+.issem-red{
+    color: red;
+}

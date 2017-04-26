@@ -18,6 +18,23 @@ def ValidarDataInicialFinal(data_inicial, data_final):
         raise forms.ValidationError("Data final deve ser após a data inicial")
 
 
+def ValidarDataRequerimento(data_inicial, data_final):
+
+    if not data_inicial:
+        raise forms.ValidationError("Defina uma data inicial")
+    elif not data_final:
+        raise forms.ValidationError("Defina uma data final")
+
+    if data_inicial <= data_final:
+        qtd_dias = int(str((data_final - data_inicial)).split()[0])
+        if qtd_dias > 15:
+            return data_final
+        else:
+            raise forms.ValidationError("Deve ser maior que 15(quinze) dias.")
+    else:
+        raise forms.ValidationError("Data final deve ser após a data inicial")
+
+
 def ValidarPassword(password, password_checker):
     if password != password_checker:
         raise forms.ValidationError("Senhas diferentes")
