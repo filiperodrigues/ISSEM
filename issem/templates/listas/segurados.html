@@ -37,6 +37,16 @@
                 </a>
             </div>
 
+            <div class="three wide column">
+                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_segurados' %}">
+                    {% csrf_token %}
+                    <input type="text" id="id_campo" name="filtro" required="False" placeholder="Pesquisa">
+                    <input type="submit" name="submit" class="ui button blue" value="Pesquisar"/>
+                </form>
+            </div>
+            <div class="thirteen wide column"></div>
+
+
             {% if dados %}
                 <table class="ui celled table issem-table-form">
                     <thead>
@@ -81,7 +91,11 @@
                     <tfoot>
                 </table>
 
-                {% include 'blocos/pagination.html' %}
+                {% if var_controle == 1 %}
+                    {% include 'blocos/paginatio_filtroTexto.html' %}
+                {% else %}
+                    {% include 'blocos/pagination.html' %}
+                {% endif %}
             {% else %}
                 <div class="sixteen wide column issem-div-message">
                     <br/>

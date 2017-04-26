@@ -75,18 +75,26 @@ class BeneficioView(View):
     @classmethod
     @method_decorator(user_passes_test(group_test))
     def ListaBeneficios(self, request, msg=None, tipo_msg=None):
-        if request.GET:
-            beneficio1 = BeneficioModel.objects.filter(descricao__contains=request.GET.get('campo'), excluido=0)
-            beneficio2 = BeneficioModel.objects.filter(concessao__contains=request.GET.get('campo'), excluido=0)
-            beneficio3 = BeneficioModel.objects.filter(numero_portaria__contains=request.GET.get('campo'), excluido=0)
-            beneficios = list(beneficio1) + list(beneficio2) + list(beneficio3)
-            beneficios = list(set(beneficios))
+        var_controle = 0
+        if request.GET or 'page' in request.GET:
+            if request.GET.get('filtro'):
+                beneficio1 = BeneficioModel.objects.filter(descricao__contains=request.GET.get('filtro'), excluido=0)
+                beneficio2 = BeneficioModel.objects.filter(numero_portaria__contains=request.GET.get('filtro'), excluido=0)
+                beneficio3 = BeneficioModel.objects.filter(concessao__contains=request.GET.get('filtro'), excluido=0)
+                beneficios = list(beneficio1) + list(beneficio2) + list(beneficio3)
+                beneficios = list(set(beneficios))
+                var_controle = 1
 
+            else:
+                beneficios = BeneficioModel.objects.filter(excluido=False)
         else:
-            beneficios = BeneficioModel.objects.filter(excluido=0)
+            beneficios = BeneficioModel.objects.filter(excluido=False)
+
         dados, page_range, ultima = pagination(beneficios, request.GET.get('page'))
         return render(request, 'listas/beneficios.html',
-                      {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+                      {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
+                       'var_controle': var_controle,
+                       'filtro': request.GET.get('filtro')})
 
     @classmethod
     @method_decorator(user_passes_test(group_test))

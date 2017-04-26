@@ -75,18 +75,26 @@ class CidView(View):
     @classmethod
     @method_decorator(user_passes_test(group_test))
     def ListaCids(self, request, msg=None, tipo_msg=None):
-        if request.GET:
-            cid1 = CidModel.objects.filter(descricao__icontains=request.GET.get('campo'), excluido=0)
-            cid2 = CidModel.objects.filter(cod_cid__icontains=request.GET.get('campo'), excluido=0)
-            cid3 = CidModel.objects.filter(gravidade__icontains=request.GET.get('campo'), excluido=0)
-            cids = list(cid1) + list(cid2) + list(cid3)
-            cids = list(set(cids))
-        else:
-            cids = CidModel.objects.filter(excluido=0)
-        dados, page_range, ultima = pagination(cids, request.GET.get('page'))
+        var_controle = 0
+        if request.GET or 'page' in request.GET:
+            if request.GET.get('filtro'):
+                cid1 = CidModel.objects.filter(descricao__contains=request.GET.get('filtro'), excluido=0)
+                cid2 = CidModel.objects.filter(cod_cid__contains=request.GET.get('filtro'), excluido=0)
+                cid3 = CidModel.objects.filter(gravidade__contains=request.GET.get('filtro'), excluido=0)
+                cids = list(cid1) + list(cid2) + list(cid3)
+                cids = list(set(cids))
+                var_controle = 1
 
+            else:
+                cids = CidModel.objects.filter(excluido=False)
+        else:
+            cids = CidModel.objects.filter(excluido=False)
+
+        dados, page_range, ultima = pagination(cids, request.GET.get('page'))
         return render(request, 'listas/cids.html',
-                      {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+                      {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
+                       'var_controle': var_controle,
+                       'filtro': request.GET.get('filtro')})
 
     @classmethod
     @method_decorator(user_passes_test(group_test))

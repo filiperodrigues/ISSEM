@@ -35,23 +35,14 @@
 
             <div class="three wide column"></div>
 
-            <div class="sixteen wide column issem-form-filter">
-                <form class="ui form" id="FiltroForm" method="post" action="{% url 'issem:filtro_agenda' %}">
+            <div class="three wide column">
+                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:tabela_agendamentos' %}">
                     {% csrf_token %}
-                    <div class="fields">
-                        <div class="four wide field">
-                            <label>Data Inicial</label>
-                            {{ form.data_inicio_periodo }}
-                        </div>
-                        <div class="four wide field">
-                            <label>Data Final</label>
-                            {{ form.data_fim_periodo }}
-                        </div>
-                        <div class="four wide field">
-                            <label>&ensp;</label>
-                            <input type="submit" name="submit" class="ui button green" value="Filtrar"/>
-                        </div>
+                    <div class="data">
+                        <input type="text" id="id_campo" name="data_inicio" required="False" placeholder="Data Inicial">
+                        <input type="text" id="id_campo" name="data_fim" required="False" placeholder="Data Final">
                     </div>
+                    <input type="submit" name="submit" class="ui button blue" value="Pesquisar"/>
                 </form>
             </div>
 

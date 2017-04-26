@@ -111,6 +111,7 @@ urlpatterns = [
     url(r'^gera/agendamento/(?P<id_requerimento>\d+)/$', GeraAgendamentoServidorView.as_view(),
         name='define_agendamento'),
     url(r'^agenda/$', views.ApresentaAgendamentos, name='tabela_agendamentos'),
+    url(r'^agenda/requerimentos/sem/agendamento$', views.ApresentaRequerimentosSemAgendamento, name='tabela_agendamentos_sem_requerimento'),
     url(r'^agenda/medica/$', views.ApresentaAgendamentosMedico, name='agenda_medica'),
     url(r'^agenda/medica/filtro/$', views.ApresentaAgendamentosMedico, name='filtro_agenda'),
     url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento,

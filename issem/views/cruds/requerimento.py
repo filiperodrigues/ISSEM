@@ -6,9 +6,12 @@ from django.views.generic.base import View
 from datetime import date, timedelta, datetime
 from django.contrib.auth.models import User
 from issem.views.pagination import pagination
+import reportlab
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from issem_project.settings import STATIC_URL
+import string
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 
 
@@ -204,16 +207,19 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
 
 def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
     if request.GET or 'page' in request.GET:
-        if 'page' not in request.GET:
-            data_inicio = str(request.GET.get('data_inicial')).split('/')
+        if request.GET.get('data_inicio'):
+            print(str(request.GET.get('data_inicio')))
+            data_inicio = str(request.GET.get('data_inicio')).split('/')
             inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
             data_inicio_formatada = str(inicio_ano + "-" + inicio_mes + "-" + inicio_dia)
-            data_fim = str(request.GET.get('data_final')).split('/')
+            data_fim = str(request.GET.get('data_fim')).split('/')
             fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
             data_fim_formatada = str(fim_ano + "-" + fim_mes + "-" + fim_dia)
             agendamentos = AgendamentoModel.objects.filter(data_pericia__range=(data_inicio_formatada, data_fim_formatada)).order_by('data_pericia')
+            var_controle = 1
 
         else:
+            var_controle = 1
             agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
 
     else:
@@ -221,11 +227,31 @@ def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
 
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     return render(request, 'listas/tabela_agendamentos.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'var_controle' : var_controle, 'data_inicio': request.GET.get('data_inicio'),
+                   'data_fim': request.GET.get('data_fim')})
 
 
-def ApresentaRequerimentosSemAgendamento(request, msg=None, tipo_msg=None):
-    requerimentos = RequerimentoModel.objects.filter(possui_agendamento=False)
-    dados, page_range, ultima = pagination(requerimentos, request.GET.get('page'))
+def ApresentaRequerimentosSemAgendamento(request):
+    var_controle = 0
+    if request.GET or 'page' in request.GET:
+        if request.GET.get('data_inicio'):
+            print(str(request.GET.get('data_inicio')))
+            data_inicio = str(request.GET.get('data_inicio')).split('/')
+            inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
+            data_inicio_formatada = str(inicio_ano + "-" + inicio_mes + "-" + inicio_dia)
+            data_fim = str(request.GET.get('data_fim')).split('/')
+            fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
+            data_fim_formatada = str(fim_ano + "-" + fim_mes + "-" + fim_dia)
+            agendamentos = RequerimentoModel.objects.filter(
+                data_requerimento__range=(data_inicio_formatada, data_fim_formatada), possui_agendamento=False).order_by('data_requerimento')
+            var_controle = 1
+
+        else:
+            agendamentos = RequerimentoModel.objects.filter(possui_agendamento=False).order_by('data_requerimento')
+
+    else:
+        agendamentos = RequerimentoModel.objects.filter(possui_agendamento=False).order_by('data_requerimento')
+
+    dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     return render(request, 'listas/tabela_requerimentos_sem_agendamento.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima})

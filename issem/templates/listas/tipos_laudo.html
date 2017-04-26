@@ -40,7 +40,7 @@
             <div class="three wide column">
                 <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_tipo_laudo' %}">
                     {% csrf_token %}
-                    <input type="text" id="id_campo" name="campo" required="False">
+                    <input type="text" id="id_campo" name="filtro" required="False">
                     <input type="submit" name="submit" class="ui button blue" value="Pesquisar"/>
                 </form>
             </div>
@@ -77,7 +77,11 @@
                     <tfoot>
                 </table>
 
-                {% include 'blocos/pagination.html' %}
+                {% if var_controle == 1 %}
+                    {% include 'blocos/paginatio_filtroTexto.html' %}
+                {% else %}
+                    {% include 'blocos/pagination.html' %}
+                {% endif %}
             {% else %}
                 <div class="sixteen wide column issem-div-message">
                     <br/>

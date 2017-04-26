@@ -79,19 +79,26 @@ def SeguradoDelete(request, id):
 
 
 def ListaSegurados(request, msg=None, tipo_msg=None):
-    context_dict = {}
-    segurados = SeguradoModel.objects.filter(excluido=False)
+    var_controle = 0
+    if request.GET or 'page' in request.GET:
+        if request.GET.get('filtro'):
+            segurado1 = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
+            segurado2 = SeguradoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
+            segurado3 = SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
+            segurados = list(segurado1) + list(segurado2) + list(segurado3)
+            segurados = list(set(segurados))
+            var_controle = 1
+
+        else:
+            segurados = SeguradoModel.objects.filter(excluido=False)
+    else:
+        segurados = SeguradoModel.objects.filter(excluido=False)
+
     dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
-    context_dict['dados'] = dados
-    context_dict['page_range'] = page_range
-    context_dict['ultima'] = ultima
-
-    if msg:
-        context_dict['msg'] = msg
-    if tipo_msg:
-        context_dict['tipo_msg'] = tipo_msg
-
-    return render(request, 'listas/segurados.html', context_dict)
+    return render(request, 'listas/segurados.html',
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
+                   'var_controle': var_controle,
+                   'filtro': request.GET.get('filtro')})
 
 def ListaRequerimentosSegurado(request, id=None):
     context_dict = {}

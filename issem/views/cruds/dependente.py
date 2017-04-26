@@ -101,14 +101,23 @@ def DependenteDelete(request, id):
 
 
 def ListaDependentes(request, msg=None, tipo_msg=None):
-    if request.GET:
-        dependente1 = DependenteModel.objects.filter(cpf__contains=request.GET.get('campo'), excluido=0)
-        dependente2 = DependenteModel.objects.filter(nome__contains=request.GET.get('campo'), excluido=0)
-        dependente3 = DependenteModel.objects.filter(email__contains=request.GET.get('campo'), excluido=0)
-        dependentes = list(dependente1) + list(dependente2) + list(dependente3)
-        dependentes = list(set(dependentes))
+    var_controle = 0
+    if request.GET or 'page' in request.GET:
+        if request.GET.get('filtro'):
+            dependente1 = DependenteModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
+            dependente2 = DependenteModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
+            dependente3 = DependenteModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
+            dependentes = list(dependente1) + list(dependente2) + list(dependente3)
+            dependentes = list(set(dependentes))
+            var_controle = 1
+
+        else:
+            dependentes = DependenteModel.objects.filter(excluido=False)
     else:
         dependentes = DependenteModel.objects.filter(excluido=False)
+
     dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
     return render(request, 'listas/dependentes.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg})
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
+                   'var_controle': var_controle,
+                   'filtro': request.GET.get('filtro')})

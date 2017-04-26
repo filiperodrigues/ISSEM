@@ -38,9 +38,10 @@
             </div>
 
             <div class="three wide column">
-                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_procedimentos_medicos' %}">
+                <form class="ui form" id="CampoFiltroForm" method="get"
+                      action="{% url 'issem:lista_procedimentos_medicos' %}">
                     {% csrf_token %}
-                    <input type="text" id="id_campo" name="campo">
+                    <input type="text" id="id_campo" name="filtro">
                     <input type="submit" name="submit" class="ui button blue" value="Pesquisar"/>
                 </form>
             </div>
@@ -86,8 +87,11 @@
                     </tbody>
                     <tfoot>
                 </table>
-
-                {% include 'blocos/pagination.html' %}
+                {% if var_controle == 1 %}
+                    {% include 'blocos/paginatio_filtroTexto.html' %}
+                {% else %}
+                    {% include 'blocos/pagination.html' %}
+                {% endif %}
             {% else %}
                 <div class="sixteen wide column issem-div-message">
                     <br/>
