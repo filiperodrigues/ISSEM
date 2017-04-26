@@ -10,7 +10,7 @@
                 <a href="#" class="icon item blue">Primeira</a>
                 <a href="#" class="icon item"><i class="left arrow icon"></i></a>
             {% endif %}
-            {% for page in dados.paginator.page_range %}
+            {% for page in page_range %}
                 {% if dados.number == page %}
                     <a href="?page={{ page }}&filtro={{ filtro }}"
                        class="icon item">{{ page }}</a>

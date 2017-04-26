@@ -1,4 +1,5 @@
 # coding:utf-8
+from django.http import Http404
 from django.shortcuts import render
 from issem.models import BeneficioModel
 from issem.forms import BeneficioForm
@@ -16,37 +17,35 @@ class BeneficioView(View):
 
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, msg=None, tipo_msg=None):
+        context_dict = {}
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                beneficio = BeneficioModel.objects.get(pk=id, excluido=0)
-                form = BeneficioForm(instance=beneficio)
-            except:
-                msg = 'Não foi possível fazer a consulta!'
-                tipo_msg = 'red'
-                return BeneficioView.ListaBeneficios(request, msg, tipo_msg)
+                beneficio = BeneficioModel.objects.get(pk=55, excluido=0)
+            except BeneficioModel.DoesNotExist:
+                raise Http404("Benefício não encontrado.")
+            form = BeneficioForm(instance=beneficio)
         else:  # MODO CADASTRO: recebe o formulário vazio
             form = BeneficioForm()
-        return render(request, self.template, {'form': form, 'id': id, 'msg': msg, 'tipo_msg': tipo_msg})
+
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template, context_dict)
 
     @method_decorator(user_passes_test(group_test))
     def post(self, request, msg=None, tipo_msg=None):
+        context_dict = {}
         valido = False
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
                 beneficio = BeneficioModel.objects.get(pk=id, excluido=0)
-                form = BeneficioForm(instance=beneficio, data=request.POST)
             except:
-                msg = 'Ocorreram erros durante as alterações, tente novamente!'
-                tipo_msg = 'red'
-                return BeneficioView.ListaBeneficios(request, msg, tipo_msg)
+                raise Http404("Benefício não encontrado.")
+            form = BeneficioForm(instance=beneficio, data=request.POST)
             if form.is_valid():
-                try:
-                    form.save()
-                except:
-                    msg = 'Ocorreram erros durante as alterações, tente novamente!'
-                    tipo_msg = 'red'
-                    return BeneficioView.ListaBeneficios(request, msg, tipo_msg)
+                form.save()
                 msg = 'Alterações realizadas com sucesso!'
                 tipo_msg = 'green'
                 valido = True
@@ -54,12 +53,7 @@ class BeneficioView(View):
             id = None
             form = BeneficioForm(data=request.POST)
             if form.is_valid():
-                try:
-                    form.save()
-                except:
-                    msg = 'Ocorreram erros durante o cadastro, tente novamente!'
-                    tipo_msg = 'red'
-                    return BeneficioView.ListaBeneficios(request, msg, tipo_msg)
+                form.save()
                 msg = 'Benefício cadastrado com sucesso!'
                 tipo_msg = 'green'
                 form = BeneficioForm()
@@ -70,11 +64,16 @@ class BeneficioView(View):
             msg = 'Erros encontrados!'
             tipo_msg = 'red'
 
-        return render(request, self.template, {'form': form, 'id': id, 'msg': msg, 'tipo_msg': tipo_msg})
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template, context_dict)
 
     @classmethod
     @method_decorator(user_passes_test(group_test))
     def ListaBeneficios(self, request, msg=None, tipo_msg=None):
+        context_dict = {}
         var_controle = 0
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
@@ -91,21 +90,25 @@ class BeneficioView(View):
             beneficios = BeneficioModel.objects.filter(excluido=False)
 
         dados, page_range, ultima = pagination(beneficios, request.GET.get('page'))
-        return render(request, 'listas/beneficios.html',
-                      {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
-                       'var_controle': var_controle,
-                       'filtro': request.GET.get('filtro')})
+        context_dict['dados'] = dados
+        context_dict['page_range'] = page_range
+        context_dict['ultima'] = ultima
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        context_dict['var_controle'] = var_controle
+        context_dict['filtro'] = request.GET.get('filtro')
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, 'listas/beneficios.html', context_dict)
 
     @classmethod
     @method_decorator(user_passes_test(group_test))
     def BeneficioDelete(self, request, id=None):
         try:
             beneficio = BeneficioModel.objects.get(pk=id)
-            beneficio.excluido = True
-            beneficio.save()
-            msg = 'Exclusão efetuada com sucesso!'
-            tipo_msg = 'green'
         except:
-            msg = 'Ocorreu erro durante a exclusão!'
-            tipo_msg = 'red'
+            raise Http404("Benefício não encontrado.")
+        beneficio.excluido = True
+        beneficio.save()
+        msg = 'Exclusão efetuada com sucesso!'
+        tipo_msg = 'green'
         return BeneficioView.ListaBeneficios(request, msg, tipo_msg)
