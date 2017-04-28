@@ -1,40 +1,70 @@
 # coding:utf-8
-from issem.forms import ServidorFormCad, PessoaPasswordForm, ServidorFormEdit
+from django.http import Http404
+from issem.forms import PessoaPasswordForm
 from django.views.generic.base import View
-from django.utils.decorators import method_decorator
 from issem.models import ServidorModel, SeguradoModel, DependenteModel
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render
 from django.contrib.auth.models import Group
 
 
-class EditaSenha(View):
+class EditaSenhaView(View):
     template = "cruds/edita_senha.html"
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
 
-    def get(self, request, id=None, id_group=None):
+    def get(self, request, id=None, id_group=None, msg=None, tipo_msg=None):
+        context_dict = {}
         form = PessoaPasswordForm()
-        group_user = Group.objects.get(pk=id_group).name
+        try:
+            group_user = Group.objects.get(pk=id_group).name
+        except:
+            raise Http404("Ocorreu algum erro, verifique e tente novamente.")
         if group_user == "Administrativo" or group_user == "Tecnico":
-            nome = ServidorModel.objects.get(pk=id).nome
+            try:
+                nome = ServidorModel.objects.get(pk=id).nome
+            except:
+                raise Http404("Servidor não encontrado.")
         elif group_user == "Segurado":
-            nome = SeguradoModel.objects.get(pk=id).nome
+            try:
+                nome = SeguradoModel.objects.get(pk=id).nome
+            except:
+                raise Http404("Segurado não encontrado.")
         else:
-            nome = DependenteModel.objects.get(pk=id).nome
-        return render(request, self.template,
-                      {'form': form, 'method': 'get', 'id': id, 'nome': nome, 'id_group_user': id_group, 'group': group_user})
+            try:
+                nome = DependenteModel.objects.get(pk=id).nome
+            except:
+                raise Http404("Dependente não encontrado.")
 
-    def post(self, request, id=None, id_group=None):
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['nome'] = nome
+        context_dict['id_group_user'] = id_group
+        context_dict['group'] = group_user
+        return render(request, self.template, context_dict)
+
+    def post(self, request, id=None, id_group=None, msg=None, tipo_msg=None):
+        context_dict = {}
         id = int(request.POST['id'])
-        group_user = Group.objects.get(pk=id_group).name
+        try:
+            group_user = Group.objects.get(pk=id_group).name
+        except:
+            raise Http404("Ocorreu algum erro, verifique e tente novamente.")
         if group_user == "Administrativo" or group_user == "Tecnico":
-            pessoa = ServidorModel.objects.get(pk=id)
+            try:
+                pessoa = ServidorModel.objects.get(pk=id)
+            except:
+                raise Http404("Servidor não encontrado.")
         elif group_user == "Segurado":
-            pessoa = SeguradoModel.objects.get(pk=id)
+            try:
+                pessoa = SeguradoModel.objects.get(pk=id)
+            except:
+                raise Http404("Segurado não encontrado.")
         else:
-            pessoa = DependenteModel.objects.get(pk=id)
+            try:
+                pessoa = DependenteModel.objects.get(pk=id)
+            except:
+                raise Http404("Dependente não encontrado.")
 
         form = PessoaPasswordForm(instance=pessoa, data=request.POST)
         if form.is_valid():
@@ -46,6 +76,12 @@ class EditaSenha(View):
             msg = 'Erros encontrados!'
             tipo_msg = 'red'
 
-        return render(request, self.template,
-                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg, 'nome': pessoa,
-                       'id_group_user': id_group, 'group': group_user})
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['id_group_user'] = id_group
+        context_dict['group'] = group_user
+        context_dict['group'] = group_user
+        context_dict['nome'] = pessoa
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template, context_dict)

@@ -20,7 +20,7 @@
             {% endif %}
 
             <div class="three wide column">
-                <a href="{% url 'issem:perfil' segurado.id %}">
+                <a href="{% url 'issem:funcionario' %}">
                     <div class="ui labeled icon button basic">
                         <i class="left arrow icon"></i> Voltar
                     </div>
@@ -29,12 +29,18 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    {% if not id and segurado %}
+                    {% if not id %}
                         <h1><i class="plus icon"></i> Cadastro de Dependente</h1>
-                        <h3>Segurado(a): "{{ segurado.nome }}"</h3>
+                        {% if segurado %}
+                            <h3>Para o segurado(a): "{{ segurado.nome }}"</h3>
+                        {% endif %}
                     {% else %}
                         <h1><i class="edit icon"></i> Edição de Dependente</h1>
-                        <h3>Segurado(a): "{{ segurado.nome }}"</h3>
+                        {% if segurado %}
+                            <h3>Segurado(a): "{{ segurado.nome }}"</h3>
+                        {% else %}
+                            <h3 class="issem-red">(Sem segurado associado)</h3>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

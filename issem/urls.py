@@ -38,7 +38,7 @@ urlpatterns = [
     # FUNÇÃO
     url(r'^cad/funcao/$', FuncaoView.as_view(), name='cad_funcao'),
     url(r'^edita/funcao/(?P<id>\d+)/$', FuncaoView.as_view(), name='edita_funcao'),
-    url(r'^deleta/funcao/(?P<id>[0-9]+)/$', views.FuncaoDelete, name='deleta_funcao'),
+    url(r'^deleta/funcao/(?P<id>[0-9]+)/$', FuncaoView.FuncaoDelete, name='deleta_funcao'),
 
     # CARGO
     url(r'^cad/cargo/$', CargoView.as_view(), name='cad_cargo'),
@@ -63,14 +63,14 @@ urlpatterns = [
     # LOCAL DE TRABALHO
     url(r'^cad/local_trabalho/$', LocalTrabalhoView.as_view(), name='cad_local_trabalho'),
     url(r'^edita/local_trabalho/(?P<id>\d+)/$', LocalTrabalhoView.as_view(), name='edita_local_trabalho'),
-    url(r'^deleta/local_trabalho/(?P<id>[0-9]+)/$', views.LocalTrabalhoDelete, name='deleta_local_trabalho'),
+    url(r'^deleta/local_trabalho/(?P<id>[0-9]+)/$', LocalTrabalhoView.LocalTrabalhoDelete, name='deleta_local_trabalho'),
 
     # DEPENDENTE
     url(r'^cad/dependente/$', DependenteView.as_view(), name='cad_dependente'),
     url(r'^cad/dependente_segurado/(?P<id_segurado>\d+)/$', DependenteView.as_view(), name='cad_dependente_segurado'),
     url(r'^edita/dependente/(?P<id>\d+)/$', DependenteView.as_view(), name='edita_dependente'),
-    url(r'^deleta/dependente/(?P<id>[0-9]+)/$', views.DependenteDelete, name='deleta_dependente'),
-    url(r'^lista/dependentes/$', views.ListaDependentes, name='lista_dependentes'),
+    url(r'^deleta/dependente/(?P<id>[0-9]+)/$', DependenteView.DependenteDelete, name='deleta_dependente'),
+    url(r'^lista/dependentes/$', DependenteView.ListaDependentes, name='lista_dependentes'),
 
     # SEGURADO
     url(r'^cad/segurado/$', SeguradoView.as_view(), name='cad_segurado'),
@@ -87,7 +87,7 @@ urlpatterns = [
     url(r'^lista/servidores/$', views.ListaServidores, name='lista_servidores'),
 
     # SEGURADO / SERVIDOR
-    url(r'^edita/senha/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenha.as_view(), name='edita_senha'),
+    url(r'^edita/senha/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenhaView.as_view(), name='edita_senha'),
 
     # CIDADE / ESTADO
     url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),

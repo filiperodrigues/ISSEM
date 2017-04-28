@@ -1,4 +1,5 @@
 # coding:utf-8
+from django.http import Http404
 from django.shortcuts import render
 from issem.models import ServidorModel, SeguradoModel, DependenteModel
 from django.views.generic.base import View
@@ -9,29 +10,41 @@ class PerfilView(View):
     template = 'perfil/perfil.html'
 
     def get(self, request, id=None):
+        context_dict = {}
         segurado = None
-        usuario = User.objects.get(pk=id)
-        grupo = usuario.groups.get()
+        try:
+            usuario = User.objects.get(pk=id)
+        except:
+            raise Http404("Usuário não encontrado.")
+        try:
+            grupo = usuario.groups.get()
+        except:
+            raise Http404("Grupo do usuário não encontrado.")
 
-        if grupo != "":
-            if str(grupo) == "Administrativo" or str(grupo) == "Tecnico":
-                grupo = False
-                if id:
-                    usuario = ServidorModel.objects.get(pk=id)
-                    grupo = Group.objects.get(user=id).id
+        if str(grupo) == "Administrativo" or str(grupo) == "Tecnico":
+            grupo = False
+            try:
+                usuario = ServidorModel.objects.get(pk=id)
+            except:
+                raise Http404("Usuário não encontrado.")
+        elif str(grupo) == 'Segurado':
+            grupo = False
+            usuario = SeguradoModel.objects.get(pk=id)
+        elif str(grupo) == 'Dependente':
+            grupo = False
+            try:
+                usuario = DependenteModel.objects.get(pk=id)
+            except:
+                raise Http404("Usuário não encontrado.")
+            try:
+                segurado = SeguradoModel.objects.get(dependente__id=id)
+            except:
+                segurado = None
+        else:
+            raise Http404("Grupo do usuário não encontrado.")
 
-            elif str(grupo) == 'Segurado':
-                grupo = False
-                if id:
-                    usuario = SeguradoModel.objects.get(pk=id)
-                    grupo = Group.objects.get(user=id).id
-
-            elif str(grupo) == 'Dependente':
-                grupo = False
-                if id:
-                    usuario = DependenteModel.objects.get(pk=id)
-                    grupo = Group.objects.get(user=id).id
-                    segurado = SeguradoModel.objects.get(dependente__id=id)
-
-        return render(request, self.template, {'method': 'get', 'id': id, 'group_user': grupo, 'usuario': usuario, 'segurado': segurado})
-
+        context_dict['id'] = id
+        context_dict['group_user'] = grupo
+        context_dict['usuario'] = usuario
+        context_dict['segurado'] = segurado
+        return render(request, self.template, context_dict)

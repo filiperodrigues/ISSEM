@@ -1,4 +1,5 @@
 # coding:utf-8
+from django.http import Http404
 from django.shortcuts import render
 from issem.models import CargoModel
 from issem.forms import CargoForm
@@ -9,6 +10,7 @@ from django.utils.decorators import method_decorator
 
 class CargoView(View):
     template = 'cruds/cargo.html'
+    template_painel = 'paineis/funcionario_pagina.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -19,16 +21,18 @@ class CargoView(View):
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
                 cargo = CargoModel.objects.get(pk=id, excluido=0)
-                form = CargoForm(instance=cargo)
             except:
-                msg = 'Não foi possível fazer a consulta!'
-                tipo_msg = 'red'
-                context_dict['msg'] = msg
-                context_dict['tipo_msg'] = tipo_msg
-                return render(request, 'paineis/funcionario_pagina.html', context_dict)
+                raise Http404("Cargo não encontrado.")
+            form = CargoForm(instance=cargo)
+
         else:  # MODO CADASTRO: recebe o formulário vazio
             form = CargoForm()
-        return render(request, self.template, {'form': form, 'id': id, 'msg': msg, 'tipo_msg': tipo_msg})
+
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template, context_dict)
 
     @method_decorator(user_passes_test(group_test))
     def post(self, request, msg=None, tipo_msg=None):
@@ -38,22 +42,11 @@ class CargoView(View):
             id = request.POST['id']
             try:
                 cargo = CargoModel.objects.get(pk=id, excluido=0)
-                form = CargoForm(instance=cargo, data=request.POST)
             except:
-                msg = 'Ocorreram erros durante as alterações, tente novamente!'
-                tipo_msg = 'red'
-                context_dict['msg'] = msg
-                context_dict['tipo_msg'] = tipo_msg
-                return render(request, 'paineis/funcionario_pagina.html', context_dict)
+                raise Http404("Cargo não encontrado.")
+            form = CargoForm(instance=cargo, data=request.POST)
             if form.is_valid():
-                try:
-                    form.save()
-                except:
-                    msg = 'Ocorreram erros durante as alterações, tente novamente!'
-                    tipo_msg = 'red'
-                    context_dict['msg'] = msg
-                    context_dict['tipo_msg'] = tipo_msg
-                    return render(request, 'paineis/funcionario_pagina.html', context_dict)
+                form.save()
                 msg = 'Alterações realizadas com sucesso!'
                 tipo_msg = 'green'
                 valido = True
@@ -61,15 +54,8 @@ class CargoView(View):
             id = None
             form = CargoForm(data=request.POST)
             if form.is_valid():
-                try:
-                    form.save()
-                except:
-                    msg = 'Ocorreram erros durante o cadastro, tente novamente!'
-                    tipo_msg = 'red'
-                    context_dict['msg'] = msg
-                    context_dict['tipo_msg'] = tipo_msg
-                    return render(request, 'paineis/funcionario_pagina.html', context_dict)
-                msg = 'Benefício cadastrado com sucesso!'
+                form.save()
+                msg = 'Cargo cadastrado com sucesso!'
                 tipo_msg = 'green'
                 form = CargoForm()
                 valido = True
@@ -79,7 +65,11 @@ class CargoView(View):
             msg = 'Erros encontrados!'
             tipo_msg = 'red'
 
-        return render(request, self.template, {'form': form, 'id': id, 'msg': msg, 'tipo_msg': tipo_msg})
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template, context_dict)
 
     @classmethod
     @method_decorator(user_passes_test(group_test))
@@ -87,14 +77,11 @@ class CargoView(View):
         context_dict = {}
         try:
             cargo = CargoModel.objects.get(pk=id)
-            cargo.excluido = True
-            cargo.save()
-            msg = 'Exclusão efetuada com sucesso!'
-            tipo_msg = 'green'
         except:
-            msg = 'Ocorreu erro durante a exclusão!'
-            tipo_msg = 'red'
-
+            raise Http404("Cargo não encontrado.")
+        cargo.delete()
+        msg = 'Cargo excluído com sucesso!'
+        tipo_msg = 'green'
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
-        return render(request, 'paineis/funcionario_pagina.html', context_dict)
+        return render(request, self.template_painel, context_dict)

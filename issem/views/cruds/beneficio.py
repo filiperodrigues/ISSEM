@@ -11,6 +11,7 @@ from django.utils.decorators import method_decorator
 
 class BeneficioView(View):
     template = 'cruds/beneficio.html'
+    template_lista = 'listas/beneficios.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -20,7 +21,7 @@ class BeneficioView(View):
         context_dict = {}
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                beneficio = BeneficioModel.objects.get(pk=55, excluido=0)
+                beneficio = BeneficioModel.objects.get(pk=id, excluido=0)
             except BeneficioModel.DoesNotExist:
                 raise Http404("Benefício não encontrado.")
             form = BeneficioForm(instance=beneficio)
@@ -97,8 +98,7 @@ class BeneficioView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['var_controle'] = var_controle
         context_dict['filtro'] = request.GET.get('filtro')
-        context_dict['tipo_msg'] = tipo_msg
-        return render(request, 'listas/beneficios.html', context_dict)
+        return render(request, self.template_lista, context_dict)
 
     @classmethod
     @method_decorator(user_passes_test(group_test))
@@ -109,6 +109,6 @@ class BeneficioView(View):
             raise Http404("Benefício não encontrado.")
         beneficio.excluido = True
         beneficio.save()
-        msg = 'Exclusão efetuada com sucesso!'
+        msg = 'Benefício excluído com sucesso!'
         tipo_msg = 'green'
-        return BeneficioView.ListaBeneficios(request, msg, tipo_msg)
+        return self.ListaBeneficios(request, msg, tipo_msg)

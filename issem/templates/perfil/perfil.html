@@ -26,8 +26,12 @@
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
                     <h1><i class="user icon"></i> {{ usuario.nome }}</h1>
-                    {% if segurado %}
-                        <h3>Segurado(a): "{{ segurado.nome }}"</h3>
+                    {% if usuario.groups.all.0.name == "Dependente" %}
+                        {% if segurado %}
+                            <h3>Segurado(a): "{{ segurado.nome }}"</h3>
+                        {% else %}
+                            <h3 class="issem-red">(Sem segurado associado)</h3>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

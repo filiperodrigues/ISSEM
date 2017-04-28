@@ -6,6 +6,7 @@ from issem.models import CidadeModel
 
 
 class CidadeView(View):
+
     def post(self, request):
         if request.POST['estado']:
             id_estado = request.POST['estado']

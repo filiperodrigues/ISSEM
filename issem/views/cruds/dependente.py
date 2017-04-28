@@ -1,5 +1,6 @@
 # coding:utf-8
-from django.shortcuts import render, HttpResponseRedirect
+from django.http import Http404
+from django.shortcuts import render
 from issem.models import DependenteModel, SeguradoModel
 from issem.forms import DependenteFormCad, DependenteFormEdit
 from django.views.generic.base import View
@@ -9,115 +10,154 @@ from django.contrib.auth.models import Group
 from issem.views.pagination import pagination
 from issem.views.cruds.pass_generator import mkpass
 
+
 class DependenteView(View):
     template = 'cruds/dependente.html'
+    template_lista = 'listas/dependentes.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
 
     @method_decorator(user_passes_test(group_test))
-    def get(self, request, id=None, id_segurado=None):
+    def get(self, request, id=None, id_segurado=None, msg=None, tipo_msg=None):
+        context_dict = {}
         segurado = None
         id_group_user = None
-        msg = None
-        tipo_msg = None
-        if not id and id_segurado:
-            segurado = SeguradoModel.objects.get(pk=id_segurado)
-            form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio, para um segurado específico
 
-        elif id and not id_segurado:
-            dependente = DependenteModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+        if id:
+            try:
+                dependente = DependenteModel.objects.get(pk=id)
+                # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            except:
+                raise Http404("Dependente não encontrado.")
             try:
                 segurado = SeguradoModel.objects.get(dependente__id=id)
             except:
                 segurado = None
-                msg = 'Dependente não está associado à nenhum segurado!'
-                tipo_msg = 'red'
             form = DependenteFormEdit(instance=dependente)
-            id_group_user = Group.objects.get(user=id).id
+            try:
+                id_group_user = Group.objects.get(user=id).id
+            except:
+                raise Http404("Ocorreu algum erro, verifique e tente novamente.")
         else:
+            if id_segurado:
+                try:
+                    segurado = SeguradoModel.objects.get(pk=id_segurado)
+                except:
+                    raise Http404("Segurado deste dependente não encontrado.")
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio
 
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'id_segurado': id_segurado,
-                                               'id_group_user': id_group_user, 'segurado': segurado, 'dependente':True, 'msg': msg, 'tipo_msg': tipo_msg})
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['id_group_user'] = id_group_user
+        context_dict['segurado'] = segurado
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template, context_dict)
 
-    def post(self, request, id_segurado=None):
+    def post(self, request, id_segurado=None, msg=None, tipo_msg=None):
+        context_dict = {}
+        valido = False
         id_group_user = None
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
-            dependente = DependenteModel.objects.get(pk=id)
-            segurado = SeguradoModel.objects.get(dependente=dependente)
+            try:
+                dependente = DependenteModel.objects.get(pk=id)
+            except:
+                raise Http404("Dependente não encontrado.")
+            try:
+                segurado = SeguradoModel.objects.get(dependente=dependente)
+            except:
+                segurado = None
             form = DependenteFormEdit(instance=dependente, data=request.POST)
-            group_user = Group.objects.get(user=id)
-            id_group_user = group_user.id
+            try:
+                id_group_user = Group.objects.get(user=id).id
+            except:
+                raise Http404("Ocorreu algum erro, verifique e tente novamente.")
 
             if form.is_valid():
                 form.save()
                 msg = 'Alterações realizadas com sucesso!'
                 tipo_msg = 'green'
-            else:
-                print(form.errors)
-                msg = 'Erros encontrados!'
-                tipo_msg = 'red'
-
+                valido = True
         else:  # CADASTRO NOVO
             id = None
             id_segurado = request.POST['id_segurado']
-            segurado = SeguradoModel.objects.get(pk=id_segurado)
+            try:
+                segurado = SeguradoModel.objects.get(pk=id_segurado)
+            except:
+                segurado = None
             form = DependenteFormCad(data=request.POST)
 
             if form.is_valid():
                 form.save()
-
-                gp = Group.objects.get(name='Dependente')
-                user = DependenteModel.objects.get(username=request.POST["username"])
+                try:
+                    gp = Group.objects.get(name='Dependente')
+                    user = DependenteModel.objects.get(username=request.POST["username"])
+                except:
+                    raise Http404("Ocorreu algum erro, verifique e tente novamente.")
                 user.groups.add(gp)
                 user.is_active = False
                 user.set_password(mkpass())
                 user.username = user.cpf
                 user.save()
-                segurado.dependente.add(user)
-                segurado.save()
+                if segurado:
+                    segurado.dependente.add(user)
+                    segurado.save()
                 msg = 'Cadastro efetuado com sucesso!'
                 tipo_msg = 'green'
                 form = DependenteFormCad()
-                return render(request, self.template,
-                              {'form': form, 'msg': msg, 'tipo_msg': tipo_msg, 'id_segurado': id_segurado, 'segurado': segurado})
+                valido = True
+
+        if not valido:
+            print(form.errors)
+            msg = 'Erros encontrados!'
+            tipo_msg = 'red'
+
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        context_dict['segurado'] = segurado
+        context_dict['id_group_user'] = id_group_user
+        context_dict['dependente'] = True
+        return render(request, self.template, context_dict)
+
+    @classmethod
+    def DependenteDelete(self, request, id):
+        try:
+            dependente = DependenteModel.objects.get(pk=id)
+        except:
+            raise Http404("Dependente não encontrado.")
+        dependente.excluido = True
+        dependente.save()
+        msg = "Dependente excluído com sucesso!"
+        tipo_msg = "Dependente excluído com sucesso!"
+        return self.ListaDependentes(request, msg, tipo_msg)
+
+    @classmethod
+    def ListaDependentes(self, request, msg=None, tipo_msg=None):
+        context_dict = {}
+        var_controle = 0
+        if request.GET or 'page' in request.GET:
+            if request.GET.get('filtro'):
+                dependente1 = DependenteModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
+                dependente2 = DependenteModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
+                dependente3 = DependenteModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
+                dependentes = list(dependente1) + list(dependente2) + list(dependente3)
+                dependentes = list(set(dependentes))
+                var_controle = 1
             else:
-                print(form.errors)
-                msg = 'Erros encontrados!'
-                tipo_msg = 'red'
-
-        return render(request, self.template,
-                      {'form': form, 'method': 'post', 'id': id, 'segurado': segurado, 'msg': msg,
-                       'tipo_msg': tipo_msg, 'id_group_user': id_group_user, 'dependente':True})
-
-
-def DependenteDelete(request, id):
-    dependente = DependenteModel.objects.get(pk=id)
-    dependente.excluido = True
-    dependente.save()
-    return ListaDependentes(request, msg="Dependente excluído com sucesso!", tipo_msg="green")
-
-
-def ListaDependentes(request, msg=None, tipo_msg=None):
-    var_controle = 0
-    if request.GET or 'page' in request.GET:
-        if request.GET.get('filtro'):
-            dependente1 = DependenteModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
-            dependente2 = DependenteModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
-            dependente3 = DependenteModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
-            dependentes = list(dependente1) + list(dependente2) + list(dependente3)
-            dependentes = list(set(dependentes))
-            var_controle = 1
-
+                dependentes = DependenteModel.objects.filter(excluido=False)
         else:
             dependentes = DependenteModel.objects.filter(excluido=False)
-    else:
-        dependentes = DependenteModel.objects.filter(excluido=False)
 
-    dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
-    return render(request, 'listas/dependentes.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
-                   'var_controle': var_controle,
-                   'filtro': request.GET.get('filtro')})
+        dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
+        context_dict['dados'] = dados
+        context_dict['page_range'] = page_range
+        context_dict['ultima'] = ultima
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        context_dict['var_controle'] = var_controle
+        context_dict['filtro'] = request.GET.get('filtro')
+        return render(request, self.template_lista, context_dict)
