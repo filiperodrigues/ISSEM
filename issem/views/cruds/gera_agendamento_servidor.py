@@ -1,10 +1,10 @@
 # coding:utf-8
 from django.http import Http404
-from django.shortcuts import render, HttpResponseRedirect
-from issem.models import RequerimentoModel, AgendamentoModel, ParametrosConfiguracaoModel, BeneficioModel
+from django.shortcuts import render
+from issem.models import RequerimentoModel, AgendamentoModel, BeneficioModel
 from issem.forms import RequerimentoForm, AgendamentoForm
 from django.views.generic.base import View
-from datetime import date, timedelta, datetime
+from datetime import date, datetime
 
 
 class GeraAgendamentoServidorView(View):

@@ -55,7 +55,7 @@ class CidView(View):
             form = CidForm(data=request.POST)
             if form.is_valid():
                 form.save()
-                msg = 'Benefício cadastrado com sucesso!'
+                msg = 'CID cadastrado com sucesso!'
                 tipo_msg = 'green'
                 form = CidForm()
                 valido = True

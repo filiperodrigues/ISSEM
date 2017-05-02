@@ -1,57 +1,86 @@
 # coding:utf-8
-from django.shortcuts import render, HttpResponseRedirect
+from django.http import Http404
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from issem.models import RequerimentoModel, AgendamentoModel, BeneficioModel, SeguradoModel, ParametrosConfiguracaoModel
 from issem.forms import RequerimentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta, datetime
 from django.contrib.auth.models import User
 from issem.views.pagination import pagination
-import reportlab
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from issem_project.settings import STATIC_URL
-import string
-from django.contrib.staticfiles.storage import staticfiles_storage
 
+
+#TODO: REFATORAR CÓDIGO
 
 
 class RequerimentoView(View):
     template = 'cruds/requerimento.html'
+    template_lista = 'lista/requerimentos.html'
 
-    def get(self, request, id=None, id_beneficio=None):
-        usuario_logado = User.objects.get(pk=request.user.id)
+    def get(self, request, id=None, id_beneficio=None, msg=None, tipo_msg=None):
+        context_dict = {}
+        try:
+            usuario_logado = User.objects.get(pk=request.user.id)
+        except:
+            raise Http404("Usuário não encontrado.")
         id_usuario = usuario_logado.id
         if id_beneficio:
-            beneficio = BeneficioModel.objects.get(pk=id_beneficio)
+            try:
+                beneficio = BeneficioModel.objects.get(pk=id_beneficio)
+            except:
+                raise Http404("Benefício não encontrado.")
             beneficio_descricao = beneficio.descricao
             beneficio_id = beneficio.id
         else:
-            beneficio_descricao = ""
-            beneficio_id = ""
+            beneficio_descricao = None
+            beneficio_id = None
         if id:
-            requerimento = RequerimentoModel.objects.get(
-                pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            try:
+                requerimento = RequerimentoModel.objects.get(pk=id)
+                # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            except:
+                raise Http404("Requerimento não encontrado.")
             beneficio_id = requerimento.beneficio.id
             beneficio_descricao = requerimento.beneficio.descricao
             form = RequerimentoForm(instance=requerimento)
-
         else:
             form = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
-        return render(request, self.template,
-                      {'form': form, 'method': 'get', 'id': id, 'beneficio_descricao': beneficio_descricao,
-                       'id_beneficio': beneficio_id, 'id_usuario': id_usuario})
+
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        context_dict['beneficio_descricao'] = beneficio_descricao
+        context_dict['id_beneficio'] = beneficio_id
+        context_dict['id_usuario'] = id_usuario
+        return render(request, self.template, context_dict)
 
     def post(self, request, id_beneficio=None, msg=None, tipo_msg=None):
-        beneficio = BeneficioModel.objects.get(pk=id_beneficio)
-        usuario_logado = User.objects.get(pk=request.user.id)
+        context_dict = {}
+        try:
+            beneficio = BeneficioModel.objects.get(pk=id_beneficio)
+        except:
+            raise Http404("Benefício não encontrado.")
+        try:
+            usuario_logado = User.objects.get(pk=request.user.id)
+        except:
+            raise Http404("Usuário não encontrado.")
         id_usuario = usuario_logado.id
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
-            requerimento = RequerimentoModel.objects.get(pk=id)
+            try:
+                requerimento = RequerimentoModel.objects.get(pk=id)
+            except:
+                raise Http404("Requerimento não encontrado.")
             form = RequerimentoForm(instance=requerimento, data=request.POST)
         else:  # CADASTRO NOVO
             id = None
             form = RequerimentoForm(data=request.POST)
+
+        #TODO: esse 'form.save()' não deveria estar ao final do código, pois existem invalidades no meio do código
         if form.is_valid():
             form.save()
             requerimento = RequerimentoModel.objects.latest('id')

@@ -35,6 +35,7 @@ class LocalTrabalhoView(View):
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template, context_dict)
 
+    @method_decorator(user_passes_test(group_test))
     def post(self, request, msg=None, tipo_msg=None):
         context_dict = {}
         valido = False

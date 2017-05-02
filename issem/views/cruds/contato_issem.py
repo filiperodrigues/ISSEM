@@ -54,7 +54,7 @@ class ContatoIssemView(View):
             form = ContatoIssemForm(data=request.POST)
             if form.is_valid():
                 form.save()
-                msg = 'Benefício cadastrado com sucesso!'
+                msg = 'Contato cadastrado com sucesso!'
                 tipo_msg = 'green'
                 form = ContatoIssemForm()
                 valido = True
