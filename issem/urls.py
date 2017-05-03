@@ -31,9 +31,9 @@ urlpatterns = [
     url(r'^cad/procedimento_medico/$', ProcedimentoMedicoView.as_view(), name='cad_procedimento_medico'),
     url(r'^edita/procedimento_medico/(?P<id>\d+)/$', ProcedimentoMedicoView.as_view(),
         name='edita_procedimento_medico'),
-    url(r'^deleta/procedimento_medico/(?P<id>[0-9]+)/$', views.ProcedimentoMedicoDelete,
+    url(r'^deleta/procedimento_medico/(?P<id>[0-9]+)/$', ProcedimentoMedicoView.ProcedimentoMedicoDelete,
         name='deleta_procedimento_medico'),
-    url(r'^lista/procedimentos_medicos/$', views.ListaProcedimentosMedicos, name='lista_procedimentos_medicos'),
+    url(r'^lista/procedimentos_medicos/$', ProcedimentoMedicoView.ListaProcedimentosMedicos, name='lista_procedimentos_medicos'),
 
     # FUNÇÃO
     url(r'^cad/funcao/$', FuncaoView.as_view(), name='cad_funcao'),

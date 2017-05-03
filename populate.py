@@ -69,7 +69,7 @@ def populate():
             linha = linha[0:-1]
         id_estado = linha.split(',')[0]
         nome_estado = linha.split(',')[1]
-        uf_estado = linha.split(',')[2]
+        uf_estado = linha.split(',')[2].strip()
         add_estado(id_estado, nome_estado, uf_estado)
     arq.close()
 
@@ -157,6 +157,7 @@ def populate():
     ]
     for cp in consulta_parametros:
         add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4], cp[5])
+
 
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
     return BeneficioModel.objects.get_or_create(concessao=c, data_inicial=di, data_final=df, data_retorno=dr,

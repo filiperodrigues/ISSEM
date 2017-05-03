@@ -57,71 +57,25 @@
             </div>
             <div class="ui eleven wide column segment">
                 <div class="ui">
-                    <section class="issem-nome"><i class="info icon"></i> ISSEM </section>
-                    <section class="issem-info-texto">{{ info_issem }}</section>
+                    <h1><i class="info circle icon"></i> SPISSEM - Software de Perícia do ISSEM</h1>
+                    <section class="issem-info-texto">
+                        <p><strong><i class="wait icon"></i> Horário de Atendimento</strong></p>
+                        Guias Médicas(Sala 06)<br>
+                        Segunda à Sexta:<br>
+                        <strong>07h30 às 13h</strong><br>
+                        <br>
+                        Demais Setores<br>
+                        Segunda à Sexta:<br>
+                        <strong>07h30 às 12h30</strong><br>
+                        <br>
+                        Simulação Benefícios<br>
+                        Agendamento pelo fone:<br>
+                        <strong><i class="phone icon"></i> 3270 3933<br></strong>
+                    </section>
                     <br>
-                    <a href="{% url 'issem:lista_contatos_issem' %}" class="ui right floated button">
-                        <i class="call icon"></i>
-                        Contato
-                    </a>
                 </div>
             </div>
         </div>
     </div>
-
-    {#    </div>#}
-    {#    </div>#}
-    {#    </div>#}
-
-    {#    <div class="ui centered row">#}
-    {#        <div class="ui segment issem-not-segment">#}
-    {#            <div class="ui ten column">#}
-    {#                <form class="ui large form" method="post">#}
-    {#                    <div class="ui segment red">#}
-    {#                        {% csrf_token %}#}
-    {##}
-    {#                        <div class="fields">#}
-    {#                            <div class="sixteen wide field">#}
-    {#                                <label>Usuário:</label>#}
-    {#                                <div class="ui left icon input">#}
-    {#                                    <i class="user icon"></i>#}
-    {#                                    {{ form.username }}#}
-    {#                                </div>#}
-    {##}
-    {#                                {% if form.username.errors %}#}
-    {#                                    <div class="ui pointing red basic label">#}
-    {#                                        {{ form.username.errors }}#}
-    {#                                    </div>#}
-    {#                                {% endif %}#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {##}
-    {#                        <div class="fields">#}
-    {#                            <div class="sixteen wide field">#}
-    {#                                <label>Senha:</label>#}
-    {#                                <div class="ui left icon input">#}
-    {#                                    <i class="lock icon"></i>#}
-    {#                                    {{ form.password }}#}
-    {#                                </div>#}
-    {##}
-    {#                                {% if form.password.errors %}#}
-    {#                                    <div class="ui pointing red basic label">#}
-    {#                                        {{ form.password.errors }}#}
-    {#                                    </div>#}
-    {#                                {% endif %}#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {##}
-    {#                        <br/>#}
-    {#                        <div class="ui centered grid">#}
-    {#                            <input type="submit" name="submit" class="ui button blue center" value="Login"/>#}
-    {#                        </div>#}
-    {#                        <br/>#}
-    {#                    </div>#}
-    {##}
-    {#                </form>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
 
 {% endblock %}

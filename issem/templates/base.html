@@ -57,13 +57,9 @@
         {% if user.groups.all.0.name == "Segurado" %}
             <a href="{% url 'issem:index' %}" class="item">Segurado</a>
         {% endif %}
-        <div class="right menu">
-            <div class="ui pointing dropdown link item">
-                {% if user.is_anonymous %}
-                    <a href="{% url 'issem:login' %}" class="issem-black">
-                        <h4>Acesse sua Conta!</h4>
-                    </a>
-                {% else %}
+        {% if not user.is_anonymous %}
+            <div class="right menu">
+                <div class="ui pointing dropdown link item">
                     {% if user.groups.all.0.name == 'Tecnico' %}
                         <i class="ui right large doctor icon"></i>
                     {% elif user.groups.all.0.name == 'Administrativo' %}
@@ -85,9 +81,11 @@
                             Sair
                         </a>
                     </div>
-                {% endif %}
+                </div>
             </div>
-        </div>
+        {% else %}
+            <a href="#" class="item">Início</a>
+        {% endif %}
     </div>
 </nav>
 
