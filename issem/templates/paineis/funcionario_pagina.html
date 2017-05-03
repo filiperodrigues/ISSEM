@@ -111,15 +111,17 @@
                         <tr>
                             <td>{{ agendamento.data_pericia }}</td>
                             <td>{{ agendamento.hora_pericia }}</td>
-                            <td>{{ agendamento.requerimento.segurado }}</td>
+                            <td>
+                                <a href="{% url 'issem:perfil' agendamento.requerimento.segurado.id %}">{{ agendamento.requerimento.segurado }}</a>
+                            </td>
                             <td>
                                 {% if agendamento.requerimento.segurado.telefone_celular %}
-                                    agendamento.requerimento.segurado.telefone_celular
+                                    {{ agendamento.requerimento.segurado.telefone_celular }}
                                 {% else %}
                                     ----
                                 {% endif %}
                                 {% if agendamento.requerimento.segurado.telefone_residencial %}
-                                    <br/>agendamento.requerimento.segurado.telefone_residencial
+                                    <br/>{{ agendamento.requerimento.segurado.telefone_residencial }}
                                 {% endif %}
                             </td>
                             <td class="ui right aligned">

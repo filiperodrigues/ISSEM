@@ -8,7 +8,8 @@ from datetime import date
 
 class RequerimentoForm(forms.ModelForm):
     data_inicio_afastamento = forms.DateField(
-        widget=forms.TextInput(attrs={'onfocus': 'limita_data_final_afastamento()'}))
+        widget=forms.DateInput(attrs={'onfocus': 'limita_data_final_afastamento()'}))
+
     segurado = forms.ModelChoiceField(
         queryset=SeguradoModel.objects.all(),
         widget=forms.Select(attrs={"class": "ui fluid search selection dropdown", })

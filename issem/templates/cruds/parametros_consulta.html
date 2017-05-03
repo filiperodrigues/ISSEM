@@ -89,7 +89,7 @@
                         <div class="four wide field"></div>
                     </div>
                     <div class="fields">
-                        <div class="six wide field"></div>
+                        <div class="four wide field"></div>
                         <div class="four wide field">
                             <label>GAP Agendamento (em dias)</label>
                             <div class="dois_digitos">
@@ -101,7 +101,18 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="six wide field"></div>
+                        <div class="four wide field">
+                            <label>Tempo de exercício (em dias)</label>
+                            <div class="dez_digitos">
+                                {{ form.tempo_minimo_exercicio }}
+                                {% if form.tempo_minimo_exercicio.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.tempo_minimo_exercicio.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field"></div>
                     </div>
 
                     {% include 'blocos/buttons_form.html' %}

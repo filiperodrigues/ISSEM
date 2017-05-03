@@ -4,7 +4,6 @@ from issem.models.beneficio import BeneficioModel
 from issem.models.segurado import SeguradoModel
 from issem.models.servidor import ServidorModel
 
-
 class RequerimentoModel(models.Model):
     beneficio = models.ForeignKey(BeneficioModel)
     data_requerimento = models.DateField(blank=True)

@@ -163,20 +163,33 @@ def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendament
     p.drawImage(image_url, 250, 750, mask=[0, 255, 0, 255, 0, 255], width=60, height=60)
 
     p.drawString(50, 730, msg1)
-    p.drawString(50, 718, msg2)
-    p.drawString(50, 710, "_______________________________________")
+    qtdLinhas = len(msg2) / 70
+    linhaInicial = 728
+    psInicial = 0
+    psFinal = 80
+    i = 0
+    p.setFont("Helvetica", 11)
+    print(qtdLinhas)
+    while i < qtdLinhas:
+        linhaInicial -=12
+        p.drawString(50, linhaInicial, msg2[psInicial:psFinal])
+        psInicial += 80
+        psFinal += 80
+        i +=1
+    linhaInicial -=10
+    p.drawString(50, linhaInicial, "_______________________________________")
     p.setFont("Helvetica", 10)
-    p.drawString(50, 695, "Agendado para: " + seguado.nome + (" (CPF: " + seguado.cpf + ")"))
-    p.drawString(50, 685,
+    p.drawString(50, linhaInicial-10, "Agendado para: " + seguado.nome + (" (CPF: " + seguado.cpf + ")"))
+    p.drawString(50, linhaInicial-20,
                  "Data atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[
                                                                                   5:7] + "/" +
                  str(agendamento.data_pericia)[0:4])
-    p.drawString(50, 675, "Horário da consulta: " + str(agendamento.hora_pericia)[:5] + "h")
+    p.drawString(50, linhaInicial-30, "Horário da consulta: " + str(agendamento.hora_pericia)[:5] + "h")
     p.setFont("Helvetica", 8)
-    p.drawString(50, 665, "_______________________________________")
-    p.drawString(50, 655, "Documento gerado em: " + str(datetime.now().strftime("%d/%m/%Y às %H:%M:%S")))
+    p.drawString(50, linhaInicial-40, "_______________________________________")
+    p.drawString(50, linhaInicial-50, "Documento gerado em: " + str(datetime.now().strftime("%d/%m/%Y às %H:%M:%S")))
     p.setFont("Helvetica", 6)
-    p.drawString(50, 645, "*NÃO É NECESSÁRIO IMPRIMIR ESTE DOCUMENTO")
+    p.drawString(50, linhaInicial-60, "*NÃO É NECESSÁRIO IMPRIMIR ESTE DOCUMENTO")
     p.showPage()
     p.save()
     return response

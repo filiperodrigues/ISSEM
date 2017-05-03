@@ -23,13 +23,13 @@ class RequerimentoServidorView(View):
             beneficio_id = ""
 
         if id_requerimento:
-            requerimento = RequerimentoModel.objects.get(
-                pk=id_requerimento)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            requerimento = RequerimentoModel.objects.get(pk=id_requerimento)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             agendamento = AgendamentoModel.objects.get(pk=id_agendamento)
             beneficio_id = requerimento.beneficio.id
             beneficio_descricao = requerimento.beneficio.descricao
             form_requerimento = RequerimentoForm(instance=requerimento)
             form_agendamento = AgendamentoForm(instance=agendamento)
+
         else:
             form_requerimento = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
             form_agendamento = AgendamentoForm()

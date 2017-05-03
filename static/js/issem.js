@@ -6,10 +6,12 @@ $(document).ready(function () {
     $('.hora input').mask('00:00');
     $('.data input').mask('00/00/0000');
     $('.dois_digitos input').mask('00');
+    $('.dez_digitos input').mask('0000000000');
     $('.cep input').mask('00000-000');
     $('.rg input').mask('000000000');
     $('.dez_digitos input').mask('0000000000');
-    $('.fone_ddd input').mask('(00) 00000-0000');
+    $('.fone_ddd_9digitos input').mask('(00) 00000-0000');
+    $('.fone_ddd_8digitos input').mask('(00) 0000-0000');
     $('.crm input').mask('00000000000000000000000000000000');
     $('.valor input').mask('00000000000000000,00', {reverse: true});
     $('.somente_numeros input').mask('00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000');
@@ -50,9 +52,10 @@ $(document).ready(function () {
     $('.departamento .search').val(campo)
     valor_campo = '0'
     $('.departamento .search').change(function () {
-        valor_campo = $('.departamento .search').val()
+        alert($('.text').val())
+        valor_campo = $('.departamento .search').text()
     })
-    $('#group_user').val(valor_campo)
+    grupo = $('#group_user').val(valor_campo)
 
 
 });
