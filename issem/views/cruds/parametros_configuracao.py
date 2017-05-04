@@ -2,14 +2,14 @@
 from django.http import Http404
 from django.shortcuts import render
 from issem.models import ParametrosConfiguracaoModel
-from issem.forms import ConsultaParametrosForm
+from issem.forms import ParametrosConfiguracaoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 
 
-class ParametrosConsultaView(View):
-    template = 'cruds/parametros_consulta.html'
+class ParametrosConfiguracaoView(View):
+    template = 'cruds/parametros_configuracao.html'
     template_painel = 'paineis/funcionario_pagina.html'
 
     def group_test(user):
@@ -22,7 +22,7 @@ class ParametrosConsultaView(View):
             consulta_parametros = ParametrosConfiguracaoModel.objects.get()
         except:
             raise Http404("Parâmetros de Configuração não encontrados.")
-        form = ConsultaParametrosForm(instance=consulta_parametros)
+        form = ParametrosConfiguracaoForm(instance=consulta_parametros)
 
         context_dict['form'] = form
         context_dict['msg'] = msg
@@ -37,7 +37,7 @@ class ParametrosConsultaView(View):
             consulta_parametros = ParametrosConfiguracaoModel.objects.get(pk=1)
         except:
             raise Http404("Parâmetros de Configuração não encontrados.")
-        form = ConsultaParametrosForm(instance=consulta_parametros, data=request.POST)
+        form = ParametrosConfiguracaoForm(instance=consulta_parametros, data=request.POST)
 
         if form.is_valid():
             form.save()

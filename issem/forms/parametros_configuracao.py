@@ -3,7 +3,7 @@ from django import forms
 from issem.models import ParametrosConfiguracaoModel
 
 
-class ConsultaParametrosForm(forms.ModelForm):
+class ParametrosConfiguracaoForm(forms.ModelForm):
 
     class Meta:
         model = ParametrosConfiguracaoModel

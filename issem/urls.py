@@ -95,7 +95,7 @@ urlpatterns = [
     url(r'^escolha_cidade_local_trabalho/$', CidadeView.as_view(), name='escolha_cidade_local_trabalho'),
 
     # CONSULTA PARÂMETROS
-    url(r'^edita/parametros_consulta/$', ParametrosConsultaView.as_view(),
+    url(r'^edita/parametros_consulta/$', ParametrosConfiguracaoView.as_view(),
         name='edita_parametros_consulta'),
 
     # REQUERIMENTO / AGENDAMENTO

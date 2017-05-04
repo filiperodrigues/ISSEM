@@ -2,7 +2,7 @@ from issem.forms.agendamento import AgendamentoForm
 from issem.forms.beneficio import BeneficioForm
 from issem.forms.cargo import CargoForm
 from issem.forms.cid import CidForm
-from issem.forms.consulta_parametros import ConsultaParametrosForm
+from issem.forms.parametros_configuracao import ParametrosConfiguracaoForm
 from issem.forms.contato_issem import ContatoIssemForm
 from issem.forms.dependente import DependenteFormCad, DependenteFormEdit
 from issem.forms.funcao import FuncaoForm
