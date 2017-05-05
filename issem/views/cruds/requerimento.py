@@ -98,6 +98,9 @@ class RequerimentoView(View):
             if date.today() > data_admissao_mais_um_ano:
                 if date.today() > prazo_pericia_final:
                     msg = define_mensagem_prazo_expirado(prazo_pericia_final)
+                    # DELETAR O REQUERIMENTO SEM AGENDAMENTO GERADO #
+                    query = RequerimentoModel.objects.get(pk=id)
+                    query.delete()
                     return render(request, self.template, {'msg': msg, 'beneficio_descricao': beneficio.descricao,
                                                            'id_usuario': id_usuario})
                 else:
@@ -136,9 +139,17 @@ class RequerimentoView(View):
                 msg = ("Servidor deve ter mais de 1(UM) ano de exercício para realizar agendamentos automáticos."
                        " Entre em contato com o ISSEM")
                 tipo_msg = "red"
+                # DELETAR O REQUERIMENTO SEM AGENDAMENTO GERADO #
+                query = RequerimentoModel.objects.get(pk=id)
+                query.delete()
+
                 return render(request, self.template,
                               {'msg': msg, 'tipo_msg': tipo_msg, 'beneficio_descricao': beneficio.descricao,
                                'id_usuario': id_usuario})
+
+            # DELETAR O REQUERIMENTO SEM AGENDAMENTO GERADO #
+            query = RequerimentoModel.objects.get(pk=id)
+            query.delete()
 
             return HttpResponseRedirect('/')
         else:
@@ -170,6 +181,9 @@ def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendament
     i = 0
     p.setFont("Helvetica", 11)
     print(qtdLinhas)
+    if qtdLinhas == 0:
+        linhaInicial -= 12
+        p.drawString(50, linhaInicial, msg2)
     while i < qtdLinhas:
         linhaInicial -=12
         p.drawString(50, linhaInicial, msg2[psInicial:psFinal])

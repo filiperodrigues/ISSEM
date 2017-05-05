@@ -22,7 +22,7 @@ class DependenteFormCad(CadPessoaForm):
 
 
 class DependenteFormEdit(PessoaEditForm):
-    data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'limita_data_final()'}))
+    data_inicial = forms.DateField(widget=forms.DateInput(attrs={'onfocus': 'limita_data_final()'}))
 
     class Meta:
         model = DependenteModel
