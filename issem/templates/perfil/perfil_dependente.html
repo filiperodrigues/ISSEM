@@ -1,0 +1,27 @@
+{% csrf_token %}
+
+{% if not id %}
+    <input type="hidden" name="id" value="">
+{% else %}
+    <input type="hidden" name="id" value="{{ id }}">
+{% endif %}
+
+<h4 class="ui dividing red header">Dados específicos do Dependente</h4>
+<div class="fields">
+    <div class="six wide field">
+        <label>Tipo de Dependente</label>
+        {{ usuario.tipo }}
+    </div>
+    <div class="five wide field">
+        <label>Data de início</label>
+        <div class="data">
+            {{ usuario.data_inicial }}
+        </div>
+    </div>
+    <div class="five wide field">
+        <label>Data de término</label>
+        <div class="data">
+            {{ usuario.data_final }}
+        </div>
+    </div>
+</div>

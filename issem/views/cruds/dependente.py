@@ -94,6 +94,11 @@ class DependenteView(View):
                 try:
                     gp = Group.objects.get(name='Dependente')
                     user = DependenteModel.objects.get(username=request.POST["username"])
+                    user.groups.add(gp)
+                    user.is_active = False
+                    user.set_password(mkpass())
+                    user.username = user.cpf
+                    user.save()
                 except:
                     raise Http404("Ocorreu algum erro, verifique e tente novamente.")
                 user.groups.add(gp)

@@ -72,10 +72,41 @@
                 {% elif usuario.groups.all.0.name == "Segurado" %}
 
                     {% include 'perfil/perfil_segurado.html' %}
-
+                    <h4 class="ui dividing header red">Dependente(s)</h4>
+                    {% if dependente %}
+                        {{ dependente.nome }}
+                        {% for dependente in dependente %}
+                            <div class="ui horizontal list issem-margin-rigth">
+                                <div class="item">
+                                    <i class="big user icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">
+                                            <a href="{% url 'issem:perfil' dependente.id %}">{{ dependente.nome }}</a>
+                                        </div>
+                                        <strong> CPF: </strong>
+                                        {{ dependente.cpf }}<br/>
+                                        <strong>Tipo: </strong>
+                                        {{ dependente.tipo.descricao }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="sixteen wide column issem-div-message">
+                            <br/>
+                            <div class="ui yellow message">
+                                <div class="header">
+                                    Não existem dependentes cadastrados!
+                                    <a href="{% url 'issem:cad_dependente_segurado' id %}">Associar
+                                        dependente</a>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    {% endif %}
+                {% elif usuario.groups.all.0.name == "Dependente" %}
+                    {% include 'perfil/perfil_dependente.html' %}
                 {% endif %}
-
-            </div>
         </div>
     </div>
 
