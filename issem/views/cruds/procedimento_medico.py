@@ -11,7 +11,7 @@ from issem.views.pagination import pagination
 
 class ProcedimentoMedicoView(View):
     template = 'cruds/procedimento_medico.html'
-    template_lista = 'lista/procedimentos_medicos.html'
+    template_lista = 'listas/procedimentos_medicos.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')

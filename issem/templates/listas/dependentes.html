@@ -31,11 +31,15 @@
 
             <div class="three wide column"></div>
 
-            <div class="three wide column">
+            <div class="five wide column">
+                <br>
                 <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_dependentes' %}">
-                    {% csrf_token %}
-                    <input type="text" id="id_campo" name="filtro" required="False">
-                    <input type="submit" name="submit" class="ui button blue" value="Pesquisar"/>
+                    <div class="ui right aligned category search">
+                        <div class="ui icon input">
+                            <input type="text" id="id_campo" name="filtro" required="False" placeholder="Pesquisar">
+                        </div>
+                        <button class="ui button" type="submit" name="submit"><i class="search icon"></i></button>
+                    </div>
                 </form>
             </div>
 

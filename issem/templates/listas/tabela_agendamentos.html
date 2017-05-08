@@ -2,112 +2,99 @@
 
 {% block body_block %}
 
-    <div class="ui centered grid issem-grid">
-        <div class="ui row segment issem-segment issem-segment-border">
-
-            {% if msg %}
-                <div class="sixteen wide column issem-div-message">
-                    <div class="ui {{ tipo_msg }} message">
-                        <div class="header">
-                            {{ msg }}
-                        </div>
+    <div class="ui centered grid issem-grid segment issem-segment issem-segment-border">
+        {% if msg %}
+            <div class="sixteen wide column issem-div-message">
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">
+                        {{ msg }}
                     </div>
                 </div>
-            {% endif %}
-
-            <div class="three wide column">
+            </div>
+        {% endif %}
+        <div class="ui row">
+            <div class="column">
                 <a href="{% url 'issem:funcionario' %}">
                     <div class="ui labeled icon button basic">
                         <i class="left arrow icon"></i> Voltar
                     </div>
                 </a>
             </div>
-
-            <div class="ten wide column">
+            <div class="fifteen wide column row">
                 <div class="issem-title-edit-page">
                     <h1><i class="calendar icon"></i> Agendamentos</h1>
                 </div>
             </div>
-
-            <div class="three wide column"></div>
-
-            <div class="three wide column">
-                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:tabela_agendamentos' %}">
-                    {% csrf_token %}
-                    <div class="data">
-                        <input type="text" id="id_campo" name="data_inicio" required="False" placeholder="Data Inicial">
-                        <input type="text" id="id_campo" name="data_fim" required="False" placeholder="Data Final">
-                    </div>
-                    <input type="submit" name="submit" class="ui button blue" value="Pesquisar"/>
-                </form>
+        </div>
+        <form class="ui form row" id="CampoFiltroForm" method="get"
+              action="{% url 'issem:tabela_agendamentos' %}">
+            <div class="fields data">
+                <input type="text" id="id_campo" name="data_inicio" required="False" placeholder="Data Inicial">
+                <input type="text" id="id_campo" name="data_fim" required="False" placeholder="Data Final">
+                <button class="ui button" type="submit" name="submit"><i class="search icon"></i></button>
             </div>
-            <div class="thirteen wide column"></div>
-
-            {% if dados %}
-
-                <table class="ui celled table issem-table-form">
-                    <thead>
+        </form>
+        {% if dados %}
+            <table class="ui celled table issem-table-form">
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Segurado</th>
+                    <th>Benefício</th>
+                    <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dado in dados %}
                     <tr>
-                        <th>Data</th>
-                        <th>Hora</th>
-                        <th>Segurado</th>
-                        <th>Benefício</th>
-                        <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
+                        {% if dado.data_pericia != "" %}
+                            <td>{{ dado.data_pericia }}</td>
+                        {% else %}
+                            <td>---</td>
+                        {% endif %}
+                        {% if dado.hora_pericia != "" %}
+                            <td>{{ dado.hora_pericia }}</td>
+                        {% else %}
+                            <td>---</td>
+                        {% endif %}
+                        {% if dado.requerimento.segurado != "None" %}
+                            <td>{{ dado.requerimento.segurado }}</td>
+                        {% else %}
+                            <td>---</td>
+                        {% endif %}
+                        {% if dado.requerimento.beneficio != "" %}
+                            <td>{{ dado.requerimento.beneficio }}</td>
+                        {% else %}
+                            <td>---</td>
+                        {% endif %}
+
+                        <td class="ui right aligned">
+                            <a href="{% url 'issem:edita_requerimento' dado.requerimento.id dado.id %}">
+                                <div class="ui labeled icon button">
+                                    <i class="edit icon"></i> Editar
+                                </div>
+                            </a>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {% for dado in dados %}
-                        <tr>
-                            {% if dado.data_pericia != "" %}
-                                <td>{{ dado.data_pericia }}</td>
-                            {% else %}
-                                <td>---</td>
-                            {% endif %}
-                            {% if dado.hora_pericia != "" %}
-                                <td>{{ dado.hora_pericia }}</td>
-                            {% else %}
-                                <td>---</td>
-                            {% endif %}
-                            {% if dado.requerimento.segurado != "None" %}
-                                <td>{{ dado.requerimento.segurado }}</td>
-                            {% else %}
-                                <td>---</td>
-                            {% endif %}
-                            {% if dado.requerimento.beneficio != "" %}
-                                <td>{{ dado.requerimento.beneficio }}</td>
-                            {% else %}
-                                <td>---</td>
-                            {% endif %}
-
-                            <td class="ui right aligned">
-                                <a href="{% url 'issem:edita_requerimento' dado.requerimento.id dado.id %}">
-                                    <div class="ui labeled icon button">
-                                        <i class="edit icon"></i> Editar
-                                    </div>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                    <tfoot>
-                </table>
-
-                {% if var_controle == 1 %}
-                    {% include 'blocos/pagination_filtro.html' %}
-                {% else %}
-                    {% include 'blocos/pagination.html' %}
-                {% endif %}
+                {% endfor %}
+                </tbody>
+                <tfoot>
+            </table>
+            {% if var_controle == 1 %}
+                {% include 'blocos/pagination_filtro.html' %}
             {% else %}
-                <div class="sixteen wide column issem-div-message">
-                    <br/>
-                    <div class="ui yellow message">
-                        <div class="header">
-                            Não existem dados entre os períodos.
-                        </div>
+                {% include 'blocos/pagination.html' %}
+            {% endif %}
+        {% else %}
+            <div class="sixteen wide column issem-div-message">
+                <br/>
+                <div class="ui yellow message">
+                    <div class="header">
+                        Não existem dados entre os períodos.
                     </div>
                 </div>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     </div>
-
 {% endblock %}

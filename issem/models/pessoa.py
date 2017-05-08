@@ -11,7 +11,7 @@ class PessoaModel(User):
     nome = models.CharField(max_length=128, null=False)
     cpf = models.CharField(null=False, max_length=14, unique=True)
     sexo = models.CharField(max_length=1, blank=True)
-    data_nascimento = models.DateField(blank=True)
+    data_nascimento = models.DateField(null=False)
     rg = models.CharField(null=False, max_length=9)
     telefone_residencial = models.CharField(max_length=15, blank=True)
     telefone_celular = models.CharField(max_length=15, blank=True)

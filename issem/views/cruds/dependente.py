@@ -74,12 +74,12 @@ class DependenteView(View):
                 id_group_user = Group.objects.get(user=id).id
             except:
                 raise Http404("Ocorreu algum erro, verifique e tente novamente.")
-
             if form.is_valid():
                 form.save()
                 msg = 'Alterações realizadas com sucesso!'
                 tipo_msg = 'green'
                 valido = True
+
         else:  # CADASTRO NOVO
             id = None
             id_segurado = request.POST['id_segurado']
