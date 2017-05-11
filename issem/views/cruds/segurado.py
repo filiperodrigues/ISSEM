@@ -81,9 +81,9 @@ def SeguradoDelete(request, id):
 def ListaSegurados(request, msg=None, tipo_msg=None):
     if request.GET or 'page' in request.GET:
         if request.GET.get('filtro'):
-            segurado1 = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
-            segurado2 = SeguradoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
-            segurado3 = SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
+            segurado1 = SeguradoModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=0)
+            segurado2 = SeguradoModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=0)
+            segurado3 = SeguradoModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=0)
             segurados = list(segurado1) + list(segurado2) + list(segurado3)
             segurados = list(set(segurados))
         else:

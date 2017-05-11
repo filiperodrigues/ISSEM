@@ -94,9 +94,9 @@ def ServidorDelete(request, id):
 def ListaServidores(request, msg=None, tipo_msg=None):
     if request.GET or 'page' in request.GET:
         if request.GET.get('filtro'):
-            servidor1 = ServidorModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
-            servidor2 = ServidorModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
-            servidor3 = ServidorModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
+            servidor1 = ServidorModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=0)
+            servidor2 = ServidorModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=0)
+            servidor3 = ServidorModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=0)
             servidores = list(servidor1) + list(servidor2) + list(servidor3)
             servidores = list(set(servidores))
         else:

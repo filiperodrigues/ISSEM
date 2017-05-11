@@ -77,9 +77,9 @@ class CidView(View):
         context_dict = {}
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
-                cid1 = CidModel.objects.filter(descricao__contains=request.GET.get('filtro'), excluido=0)
-                cid2 = CidModel.objects.filter(cod_cid__contains=request.GET.get('filtro'), excluido=0)
-                cid3 = CidModel.objects.filter(gravidade__contains=request.GET.get('filtro'), excluido=0)
+                cid1 = CidModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=0)
+                cid2 = CidModel.objects.filter(cod_cid__icontains=request.GET.get('filtro'), excluido=0)
+                cid3 = CidModel.objects.filter(gravidade__icontains=request.GET.get('filtro'), excluido=0)
                 cids = list(cid1) + list(cid2) + list(cid3)
                 cids = list(set(cids))
             else:

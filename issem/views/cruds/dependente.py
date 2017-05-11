@@ -145,9 +145,9 @@ class DependenteView(View):
         context_dict = {}
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
-                dependente1 = DependenteModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
-                dependente2 = DependenteModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
-                dependente3 = DependenteModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
+                dependente1 = DependenteModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=0)
+                dependente2 = DependenteModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=0)
+                dependente3 = DependenteModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=0)
                 dependentes = list(dependente1) + list(dependente2) + list(dependente3)
                 dependentes = list(set(dependentes))
             else:

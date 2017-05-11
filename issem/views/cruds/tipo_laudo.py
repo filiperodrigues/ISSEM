@@ -38,7 +38,7 @@ class TipoLaudoView(View):
 def ListaTiposLaudos(request, msg=None, tipo_msg=None):
     if request.GET or 'page' in request.GET:
         if request.GET.get('filtro'):
-            tipos_laudos = TipoLaudoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
+            tipos_laudos = TipoLaudoModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=0)
         else:
             tipos_laudos = TipoLaudoModel.objects.filter(excluido=False)
     else:
