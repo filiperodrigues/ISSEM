@@ -29,8 +29,10 @@
         <form class="ui form row" id="CampoFiltroForm" method="get"
               action="{% url 'issem:tabela_agendamentos' %}">
             <div class="fields data">
-                <input type="text" id="id_campo" name="data_inicio" required="False" placeholder="Data Inicial">
-                <input type="text" id="id_campo" name="data_fim" required="False" placeholder="Data Final">
+                <input type="text" id="id_campo" name="data_inicio" placeholder="Data Inicial">
+                &ensp;
+                <input type="text" id="id_campo" name="data_fim" placeholder="Data Final">
+                &ensp;
                 <button class="ui button" type="submit" name="submit"><i class="search icon"></i></button>
             </div>
         </form>
@@ -81,11 +83,7 @@
                 </tbody>
                 <tfoot>
             </table>
-            {% if var_controle == 1 %}
-                {% include 'blocos/pagination_filtro.html' %}
-            {% else %}
-                {% include 'blocos/pagination.html' %}
-            {% endif %}
+            {% include 'blocos/pagination.html' %}
         {% else %}
             <div class="sixteen wide column issem-div-message">
                 <br/>

@@ -35,7 +35,9 @@
                 <form class="ui form" id="ConsultaParametrosForm" method="post"
                       action="{% url 'issem:edita_parametros_consulta' %}">
                     {% csrf_token %}
-                    <h4 class="ui dividing red header">Parâmetros de configuração de agendamento automático</h4>
+                    <h4 class="ui dividing red header aligned centered">Parâmetros de configuração de agendamento
+                        automático</h4>
+                    <br/>
                     <div class="fields">
                         <div class="four wide field"></div>
                         <div class="four wide field">
@@ -114,10 +116,11 @@
                         </div>
                         <div class="four wide field"></div>
                     </div>
-                    <h4 class="ui dividing red header">Configurações</h4>
+                    <h4 class="ui dividing red header aligned centered">Configurações</h4>
+                    <br/>
                     <div class="fields">
                         <div class="three wide field"></div>
-                        <div class="ten wide field">
+                        <div class="ten wide field ui centered grid">
                             <label>Texto de apresentação do ISSEM (página inicial)</label>
                             {{ form.descricao_issem }}
                             {% if form.descricao_issem.errors %}

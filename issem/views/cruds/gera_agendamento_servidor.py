@@ -14,7 +14,7 @@ class GeraAgendamentoServidorView(View):
 
     def get(self, request, id_requerimento=None, id_beneficio=None, id_agendamento=None, msg=None, tipo_msg=None):
         context_dict = {}
-        var_controle = "Edicão ou definição de agendamento para um requerimento"
+        var_controle = True
         if id_beneficio:
             try:
                 beneficio = BeneficioModel.objects.get(pk=id_beneficio)

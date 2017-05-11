@@ -143,7 +143,6 @@ class DependenteView(View):
     @classmethod
     def ListaDependentes(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        var_controle = 0
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
                 dependente1 = DependenteModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
@@ -151,7 +150,6 @@ class DependenteView(View):
                 dependente3 = DependenteModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
                 dependentes = list(dependente1) + list(dependente2) + list(dependente3)
                 dependentes = list(set(dependentes))
-                var_controle = 1
             else:
                 dependentes = DependenteModel.objects.filter(excluido=False)
         else:
@@ -163,6 +161,5 @@ class DependenteView(View):
         context_dict['ultima'] = ultima
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
-        context_dict['var_controle'] = var_controle
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)

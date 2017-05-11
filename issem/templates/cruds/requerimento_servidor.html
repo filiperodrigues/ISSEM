@@ -65,13 +65,10 @@
                     <input type="hidden" name="id" value="{{ id }}">
                     <input type="hidden" name="id_agendamento" value="{{ id_agendamento }}">
                 {% endif %}
-                <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">
-                    <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>
-                </select>
 
-                <select id="id_servidor" name="servidor" type="hidden" style="display:none">
-                    <option value="{{ id_usuario }}"></option>
-                </select>
+                <input id="id_beneficio" name="beneficio" type="hidden" style="display:none" value="{{ id_beneficio }}" />
+
+                <input id="id_servidor" name="servidor" type="hidden" style="display:none" value="{{ id_usuario }}" />
 
                 <input id="id_possui_agendamento" name="possui_agendamento" type="hidden" value="True"/>
 

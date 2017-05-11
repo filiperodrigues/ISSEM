@@ -21,10 +21,11 @@
 
                     {# DROPDOWN #}
                     <div class="menu">
-                        <a href="{% url 'issem:requerimentos_segurado' user.id %}" class="item">Meus Requerimentos<i
-                                class="calendar icon"></i></a>
+                        <a href="{% url 'issem:requerimentos_segurado' user.id %}" class="item">
+                            <i class="calendar icon"></i> Meus Agendamentos</a>
                         {% for beneficio in beneficios %}
-                            <a href="{% url 'issem:cad_requerimento' beneficio.id %} " class="item">{{ beneficio.descricao }}</a>
+                            <a href="{% url 'issem:cad_requerimento' beneficio.id %} "
+                               class="item">{{ beneficio.descricao }}</a>
                         {% endfor %}
                     </div>
                 </div>

@@ -18,7 +18,7 @@ from issem_project.settings import STATIC_URL
 
 class RequerimentoView(View):
     template = 'cruds/requerimento.html'
-    template_lista = 'lista/requerimentos.html'
+    template_lista = 'listas/requerimentos.html'
 
     def get(self, request, id=None, id_beneficio=None, msg=None, tipo_msg=None):
         context_dict = {}
@@ -262,7 +262,6 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
 
 
 def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
-    var_controle = 0
     if request.GET or 'page' in request.GET:
         if request.GET.get('data_inicio'):
             print(str(request.GET.get('data_inicio')))
@@ -273,8 +272,6 @@ def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
             fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
             data_fim_formatada = str(fim_ano + "-" + fim_mes + "-" + fim_dia)
             agendamentos = AgendamentoModel.objects.filter(data_pericia__range=(data_inicio_formatada, data_fim_formatada)).order_by('data_pericia')
-            var_controle = 1
-
         else:
             agendamentos = AgendamentoModel.objects.all().order_by('data_pericia')
 
@@ -283,12 +280,11 @@ def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
 
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     return render(request, 'listas/tabela_agendamentos.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'var_controle' : var_controle, 'data_inicio': request.GET.get('data_inicio'),
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'data_inicio': request.GET.get('data_inicio'),
                    'data_fim': request.GET.get('data_fim')})
 
 
 def ApresentaRequerimentosSemAgendamento(request):
-    var_controle = 0
     if request.GET or 'page' in request.GET:
         if request.GET.get('data_inicio'):
             print(str(request.GET.get('data_inicio')))
@@ -300,8 +296,6 @@ def ApresentaRequerimentosSemAgendamento(request):
             data_fim_formatada = str(fim_ano + "-" + fim_mes + "-" + fim_dia)
             agendamentos = RequerimentoModel.objects.filter(
                 data_requerimento__range=(data_inicio_formatada, data_fim_formatada), possui_agendamento=False).order_by('data_requerimento')
-            var_controle = 1
-
         else:
             agendamentos = RequerimentoModel.objects.filter(possui_agendamento=False).order_by('data_requerimento')
 
@@ -310,6 +304,6 @@ def ApresentaRequerimentosSemAgendamento(request):
 
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     return render(request, 'listas/tabela_requerimentos_sem_agendamento.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'var_controle' : var_controle,
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima,
                    'data_inicio': request.GET.get('data_inicio'),
                    'data_fim': request.GET.get('data_fim')})

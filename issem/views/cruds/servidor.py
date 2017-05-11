@@ -92,7 +92,6 @@ def ServidorDelete(request, id):
 
 
 def ListaServidores(request, msg=None, tipo_msg=None):
-    var_controle = 0
     if request.GET or 'page' in request.GET:
         if request.GET.get('filtro'):
             servidor1 = ServidorModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
@@ -100,8 +99,6 @@ def ListaServidores(request, msg=None, tipo_msg=None):
             servidor3 = ServidorModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
             servidores = list(servidor1) + list(servidor2) + list(servidor3)
             servidores = list(set(servidores))
-            var_controle = 1
-
         else:
             servidores = ServidorModel.objects.filter(excluido=False)
     else:
@@ -109,5 +106,5 @@ def ListaServidores(request, msg=None, tipo_msg=None):
 
     dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
     return render(request, 'listas/servidores.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg, 'var_controle': var_controle,
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
                    'filtro': request.GET.get('filtro')})

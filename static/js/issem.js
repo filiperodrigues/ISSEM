@@ -22,32 +22,8 @@ $(document).ready(function () {
     });
 
     // ===== ESTILIZAR DROPDOWNS ===== //
-    $('#id_estado_civil').dropdown();
-    $('#id_cargo').dropdown();
-    $('#id_segurado').dropdown();
-    $('#id_requerimento').dropdown();
-    $('#id_medico').dropdown();
-    $('#id_tipo_sanguineo').dropdown();
-    $('#id_estado_natural').dropdown();
-    $('#id_estado_atual').dropdown();
-    $('#id_cidade_atual').dropdown();
-    $('#id_cidade_natural').dropdown();
-    $('#id_local_trabalho').dropdown();
-    $('#id_tipo').dropdown();
-    $('#id_departamento').dropdown();
-    $('#id_cidade').dropdown();
-    $('#id_estados').dropdown();
-    $('#id_secretaria').dropdown();
-    $('#id_orgao').dropdown();
-    $('#id_groups').dropdown();
+    $('select').dropdown();
     $('.ui.dropdown').dropdown();
-    //
-    // //grupo edicao
-    // id_campo = $('#group_user').val()
-    // $('#id_groups option[value=' + id_campo + ']').attr('selected', 'selected')
-    // valor_campo = $('#id_groups option[value=' + id_campo + ']').text()
-    // $('#div_group_user .selection.dropdown .text').text(valor_campo).removeClass('default')
-    //
     campo = $('#group_user').val()
     $('.departamento .search').val(campo)
     valor_campo = '0'

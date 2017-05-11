@@ -75,7 +75,6 @@ class BeneficioView(View):
     @method_decorator(user_passes_test(group_test))
     def ListaBeneficios(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        var_controle = 0
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
                 beneficio1 = BeneficioModel.objects.filter(descricao__contains=request.GET.get('filtro'), excluido=0)
@@ -83,8 +82,6 @@ class BeneficioView(View):
                 beneficio3 = BeneficioModel.objects.filter(concessao__contains=request.GET.get('filtro'), excluido=0)
                 beneficios = list(beneficio1) + list(beneficio2) + list(beneficio3)
                 beneficios = list(set(beneficios))
-                var_controle = 1
-
             else:
                 beneficios = BeneficioModel.objects.filter(excluido=False)
         else:
@@ -96,7 +93,6 @@ class BeneficioView(View):
         context_dict['ultima'] = ultima
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
-        context_dict['var_controle'] = var_controle
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
 

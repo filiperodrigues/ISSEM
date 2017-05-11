@@ -36,12 +36,9 @@ class TipoLaudoView(View):
 
 
 def ListaTiposLaudos(request, msg=None, tipo_msg=None):
-    var_controle = 0
     if request.GET or 'page' in request.GET:
         if request.GET.get('filtro'):
             tipos_laudos = TipoLaudoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0)
-            var_controle = 1
-
         else:
             tipos_laudos = TipoLaudoModel.objects.filter(excluido=False)
     else:
@@ -50,7 +47,6 @@ def ListaTiposLaudos(request, msg=None, tipo_msg=None):
     dados, page_range, ultima = pagination(tipos_laudos, request.GET.get('page'))
     return render(request, 'listas/tipos_laudo.html',
                   {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
-                   'var_controle': var_controle,
                    'filtro': request.GET.get('filtro')})
 
 def TipoLaudoDelete(request, id):

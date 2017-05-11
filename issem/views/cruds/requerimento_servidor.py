@@ -113,7 +113,6 @@ def ApresentaAgendamentos(request):
 
 
 def ApresentaAgendamentosMedico(request):
-    var_controle = 0
     if request.GET or 'page' in request.GET:
         if request.GET.get('data_inicio'):
             print(str(request.GET.get('data_inicio')))
@@ -124,16 +123,13 @@ def ApresentaAgendamentosMedico(request):
             fim_ano, fim_mes, fim_dia = data_fim[2], data_fim[1], data_fim[0]
             data_fim_formatada = str(fim_ano + "-" + fim_mes + "-" + fim_dia)
             agendamentos = AgendamentoModel.objects.filter(data_pericia__range=(data_inicio_formatada, data_fim_formatada)).order_by('data_pericia')
-            var_controle = 1
-
         else:
             agendamentos = AgendamentoModel.objects.filter(data_pericia=date.today()).order_by('data_pericia')
-
     else:
         agendamentos = AgendamentoModel.objects.filter(data_pericia=date.today()).order_by('data_pericia')
 
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
     return render(request, 'listas/tabela_agendamentos.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'var_controle': var_controle,
+                  {'dados': dados, 'page_range': page_range, 'ultima': ultima,
                    'data_inicio': request.GET.get('data_inicio'),
                    'data_fim': request.GET.get('data_fim')})

@@ -75,7 +75,6 @@ class CidView(View):
     @method_decorator(user_passes_test(group_test))
     def ListaCids(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        var_controle = 0
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
                 cid1 = CidModel.objects.filter(descricao__contains=request.GET.get('filtro'), excluido=0)
@@ -83,8 +82,6 @@ class CidView(View):
                 cid3 = CidModel.objects.filter(gravidade__contains=request.GET.get('filtro'), excluido=0)
                 cids = list(cid1) + list(cid2) + list(cid3)
                 cids = list(set(cids))
-                var_controle = 1
-
             else:
                 cids = CidModel.objects.filter(excluido=False)
         else:
@@ -96,7 +93,6 @@ class CidView(View):
         context_dict['ultima'] = ultima
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
-        context_dict['var_controle'] = var_controle
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
 

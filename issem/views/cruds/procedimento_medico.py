@@ -89,7 +89,6 @@ class ProcedimentoMedicoView(View):
     @method_decorator(user_passes_test(group_test))
     def ListaProcedimentosMedicos(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        var_controle = 0
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
                 cid1 = ProcedimentoMedicoModel.objects.filter(descricao__contains=request.GET.get('filtro'), excluido=0)
@@ -97,8 +96,6 @@ class ProcedimentoMedicoView(View):
                 cid3 = ProcedimentoMedicoModel.objects.filter(valor__contains=request.GET.get('filtro'), excluido=0)
                 procedimentos_medicos = list(cid1) + list(cid2) + list(cid3)
                 procedimentos_medicos = list(set(procedimentos_medicos))
-                var_controle = 1
-
             else:
                 procedimentos_medicos = ProcedimentoMedicoModel.objects.filter(excluido=False)
         else:
@@ -110,6 +107,5 @@ class ProcedimentoMedicoView(View):
         context_dict['ultima'] = ultima
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
-        context_dict['var_controle'] = var_controle
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)

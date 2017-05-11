@@ -37,18 +37,17 @@
                 </a>
             </div>
 
-            <div class="five wide column">
-                <br>
+            <div class="ui centered row">
+                <br/>
                 <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_cids' %}">
                     <div class="ui right aligned category search">
                         <div class="ui icon input">
-                            <input type="text" id="id_campo" name="filtro" required="False" placeholder="Pesquisar">
+                            <i class="search icon"></i>
+                            <input type="text" id="id_campo" name="filtro" placeholder="Pesquisar">
                         </div>
-                        <button class="ui button" type="submit" name="submit"><i class="search icon"></i></button>
                     </div>
                 </form>
             </div>
-            <div class="thirteen wide column"></div>
 
             {% if dados %}
                 <table class="ui celled table issem-table-form">
@@ -98,11 +97,7 @@
                     <tfoot>
                 </table>
 
-                {% if var_controle == 1 %}
-                    {% include 'blocos/paginatio_filtroTexto.html' %}
-                {% else %}
-                    {% include 'blocos/pagination.html' %}
-                {% endif %}
+                {% include 'blocos/pagination.html' %}
             {% else %}
                 <div class="sixteen wide column issem-div-message">
                     <br/>

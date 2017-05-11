@@ -79,7 +79,6 @@ def SeguradoDelete(request, id):
 
 
 def ListaSegurados(request, msg=None, tipo_msg=None):
-    var_controle = 0
     if request.GET or 'page' in request.GET:
         if request.GET.get('filtro'):
             segurado1 = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0)
@@ -87,8 +86,6 @@ def ListaSegurados(request, msg=None, tipo_msg=None):
             segurado3 = SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
             segurados = list(segurado1) + list(segurado2) + list(segurado3)
             segurados = list(set(segurados))
-            var_controle = 1
-
         else:
             segurados = SeguradoModel.objects.filter(excluido=False)
     else:
@@ -97,7 +94,6 @@ def ListaSegurados(request, msg=None, tipo_msg=None):
     dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
     return render(request, 'listas/segurados.html',
                   {'dados': dados, 'page_range': page_range, 'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg,
-                   'var_controle': var_controle,
                    'filtro': request.GET.get('filtro')})
 
 def ListaRequerimentosSegurado(request, id=None):
