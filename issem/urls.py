@@ -58,7 +58,7 @@ urlpatterns = [
     # SECRETARIA
     url(r'^cad/secretaria/$', SecretariaView.as_view(), name='cad_secretaria'),
     url(r'^edita/secretaria/(?P<id>\d+)/$', SecretariaView.as_view(), name='edita_secretaria'),
-    url(r'^deleta/secretaria/(?P<id>[0-9]+)/$', views.SecretariaDelete, name='deleta_secretaria'),
+    url(r'^deleta/secretaria/(?P<id>[0-9]+)/$', SecretariaView.SecretariaDelete, name='deleta_secretaria'),
 
     # LOCAL DE TRABALHO
     url(r'^cad/local_trabalho/$', LocalTrabalhoView.as_view(), name='cad_local_trabalho'),

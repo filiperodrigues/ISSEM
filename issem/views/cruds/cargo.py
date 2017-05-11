@@ -24,7 +24,6 @@ class CargoView(View):
             except:
                 raise Http404("Cargo não encontrado.")
             form = CargoForm(instance=cargo)
-
         else:  # MODO CADASTRO: recebe o formulário vazio
             form = CargoForm()
 
