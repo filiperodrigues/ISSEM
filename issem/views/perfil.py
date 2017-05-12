@@ -10,7 +10,7 @@ class PerfilView(View):
     template = 'perfil/perfil.html'
 
     def get(self, request, id=None):
-        dependente =None
+        dependente = None
         segurado = None
         context_dict = {}
 
@@ -29,10 +29,15 @@ class PerfilView(View):
                 usuario = ServidorModel.objects.get(pk=id)
             except:
                 raise Http404("Usuário não encontrado.")
+
         elif str(grupo) == 'Segurado':
             grupo = False
-            usuario = SeguradoModel.objects.get(pk=id)
+            try:
+                usuario = SeguradoModel.objects.get(pk=id)
+            except:
+                raise Http404("Segurado não encontrado.")
             dependente = usuario.dependente.filter(excluido=0)
+
         elif str(grupo) == 'Dependente':
             grupo = False
             try:
@@ -43,8 +48,10 @@ class PerfilView(View):
                 segurado = SeguradoModel.objects.get(dependente__id=id)
             except:
                 segurado = None
+
         else:
             raise Http404("Grupo do usuário não encontrado.")
+
         context_dict['id'] = id
         context_dict['group_user'] = grupo
         context_dict['usuario'] = usuario

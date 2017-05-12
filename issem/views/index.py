@@ -1,7 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from issem.models.requerimento import RequerimentoModel
 
 
 def index(request):
@@ -12,8 +11,6 @@ def index(request):
 
     if len(grupos) > 0:
         grupo_1 = str(grupos[0])
-
-        context_dict = {}
 
         if grupo_1 == "Tecnico":
             return HttpResponseRedirect(reverse('issem:medico'))

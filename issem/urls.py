@@ -75,9 +75,9 @@ urlpatterns = [
     # SEGURADO
     url(r'^cad/segurado/$', SeguradoView.as_view(), name='cad_segurado'),
     url(r'^edita/segurado/(?P<id>\d+)/$', SeguradoView.as_view(), name='edita_segurado'),
-    url(r'^deleta/segurado/(?P<id>[0-9]+)/$', views.SeguradoDelete, name='deleta_segurado'),
-    url(r'^lista/segurados/$', views.ListaSegurados, name='lista_segurados'),
-    url(r'^lista/requerimentos/segurado/(?P<id>[0-9]+)/$', views.ListaRequerimentosSegurado,
+    url(r'^deleta/segurado/(?P<id>[0-9]+)/$', SeguradoView.SeguradoDelete, name='deleta_segurado'),
+    url(r'^lista/segurados/$', SeguradoView.ListaSegurados, name='lista_segurados'),
+    url(r'^lista/requerimentos/segurado/(?P<id>[0-9]+)/$', SeguradoView.ListaRequerimentosSegurado,
         name='requerimentos_segurado'),
 
     # SERVIDOR
