@@ -4,4 +4,3 @@ from issem.views.cruds.cidade import *
 from pagination import pagination
 from paineis import *
 from perfil import *
-

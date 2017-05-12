@@ -11,7 +11,6 @@ class ParametrosConfiguracaoModel(models.Model):
     tempo_minimo_exercicio = models.IntegerField()
     descricao_issem = models.TextField(blank=True)
 
-
     def __unicode__(self):
         return "Parametro de Configuracao"
 

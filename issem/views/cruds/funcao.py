@@ -14,7 +14,7 @@ class FuncaoView(View):
         context_dict = {}
         if id:
             try:
-                funcao = FuncaoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                funcao = FuncaoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Função não encontrada.")
             form = FuncaoForm(instance=funcao)
@@ -33,7 +33,7 @@ class FuncaoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                funcao = FuncaoModel.objects.get(pk=id)
+                funcao = FuncaoModel.objects.get(pk=id, excluido=0)
             except:
                 raise Http404("Função não encontrada.")
             form = FuncaoForm(instance=funcao, data=request.POST)
@@ -64,19 +64,14 @@ class FuncaoView(View):
         return render(request, self.template, context_dict)
 
     @classmethod
-    def FuncaoDelete(self, request, id):
-        funcao = FuncaoModel.objects.get(pk=id)
-        funcao.delete()
-        return HttpResponseRedirect('/')
-
-    @classmethod
     def FuncaoDelete(self, request, id=None):
         context_dict = {}
         try:
             funcao = FuncaoModel.objects.get(pk=id)
         except:
             raise Http404("Função não encontrada.")
-        funcao.delete()
+        funcao.excluido = True
+        funcao.save()
         msg = 'Exclusão efetuada com sucesso!'
         tipo_msg = 'green'
         context_dict['msg'] = msg

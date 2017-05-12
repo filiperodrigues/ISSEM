@@ -7,6 +7,7 @@ class ExameRequerimentoModel(models.Model):
     descricao = models.CharField(max_length=1000)
     arquivo = models.FileField()
     requerimento = models.ForeignKey(RequerimentoModel)
+    excluido = models.BooleanField(default=0)
 
     def __unicode__(self):
         return self.descricao

@@ -21,7 +21,7 @@ class SecretariaView(View):
         context_dict = {}
         if id:
             try:
-                secretaria = SecretariaModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                secretaria = SecretariaModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Secretaria não encontrada.")
             form = SecretariaForm(instance=secretaria)
@@ -44,14 +44,14 @@ class SecretariaView(View):
             nome = request.POST['sec']
             nome_sec = SecretariaModel(nome=nome)
             nome_sec.save()
-            nome_sec = SecretariaModel.objects.all()
+            nome_sec = SecretariaModel.objects.filter(excluido=0)
             json = serializers.serialize("json", nome_sec)
             return HttpResponse(json)
 
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                secretaria = SecretariaModel.objects.get(pk=id)
+                secretaria = SecretariaModel.objects.get(pk=id, excluido=0)
             except:
                 raise Http404("Secretaria não encontrada.")
             form = SecretariaForm(instance=secretaria, data=request.POST)
@@ -86,10 +86,11 @@ class SecretariaView(View):
     def SecretariaDelete(self, request, id=None):
         context_dict = {}
         try:
-            cargo = SecretariaModel.objects.get(pk=id)
+            secretaria = SecretariaModel.objects.get(pk=id)
         except:
             raise Http404("Secretaria não encontrada.")
-        cargo.delete()
+        secretaria.excluido = True
+        secretaria.save()
         msg = 'Secretaria excluída com sucesso!'
         tipo_msg = 'green'
         context_dict['msg'] = msg

@@ -24,7 +24,7 @@ class SeguradoView(View):
 
         if id:
             try:
-                segurado = SeguradoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                segurado = SeguradoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Segurado não encontrado.")
             form = SeguradoFormEdit(instance=segurado)
@@ -54,7 +54,7 @@ class SeguradoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                segurado = SeguradoModel.objects.get(pk=id)
+                segurado = SeguradoModel.objects.get(pk=id, excluido=0)
             except:
                 raise Http404("Segurado não encontrado.")
             form = SeguradoFormEdit(instance=segurado, data=request.POST)

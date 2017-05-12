@@ -21,7 +21,7 @@ class LocalTrabalhoView(View):
         context_dict = {}
         if id:  # EDIÇÃO
             try:
-                local_trabalho = LocalTrabalhoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                local_trabalho = LocalTrabalhoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Local de Trabalho não encontrado.")
             form = LocalTrabalhoForm(instance=local_trabalho)
@@ -42,7 +42,7 @@ class LocalTrabalhoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                local_trabalho = LocalTrabalhoModel.objects.get(pk=id)
+                local_trabalho = LocalTrabalhoModel.objects.get(pk=id, excluido=0)
             except:
                 raise Http404("Loca de Trabalho não encontrado.")
             form = LocalTrabalhoForm(instance=local_trabalho, data=request.POST)
@@ -80,7 +80,8 @@ class LocalTrabalhoView(View):
             local_trabalho = LocalTrabalhoModel.objects.get(pk=id)
         except:
             raise Http404("Local de Trabalho não encontrado.")
-        local_trabalho.delete()
+        local_trabalho.excluido = True
+        local_trabalho.save()
         msg = 'Local de Trabalho excluído com sucesso!'
         tipo_msg = 'green'
         context_dict['msg'] = msg

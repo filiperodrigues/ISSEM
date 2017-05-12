@@ -73,8 +73,7 @@ class ContatoIssemView(View):
     @classmethod
     def ListaContatosIssem(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        dados = ContatoIssemModel.objects.all()
-        context_dict['dados'] = dados
+        context_dict['dados'] = ContatoIssemModel.objects.all()
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template_lista, context_dict)

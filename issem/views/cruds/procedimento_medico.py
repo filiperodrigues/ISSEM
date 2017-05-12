@@ -21,7 +21,7 @@ class ProcedimentoMedicoView(View):
         context_dict = {}
         if id:
             try:
-                procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Procedimento Médico não encontrado.")
             form = ProcedimentoMedicoForm(instance=procedimento_medico)
@@ -41,7 +41,7 @@ class ProcedimentoMedicoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id)
+                procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id, excluido=0)
             except:
                 raise Http404("Procedimento Médico não encontrado.")
             form = ProcedimentoMedicoForm(instance=procedimento_medico, data=request.POST)
@@ -71,7 +71,6 @@ class ProcedimentoMedicoView(View):
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template, context_dict)
 
-
     @classmethod
     @method_decorator(user_passes_test(group_test))
     def ProcedimentoMedicoDelete(self, request, id=None):
@@ -91,10 +90,10 @@ class ProcedimentoMedicoView(View):
         context_dict = {}
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
-                cid1 = ProcedimentoMedicoModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=0)
-                cid2 = ProcedimentoMedicoModel.objects.filter(codigo__icontains=request.GET.get('filtro'), excluido=0)
-                cid3 = ProcedimentoMedicoModel.objects.filter(valor__icontains=request.GET.get('filtro'), excluido=0)
-                procedimentos_medicos = list(cid1) + list(cid2) + list(cid3)
+                lista1 = ProcedimentoMedicoModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=0)
+                lista2 = ProcedimentoMedicoModel.objects.filter(codigo__icontains=request.GET.get('filtro'), excluido=0)
+                lista3 = ProcedimentoMedicoModel.objects.filter(valor__icontains=request.GET.get('filtro'), excluido=0)
+                procedimentos_medicos = list(lista1) + list(lista2) + list(lista3)
                 procedimentos_medicos = list(set(procedimentos_medicos))
             else:
                 procedimentos_medicos = ProcedimentoMedicoModel.objects.filter(excluido=False)

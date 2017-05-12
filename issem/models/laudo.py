@@ -18,6 +18,7 @@ class LaudoModel(models.Model):
     requerimento = models.ForeignKey(RequerimentoModel, null=False, blank=True)
     medico = models.ForeignKey(ServidorModel, null=True, blank=True)
     historico_doenca = models.CharField(max_length=1000)
+    excluido = models.BooleanField(default=0)
 
     # ========= CAMPOS AINDA NÃO CRIADOS, MAS MODELOS JÁ EXISTENTES ========= #
 

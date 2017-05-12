@@ -78,9 +78,8 @@ class CargoView(View):
             cargo = CargoModel.objects.get(pk=id)
         except:
             raise Http404("Cargo não encontrado.")
-        cargo.delete()
-        msg = 'Cargo excluído com sucesso!'
-        tipo_msg = 'green'
-        context_dict['msg'] = msg
-        context_dict['tipo_msg'] = tipo_msg
+        cargo.excluido = True
+        cargo.save()
+        context_dict['msg'] = 'Cargo excluído com sucesso!'
+        context_dict['tipo_msg'] = 'green'
         return render(request, self.template_painel, context_dict)

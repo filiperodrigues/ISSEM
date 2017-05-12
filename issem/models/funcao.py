@@ -5,6 +5,7 @@ from django.db import models
 class FuncaoModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
     descricao = models.CharField(max_length=128, null=False)
+    excluido = models.BooleanField(default=0)
 
     def __unicode__(self):
         return self.nome

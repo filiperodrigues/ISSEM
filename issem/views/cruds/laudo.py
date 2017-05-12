@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 
 
-# TODO: Tudo
+# TODO
 class LaudoView(View):
     template = 'cruds/laudo.html'
 
@@ -16,10 +16,9 @@ class LaudoView(View):
 
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, id_tipo_laudo=None):
-        print('get')
-        tipo_laudo = TipoLaudoModel.objects.get(pk=id_tipo_laudo)
+        tipo_laudo = TipoLaudoModel.objects.get(pk=id_tipo_laudo, excluido=0)
         if id:
-            laudo = LaudoModel.objects.get(pk=id)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            laudo = LaudoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = LaudoForm(instance=laudo)
         else:
             form = LaudoForm()  # MODO CADASTRO: recebe o formulário vazio
@@ -27,12 +26,9 @@ class LaudoView(View):
 
     @method_decorator(user_passes_test(group_test))
     def post(self, request, id_laudo=None):
-        print('oi')
-        print(request.POST)
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
-            print(id)
-            laudo = LaudoModel.objects.get(pk=id)
+            laudo = LaudoModel.objects.get(pk=id, excluido=0)
             form = LaudoForm(instance=laudo, data=request.POST)
         else:  # CADASTRO NOVO
             id = None
@@ -48,5 +44,6 @@ class LaudoView(View):
     @classmethod
     def LaudoDelete(request, id):
         laudo = LaudoModel.objects.get(pk=id)
-        laudo.delete()
+        laudo.excluido = True
+        laudo.save()
         return HttpResponseRedirect('/')

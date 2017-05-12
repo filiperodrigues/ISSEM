@@ -1,4 +1,4 @@
-# coding:utf-8
+# coding: utf-8
 from django.db import models
 from issem.models.cidade import CidadeModel
 from issem.models.secretaria import SecretariaModel
@@ -14,6 +14,7 @@ class LocalTrabalhoModel(models.Model):
     cep = models.CharField(max_length=9)
     cidade = models.ForeignKey(CidadeModel)
     secretaria = models.ForeignKey(SecretariaModel)
+    excluido = models.BooleanField(default=0)
 
     def __unicode__(self):
         return self.nome
