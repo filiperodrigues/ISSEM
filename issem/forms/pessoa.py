@@ -97,9 +97,13 @@ class PessoaEditForm(forms.ModelForm):
     #     return ValidarCPF(self.cleaned_data.get('cpf'))
 
     def save(self, commit=True):
-        user = super(PessoaEditForm, self).save(commit=False)
-        if commit:
-            user.save()
+        try:
+            user = super(PessoaEditForm, self).save(commit=False)
+            if commit:
+                user.save()
+        except:
+            pass
+
 
 
 class PessoaPasswordForm(forms.ModelForm):

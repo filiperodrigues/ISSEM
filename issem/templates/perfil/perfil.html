@@ -54,10 +54,16 @@
 
                 {% else %}
 
-                    <a class="ui right floated labeled icon button blue"
-                       href="{% url 'issem:edita_dependente' usuario.id %}">
-                        <i class="edit icon"></i> Alterar Perfil
-                    </a>
+                    <div class="ui right floated vertical buttons">
+                        <a class="ui right floated labeled icon button blue"
+                           href="{% url 'issem:edita_dependente' usuario.id %}">
+                            <i class="edit icon"></i> Alterar Perfil
+                        </a>
+                        <a class="ui right floated labeled icon button"
+                           href="{% url 'issem:seleciona_segurado' id %}">
+                            <i class="exchange icon"></i> Transferência de Segurado
+                        </a>
+                    </div>
 
                 {% endif %}
             </div>
@@ -91,6 +97,12 @@
                                 </div>
                             </div>
                         {% endfor %}
+                        <div class="ui grid center aligned">
+                            <div class="row">
+                                <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
+                                    dependente</a>
+                            </div>
+                        </div>
                     {% else %}
                         <div class="sixteen wide column issem-div-message">
                             <br/>

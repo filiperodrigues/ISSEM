@@ -14,6 +14,7 @@ from issem.views.cruds.pass_generator import mkpass
 class DependenteView(View):
     template = 'cruds/dependente.html'
     template_lista = 'listas/dependentes.html'
+    template_transferencia = 'cruds/altera_segurado.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -163,3 +164,41 @@ class DependenteView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
+
+    @classmethod
+    def SelecionaSegurado(self, request, id=None, msg=None, tipo_msg=None):
+        dependente = DependenteModel.objects.get(pk=id)
+
+        segurado = SeguradoModel.objects.get(dependente=dependente.id)
+        if request.GET or 'page' in request.GET:
+            segurados = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0) or \
+                        SeguradoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0) or \
+                        SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
+        else:
+            segurados = ""
+
+        dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
+        return render(request, 'cruds/altera_segurado.html',
+                      {'dependente': dependente, 'segurado': segurado, 'dados': dados, 'page_range': page_range,
+                       'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg, 'id': id,
+                       'filtro': request.GET.get('filtro')})
+
+    @classmethod
+    def AlteraSegurado(self, request, id=None, id_segurado=None, tipo_msg=None):
+        context_dict = {}
+        dependente = DependenteModel.objects.get(pk=id)
+        segurado = SeguradoModel.objects.get(dependente=dependente.id)
+        novo_segurado = SeguradoModel.objects.get(pk=id_segurado)
+        segurado.dependente.remove(dependente)
+        novo_segurado.dependente.add(dependente)
+        form = DependenteFormEdit(instance=segurado, data=request.POST)
+        form.save()
+        # form_novo = DependenteFormEdit(instance=dependente, data=request.POST)
+        # form1.save()
+        tipo_msg = 'green'
+        context_dict['dependente'] = dependente
+        context_dict['segurado'] = segurado
+        context_dict['segurado_novo'] = novo_segurado
+        context_dict['tipo_msg'] = tipo_msg
+
+        return render(request, self.template_transferencia, context_dict)

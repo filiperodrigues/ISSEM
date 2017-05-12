@@ -2,4 +2,93 @@
 
 {% block body_block %}
 
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
+            {% if segurado_novo %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            Transferência concluída com sucesso!
+                            O dependente {{ dependente.nome }} foi transferido do {{ segurado }}
+                            para {{ segurado_novo }}.
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="ten wide column issem-margin-bottom">
+                <div class="issem-title-edit-page">
+                    <h1><i class="exchange icon"></i> Transferência de Segurado</h1>
+                    <h2><i class="user icon"></i>{{ dependente.nome }}</h2>
+                    {% if not segurado_novo %}
+                        <form class="ui form" id="CampoFiltroForm" method="get" action=".">
+                            <div class="ui right aligned category search">
+                                <div class="ui icon input">
+                                    <i class="search icon"></i>
+                                    <input type="text" id="id_campo" name="filtro" placeholder="Pesquisar">
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if request.GET or 'page' in request.GET %}
+                {% if dados %}
+                    <table class="ui celled table issem-table-form">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Email</th>
+                            <th class="ui right aligned">AÇÕES<i class="setting icon"></i>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for dado in dados %}
+                            <tr>
+                                {% if dado.nome != "" %}
+                                    <td>
+                                        {{ dado.nome }}
+                                    </td>
+                                {% else %}
+                                    <td>---</td>
+                                {% endif %}
+                                {% if dado.cpf != "" %}
+                                    <td>{{ dado.cpf }}</td>
+                                {% else %}
+                                    <td>---</td>
+                                {% endif %}
+                                {% if dado.email != "" %}
+                                    <td>{{ dado.email }}</td>
+                                {% else %}
+                                    <td>---</td>
+                                {% endif %}
+
+                                <td class="ui right aligned">
+                                    <a href="{% url 'issem:transferencia' id dado.id %}">
+                                        <div class="ui labeled icon button green">
+                                            <i class="checkmark icon"></i> Associar
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                    </table>
+
+                    {% include 'blocos/pagination.html' %}
+                {% else %}
+                    <div class="sixteen wide column issem-div-message">
+                        <br/>
+                        <div class="ui yellow message">
+                            <div class="header">
+                                Não existem dados cadastrados
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
