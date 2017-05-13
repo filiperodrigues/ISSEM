@@ -13,7 +13,6 @@ from secretaria import *
 from segurado import *
 from servidor import *
 from tipo_dependente import *
-from tipo_laudo import *
 from funcao import *
 from laudo import *
 from requerimento import *

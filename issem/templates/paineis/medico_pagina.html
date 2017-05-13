@@ -33,13 +33,12 @@
         <div class="four wide column">
             <div class="ui menu">
                 <div class="ui dropdown fluid selection issem-dropdown">
-                    <h3 class="ui header"><i class="doctor icon"></i> Laudos Médicos</h3>
+                    <h3 class="ui header"><i class="doctor icon"></i> Laudo Médico</h3>
 
                     {# DROPDOWN #}
                     <div class="menu">
-                        {% for tipo_laudo in tipos_laudo %}
-                            <a href="{% url 'issem:cad_laudo' tipo_laudo.id %} " class="item">{{ tipo_laudo.nome }}</a>
-                        {% endfor %}
+                        <a href="{% url 'issem:cad_laudo' %}" class="item"><i class="ui plus icon"></i> Novo</a>
+                        <a href="{% url 'issem:lista_laudos' %}" class="item"><i class="ui list icon"></i> Laudos médicos</a>
                     </div>
                 </div>
             </div>

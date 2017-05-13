@@ -24,16 +24,6 @@ $(document).ready(function () {
     // ===== ESTILIZAR DROPDOWNS ===== //
     $('select').dropdown();
     $('.ui.dropdown').dropdown();
-    campo = $('#group_user').val()
-    $('.departamento .search').val(campo)
-    valor_campo = '0'
-    $('.departamento .search').change(function () {
-        alert($('.text').val())
-        valor_campo = $('.departamento .search').text()
-    })
-    grupo = $('#group_user').val(valor_campo)
-
-
 });
 
 function calendar_input(dependente) {

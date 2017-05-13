@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import LaudoModel, TipoLaudoModel, ServidorModel, SeguradoModel
+from issem.models import LaudoModel, ServidorModel, SeguradoModel
 from issem.forms import LaudoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
@@ -8,21 +8,23 @@ from django.utils.decorators import method_decorator
 
 
 # TODO
+
+
 class LaudoView(View):
     template = 'cruds/laudo.html'
+    template_lista = 'listas/laudos.html'
 
     def group_test(user):
         return user.groups.filter(name='Tecnico')
 
     @method_decorator(user_passes_test(group_test))
-    def get(self, request, id=None, id_tipo_laudo=None):
-        tipo_laudo = TipoLaudoModel.objects.get(pk=id_tipo_laudo, excluido=0)
+    def get(self, request, id=None):
         if id:
             laudo = LaudoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             form = LaudoForm(instance=laudo)
         else:
             form = LaudoForm()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'tipo_laudo': tipo_laudo.nome, 'method': 'get', 'id': id})
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
 
     @method_decorator(user_passes_test(group_test))
     def post(self, request, id_laudo=None):
@@ -42,8 +44,25 @@ class LaudoView(View):
         return render(request, self.template, {'form': form, 'method': 'post', 'id': id})
 
     @classmethod
-    def LaudoDelete(request, id):
+    def LaudoDelete(self, request, id):
         laudo = LaudoModel.objects.get(pk=id)
         laudo.excluido = True
         laudo.save()
         return HttpResponseRedirect('/')
+
+    @classmethod
+    def ListaLaudos(self, request, msg=None, tipo_msg=None):
+        context_dict = {}
+
+        from issem.views import pagination, CidModel
+        laudos = CidModel.objects.all()
+        print(type(laudos))
+
+        dados, page_range, ultima = pagination(laudos, request.GET.get('page'))
+        context_dict['dados'] = dados
+        context_dict['page_range'] = page_range
+        context_dict['ultima'] = ultima
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        context_dict['filtro'] = request.GET.get('filtro')
+        return render(request, self.template_lista, context_dict)

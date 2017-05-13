@@ -20,7 +20,6 @@ class ServidorView(View):
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
-        group_user = False
         if id:  # EDIÇÃO
             try:
                 servidor = ServidorModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
@@ -100,7 +99,7 @@ class ServidorView(View):
 
         return render(request, self.template,
                       {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
-                       'id_group_user': id_group_user, 'group_user' : group_user})
+                       'id_group_user': id_group_user})
 
     @classmethod
     def ServidorDelete(self, request, id):

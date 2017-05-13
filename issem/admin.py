@@ -1,6 +1,9 @@
 # coding: utf-8
 from django.contrib import admin
-
+from issem.models.estado_civil import EstadoCivilModel
+from issem.models.tipo_sanguineo import TipoSanguineoModel
+from issem.models.estado import EstadoModel
+from issem.models.cidade import CidadeModel
 from issem.models.agendamento import AgendamentoModel
 from issem.models.beneficio import BeneficioModel
 from issem.models.cargo import CargoModel
@@ -17,8 +20,10 @@ from issem.models.servidor import ServidorModel
 from issem.models.tipo_dependente import TipoDependenteModel
 from issem.models.tipo_exame import TipoExameModel
 from issem.models.contato_issem import ContatoIssemModel
-from issem.models.tipo_laudo import TipoLaudoModel
 from issem.models.parametros_configuracao import ParametrosConfiguracaoModel
+from issem.models import AdendoModel
+from issem.models import ExameModel
+from issem.models import LaudoModel
 
 admin.site.register(CidModel)
 admin.site.register(ProcedimentoMedicoModel)
@@ -35,17 +40,13 @@ admin.site.register(SeguradoModel)
 admin.site.register(RequerimentoModel)
 admin.site.register(ExameRequerimentoModel)
 admin.site.register(AgendamentoModel)
-admin.site.register(TipoLaudoModel)
 admin.site.register(ContatoIssemModel)
 admin.site.register(ParametrosConfiguracaoModel)
+admin.site.register(AdendoModel)
+admin.site.register(ExameModel)
+admin.site.register(LaudoModel)
 
 
-
-## SOMENTE PARA TESTES, POIS ESTES NÃO SERÃO PREENCHIDOS PELOS USUÁRIOS ##
-from issem.models.estado_civil import EstadoCivilModel
-from issem.models.tipo_sanguineo import TipoSanguineoModel
-from issem.models.estado import EstadoModel
-from issem.models.cidade import CidadeModel
 admin.site.register(EstadoCivilModel)
 admin.site.register(TipoSanguineoModel)
 admin.site.register(EstadoModel)

@@ -20,7 +20,6 @@ from issem.models.servidor import ServidorModel
 from issem.models.tipo_dependente import TipoDependenteModel
 from issem.models.tipo_exame import TipoExameModel
 from issem.models.tipo_sanguineo import TipoSanguineoModel
+from issem.models.adendo import AdendoModel
+from issem.models.exame import ExameModel
 from issem.models.laudo import LaudoModel
-from issem.models.tipo_laudo import TipoLaudoModel
-
-

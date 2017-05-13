@@ -30,11 +30,6 @@ def populate():
     for c in cargos:
         add_cargo(c)
 
-    # TIPOS DE LAUDO
-    tipos_laudos = ["Laudo 1", "Laudo 2", "Laudo 3"]
-    for t in tipos_laudos:
-        add_tipo_laudo(t)
-
     # CIDs
     cids = [
             ["Gripe", 0, 0, 465],
@@ -207,9 +202,6 @@ def add_tipo_exame(n, obs):
 
 def add_tipo_sanguineo(n):
     return TipoSanguineoModel.objects.get_or_create(nome=n)
-
-def add_tipo_laudo(n):
-    return TipoLaudoModel.objects.get_or_create(nome=n)
 
 def add_consulta_parametros(tc, te, ia, lc, ga, tm):
     return ParametrosConfiguracaoModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia,

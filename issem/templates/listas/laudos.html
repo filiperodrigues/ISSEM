@@ -25,12 +25,12 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1><i class="list icon"></i> Tipos de Laudo</h1>
+                    <h1><i class="list icon"></i> Laudos Médicos</h1>
                 </div>
             </div>
 
             <div class="three wide column">
-                <a href="{% url 'issem:cad_tipo_laudo' %}">
+                <a href="{% url 'issem:cad_laudo' %}">
                     <div class="ui right floated icon button green">
                         <i class="plus icon"></i> Adicionar Novo
                     </div>
@@ -39,7 +39,7 @@
 
             <div class="ui centered row">
                 <br/>
-                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_tipo_laudo' %}">
+                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_laudos' %}">
                     <div class="ui right aligned category search">
                         <div class="ui icon input">
                             <i class="search icon"></i>
@@ -49,32 +49,25 @@
                 </form>
             </div>
 
-            <div class="thirteen wide column"></div>
-
             {% if dados %}
                 <table class="ui celled table issem-table-form">
                     <thead>
                     <tr>
-                        <th>Descrição</th>
+                        <th>Segurado</th>
+                        <th>Benefício</th>
+                        <th>CID</th>
+                        <th>Observações</th>
                         <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for dado in dados %}
                         <tr>
-                            {% if dado.nome != "" %}
-                                <td>{{ dado.nome }}</td>
-                            {% else %}
-                                <td>---</td>
-                            {% endif %}
-
-                            <td class="ui right aligned">
-                                <a href="{% url 'issem:edita_tipo_laudo' dado.id %}">
-                                    <div class="ui labeled icon button">
-                                        <i class="edit icon"></i> Editar
-                                    </div>
-                                </a>
-                            </td>
+                            <td>João</td>
+                            <td>Benefício por incapacidade</td>
+                            <td>Gripe</td>
+                            <td>-------</td>
+                            <td>Editar / Excluir</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -87,7 +80,7 @@
                     <br/>
                     <div class="ui yellow message">
                         <div class="header">
-                            Não existem dados cadastrados
+                            Não existem laudos cadastrados
                         </div>
                     </div>
                 </div>

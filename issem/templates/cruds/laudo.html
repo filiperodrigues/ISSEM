@@ -30,9 +30,9 @@
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
                     {% if not id %}
-                        <h1><i class="plus icon"></i> Cadastro de Laudo: {{ tipo_laudo }}</h1>
+                        <h1><i class="plus icon"></i> Laudo Médico</h1>
                     {% else %}
-                        <h1><i class="edit icon"></i> Edição de Laudo: {{ tipo_laudo }}</h1>
+                        <h1><i class="edit icon"></i> Laudo Médico</h1>
                     {% endif %}
                 </div>
             </div>
@@ -41,101 +41,148 @@
 
             <div class="sixteen wide column issem-table-form">
 
-{#            {% if not msg %}#}
-{#                <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>#}
-{#            {% else %}#}
-{#                <a href="{% url 'issem:tabela_agendamentos' %}"><i class="big arrow circle left icon red"></i></a>#}
-{#            {% endif %}#}
+                <form class="ui form" id="RequerimentoForm" method="post" enctype="multipart/form-data"
+                      action="{% url 'issem:cad_laudo' %}">
+                    {% csrf_token %}
 
-{#            {% if not id %}#}
-{#                <h1>{{ tipo_laudo }}</h1>#}
-{#            {% else %}#}
-{#                <h1>Edição de Laudo</h1>#}
-{#                {{ edicao_define_agendamento }}#}
-{#            {% endif %}#}
+                    <div class="fields">
+                        <div class="four wide field">
+                            <label>Segurado<i class="asterisk icon red"></i></label>
+                            {{ form.segurado }}
+                            {% if form.segurado.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.segurado.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="four wide field">
+                            <label>Requerimento<i class="asterisk icon red"></i></label>
+                            {{ form.requerimento }}
+                            {% if form.requerimento.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.requerimento.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="four wide field">
+                            <label>Benefício<i class="asterisk icon red"></i></label>
+                            {{ form.beneficio }}
+                            {% if form.beneficio.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.beneficio.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="four wide field">
+                            <label>Médico<i class="asterisk icon red"></i></label>
+                            {{ form.medico }}
+                            {% if form.medico.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.medico.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
 
-{#            {% if not msg %}#}
-{#                {% if not var_controle %}#}
-{#                    <form class="ui form" id="RequerimentoForm" method="post"#}
-{#                          action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">#}
-{#                {% else %}#}
-                    <form class="ui form" id="RequerimentoForm" method="post" action="{% url 'issem:define_agendamento' 23 %}">
-{#                {% endif %}#}
-            {% csrf_token %}
+                    <br/>
 
-{#            {% if not id %}#}
-{#                <input type="hidden" name="id" value="">#}
-{#                <input type="hidden" name="id_agendamento" value="">#}
-{#            {% else %}#}
-{#                <input type="hidden" name="id" value="{{ id }}">#}
-{#                <input type="hidden" name="id_agendamento" value="{{ id_agendamento }}">#}
-{#            {% endif %}#}
-{##}
-{#            <select id="id_beneficio" name="beneficio" type="hidden" style="display:none">#}
-{#                <option value="{{ id_beneficio }}">{{ beneficio_descricao }}</option>#}
-{#            </select>#}
-{##}
-{#            <select id="id_servidor" name="servidor" type="hidden" style="display:none">#}
-{#                <option value="{{ id_usuario }}"></option>#}
-{#            </select>#}
+                    <div class="fields">
+                        <div class="eight wide field">
+                            <label>CIDs<i class="asterisk icon red"></i></label>
+                            {{ form.cid }}
+                            {% if form.cid.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.cid.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="eight wide field">
+                            <label>Procedimento médico<i class="asterisk icon red"></i></label>
+                            {{ form.procedimento_medico }}
+                            {% if form.procedimento_medico.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.procedimento_medico.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
 
-            <div class="fields">
-                <div class="six wide field"></div>
-                <div class="four wide field">
-                    <label>Segurado<i class="asterisk icon red"></i></label>
-                    {{ form.segurado }}
-                    {% if form.segurado.errors %}
-                        <div class="ui pointing red basic label issem-error-field">
-                            {{ form.segurado.errors }}
+                    <br/>
+
+                    <div class="fields">
+                        <div class="eight wide field">
+
+                            {{ form.pericia_revisional }}
+                            {% if form.pericia_revisional.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.pericia_revisional.errors }}
+                                </div>
+                            {% endif %}
+                            &ensp;<strong>Perícia Revisional?<i class="asterisk icon red"></i></strong>
+                            <br/>
+
+                            {{ form.invalidez }}
+                            {% if form.invalidez.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.invalidez.errors }}
+                                </div>
+                            {% endif %}
+                            &ensp;<strong>Invalidez?<i class="asterisk icon red"></i></strong>
+                            <br/>
+
+                            {{ form.servidor_readaptado }}
+                            {% if form.servidor_readaptado.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.servidor_readaptado.errors }}
+                                </div>
+                            {% endif %}
+                            &ensp;<strong>Servidor Readaptado?<i class="asterisk icon red"></i></strong>
+                            <br/>
+
+                            {{ form.incapacidade_doenca_decorre_de_acidente_de_trabalho }}
+                            {% if form.incapacidade_doenca_decorre_de_acidente_de_trabalho.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.incapacidade_doenca_decorre_de_acidente_de_trabalho.errors }}
+                                </div>
+                            {% endif %}
+                            &ensp;<strong>Incapacidade da doença decorre de acidente de trabalho?
+                                <i class="asterisk icon red"></i></strong>
                         </div>
-                    {% endif %}
-                </div>
-                <div class="five wide field"></div>
-            </div>
-            <div class="fields">
-                <div class="four wide field"></div>
-                <div class="four wide field">
-                    <label>Requerimento<i class="asterisk icon red"></i></label>
-                    {{ form.requerimento }}
-                    {% if form.requerimento.errors %}
-                        <div class="ui pointing red basic label issem-error-field">
-                            {{ form.requerimento.errors }}
+
+                        <div class="eight wide field">
+                            <label>Upload de Exames</label>
+                            {{ form.exames_apresentados }}
                         </div>
-                    {% endif %}
-                </div>
-                <div class="four wide field">
-                    <label>Médico<i class="asterisk icon red"></i></label>
-                    {{ form.medico }}
-                    {% if form.medico.errors %}
-                        <div class="ui pointing red basic label issem-error-field">
-                            {{ form.medico.errors }}
+                    </div>
+
+                    <br/>
+                    <br/>
+
+                    <div class="fields">
+                        <div class="sixteen wide field">
+                            <label>Histórico atual da Doença <i class="asterisk icon red"></i></label>
+                            {{ form.historico_doenca }}
+                            {% if form.historico_doenca.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.historico_doenca.errors }}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
-                <div class="four wide field"></div>
-            </div>
-            <div class="fields">
-                <div class="four wide field"></div>
-                <div class="four wide field">
-                    <label>Anamnese<i class="asterisk icon red"></i></label>
-                    {{ form.observacoes_justificativas }}
-                    {% if form.observacoes_justificativas.errors %}
-                        <div class="ui pointing red basic label issem-error-field">
-                            {{ form.observacoes_justificativas.errors }}
+                    </div>
+
+                    <br/>
+
+                    <div class="fields">
+                        <div class="sixteen wide field">
+                            <label>Anamnese <i class="asterisk icon red"></i></label>
+                            {{ form.anamnese }}
+                            {% if form.anamnese.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.anamnese.errors }}
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
-                </div>
-                <div class="four wide field">
-                    <label>Histórico atual da Doença <i class="asterisk icon red"></i></label>
-                        {{ form.historico_doenca }}
-                        {% if form.historico_doenca.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.historico_doenca.errors }}
-                            </div>
-                        {% endif %}
-                </div>
-                <div class="four wide field"></div>
-            </div>
+                    </div>
 
                     {% include 'blocos/buttons_form.html' %}
                 </form>

@@ -1,5 +1,4 @@
 # coding:utf-8
-from issem.models import TipoLaudoModel
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
@@ -37,7 +36,6 @@ class PaginaMedicoView(View):
     @method_decorator(user_passes_test(group_test))
     def get(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        context_dict['tipos_laudo'] = TipoLaudoModel.objects.all()
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template, context_dict)
