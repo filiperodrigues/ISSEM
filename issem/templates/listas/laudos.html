@@ -67,7 +67,11 @@
                             <td>Benefício por incapacidade</td>
                             <td>Gripe</td>
                             <td>-------</td>
-                            <td>Editar / Excluir</td>
+                            <td>
+                                <a href="{% url "issem:visualizar_laudo" 1 %}">
+                                    <i class="eye icon"></i> Visualizar
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

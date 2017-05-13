@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block body_tag %}
+    <body onload="calendar_input();">
+{% endblock %}
+
+{% block body_block %}
+
+    <SCRIPT LANGUAGE="JavaScript">
+        function varitext(text) {
+            text = document
+            print(text)
+        }
+    </script>
+
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
+
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="three wide column">
+                <a href="{% url 'issem:lista_laudos' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    <h1><i class="treatment icon"></i> Laudo Médico</h1>
+                </div>
+            </div>
+
+            <div class="three wide column">
+                <a href="#" onclick="varitext()">
+                    <div class="ui right floated icon button green">
+                        <h4><i class="print icon"></i> Imprimir</h4>
+                    </div>
+                </a>
+            </div>
+
+            <div class="sixteen wide column">
+                <br/>
+                <br/>
+                <br/>
+                <div class="ui grid">
+                    <div class="six wide column">
+                        <ul>
+                            <li><strong>Segurado: </strong><br/>João da Silva.</li>
+                            <br/>
+                            <li><strong>Requerimento: </strong><br/>Requerimento do benefício tal.</li>
+                            <br/>
+                            <li><strong>Benefício: </strong><br/>Benefício por incapacidade.</li>
+                            <br/>
+                            <li><strong>Procedimento Médico: </strong><br/>Tomar remédio por um mês.</li>
+                        </ul>
+                    </div>
+
+                    <div class="five wide column">
+                        <br/>
+                        <i class="check circle icon"></i>&ensp;<strong>Perícia Revisional?</strong><br/><br/>
+                        <i class="minus circle icon"></i>&ensp;<strong>Invalidez?</strong><br/><br/>
+                        <i class="check circle icon"></i>&ensp;<strong>Servidor Readaptado?</strong><br/><br/>
+                        <i class="minus circle icon"></i>&ensp;<strong>Incapacidade da doença decorre de<br/>
+                        &ensp;&ensp;&ensp;&ensp;acidente de trabalho?</strong><br/>
+                    </div>
+
+                    <div class="five wide column">
+                        <h2>Exames apresentados:</h2>
+                        <ul>
+                            <li>Exame 1.pdf<br/></li>
+                            <li>Exame 2.png<br/></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <br/>
+
+                <h2>Histórico atual da Doença: </h2><br/>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eleifend lorem eget sem ultricies, ac
+                    sodales neque lacinia. Proin maximus nulla laoreet nulla vehicula tempus. Ut sit amet lobortis dui,
+                    a ornare justo. Ut justo ligula, sodales a posuere vel, hendrerit quis libero. Nullam placerat magna
+                    eget tellus iaculis, a finibus est congue. Maecenas congue mollis dui, quis vulputate leo. Ut nec
+                    malesuada neque. Maecenas non blandit lorem, nec porta nisl.</p>
+                <br/>
+
+                <h2>Anamnese: </h2><br/>
+                <p>Suspendisse non felis ac ante sollicitudin iaculis at quis erat. Sed at finibus felis. Ut eget est
+                    auctor, porta mi id, vestibulum eros. Praesent tristique est justo, ut finibus orci aliquam sed. Ut
+                    magna justo, scelerisque sit amet laoreet id, scelerisque sit amet enim. Nulla facilisi. Quisque
+                    eget metus ultrices, finibus mauris eu, tincidunt erat. Sed id diam mollis, eleifend ligula vel,
+                    ultricies neque. Nam odio ex, eleifend ac dui a, maximus molestie tortor. Proin ut est eros. Nunc
+                    dapibus justo dolor. Mauris dignissim quis eros vitae rutrum.</p>
+
+                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus in
+                    ullamcorper lorem, et laoreet nisi. Nulla dignissim turpis eget lectus mattis, mattis vehicula felis
+                    lacinia. Nunc vitae nisl eu justo mollis molestie. Nunc egestas ante ut tempus tempus. Curabitur
+                    tempus mattis sapien vitae ornare. Aliquam sed sollicitudin tortor, quis sollicitudin libero.
+                    Pellentesque sed egestas mi. Mauris sed pulvinar arcu, nec gravida nunc. Ut dignissim vehicula
+                    justo, vitae sodales lorem feugiat ut. Phasellus a vehicula odio, et fringilla quam. Aenean viverra
+                    diam ut libero faucibus, quis auctor ipsum tristique.</p>
+
+                <br/>
+                <br/>
+
+                <div class="ui centered grid">
+                    <a class="ui button green" href="{% url 'issem:adicionar_adendo' 1 %}"><i class="plus icon"></i> Adicionar Adendo</a>
+                </div>
+
+                <br/>
+                <br/>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

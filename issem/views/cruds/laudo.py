@@ -13,6 +13,8 @@ from django.utils.decorators import method_decorator
 class LaudoView(View):
     template = 'cruds/laudo.html'
     template_lista = 'listas/laudos.html'
+    template_laudo = 'estatico/visualizar_laudo.html'
+    template_adendo = 'cruds/adendo.html'
 
     def group_test(user):
         return user.groups.filter(name='Tecnico')
@@ -66,3 +68,13 @@ class LaudoView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
+
+    @classmethod
+    def VisualizarLaudo(self, request, id=None, msg=None, tipo_msg=None):
+        context_dict = {}
+        return render(request, self.template_laudo, context_dict)
+
+    @classmethod
+    def AdicionarAdendo(self, request, id=None, msg=None, tipo_msg=None):
+        context_dict = {}
+        return render(request, self.template_adendo, context_dict)

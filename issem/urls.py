@@ -122,8 +122,10 @@ urlpatterns = [
         views.GeraComprovanteAgendamento, name='comprovante_agendamento'),
 
     # LAUDO
+    url(r'^laudo/(?P<id>\d+)/$', LaudoView.VisualizarLaudo, name='visualizar_laudo'),
     url(r'^cad/laudo/$', LaudoView.as_view(), name='cad_laudo'),
     url(r'^lista/laudos/$', LaudoView.ListaLaudos, name='lista_laudos'),
+    url(r'^laudo/adendo/(?P<id>\d+)/$', LaudoView.AdicionarAdendo, name='adicionar_adendo'),
 
     # CONTATO ISSEM
     url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),
