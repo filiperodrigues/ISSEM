@@ -1,5 +1,4 @@
 # coding:utf-8
-from django.http import Http404
 from django.shortcuts import render
 from issem.models import ServidorModel
 from issem.forms import ServidorFormCad, ServidorFormEdit
@@ -34,6 +33,8 @@ class ServidorView(View):
         else:  # CADASTRO NOVO
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
+        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user,
+                                               'id_group_user': id_group_user})
 
         context_dict['form'] = form
         context_dict['id'] = id
@@ -46,7 +47,7 @@ class ServidorView(View):
     @method_decorator(user_passes_test(group_test))
     def post(self, request, id=None, msg=None, tipo_msg=None):
         id_group_user = None
-
+        group_user = None
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:

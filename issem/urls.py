@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^cad/cargo/$', CargoView.as_view(), name='cad_cargo'),
     url(r'^edita/cargo/(?P<id>\d+)/$', CargoView.as_view(), name='edita_cargo'),
     url(r'^deleta/cargo/(?P<id>[0-9]+)/$', CargoView.CargoDelete, name='deleta_cargo'),
+    url(r'^atualiza/cargo/$', CargoView.AtualizaCargo , name='atualiza_cargo'),
 
     # TIPO DEPENDENTE
     url(r'^cad/tipo_dependente/$', TipoDependenteView.as_view(), name='cad_tipo_dependente'),

@@ -64,13 +64,20 @@
                     <div class="fields">
                         <div class="two wide field"></div>
                         <div class="four wide field">
-                            <label>Local de Trabalho</label>
-                            {{ form.local_trabalho }}
-                            {% if form.local_trabalho.errors %}
-                                <div class="ui pointing red basic label">
-                                    {{ form.local_trabalho.errors }}
+                            <div class="fields">
+                                <div class="fourteen wide field">
+                                    <label>Local de Trabalho</label>
+                                    {{ form.local_trabalho }}
+                                    {% if form.local_trabalho.errors %}
+                                        <div class="ui pointing red basic label">{{ form.local_trabalho.errors }}</div>
+                                    {% endif %}
                                 </div>
-                            {% endif %}
+                                <div class="two wide field">
+                                    <label>&ensp;</label>
+                                    <a href="{% url 'issem:cad_local_trabalho' %}" target="_blank"><i class="ui plus icon black"></i></a><br/>
+                                    <a href="#" onclick="atualiza_select('id_local_trabalho')" class=""><i class="refresh icon black"></i></a>
+                                </div>
+                            </div>
                         </div>
                         <div class="two wide field">
                             <label>PIS/PASEP/NIT</label>
@@ -106,6 +113,15 @@
                             </div>
                         </div>
                     </div>
+                    {% if id %}
+                        <div class="ui grid center aligned">
+                            <div class="row">
+                                <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
+                                    dependente</a>
+                            </div>
+                        </div>
+                        <br/>
+                    {% endif %}
 
                     {% include 'blocos/buttons_form.html' %}
                 </form>

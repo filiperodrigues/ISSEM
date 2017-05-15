@@ -23,6 +23,7 @@ $(document).ready(function () {
 
     // ===== ESTILIZAR DROPDOWNS ===== //
     $('select').dropdown();
+
     $('.ui.dropdown').dropdown();
 });
 
@@ -209,9 +210,41 @@ $('.abrirModalConfirmacao').click(function () {
     $('.modalConfirmacao').modal('show');
 });
 
+$('.abrirModalCadCid').click(function () {
+    $('.modalCadCid').modal('show');
+});
+
+
 function modalRequerimento(id) {
     html = "<div class='ui green ok inverted button'>Não</div>" +
         "<a class='ui red ok inverted button IDAgendamento' href='/issem/deleta/requerimento_sem_agendamento/"
         + id + "/'><i class='remove icon'></i>Sim</a>";
     document.getElementById("teste").innerHTML = html;
+}
+
+function atualiza_select(id_cargo) {
+    // alert(id_cargo)
+    // document.getElementById(id_cargo).reset()
+    // $('#id_cargo').each (function(){
+    //     this.reset();
+    // });
+     $.ajax({
+        type: 'POST',
+        url: '/issem/atualiza/cargo/',
+        data: {
+            sec: $("input[name='cargo']").val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+        dataType: 'json',
+        success: function (dado) {
+            var options = '';
+            //options += '<option selected="selected" value="' + dado[dado.length - 1].pk + '">' + dado[dado.length - 1].fields['nome'] + '</option>';
+            for (var i = dado.length - 1 ; i >= 0; i--) {
+                options += '<option value="' + dado[i].pk + '">' + dado[i].fields['nome'] + '</option>';
+            }
+            console.log(dado);
+            // $("input#id_cargo").prop('value', '');
+            $("select#id_cargo").html(options);
+        },
+    });
 }

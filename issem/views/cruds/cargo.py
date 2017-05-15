@@ -1,11 +1,13 @@
 # coding:utf-8
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 from issem.models import CargoModel
 from issem.forms import CargoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from django.core import serializers
+
 
 
 class CargoView(View):
@@ -83,3 +85,11 @@ class CargoView(View):
         context_dict['msg'] = 'Cargo excluído com sucesso!'
         context_dict['tipo_msg'] = 'green'
         return render(request, self.template_painel, context_dict)
+
+    @classmethod
+    @method_decorator(user_passes_test(group_test))
+    def AtualizaCargo(self,request):
+
+        cargos = CargoModel.objects.filter(excluido=0)
+        json = serializers.serialize("json", cargos)
+        return HttpResponse(json)

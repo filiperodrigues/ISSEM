@@ -17,7 +17,7 @@ class CidView(View):
         return user.groups.filter(name='Administrativo')
 
     @method_decorator(user_passes_test(group_test))
-    def get(self, request, id=None, msg=None, tipo_msg=None):
+    def get(self, request, id=None, msg=None, tipo_msg=None, var_controle = None):
         context_dict = {}
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
@@ -35,7 +35,7 @@ class CidView(View):
         return render(request, self.template, context_dict)
 
     @method_decorator(user_passes_test(group_test))
-    def post(self, request, msg=None, tipo_msg=None):
+    def post(self, request, msg=None, tipo_msg=None, var_controle = None):
         context_dict = {}
         valido = False
         if request.POST['id']:  # EDIÇÃO

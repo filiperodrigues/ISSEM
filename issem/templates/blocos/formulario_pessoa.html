@@ -57,13 +57,22 @@
 
 <div class="fields">
     <div class="four wide field">
-        <label>Cargo</label>
-        {{ form.cargo }}
-        {% if form.cargo.errors %}
-            <div class="ui pointing red basic label">
-                {{ form.cargo.errors }}
+        <div class="fields">
+            <div class="fourteen wide field">
+                <label>Cargo</label>
+                {{ form.cargo }}
+                {% if form.cargo.errors %}
+                    <div class="ui pointing red basic label">
+                        {{ form.cargo.errors }}
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
+            <div class="two wide field">
+                <label>&ensp;</label>
+                <a href="{% url 'issem:cad_cargo' %}" target="_blank"><i class="ui plus icon black"></i></a><br/>
+                <a href="#" onclick="atualiza_select('id_cargo')" class=""><i class="refresh icon black"></i></a>
+            </div>
+        </div>
     </div>
     <div class="four wide field">
         <label>Estado Civil</label>

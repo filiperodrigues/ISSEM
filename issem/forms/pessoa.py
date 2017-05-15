@@ -3,12 +3,19 @@ from django import forms
 
 from issem.forms.validators.cpf_validator import ValidarCPF
 from issem.forms.validators.generic_validators import ValidarPassword
+from issem.models import CargoModel
 from issem.models.estado import EstadoModel
 from issem.models.cidade import CidadeModel
 from issem.models.pessoa import PessoaModel
 
 
 class CadPessoaForm(forms.ModelForm):
+    cargo = forms.ModelChoiceField(queryset=CargoModel.objects.all(),
+                                   empty_label="Selecione um cargo",
+                                   widget=forms.Select(attrs={"onclick": "atualiza_select('id_cargo')",
+                                                              "class": "ui fluid search selection dropdown"})
+                                   )
+
     generos = (('M', 'Masculino',), ('F', 'Feminino',))
     sexo = forms.ChoiceField(required=False,
                              widget=forms.RadioSelect,

@@ -47,7 +47,7 @@
 
 <nav class="ui menu large">
     <div class="ui container">
-        <a href="{% url 'issem:index' %}" class="item issem-icon-home"><i class="icon large home"></i></a>
+        <a href="{% url 'issem:index' %}" class="item issem-icon"><i class="icon large home"></i></a>
         {% if user.groups.all.0.name == 'Tecnico' %}
             <a href="{% url 'issem:index' %}" class="item">Técnico</a>
         {% endif %}
