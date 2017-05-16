@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block body_tag %}
-    <body onload="calendar_input(); get_cidade_natural(); get_cidade_atual()">
 {% endblock %}
 
 {% block body_block %}
@@ -74,8 +73,10 @@
                                 </div>
                                 <div class="two wide field">
                                     <label>&ensp;</label>
-                                    <a href="{% url 'issem:cad_local_trabalho' %}" target="_blank"><i class="ui plus icon black"></i></a><br/>
-                                    <a href="#" onclick="atualiza_select('id_local_trabalho')" class=""><i class="refresh icon black"></i></a>
+                                    <a href="{% url 'issem:cad_local_trabalho' %}" target="_blank"><i
+                                            class="ui plus icon black"></i></a><br/>
+                                    <a href="#" onclick="atualiza_select_local_trabalho('id_local_trabalho')"
+                                       class=""><i class="refresh icon black"></i></a>
                                 </div>
                             </div>
                         </div>

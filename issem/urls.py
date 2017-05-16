@@ -44,7 +44,7 @@ urlpatterns = [
     url(r'^cad/cargo/$', CargoView.as_view(), name='cad_cargo'),
     url(r'^edita/cargo/(?P<id>\d+)/$', CargoView.as_view(), name='edita_cargo'),
     url(r'^deleta/cargo/(?P<id>[0-9]+)/$', CargoView.CargoDelete, name='deleta_cargo'),
-    url(r'^atualiza/cargo/$', CargoView.AtualizaCargo , name='atualiza_cargo'),
+    url(r'^atualiza/cargo/$', CargoView.AtualizaCargo, name='atualiza_cargo'),
 
     # TIPO DEPENDENTE
     url(r'^cad/tipo_dependente/$', TipoDependenteView.as_view(), name='cad_tipo_dependente'),
@@ -60,11 +60,13 @@ urlpatterns = [
     url(r'^cad/secretaria/$', SecretariaView.as_view(), name='cad_secretaria'),
     url(r'^edita/secretaria/(?P<id>\d+)/$', SecretariaView.as_view(), name='edita_secretaria'),
     url(r'^deleta/secretaria/(?P<id>[0-9]+)/$', SecretariaView.SecretariaDelete, name='deleta_secretaria'),
+    url(r'^atualiza/secretaria/$', SecretariaView.AtualizaSecretaria, name='atualiza_secretaria'),
 
     # LOCAL DE TRABALHO
     url(r'^cad/local_trabalho/$', LocalTrabalhoView.as_view(), name='cad_local_trabalho'),
     url(r'^edita/local_trabalho/(?P<id>\d+)/$', LocalTrabalhoView.as_view(), name='edita_local_trabalho'),
     url(r'^deleta/local_trabalho/(?P<id>[0-9]+)/$', LocalTrabalhoView.LocalTrabalhoDelete, name='deleta_local_trabalho'),
+    url(r'^atualiza/local_trabalho/$', LocalTrabalhoView.AtualizaLocalTrabalho, name='atualiza_local_trabalho'),
 
     # DEPENDENTE
     url(r'^cad/dependente/$', DependenteView.as_view(), name='cad_dependente'),

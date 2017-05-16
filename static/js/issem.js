@@ -245,13 +245,8 @@ function modalRequerimento(id) {
     document.getElementById("teste").innerHTML = html;
 }
 
-function atualiza_select(id_cargo) {
-    // alert(id_cargo)
-    // document.getElementById(id_cargo).reset()
-    // $('#id_cargo').each (function(){
-    //     this.reset();
-    // });
-     $.ajax({
+function atualiza_select_cargo(id_cargo) {
+    $.ajax({
         type: 'POST',
         url: '/issem/atualiza/cargo/',
         data: {
@@ -261,13 +256,51 @@ function atualiza_select(id_cargo) {
         dataType: 'json',
         success: function (dado) {
             var options = '';
-            //options += '<option selected="selected" value="' + dado[dado.length - 1].pk + '">' + dado[dado.length - 1].fields['nome'] + '</option>';
-            for (var i = dado.length - 1 ; i >= 0; i--) {
+            for (var i = dado.length - 1; i >= 0; i--) {
                 options += '<option value="' + dado[i].pk + '">' + dado[i].fields['nome'] + '</option>';
             }
             console.log(dado);
-            // $("input#id_cargo").prop('value', '');
             $("select#id_cargo").html(options);
+        },
+    });
+}
+
+function atualiza_select_secretaria(id_secretaria) {
+    $.ajax({
+        type: 'POST',
+        url: '/issem/atualiza/secretaria/',
+        data: {
+            sec: $("input[name='secretaria']").val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+        dataType: 'json',
+        success: function (dado) {
+            var options = '';
+            for (var i = dado.length - 1; i >= 0; i--) {
+                options += '<option value="' + dado[i].pk + '">' + dado[i].fields['nome'] + '</option>';
+            }
+            console.log(dado);
+            $("select#id_secretaria").html(options);
+        },
+    });
+}
+
+function atualiza_select_local_trabalho(id_local_trabalho) {
+    $.ajax({
+        type: 'POST',
+        url: '/issem/atualiza/local_trabalho/',
+        data: {
+            sec: $("input[name='local_trabalho']").val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+        dataType: 'json',
+        success: function (dado) {
+            var options = '';
+            for (var i = dado.length - 1; i >= 0; i--) {
+                options += '<option value="' + dado[i].pk + '">' + dado[i].fields['nome'] + '</option>';
+            }
+            console.log(dado);
+            $("select#id_local_trabalho").html(options);
         },
     });
 }

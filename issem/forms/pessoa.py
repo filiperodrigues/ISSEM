@@ -12,8 +12,7 @@ from issem.models.pessoa import PessoaModel
 class CadPessoaForm(forms.ModelForm):
     cargo = forms.ModelChoiceField(queryset=CargoModel.objects.all(),
                                    empty_label="Selecione um cargo",
-                                   widget=forms.Select(attrs={"onclick": "atualiza_select('id_cargo')",
-                                                              "class": "ui fluid search selection dropdown"})
+                                   widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                    )
 
     generos = (('M', 'Masculino',), ('F', 'Feminino',))

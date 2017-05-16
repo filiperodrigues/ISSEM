@@ -96,3 +96,11 @@ class SecretariaView(View):
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template_painel, context_dict)
+
+    @classmethod
+    @method_decorator(user_passes_test(group_test))
+    def AtualizaSecretaria(self, request):
+
+        secretarias = SecretariaModel.objects.filter(excluido=0)
+        json = serializers.serialize("json", secretarias)
+        return HttpResponse(json)

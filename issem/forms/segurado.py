@@ -8,11 +8,14 @@ from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
 
 
 class SeguradoFormCad(CadPessoaForm):
-    local_trabalho = forms.ModelChoiceField(required=False,
-                                            empty_label="Selecione uma cidade",
+    local_trabalho = forms.ModelChoiceField(empty_label="Selecione uma cidade",
                                             queryset=LocalTrabalhoModel.objects.all(),
                                             widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                             )
+    # cargo = forms.ModelChoiceField(queryset=CargoModel.objects.all(),
+    #                                empty_label="Selecione um cargo",
+    #                                widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
+    #                                )
     groups = forms.CharField(required=False)
 
     class Meta:

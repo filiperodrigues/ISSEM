@@ -1,6 +1,7 @@
-# coding:utf-8
+ # coding:utf-8
+from django.core import serializers
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from issem.models import EstadoModel
 from issem.models import LocalTrabalhoModel
 from issem.forms import LocalTrabalhoForm
@@ -29,7 +30,7 @@ class LocalTrabalhoView(View):
             form = LocalTrabalhoForm()  # MODO CADASTRO: recebe o formulário vazio
 
         context_dict['form'] = form
-        context_dict['form'] = id
+        context_dict['id'] = id
         context_dict['estados'] = EstadoModel.objects.all()
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
@@ -87,3 +88,10 @@ class LocalTrabalhoView(View):
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template_painel, context_dict)
+
+    @classmethod
+    @method_decorator(user_passes_test(group_test))
+    def AtualizaLocalTrabalho(self, request):
+        local_trabalhos = LocalTrabalhoModel.objects.filter(excluido=0)
+        json = serializers.serialize("json", local_trabalhos)
+        return HttpResponse(json)

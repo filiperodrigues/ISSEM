@@ -47,17 +47,20 @@
                         </div>
                     </div>
                     <div class="five wide field">
-                        <label>Secretaria:</label>
-                        {{ form.secretaria }}
-                        {% if form.secretaria.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.secretaria.errors }}
+                        <div class="fields">
+                                <div class="fourteen wide field">
+                                    <label>Secretaria:</label>
+                                    {{ form.secretaria }}
+                                    {% if form.secretaria.errors %}
+                                        <div class="ui pointing red basic label">{{ form.secretaria.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="two wide field">
+                                    <label>&ensp;</label>
+                                    <a href="{% url 'issem:cad_secretaria' %}" target="_blank"><i class="ui plus icon black"></i></a><br/>
+                                    <a href="#" onclick="atualiza_select_secretaria('id_secretaria')" class=""><i class="refresh icon black"></i></a>
+                                </div>
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="one wide field">
-                        <label> </label>
-                        <div class="ui icon button" id="CadastroSecretaria"><i class="plus icon"></i></div>
                     </div>
                 </div>
                 <div class="fields">
@@ -101,7 +104,7 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="four wide field">
+                    <div class="three wide field">
                         <label>CEP:</label>
                         <div class="cep">
                             {{ form.cep }}

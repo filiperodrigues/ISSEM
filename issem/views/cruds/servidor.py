@@ -19,6 +19,7 @@ class ServidorView(View):
 
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, msg=None, tipo_msg=None):
+        group_user = None;
         context_dict = {}
         if id:  # EDIÇÃO
             try:

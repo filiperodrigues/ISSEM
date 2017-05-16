@@ -9,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.core import serializers
 
 
-
 class CargoView(View):
     template = 'cruds/cargo.html'
     template_painel = 'paineis/funcionario_pagina.html'
@@ -88,8 +87,7 @@ class CargoView(View):
 
     @classmethod
     @method_decorator(user_passes_test(group_test))
-    def AtualizaCargo(self,request):
-
+    def AtualizaCargo(self, request):
         cargos = CargoModel.objects.filter(excluido=0)
         json = serializers.serialize("json", cargos)
         return HttpResponse(json)
