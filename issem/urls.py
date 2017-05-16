@@ -137,6 +137,9 @@ urlpatterns = [
     # PERFIL
     url(r'^perfil/(?P<id>\d+)$', PerfilView.as_view(), name='perfil'),
 
+    #DEPARTAMENTO
+    #url(r'^escolha_departamento/$', DepartamentoView.as_view(), name='perfil'),
+
 
     # 404
     url(r'', TemplateView.as_view(template_name='404.html'), name='404'),

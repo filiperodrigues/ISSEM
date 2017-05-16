@@ -17,3 +17,4 @@ from funcao import *
 from laudo import *
 from requerimento import *
 from tipo_exame import *
+from departamento import *

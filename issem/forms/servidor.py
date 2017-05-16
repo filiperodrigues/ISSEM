@@ -34,16 +34,12 @@ class ServidorFormCad(CadPessoaForm):
 
 
 class ServidorFormEdit(PessoaEditForm):
-    # local_trabalho = forms.ModelChoiceField(required=False,
-    #                                         empty_label="Selecione uma cidade",
-    #                                         queryset=LocalTrabalhoModel.objects.all(),
-    #                                         widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
-    #                                         )
     groups = forms.ModelChoiceField(required=True,
                                     empty_label="Selecione um departamento...",
                                     queryset=Group.objects.all().exclude(name='Segurado').exclude(name='Dependente'),
                                     widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                     )
+
     class Meta:
         model = ServidorModel
         fields = '__all__'
@@ -62,3 +58,26 @@ class ServidorFormEdit(PessoaEditForm):
 
     def clean_data_nascimento(self):
         return ValidarDataNascimento(self.cleaned_data.get('data_nascimento'))
+
+    def __init__(self, *args, **kwargs):
+        try:
+            #TODO Parte comentada é para a futura modelagem
+            id = kwargs.pop('id')
+            servidor = ServidorModel.objects.get(id=id)
+            # departamento = Group.objects.filter(name__in=['Administrativo','Tecnico'])
+            super(ServidorFormEdit, self).__init__(*args, **kwargs)
+            if self.fields['estado_natural']:
+                self.fields['estado_natural'].initial = servidor.cidade_natural.uf.id
+            if self.fields['estado_atual']:
+                self.fields['estado_atual'].initial = servidor.cidade_atual.uf.id
+
+            # self.fields['groups'] = forms.ModelMultipleChoiceField(queryset=departamento,
+            #                                                       #initial=departamento.filter(pk='1'),
+            #                                                       initial=servidor.groups.all()[0].id,
+            #                                                        widget=forms.SelectMultiple(),
+            #                                                        label='',
+            #                                                        required=False,
+            #
+            #                                                        )
+        except:
+            pass

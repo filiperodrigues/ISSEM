@@ -39,3 +39,16 @@ class SeguradoFormEdit(PessoaEditForm):
 
     def clean_data_nascimento(self):
         return ValidarDataNascimento(self.cleaned_data.get('data_nascimento'))
+
+    def __init__(self, *args, **kwargs):
+        try:
+
+            id = kwargs.pop('id')
+            segurado = SeguradoModel.objects.get(id=id)
+            super(SeguradoFormEdit, self).__init__(*args, **kwargs)
+
+            self.fields['estado_natural'].initial = segurado.cidade_natural.uf.id
+            self.fields['estado_atual'].initial = segurado.cidade_atual.uf.id
+
+        except:
+            print("ERROR")

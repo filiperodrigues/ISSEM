@@ -117,6 +117,29 @@ function limita_data_final_afastamento() {
     }
 }
 
+//Todo Futuro
+// function get_departamento() {
+//     alert("oi");
+//     $.ajax({
+//         type: 'POST',
+//         url: '/issem/escolha_departamento/',
+//         data: {
+//             estado: $("select[name='groups']").val(),
+//             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+//         },
+//         dataType: 'json',
+//         success: function (data) {
+//             console.log(data);
+//             var options = '';
+//             for (var i = 0; i < data.length; i++) {
+//                 options += '<option value="' + data[i].pk + '">' + data[i].fields['name'] + '</option>';
+//             }
+//            $("#id_groups").html(options);
+//
+//         }
+//     });
+// }
+
 function get_cidade_natural() {
     $.ajax({
         type: 'POST',

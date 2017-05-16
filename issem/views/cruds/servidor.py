@@ -1,4 +1,5 @@
 # coding:utf-8
+from django.http import Http404
 from django.shortcuts import render
 from issem.models import ServidorModel
 from issem.forms import ServidorFormCad, ServidorFormEdit
@@ -24,7 +25,7 @@ class ServidorView(View):
                 servidor = ServidorModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Servidor não encontrado.")
-            form = ServidorFormEdit(instance=servidor)
+            form = ServidorFormEdit(instance=servidor, id=id)
             try:
                 group_user = Group.objects.get(user=id)
             except:
@@ -54,7 +55,7 @@ class ServidorView(View):
                 servidor = ServidorModel.objects.get(pk=id, excluido=0)
             except:
                 raise Http404("Servidor não encontrado.")
-            form = ServidorFormEdit(instance=servidor, data=request.POST)
+            form = ServidorFormEdit(instance=servidor, data=request.POST, id=id)
             try:
                 group_user = Group.objects.get(user=id)
             except:
