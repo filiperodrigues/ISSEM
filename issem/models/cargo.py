@@ -4,7 +4,7 @@ from django.db import models
 
 class CargoModel(models.Model):
     nome = models.CharField(max_length=128, null=False)
-    excluido = models.BooleanField(default=0)
+    excluido = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.nome

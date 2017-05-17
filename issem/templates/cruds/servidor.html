@@ -62,57 +62,73 @@
 
                 <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
                 <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="four wide field">
-                        <label>Departamento <i class="asterisk icon red"></i></label>
-
-                       {{ form.groups }}
-
-                        {% if form.groups.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.groups.errors }}
+                    {% if var_controle_edicao == 1 %}
+                        <div class="six wide field"></div>
+                        <div class="four wide field">
+                            <label>CRM</label>
+                            <div class="crm">
+                                {{ form.crm }}
+                                {% if form.crm.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.crm.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="four wide field">
-                        <label>CRM</label>
-                        <div class="crm">
-                            {{ form.crm }}
-                            {% if form.crm.errors %}
+                        </div>
+                        <div class="six wide field"></div>
+                    {% else %}
+                        <div class="four wide field"></div>
+                        <div class="four wide field">
+                            <label>Departamento <i class="asterisk icon red"></i></label>
+
+                            {{ form.groups }}
+
+                            {% if form.groups.errors %}
                                 <div class="ui pointing red basic label">
-                                    {{ form.crm.errors }}
+                                    {{ form.groups.errors }}
                                 </div>
                             {% endif %}
                         </div>
-                    </div>
-                    <div class="four wide field"></div>
+                        <div class="four wide field">
+                            <label>CRM</label>
+                            <div class="crm">
+                                {{ form.crm }}
+                                {% if form.crm.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.crm.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field"></div>
+                    {% endif %}
                 </div>
 
                 {% include 'blocos/buttons_form.html' %}
 
                 </form>
+            </div>
         </div>
-    </div>
 
-    {% if id %}
-        {#========== MODAL ==========#}
-        <div class="ui small modal modalConfirmacao">
-            <i class="close icon"></i>
-            <div class="ui icon header">
-                <i class="trash icon"></i>
-                Deseja realmente excluir?
-            </div>
-            <div class="ui actions">
-                <div class="ui green ok inverted button">
-                    Não
+        {% if id %}
+            {#========== MODAL ==========#}
+            <div class="ui small modal modalConfirmacao">
+                <i class="close icon"></i>
+                <div class="ui icon header">
+                    <i class="trash icon"></i>
+                    Deseja realmente excluir?
                 </div>
-                <a class="ui red ok inverted button" href="{% url 'issem:deleta_servidor' id %}">
-                    <i class="remove icon"></i>
-                    Sim
-                </a>
+                <div class="ui actions">
+                    <div class="ui green ok inverted button">
+                        Não
+                    </div>
+                    <a class="ui red ok inverted button" href="{% url 'issem:deleta_servidor' id %}">
+                        <i class="remove icon"></i>
+                        Sim
+                    </a>
+                </div>
             </div>
-        </div>
-        {#========== / MODAL ==========#}
-    {% endif %}
+            {#========== / MODAL ==========#}
+        {% endif %}
 
 {% endblock %}

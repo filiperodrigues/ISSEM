@@ -39,7 +39,7 @@ function calendar_input(dependente) {
     if (dependente == true) {
         $("#id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento, #id_data_nascimento").datepicker(confDefault);
     } else {
-        $("#id_data_inicio_periodo, #id_data_fim_periodo, #id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento").datepicker(confDefault);
+        $("#id_campo, #id_campo_final, #id_data_inicio_periodo, #id_data_fim_periodo, #id_data_admissao, #id_data_inicial, #id_data_retorno, #id_data_pericia, #id_data_portaria, #id_data_final, #id_data_inicio_afastamento, #id_data_final_afastamento").datepicker(confDefault);
         conf_dataNasc = confDefault;
         conf_dataNasc.maxDate = '-18Y';
         $("#id_data_nascimento").datepicker(conf_dataNasc);

@@ -264,7 +264,6 @@ def define_mensagem_prazo_expirado(prazo_pericia_final):
 def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
     if request.GET or 'page' in request.GET:
         if request.GET.get('data_inicio'):
-            print(str(request.GET.get('data_inicio')))
             data_inicio = str(request.GET.get('data_inicio')).split('/')
             inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
             data_inicio_formatada = str(inicio_ano + "-" + inicio_mes + "-" + inicio_dia)

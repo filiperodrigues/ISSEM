@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block body_tag %}
+    <body onload="calendar_input()">
+{% endblock %}
+
 {% block body_block %}
 
     <div class="ui centered grid issem-grid">
@@ -37,7 +41,7 @@
                 <div class="fields data">
                     <input type="text" id="id_campo" name="data_inicio" placeholder="Data Inicial">
                     &ensp;
-                    <input type="text" id="id_campo" name="data_fim" placeholder="Data Final">
+                    <input type="text" id="id_campo_final" name="data_fim" placeholder="Data Final">
                     &ensp;
                     <button class="ui button" type="submit" name="submit"><i class="search icon"></i></button>
                 </div>
