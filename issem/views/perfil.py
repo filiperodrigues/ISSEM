@@ -52,9 +52,11 @@ class PerfilView(View):
         else:
             raise Http404("Grupo do usuário não encontrado.")
 
+        usuario_logado = User.objects.get(pk=request.user.id)
         context_dict['id'] = id
         context_dict['group_user'] = grupo
         context_dict['usuario'] = usuario
         context_dict['segurado'] = segurado
         context_dict['dependente'] = dependente
+        context_dict['usuario_logado'] = usuario_logado.id
         return render(request, self.template, context_dict)

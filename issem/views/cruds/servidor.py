@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
 from issem.views.pagination import pagination
+from django.contrib.auth.models import User
 
 
 class ServidorView(View):
@@ -21,9 +22,7 @@ class ServidorView(View):
     def get(self, request, id=None, msg=None, tipo_msg=None):
         group_user = None;
         context_dict = {}
-        var_controle_edicao = 0
         if id:  # EDIÇÃO
-            var_controle_edicao = 1
             try:
                 servidor = ServidorModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
@@ -38,7 +37,7 @@ class ServidorView(View):
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
         return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user,
-                                               'id_group_user': id_group_user, 'var_controle_edicao' : var_controle_edicao})
+                                               'id_group_user': id_group_user})
 
         context_dict['form'] = form
         context_dict['id'] = id
@@ -63,7 +62,7 @@ class ServidorView(View):
                 group_user = Group.objects.get(user=id)
             except:
                 raise Http404("Grupo do usuário não encontrado.")
-            id_group_user = group_user.id
+            id_grouFp_user = group_user.id
 
             if form.is_valid():
                 form.save(commit=False)

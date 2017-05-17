@@ -39,10 +39,12 @@
             <div class="three wide column">
                 {% if usuario.groups.all.0.name == "Administrativo" or usuario.groups.all.0.name == "Tecnico" %}
 
-                    <a class="ui right floated labeled icon button blue"
-                       href="{% url 'issem:edita_servidor' usuario.id %}">
-                        <i class="edit icon"></i> Alterar Perfil
-                    </a>
+                    {% if usuario_logado == usuario.id %}
+                        <a class="ui right floated labeled icon button blue"
+                           href="{% url 'issem:edita_servidor' usuario.id %}">
+                            <i class="edit icon"></i> Alterar Perfil
+                        </a>
+                    {% endif %}
 
                 {% elif usuario.groups.all.0.name == "Segurado" %}
 
