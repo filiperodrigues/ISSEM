@@ -133,10 +133,13 @@ class ServidorView(View):
             servidores = ServidorModel.objects.filter(excluido=False)
 
         dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
+        usuario_logado = User.objects.get(pk=request.user.id)
+
         context_dict['dados'] = dados
         context_dict['page_range'] = page_range
         context_dict['ultima'] = ultima
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
+        context_dict['usuario_logado'] = usuario_logado.id
         return render(request, self.template_lista, context_dict)

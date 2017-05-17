@@ -87,11 +87,13 @@
                             {% endif %}
 
                             <td class="ui right aligned">
-                                <a href="{% url 'issem:edita_servidor' dado.id %}">
-                                    <div class="ui labeled icon button">
-                                        <i class="edit icon"></i> Editar
-                                    </div>
-                                </a>
+                                {% if usuario_logado == dado.id %}
+                                    <a href="{% url 'issem:edita_servidor' dado.id %}">
+                                        <div class="ui labeled icon button">
+                                            <i class="edit icon"></i> Editar
+                                        </div>
+                                    </a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
