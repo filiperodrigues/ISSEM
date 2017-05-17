@@ -7,7 +7,7 @@ class CidModel(models.Model):
     status = models.BooleanField(default=0)
     gravidade = models.BooleanField(default=0)
     cod_cid = models.CharField(max_length=128)
-    excluido = models.BooleanField(default=0)
+    excluido = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.descricao

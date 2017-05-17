@@ -14,7 +14,7 @@ class LocalTrabalhoModel(models.Model):
     cep = models.CharField(max_length=9)
     cidade = models.ForeignKey(CidadeModel)
     secretaria = models.ForeignKey(SecretariaModel)
-    excluido = models.BooleanField(default=0)
+    excluido = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.nome

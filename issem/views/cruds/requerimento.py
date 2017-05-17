@@ -82,7 +82,15 @@ class RequerimentoView(View):
 
         #TODO: esse 'form.save()' não deveria estar ao final do código, pois existem invalidades no meio do código
         if form.is_valid():
-            form.save()
+            if RequerimentoModel.objects.filter(segurado=id_usuario):
+                msg = ("Você já possui um requerimeto em aberto. Entre em contato com o ISSEM")
+                tipo_msg = "yellow"
+                return render(request, self.template,
+                              {'msg': msg, 'tipo_msg': tipo_msg,
+                               'beneficio_descricao': beneficio.descricao,
+                               'id_usuario': id_usuario})
+            else:
+                form.save()
             requerimento = RequerimentoModel.objects.latest('id')
             id = requerimento.id
             agendamento = AgendamentoModel()

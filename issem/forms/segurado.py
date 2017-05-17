@@ -8,7 +8,8 @@ from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
 
 
 class SeguradoFormCad(CadPessoaForm):
-    local_trabalho = forms.ModelChoiceField(empty_label="Selecione uma cidade",
+    local_trabalho = forms.ModelChoiceField(required=False,
+                                            empty_label="Selecione uma cidade",
                                             queryset=LocalTrabalhoModel.objects.all(),
                                             widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                             )

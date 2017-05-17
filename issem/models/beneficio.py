@@ -15,7 +15,7 @@ class BeneficioModel(models.Model):
     salario_maximo = models.CharField(max_length=128)
     observacao = models.CharField(max_length=1000)
     carencia = models.CharField(max_length=1000)
-    excluido = models.BooleanField(default=0)
+    excluido = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.descricao

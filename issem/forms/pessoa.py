@@ -10,11 +10,11 @@ from issem.models.pessoa import PessoaModel
 
 
 class CadPessoaForm(forms.ModelForm):
-    cargo = forms.ModelChoiceField(queryset=CargoModel.objects.all(),
+    cargo = forms.ModelChoiceField(required=False,
+                                   queryset=CargoModel.objects.all(),
                                    empty_label="Selecione um cargo",
                                    widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                    )
-
     generos = (('M', 'Masculino',), ('F', 'Feminino',))
     sexo = forms.ChoiceField(required=False,
                              widget=forms.RadioSelect,
@@ -65,6 +65,11 @@ class CadPessoaForm(forms.ModelForm):
 
 
 class PessoaEditForm(forms.ModelForm):
+    cargo = forms.ModelChoiceField(required=False,
+                                   queryset=CargoModel.objects.all(),
+                                   empty_label="Selecione um cargo",
+                                   widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
+                                   )
     generos = (('M', 'Masculino',), ('F', 'Feminino',))
     sexo = forms.ChoiceField(required=False,
                              widget=forms.RadioSelect,
@@ -109,7 +114,6 @@ class PessoaEditForm(forms.ModelForm):
                 user.save()
         except:
             pass
-
 
 
 class PessoaPasswordForm(forms.ModelForm):

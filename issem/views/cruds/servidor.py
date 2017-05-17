@@ -67,8 +67,8 @@ class ServidorView(View):
 
             if form.is_valid():
                 form.save(commit=False)
-                group_user.user_set.remove(id)
-                servidor.groups.add(form.cleaned_data['groups'])
+                # group_user.user_set.remove(id)
+                # servidor.groups.add(form.cleaned_data['groups'])
                 servidor.save()
 
                 msg = 'Alterações realizadas com sucesso!'

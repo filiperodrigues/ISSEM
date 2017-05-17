@@ -62,46 +62,30 @@
 
                 <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
                 <div class="fields">
-                    {% if var_controle_edicao == 1 %}
-                        <div class="six wide field"></div>
-                        <div class="four wide field">
-                            <label>CRM</label>
-                            <div class="crm">
-                                {{ form.crm }}
-                                {% if form.crm.errors %}
-                                    <div class="ui pointing red basic label">
-                                        {{ form.crm.errors }}
-                                    </div>
-                                {% endif %}
+                    <div class="four wide field"></div>
+                    <div class="four wide field">
+                        <label>Departamento <i class="asterisk icon red"></i></label>
+
+                        {{ form.groups }}
+
+                        {% if form.groups.errors %}
+                            <div class="ui pointing red basic label">
+                                {{ form.groups.errors }}
                             </div>
-                        </div>
-                        <div class="six wide field"></div>
-                    {% else %}
-                        <div class="four wide field"></div>
-                        <div class="four wide field">
-                            <label>Departamento <i class="asterisk icon red"></i></label>
-
-                            {{ form.groups }}
-
-                            {% if form.groups.errors %}
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>CRM</label>
+                        <div class="crm">
+                            {{ form.crm }}
+                            {% if form.crm.errors %}
                                 <div class="ui pointing red basic label">
-                                    {{ form.groups.errors }}
+                                    {{ form.crm.errors }}
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="four wide field">
-                            <label>CRM</label>
-                            <div class="crm">
-                                {{ form.crm }}
-                                {% if form.crm.errors %}
-                                    <div class="ui pointing red basic label">
-                                        {{ form.crm.errors }}
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="four wide field"></div>
-                    {% endif %}
+                    </div>
+                    <div class="four wide field"></div>
                 </div>
 
                 {% include 'blocos/buttons_form.html' %}

@@ -27,7 +27,7 @@ class LaudoModel(models.Model):
     pericia_revisional = models.BooleanField(default=0)
     incapacidade_doenca_decorre_de_acidente_de_trabalho = models.BooleanField(default=0)
     servidor_readaptado = models.BooleanField(default=0)
-    excluido = models.BooleanField(default=0)
+    excluido = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "Laudo de " + str(self.segurado.nome) + " criado em " + str(self.data)
