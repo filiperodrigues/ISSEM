@@ -9,7 +9,6 @@ from issem.models.beneficio import BeneficioModel
 from issem.models.cargo import CargoModel
 from issem.models.cid import CidModel
 from issem.models.dependente import DependenteModel
-from issem.models.exame_requerimento import ExameRequerimentoModel
 from issem.models.funcao import FuncaoModel
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.models.procedimento_medico import ProcedimentoMedicoModel
@@ -38,7 +37,6 @@ admin.site.register(ServidorModel)
 admin.site.register(DependenteModel)
 admin.site.register(SeguradoModel)
 admin.site.register(RequerimentoModel)
-admin.site.register(ExameRequerimentoModel)
 admin.site.register(AgendamentoModel)
 admin.site.register(ContatoIssemModel)
 admin.site.register(ParametrosConfiguracaoModel)

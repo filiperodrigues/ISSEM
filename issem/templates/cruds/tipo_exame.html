@@ -2,57 +2,109 @@
 
 {% block body_block %}
 
-    <div class="ui centered row">
-        <div class="ui segment issem-cad">
-            <a href="{% url 'issem:index' %}"><i class="big arrow circle left icon red"></i></a>
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
 
-            {% if not id %}
-                <h1>Cadastro de novo Tipo de Exame:</h1>
-            {% else %}
-                <h1>Edição de Tipo de Exame</h1>
+            {% if msg %}
+                <div class="sixteen wide column issem-div-message">
+                    <div class="ui {{ tipo_msg }} message">
+                        <div class="header">
+                            {{ msg }}
+                        </div>
+                    </div>
+                </div>
             {% endif %}
 
-            <br/>
-            <form class="ui form" id="TipoExameForm" method="post"
-                  action="{% url 'issem:cad_tipo_exame' %}">
-                {% csrf_token %}
+            <div class="three wide column">
+                <a href="{% url 'issem:index' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
 
-                {% if not id %}
-                    <input type="hidden" name="id" value="">
-                {% else %}
-                    <input type="hidden" name="id" value="{{ id }}">
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    {% if not id %}
+                        <h1><i class="plus icon"></i> Cadastro de Tipo de Exame</h1>
+                    {% else %}
+                        <h1><i class="edit icon"></i> Edição de Tipo de Exame</h1>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="three wide column">
+                {% if id %}
+                    <a class="ui right floated labeled icon button red abrirModalConfirmacao" href="#">
+                        <i class="trash icon"></i> Excluir
+                    </a>
                 {% endif %}
+            </div>
 
-                <div class="fields">
-                    <div class="five wide field"></div>
-                    <div class="six wide field">
-                        <label>Nome</label>
-                        {{ form.nome }}
-                        {% if form.nome.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.nome.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="five wide field"></div>
-                </div>
-                <div class="fields">
-                    <div class="five wide field"></div>
-                    <div class="six wide field">
-                        <label>Observação</label>
-                        {{ form.observacao }}
-                        {% if form.observacao.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.observacao.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="five wide field"></div>
-                </div>
+            <div class="sixteen wide column issem-table-form">
+                <form class="ui form" id="TipoExameForm" method="post"
+                      action="{% url 'issem:cad_tipo_exame' %}">
+                    {% csrf_token %}
 
-                {% include 'blocos/buttons_form.html' %}
-            </form>
+                    {% if not id %}
+                        <input type="hidden" name="id" value="">
+                    {% else %}
+                        <input type="hidden" name="id" value="{{ id }}">
+                    {% endif %}
+
+                    <div class="fields">
+                        <div class="five wide field"></div>
+                        <div class="six wide field">
+                            <label>Nome</label>
+                            {{ form.nome }}
+                            {% if form.nome.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.nome.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="five wide field"></div>
+                    </div>
+                    <div class="fields">
+                        <div class="five wide field"></div>
+                        <div class="six wide field">
+                            <label>Observação</label>
+                            {{ form.observacao }}
+                            {% if form.observacao.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.observacao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="five wide field"></div>
+                    </div>
+
+                    {% include 'blocos/buttons_form.html' %}
+                </form>
+
+            </div>
         </div>
     </div>
+
+    {% if id %}
+        {#========== MODAL ==========#}
+        <div class="ui small modal modalConfirmacao">
+            <i class="close icon"></i>
+            <div class="ui icon header">
+                <i class="trash icon"></i>
+                Deseja realmente excluir?
+            </div>
+            <div class="ui actions">
+                <div class="ui green ok inverted button">
+                    Não
+                </div>
+                <a class="ui red ok inverted button" href="{% url 'issem:deleta_tipo_exame' id %}">
+                    <i class="remove icon"></i>
+                    Sim
+                </a>
+            </div>
+        </div>
+        {#========== / MODAL ==========#}
+    {% endif %}
 
 {% endblock %}

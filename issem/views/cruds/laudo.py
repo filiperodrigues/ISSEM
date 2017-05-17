@@ -1,4 +1,5 @@
 # coding:utf-8
+from django.http import Http404
 from django.shortcuts import render, HttpResponseRedirect
 from issem.models import LaudoModel, ServidorModel, SeguradoModel
 from issem.forms import LaudoForm
@@ -20,13 +21,23 @@ class LaudoView(View):
         return user.groups.filter(name='Tecnico')
 
     @method_decorator(user_passes_test(group_test))
-    def get(self, request, id=None):
+    def get(self, request, id=None, msg=None, tipo_msg=None):
+        context_dict = {}
         if id:
-            laudo = LaudoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            try:
+                laudo = LaudoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+            except:
+                raise Http404("Laudo médico não encontrado.")
             form = LaudoForm(instance=laudo)
         else:
             form = LaudoForm()  # MODO CADASTRO: recebe o formulário vazio
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id})
+
+        context_dict['medico'] = ServidorModel.objects.get(pk=request.user.id)
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template, context_dict)
 
     @method_decorator(user_passes_test(group_test))
     def post(self, request, id_laudo=None):

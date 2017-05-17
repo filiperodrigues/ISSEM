@@ -1,9 +1,9 @@
 # coding:utf-8
-import datetime
 from django.db import models
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.models.pessoa import PessoaModel
 from issem.models.dependente import DependenteModel
+from issem.models.funcao import FuncaoModel
 
 
 class SeguradoModel(PessoaModel):
@@ -12,6 +12,7 @@ class SeguradoModel(PessoaModel):
     data_admissao = models.DateField()
     documento_legal = models.CharField(blank=True, max_length=128)
     dependente = models.ManyToManyField(DependenteModel, blank=True)
+    funcao = models.ForeignKey(FuncaoModel, blank=True)
 
     def __unicode__(self):
         return self.nome

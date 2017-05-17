@@ -15,7 +15,7 @@ class PessoaModel(User):
     rg = models.CharField(null=False, max_length=9)
     telefone_residencial = models.CharField(max_length=15, blank=True)
     telefone_celular = models.CharField(max_length=15, blank=True)
-    doador = models.BooleanField(default=0)
+    doador = models.BooleanField(default=False)
     endereco = models.CharField(max_length=128, blank=True)
     numero_endereco = models.CharField(blank=True, max_length=9)
     complemento = models.CharField(max_length=128, blank=True)

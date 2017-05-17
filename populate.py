@@ -11,12 +11,17 @@ django.setup()
 from issem.models import *
 from django.contrib.auth.models import Group
 
+
 def populate():
     # BENEFÍCIOS
-    beneficios = [[1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício por incapacidade", 1, "2010-10-10", 3.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
-                  [0, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Licença Adoção", 2, "2010-10-10", 4.000, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 4],
-                  [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Prorrogação do benefício por incapacidade", 3, "2010-10-10", 4.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 8],
-                  ]
+    beneficios = [
+        [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício por incapacidade", 1, "2010-10-10",
+         3.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 5],
+        [0, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Licença Adoção", 2, "2010-10-10", 4.000,
+         "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 4],
+        [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Prorrogação do benefício por incapacidade", 3,
+         "2010-10-10", 4.500, "Comparecer  ao  ISSEM  munido  de  documento oficial com foto", 8],
+    ]
     for b in beneficios:
         add_beneficio(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10])
 
@@ -32,17 +37,17 @@ def populate():
 
     # CIDs
     cids = [
-            ["Gripe", 0, 0, 465],
-            ["Rinite", 0, 0, 456],
-            ["Asma/Bronquite", 0, 0, 321],
-            ["Pressão alta", 0, 0, 147],
-            ["Depressão", 0, 0, 951],
-            ["Tireóide", 0, 0, 753],
-            ["Diabetes", 0, 0, 145],
-            ["Osteoporose", 0, 0, 654],
-            ["Dor nos Braços/Mãos", 0, 0, 959],
-            ["Gastrite Crônica", 0, 0, 124],
-            ]
+        ["Gripe", 0, 0, 465],
+        ["Rinite", 0, 0, 456],
+        ["Asma/Bronquite", 0, 0, 321],
+        ["Pressão alta", 0, 0, 147],
+        ["Depressão", 0, 0, 951],
+        ["Tireóide", 0, 0, 753],
+        ["Diabetes", 0, 0, 145],
+        ["Osteoporose", 0, 0, 654],
+        ["Dor nos Braços/Mãos", 0, 0, 959],
+        ["Gastrite Crônica", 0, 0, 124],
+    ]
     for cid in cids:
         add_cid(cid[0], cid[1], cid[2], cid[3])
 
@@ -156,56 +161,72 @@ def populate():
 
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
     return BeneficioModel.objects.get_or_create(concessao=c, data_inicial=di, data_final=df, data_retorno=dr,
-                                                data_pericia=dp,
-                                                descricao=d, numero_portaria=np, data_portaria=dpt, salario_maximo=sm,
-                                                observacao=obs, carencia=ca)
+                                                data_pericia=dp, descricao=d, numero_portaria=np, data_portaria=dpt,
+                                                salario_maximo=sm, observacao=obs, carencia=ca)
+
 
 def add_grupo(g):
     return Group.objects.get_or_create(name=g)[0]
 
+
 def add_cargo(n):
     return CargoModel.objects.get_or_create(nome=n)[0]
+
 
 def add_cid(d, s, g, c):
     return CidModel.objects.get_or_create(descricao=d, status=s, gravidade=g, cod_cid=c)[0]
 
+
 def add_contato_issem(n, c, d, t, e):
     return ContatoIssemModel.objects.get_or_create(nome=n, cargo=c, departamento=d, telefone=t, email=e)[0]
+
 
 def add_cidade(id, n, uf):
     return CidadeModel.objects.get_or_create(id=id, nome=n, uf=uf)[0]
 
+
 def add_estado(id, n, uf):
     return EstadoModel.objects.get_or_create(id=id, nome=n, uf=uf)[0]
+
 
 def add_tipo_dependente(n):
     return TipoDependenteModel.objects.get_or_create(descricao=n)
 
+
 def add_estado_civil(n):
     return EstadoCivilModel.objects.get_or_create(nome=n)
 
+
 def add_funcao(n, d):
     return FuncaoModel.objects.get_or_create(nome=n, descricao=d)
+
 
 def add_local_trabalho(n, cnpj, e, ne, c, b, cep, ci, s):
     return LocalTrabalhoModel.objects.get_or_create(nome=n, cnpj=cnpj, endereco=e, numero_endereco=ne, complemento=c,
                                                     bairro=b, cep=cep, cidade=ci, secretaria=s)
 
+
 def add_procedimento_medico(c, d, v):
     return ProcedimentoMedicoModel.objects.get_or_create(codigo=c, descricao=d, valor=v)
+
 
 def add_secretaria(n):
     return SecretariaModel.objects.get_or_create(nome=n)
 
+
 def add_tipo_exame(n, obs):
     return TipoExameModel.objects.get_or_create(nome=n, observacao=obs)
+
 
 def add_tipo_sanguineo(n):
     return TipoSanguineoModel.objects.get_or_create(nome=n)
 
+
 def add_consulta_parametros(tc, te, ia, lc, ga, tm):
     return ParametrosConfiguracaoModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia,
-                                                         limite_consultas=lc, gap_agendamento=ga, tempo_minimo_exercicio=tm)
+                                                             limite_consultas=lc, gap_agendamento=ga,
+                                                             tempo_minimo_exercicio=tm)
+
 
 # Start execution here!
 if __name__ == '__main__':

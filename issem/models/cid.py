@@ -4,8 +4,8 @@ from django.db import models
 
 class CidModel(models.Model):
     descricao = models.CharField(max_length=128, null=False)
-    status = models.BooleanField(default=0)
-    gravidade = models.BooleanField(default=0)
+    status = models.BooleanField(default=False)
+    gravidade = models.BooleanField(default=False)
     cod_cid = models.CharField(max_length=128)
     excluido = models.BooleanField(default=False)
 

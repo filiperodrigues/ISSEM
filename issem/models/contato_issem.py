@@ -1,6 +1,5 @@
 # coding: utf-8
 from django.db import models
-from issem.models.cargo import CargoModel
 
 
 class ContatoIssemModel(models.Model):

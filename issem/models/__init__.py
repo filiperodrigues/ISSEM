@@ -8,7 +8,6 @@ from issem.models.contato_issem import ContatoIssemModel
 from issem.models.dependente import DependenteModel
 from issem.models.estado import EstadoModel
 from issem.models.estado_civil import EstadoCivilModel
-from issem.models.exame_requerimento import ExameRequerimentoModel
 from issem.models.funcao import FuncaoModel
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.models.pessoa import PessoaModel

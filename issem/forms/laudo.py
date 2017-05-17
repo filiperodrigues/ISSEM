@@ -38,6 +38,8 @@ class LaudoForm(forms.ModelForm):
                                        widget=forms.Textarea(attrs={"rows": "1"}))
     anamnese = forms.CharField(required=True,
                                widget=forms.Textarea(attrs={"rows": "5"}))
+    observacoes = forms.CharField(required=True,
+                                  widget=forms.Textarea(attrs={"rows": "1"}))
     exames_apresentados = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
     class Meta:

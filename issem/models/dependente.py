@@ -1,5 +1,4 @@
 # coding:utf-8
-import datetime
 from django.db import models
 from issem.models.tipo_dependente import TipoDependenteModel
 from issem.models.pessoa import PessoaModel

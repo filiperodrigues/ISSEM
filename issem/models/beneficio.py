@@ -1,10 +1,9 @@
 # coding:utf-8
-import datetime
 from django.db import models
 
 
 class BeneficioModel(models.Model):
-    concessao = models.BooleanField(default=0)
+    concessao = models.BooleanField(default=False)
     data_inicial = models.DateField()
     data_final = models.DateField()
     data_retorno = models.DateField()

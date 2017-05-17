@@ -1,8 +1,10 @@
 # coding:utf-8
 from django.db import models
+from issem.models.exame import ExameModel
 from issem.models.beneficio import BeneficioModel
 from issem.models.segurado import SeguradoModel
 from issem.models.servidor import ServidorModel
+
 
 class RequerimentoModel(models.Model):
     beneficio = models.ForeignKey(BeneficioModel)
@@ -11,18 +13,15 @@ class RequerimentoModel(models.Model):
     segurado = models.ForeignKey(SeguradoModel, null=True, blank=True)
     data_inicio_afastamento = models.DateField()
     data_final_afastamento = models.DateField()
-    possui_agendamento = models.BooleanField(default=0)
+    possui_agendamento = models.BooleanField(default=False)
+    exames = models.ManyToManyField(ExameModel, blank=True)
 
     def __unicode__(self):
-        nome = str(self.data_requerimento) + " " + str(self.data_requerimento) + " " + str(self.possui_agendamento)
-        return nome
+        return str(self.data_requerimento) + " " + str(self.data_requerimento) + " " + str(self.possui_agendamento)
 
     def __str__(self):
-        nome = str(self.data_requerimento) + " " + str(self.data_requerimento) + " " + str(self.possui_agendamento)
-        return nome
+        return str(self.data_requerimento) + " " + str(self.data_requerimento) + " " + str(self.possui_agendamento)
 
     class Meta:
         verbose_name = "Requerimento"
         verbose_name_plural = "Requerimentos"
-
-

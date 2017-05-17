@@ -173,7 +173,7 @@ class RequerimentoView(View):
 
 
 def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendamento=None):
-    seguado = SeguradoModel.objects.get(pk=id_usuario)
+    segurado = SeguradoModel.objects.get(pk=id_usuario)
     agendamento = AgendamentoModel.objects.get(pk=id_agendamento)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="comprovante_agendamento.pdf"'
@@ -205,7 +205,7 @@ def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendament
     linhaInicial -=10
     p.drawString(50, linhaInicial, "_______________________________________")
     p.setFont("Helvetica", 10)
-    p.drawString(50, linhaInicial-10, "Agendado para: " + seguado.nome + (" (CPF: " + seguado.cpf + ")"))
+    p.drawString(50, linhaInicial-10, "Agendado para: " + segurado.nome + (" (CPF: " + segurado.cpf + ")"))
     p.drawString(50, linhaInicial-20,
                  "Data atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[
                                                                                   5:7] + "/" +
@@ -218,13 +218,13 @@ def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendament
     p.drawString(50, linhaInicial-60, "*NÃO É NECESSÁRIO IMPRIMIR ESTE DOCUMENTO")
     p.showPage()
     p.save()
-    if(seguado.email):
+    if(segurado.email):
         msg_email = ("Esse e-mail foi gerado pelo sistema de agendamento automático ISSEM, respostas não serão consideradas. " + str(msg))
         send_mail(
             'Comprovante de agendamento ISSEM',
             msg_email,
             'ISSEM.com.br',
-            [str(seguado.email)],
+            [str(segurado.email)],
             fail_silently=False,
         )
     return response
