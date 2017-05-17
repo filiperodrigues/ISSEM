@@ -11,7 +11,11 @@ from issem.views.pagination import pagination
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from issem_project.settings import STATIC_URL
+from django.core.mail import send_mail
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 #TODO: REFATORAR CÓDIGO
 
@@ -214,6 +218,15 @@ def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendament
     p.drawString(50, linhaInicial-60, "*NÃO É NECESSÁRIO IMPRIMIR ESTE DOCUMENTO")
     p.showPage()
     p.save()
+    if(seguado.email):
+        msg_email = ("Esse e-mail foi gerado pelo sistema de agendamento automático ISSEM, respostas não serão consideradas. " + str(msg))
+        send_mail(
+            'Comprovante de agendamento ISSEM',
+            msg_email,
+            'ISSEM.com.br',
+            [str(seguado.email)],
+            fail_silently=False,
+        )
     return response
 
 

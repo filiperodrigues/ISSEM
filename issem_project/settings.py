@@ -118,3 +118,10 @@ STATICFILES_DIRS = (
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/'
+
+#ENVIAR E-MAIL#
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'issem.js@gmail.com'
+EMAIL_HOST_PASSWORD = 'issem2016'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
