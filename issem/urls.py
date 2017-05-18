@@ -74,8 +74,8 @@ urlpatterns = [
     url(r'^edita/dependente/(?P<id>\d+)/$', DependenteView.as_view(), name='edita_dependente'),
     url(r'^deleta/dependente/(?P<id>[0-9]+)/$', DependenteView.DependenteDelete, name='deleta_dependente'),
     url(r'^lista/dependentes/$', DependenteView.ListaDependentes, name='lista_dependentes'),
-    url(r'^edita/transferencia/(?P<id>\d+)/(?P<id_segurado>\d+)/$', DependenteView.AlteraSegurado, name='transferencia'),
-    url(r'^lista/busca_segurado/(?P<id>\d+)/$', DependenteView.SelecionaSegurado, name='seleciona_segurado'),
+    url(r'^transferencia/$', TransferenciaSegurado.as_view(), name='transferencia'),
+    url(r'^busca_segurado/(?P<id>\d+)/$', TransferenciaSegurado.as_view(), name='seleciona_segurado'),
 
     # SEGURADO
     url(r'^cad/segurado/$', SeguradoView.as_view(), name='cad_segurado'),
@@ -138,9 +138,6 @@ urlpatterns = [
 
     # PERFIL
     url(r'^perfil/(?P<id>\d+)$', PerfilView.as_view(), name='perfil'),
-
-    #DEPARTAMENTO
-    #url(r'^escolha_departamento/$', DepartamentoView.as_view(), name='perfil'),
 
 
     # 404

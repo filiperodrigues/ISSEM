@@ -12,7 +12,7 @@ class SeguradoModel(PessoaModel):
     data_admissao = models.DateField()
     documento_legal = models.CharField(blank=True, max_length=128)
     dependente = models.ManyToManyField(DependenteModel, blank=True)
-    funcao = models.ForeignKey(FuncaoModel, blank=True)
+    funcao = models.ForeignKey(FuncaoModel, null=True, blank=True)
 
     def __unicode__(self):
         return self.nome

@@ -14,7 +14,6 @@ from issem.views.cruds.pass_generator import mkpass
 class DependenteView(View):
     template = 'cruds/dependente.html'
     template_lista = 'listas/dependentes.html'
-    template_transferencia = 'cruds/altera_segurado.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -165,40 +164,73 @@ class DependenteView(View):
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
 
-    @classmethod
-    def SelecionaSegurado(self, request, id=None, msg=None, tipo_msg=None):
-        dependente = DependenteModel.objects.get(pk=id)
 
-        segurado = SeguradoModel.objects.get(dependente=dependente.id)
+class TransferenciaSegurado(View):
+    template = 'estatico/altera_segurado.html'
+
+    def group_test(user):
+        return user.groups.filter(name='Administrativo')
+
+    @method_decorator(user_passes_test(group_test))
+    def get(self, request, id=None, msg=None, tipo_msg=None):
+        context_dict = {}
+        try:
+            dependente = DependenteModel.objects.get(pk=id)
+        except:
+            raise Http404("Dependente não encontrado.")
+        try:
+            segurado_atual = SeguradoModel.objects.get(dependente=dependente.id)
+        except:
+            raise Http404("Segurado não encontrado.")
+
         if request.GET or 'page' in request.GET:
-            segurados = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=0) or \
-                        SeguradoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=0) or \
-                        SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=0)
+            segurado1 = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=False)
+            segurado2 = SeguradoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=False)
+            segurado3 = SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=False)
+            segurados = list(segurado1) + list(segurado2) + list(segurado3)
+            segurados = list(set(segurados))
         else:
             segurados = ""
 
         dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
-        return render(request, 'cruds/altera_segurado.html',
-                      {'dependente': dependente, 'segurado': segurado, 'dados': dados, 'page_range': page_range,
-                       'ultima': ultima, 'msg': msg, 'tipo_msg': tipo_msg, 'id': id,
-                       'filtro': request.GET.get('filtro')})
-
-    @classmethod
-    def AlteraSegurado(self, request, id=None, id_segurado=None, tipo_msg=None):
-        context_dict = {}
-        dependente = DependenteModel.objects.get(pk=id)
-        segurado = SeguradoModel.objects.get(dependente=dependente.id)
-        novo_segurado = SeguradoModel.objects.get(pk=id_segurado)
-        segurado.dependente.remove(dependente)
-        novo_segurado.dependente.add(dependente)
-        form = DependenteFormEdit(instance=segurado, data=request.POST)
-        form.save()
-        # form_novo = DependenteFormEdit(instance=dependente, data=request.POST)
-        # form1.save()
-        tipo_msg = 'green'
+        context_dict['id'] = id
         context_dict['dependente'] = dependente
-        context_dict['segurado'] = segurado
-        context_dict['segurado_novo'] = novo_segurado
+        context_dict['segurado_atual'] = segurado_atual
+        context_dict['dados'] = dados
+        context_dict['page_range'] = page_range
+        context_dict['ultima'] = ultima
+        context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
+        context_dict['filtro'] = request.GET.get('filtro')
+        return render(request, self.template, context_dict)
 
-        return render(request, self.template_transferencia, context_dict)
+    @method_decorator(user_passes_test(group_test))
+    def post(self, request, msg=None, tipo_msg=None):
+        context_dict = {}
+        id = request.POST.get('id')
+        id_novo_segurado = request.POST.get('id_novo_segurado')
+
+        try:
+            dependente = DependenteModel.objects.get(pk=id)
+        except:
+            raise Http404("Dependente não encontrado.")
+        try:
+            segurado_atual = SeguradoModel.objects.get(dependente=id)
+        except:
+            raise Http404("Segurado atual não encontrado.")
+        try:
+            segurado_novo = SeguradoModel.objects.get(pk=id_novo_segurado)
+        except:
+            raise Http404("Novo segurado não encontrado.")
+        segurado_atual.dependente.remove(dependente)
+        segurado_novo.dependente.add(dependente)
+        context_dict['id'] = id
+        context_dict['dependente'] = dependente
+        context_dict['segurado_atual'] = segurado_novo
+        context_dict['msg'] = 'Transferência concluída com sucesso! O dependente ' + dependente.nome + ' foi transferido de ' + segurado_atual.nome + ' para ' + segurado_novo.nome + '.'
+        context_dict['tipo_msg'] = 'green'
+        context_dict['dados'] = None
+        context_dict['page_range'] = None
+        context_dict['ultima'] = None
+        context_dict['filtro'] = None
+        return render(request, self.template, context_dict)

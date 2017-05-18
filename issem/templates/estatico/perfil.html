@@ -63,7 +63,7 @@
                         </a>
                         <a class="ui right floated labeled icon button"
                            href="{% url 'issem:seleciona_segurado' id %}">
-                            <i class="exchange icon"></i> Transferência de Segurado
+                            <i class="exchange icon"></i> Transferir para outro segurado
                         </a>
                     </div>
 
@@ -71,15 +71,15 @@
             </div>
 
             <div class="ui form sixteen wide column issem-table-form">
-                {% include 'perfil/perfil_pessoa.html' %}
+                {% include 'estatico/perfil_pessoa.html' %}
 
                 {% if usuario.groups.all.0.name == "Administrativo" or usuario.groups.all.0.name == "Tecnico" %}
 
-                    {% include 'perfil/perfil_servidor.html' %}
+                    {% include 'estatico/perfil_servidor.html' %}
 
                 {% elif usuario.groups.all.0.name == "Segurado" %}
 
-                    {% include 'perfil/perfil_segurado.html' %}
+                    {% include 'estatico/perfil_segurado.html' %}
                     <h4 class="ui dividing header red">Dependente(s)</h4>
                     {% if dependente %}
                         {{ dependente.nome }}
@@ -107,20 +107,23 @@
                         </div>
                     {% else %}
                         <div class="sixteen wide column issem-div-message">
-                            <br/>
                             <div class="ui yellow message">
                                 <div class="header">
                                     Não existem dependentes cadastrados!
-                                    <a href="{% url 'issem:cad_dependente_segurado' id %}">Associar
-                                        dependente</a>
                                 </div>
                             </div>
                         </div>
+                        <div class="ui grid center aligned">
+                            <div class="row">
+                                <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
+                                    dependente</a>
+                            </div>
                         </div>
                     {% endif %}
                 {% elif usuario.groups.all.0.name == "Dependente" %}
-                    {% include 'perfil/perfil_dependente.html' %}
+                    {% include 'estatico/perfil_dependente.html' %}
                 {% endif %}
+            </div>
         </div>
     </div>
 

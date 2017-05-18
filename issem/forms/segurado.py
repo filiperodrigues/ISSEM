@@ -13,10 +13,6 @@ class SeguradoFormCad(CadPessoaForm):
                                             queryset=LocalTrabalhoModel.objects.all(),
                                             widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                             )
-    # cargo = forms.ModelChoiceField(queryset=CargoModel.objects.all(),
-    #                                empty_label="Selecione um cargo",
-    #                                widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
-    #                                )
     groups = forms.CharField(required=False)
 
     class Meta:

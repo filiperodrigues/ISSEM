@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group, User
 
 
 class PerfilView(View):
-    template = 'perfil/perfil.html'
+    template = 'estatico/perfil.html'
 
     def get(self, request, id=None):
         dependente = None

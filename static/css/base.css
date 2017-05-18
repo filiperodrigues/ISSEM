@@ -156,3 +156,7 @@ footer {
 div.ten.wide.column.issem-margin-bottom{
     margin-bottom: 25px;
 }
+
+input[disabled]{
+    border-color: #aaaaaa !important;
+}
