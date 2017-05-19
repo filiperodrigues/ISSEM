@@ -46,6 +46,8 @@ class CadPessoaForm(forms.ModelForm):
                                           )
     password = forms.CharField(widget=forms.PasswordInput())
     password_checker = forms.CharField(widget=forms.PasswordInput())
+    email = forms.EmailField(required=True)
+
 
     class Meta:
         model = PessoaModel
@@ -99,7 +101,7 @@ class PessoaEditForm(forms.ModelForm):
                                           queryset=cidades,
                                           widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                           )
-
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = PessoaModel

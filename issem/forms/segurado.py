@@ -13,7 +13,6 @@ class SeguradoFormCad(CadPessoaForm):
                                             widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                             )
     groups = forms.CharField(required=False)
-    email = forms.EmailField(required=True)
 
     class Meta:
         model = SeguradoModel
