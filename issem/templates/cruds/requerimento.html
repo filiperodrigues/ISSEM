@@ -15,7 +15,8 @@
                         <div class="header">
                             {{ msg_valida }}
                             <br>
-                            <a href="{% url 'issem:comprovante_agendamento' msg_valida id_agendamento id_usuario %}"> Comprovante (opcional)</a>
+                            <a href="{% url 'issem:comprovante_agendamento' msg_valida id_agendamento id_usuario %}">
+                                Comprovante (opcional)</a>
                         </div>
                     </div>
                 </div>
@@ -98,11 +99,12 @@
                             </div>
                             <div class="four wide field"></div>
                         </div>
+                        <br/>
 
                         <div class="fields">
                             <div class="two wide field"></div>
                             <div class="twelve wide field">
-                                <div class="ui red message">
+                                <div class="ui red message centered grid">
                                     Só poderão ser realizados requerimentos online para afastamentos com períodos
                                     maiores que 15(quinze) dias.
                                     <br/>
@@ -111,6 +113,18 @@
                             <div class="two wide field"></div>
                         </div>
 
+                        <div class="fields">
+                            <div class="two wide field"></div>
+                            <div class="twelve wide field">
+                                <div class="ui red message centered grid">
+                                    <div class="header">
+                                        Os dados apresentados são de total responsabilidade do segurado.
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+                            <div class="two wide field"></div>
+                        </div>
 
                         {% include 'blocos/buttons_form.html' %}
                     </form>

@@ -47,6 +47,7 @@ class DependenteView(View):
                     raise Http404("Segurado deste dependente não encontrado.")
             form = DependenteFormCad()  # MODO CADASTRO: recebe o formulário vazio
 
+        context_dict['dependente'] = True
         context_dict['form'] = form
         context_dict['id'] = id
         context_dict['id_group_user'] = id_group_user
