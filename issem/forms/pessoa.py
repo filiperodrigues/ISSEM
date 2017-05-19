@@ -100,6 +100,7 @@ class PessoaEditForm(forms.ModelForm):
                                           widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                           )
 
+
     class Meta:
         model = PessoaModel
         fields = "__all__"

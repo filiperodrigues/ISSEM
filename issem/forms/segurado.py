@@ -6,7 +6,6 @@ from issem.models.segurado import SeguradoModel
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
 
-
 class SeguradoFormCad(CadPessoaForm):
     local_trabalho = forms.ModelChoiceField(required=False,
                                             empty_label="Selecione uma cidade",
@@ -14,6 +13,7 @@ class SeguradoFormCad(CadPessoaForm):
                                             widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                             )
     groups = forms.CharField(required=False)
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = SeguradoModel

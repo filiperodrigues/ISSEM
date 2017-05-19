@@ -304,7 +304,8 @@ def ApresentaAgendamentos(request, msg=None, tipo_msg=None):
                    'data_fim': request.GET.get('data_fim')})
 
 
-def ApresentaRequerimentosSemAgendamento(request):
+def ApresentaRequerimentosSemAgendamento(request, msg=None, tipo_msg=None):
+    context_dict = {}
     if request.GET or 'page' in request.GET:
         if request.GET.get('data_inicio'):
             print(str(request.GET.get('data_inicio')))
@@ -323,7 +324,12 @@ def ApresentaRequerimentosSemAgendamento(request):
         agendamentos = RequerimentoModel.objects.filter(possui_agendamento=False).order_by('data_requerimento')
 
     dados, page_range, ultima = pagination(agendamentos, request.GET.get('page'))
-    return render(request, 'listas/tabela_requerimentos_sem_agendamento.html',
-                  {'dados': dados, 'page_range': page_range, 'ultima': ultima,
-                   'data_inicio': request.GET.get('data_inicio'),
-                   'data_fim': request.GET.get('data_fim')})
+    context_dict['dados'] = dados
+    context_dict['page_range'] = page_range
+    context_dict['ultima'] = ultima
+    context_dict['msg'] = msg
+    context_dict['tipo_msg'] = tipo_msg
+    context_dict['filtro'] = request.GET.get('filtro')
+    context_dict['data_inicio'] = request.GET.get('data_inicio')
+    context_dict['data_fim'] = request.GET.get('data_fim')
+    return render(request, 'listas/tabela_requerimentos_sem_agendamento.html', context_dict)
