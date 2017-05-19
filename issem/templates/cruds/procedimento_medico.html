@@ -53,9 +53,9 @@
                     {% endif %}
 
                     <div class="fields">
-                        <div class="four wide field"></div>
-                        <div class="four wide field">
-                            <label>Código</label>
+                        <div class="two wide field"></div>
+                        <div class="two wide field">
+                            <label>Código:</label>
                             <div class="somente_numeros">
                                 {{ form.codigo }}
                                 {% if form.codigo.errors %}
@@ -65,22 +65,27 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="four wide field">
-                            <label>Descrição</label>
-                            {{ form.descricao }}
-                            {% if form.descricao.errors %}
+                        <div class="six wide field">
+                            <label>Procedimento:</label>
+                            {{ form.procedimento }}
+                            {% if form.procedimento.errors %}
                                 <div class="ui pointing red basic label">
-                                    {{ form.descricao.errors }}
+                                    {{ form.procedimento.errors }}
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="four wide field"></div>
-                    </div>
-                    <div class="fields">
-                        <div class="six wide field"></div>
-                        <div class="four wide field">
-                            <label>Valor</label>
-                            <div class="valor">
+                        <div class="two wide field">
+                            <label>Porte:</label>
+                            {{ form.porte }}
+                            {% if form.porte.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.porte.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Valor:</label>
+                            <div class="somente_numeros">
                                 {{ form.valor }}
                                 {% if form.valor.errors %}
                                     <div class="ui pointing red basic label">
@@ -89,7 +94,64 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="six wide field"></div>
+
+                    </div>
+                    <div class="fields">
+                        <div class="two wide field"></div>
+                        <div class="two wide field">
+                            <label>Valor Porte:</label>
+                            {{ form.valor_porte }}
+                            {% if form.valor_porte.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.valor_porte.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Valor UCO:</label>
+                            {{ form.valor_uco }}
+                            {% if form.valor_uco.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.valor_uco.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Auxiliares:</label>
+                            {{ form.auxiliares }}
+                            {% if form.auxiliares.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.auxiliares.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Porte Anestésico:</label>
+                            {{ form.porte_anestesico }}
+                            {% if form.porte_anestesico.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.porte_anestesico.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>QTD Filme:</label>
+                            {{ form.qtd_filme }}
+                            {% if form.qtd_filme.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.qtd_filme.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field">
+                            <label>Incidência:</label>
+                            {{ form.incidencia }}
+                            {% if form.incidencia.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.incidencia.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
 
                     {% include 'blocos/buttons_form.html' %}

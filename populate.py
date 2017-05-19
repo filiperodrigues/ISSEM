@@ -135,12 +135,10 @@ def populate():
 
     # PROCEDIMENTOS MÉDICOS
     procedimentos_medicos = [
-        [54, "Procedimento Médico 1", 45],
-        [55, "Procedimento Médico 2", 46],
-        [56, "Procedimento Médico 3", 47],
+        [10101012,'EM CONSULTÓRIO (NO HORÁRIO NORMAL OU PREESTABELECIDO)', '01C', 25.5, 0, 0, 0, 0, 0,63],
     ]
     for pm in procedimentos_medicos:
-        add_procedimento_medico(pm[0], pm[1], pm[2])
+        add_procedimento_medico(pm[0], pm[1], pm[2], pm[3], pm[4], pm[5], pm[6], pm[7], pm[8], pm[9])
 
     # TIPOS DE EXAME
     tipos_exame = [
@@ -206,8 +204,10 @@ def add_local_trabalho(n, cnpj, e, ne, c, b, cep, ci, s):
                                                     bairro=b, cep=cep, cidade=ci, secretaria=s)
 
 
-def add_procedimento_medico(c, d, v):
-    return ProcedimentoMedicoModel.objects.get_or_create(codigo=c, descricao=d, valor=v)
+def add_procedimento_medico(codigo,	procedimento, porte, valor_porte, auxiliares, valor_uco, porte_anestesico, qtd_filme, incidencia, valor):
+    return ProcedimentoMedicoModel.objects.get_or_create(codigo=codigo, procedimento=procedimento, porte=porte, valor_porte=valor_porte,
+                                                        auxiliares=auxiliares, valor_uco=valor_uco, porte_anestesico=porte_anestesico,
+                                                         qtd_filme=qtd_filme, incidencia=incidencia, valor=valor)
 
 
 def add_secretaria(n):

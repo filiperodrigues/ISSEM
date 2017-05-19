@@ -90,10 +90,11 @@ class ProcedimentoMedicoView(View):
         context_dict = {}
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
-                lista1 = ProcedimentoMedicoModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=0)
+                lista1 = ProcedimentoMedicoModel.objects.filter(procedimento__icontains=request.GET.get('filtro'), excluido=0)
                 lista2 = ProcedimentoMedicoModel.objects.filter(codigo__icontains=request.GET.get('filtro'), excluido=0)
-                lista3 = ProcedimentoMedicoModel.objects.filter(valor__icontains=request.GET.get('filtro'), excluido=0)
-                procedimentos_medicos = list(lista1) + list(lista2) + list(lista3)
+                lista3 = ProcedimentoMedicoModel.objects.filter(porte__icontains=request.GET.get('filtro'), excluido=0)
+                lista4 = ProcedimentoMedicoModel.objects.filter(valor__icontains=request.GET.get('filtro'), excluido=0)
+                procedimentos_medicos = list(lista1) + list(lista2) + list(lista3) + list(lista4)
                 procedimentos_medicos = list(set(procedimentos_medicos))
             else:
                 procedimentos_medicos = ProcedimentoMedicoModel.objects.filter(excluido=False)
