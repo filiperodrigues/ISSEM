@@ -6,10 +6,12 @@ from django import forms
 
 
 class DependenteFormCad(CadPessoaForm):
-    data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'limita_data_final()'}))
+    data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'limita_data_final()', 'placeholder': 'dd/mm/aaaa'}))
+    data_final = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa'}))
     password = forms.CharField(widget=forms.HiddenInput(attrs={'value': '1'}))
     password_checker = forms.CharField(widget=forms.HiddenInput(attrs={'value': '1'}))
     username = forms.CharField(widget=forms.HiddenInput(), required=False)
+    telefone_celular = forms.DateField(widget=forms.DateInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
 
     class Meta:
         model = DependenteModel

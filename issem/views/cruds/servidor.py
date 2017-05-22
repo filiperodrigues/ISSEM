@@ -62,7 +62,7 @@ class ServidorView(View):
                 group_user = Group.objects.get(user=id)
             except:
                 raise Http404("Grupo do usuário não encontrado.")
-            id_grouFp_user = group_user.id
+            id_group_user = group_user.id
 
             if form.is_valid():
                 form.save(commit=False)

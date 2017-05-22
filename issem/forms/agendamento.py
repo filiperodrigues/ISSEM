@@ -4,8 +4,10 @@ from issem.models.agendamento import AgendamentoModel
 
 
 class AgendamentoForm(forms.ModelForm):
-    hora_pericia = forms.TimeField(widget=forms.widgets.TimeInput(attrs={'class': 'time-pick'}),
+    hora_pericia = forms.TimeField(widget=forms.widgets.TimeInput(attrs={'class': 'time-pick', 'placeholder': 'hh:mm'}),
                                    help_text='ex: 10:30AM')
+
+    data_pericia = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa'}))
 
     class Meta:
         model = AgendamentoModel

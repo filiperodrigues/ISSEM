@@ -8,7 +8,10 @@ from datetime import date
 
 class RequerimentoForm(forms.ModelForm):
     data_inicio_afastamento = forms.DateField(
-        widget=forms.DateInput(attrs={'onfocus': 'limita_data_final_afastamento()'}))
+        widget=forms.DateInput(attrs={'onfocus': 'limita_data_final_afastamento()', 'placeholder':'dd/mm/aaaa'}))
+
+    data_final_afastamento = forms.DateField(widget=forms.DateInput(attrs={'placeholder':'dd/mm/aaaa'}))
+
 
     segurado = forms.ModelChoiceField(
         queryset=SeguradoModel.objects.all(),

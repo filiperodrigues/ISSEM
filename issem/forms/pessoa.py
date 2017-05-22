@@ -47,7 +47,12 @@ class CadPessoaForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     password_checker = forms.CharField(widget=forms.PasswordInput())
     email = forms.EmailField(required=True)
-
+    data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa'}))
+    telefone_residencial = forms.DateField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXX-XXXX'}))
+    telefone_celular = forms.DateField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
+    cpf = forms.DateField(widget=forms.TextInput(attrs={'placeholder': 'somente números'}))
+    rg = forms.DateField(widget=forms.TextInput(attrs={'placeholder': 'somente números'}))
+    cep = forms.DateField(widget=forms.TextInput(attrs={'placeholder': 'somente números'}))
 
     class Meta:
         model = PessoaModel
