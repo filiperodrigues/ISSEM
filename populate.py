@@ -134,11 +134,13 @@ def populate():
         add_local_trabalho(lt[0], lt[1], lt[2], lt[3], lt[4], lt[5], lt[6], lt[7], lt[8])
 
     # PROCEDIMENTOS MÉDICOS
-    procedimentos_medicos = [
-        [10101012,'EM CONSULTÓRIO (NO HORÁRIO NORMAL OU PREESTABELECIDO)', '01C', 25.5, 0, 0, 0, 0, 0,63],
-    ]
-    for pm in procedimentos_medicos:
-        add_procedimento_medico(pm[0], pm[1], pm[2], pm[3], pm[4], pm[5], pm[6], pm[7], pm[8], pm[9])
+    import csv
+    csv.register_dialect('piper', delimiter='|', quoting=csv.QUOTE_NONE)
+    with open('Procedimentos_Medicos_CBHPM.csv', "rb") as csvfile:
+        for row in csv.DictReader(csvfile, dialect='piper'):
+            add_procedimento_medico(row['CODIGO'], row['PROCEDIMENTO'], row['PORTE'], row['VALOR PORTE'],
+                                    row['AUXILIARES'], row['VALOR UCO'], row['PORTE ANESTESICO'],
+                                    row['QTDE FILME'], row['INCIDENCIA'], row['VALOR'])
 
     # TIPOS DE EXAME
     tipos_exame = [

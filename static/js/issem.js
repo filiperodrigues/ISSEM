@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     // ===== MÁSCARAS ===== //
-    $('.cpf input').mask('000.000.000-00', {reverse: true});
+    $('.cpf input').mask('000.000.000-00', {reverse: true, placeholder: 'Somente números'});
     $('.cnpj input').mask('00.000.000/0000-00', {reverse: true});
     $('.hora input').mask('00:00');
     $('.data input').mask('00/00/0000');

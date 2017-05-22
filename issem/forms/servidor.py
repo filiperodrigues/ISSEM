@@ -43,7 +43,7 @@ class ServidorFormEdit(PessoaEditForm):
     class Meta:
         model = ServidorModel
         fields = '__all__'
-        exclude = ('date_joined', 'is_active', 'password', 'username')
+        exclude = ('date_joined', 'is_active', 'password', 'username', 'groups')
 
     def clean_crm(self):
         groups = self.cleaned_data.get('groups')

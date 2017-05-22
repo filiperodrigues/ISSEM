@@ -2,7 +2,7 @@
 from django import forms
 
 from issem.forms.validators.cpf_validator import ValidarCPF
-from issem.forms.validators.generic_validators import ValidarPassword
+from issem.forms.validators.generic_validators import ValidarPassword, ValidarTamanhoPassword
 from issem.models import CargoModel
 from issem.models.estado import EstadoModel
 from issem.models.cidade import CidadeModel
@@ -47,12 +47,12 @@ class CadPessoaForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     password_checker = forms.CharField(widget=forms.PasswordInput())
     email = forms.EmailField(required=True)
-    data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa'}))
+    data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
     telefone_residencial = forms.DateField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXX-XXXX'}))
-    telefone_celular = forms.DateField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
-    cpf = forms.DateField(widget=forms.TextInput(attrs={'placeholder': 'somente números'}))
-    rg = forms.DateField(widget=forms.TextInput(attrs={'placeholder': 'somente números'}))
-    cep = forms.DateField(widget=forms.TextInput(attrs={'placeholder': 'somente números'}))
+    telefone_celular = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
+    cpf = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
+    rg = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
+    cep = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
 
     class Meta:
         model = PessoaModel
@@ -60,6 +60,9 @@ class CadPessoaForm(forms.ModelForm):
 
     # def clean_cpf(self):
     #     return ValidarCPF(self.cleaned_data.get('cpf'))
+
+    def clean_password(self):
+        return ValidarTamanhoPassword(self.cleaned_data['password'])
 
     def clean_password_checker(self):
         return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
@@ -131,6 +134,9 @@ class PessoaPasswordForm(forms.ModelForm):
     class Meta:
         model = PessoaModel
         fields = ['password']
+
+    def clean_password(self):
+        return ValidarTamanhoPassword(self.cleaned_data['password'])
 
     def clean_password_checker(self):
         return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))

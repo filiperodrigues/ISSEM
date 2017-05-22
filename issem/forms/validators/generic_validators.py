@@ -51,3 +51,10 @@ def ValidarDataNascimento(data):
         return data
     else:
         raise forms.ValidationError("Deve ter mais que 18 anos")
+
+
+def ValidarTamanhoPassword(senha):
+    if len(senha) >= 6:
+        return senha
+    else:
+        raise forms.ValidationError("A senha deve conter no mínimo 6 caracteres")

@@ -20,7 +20,6 @@ class ServidorView(View):
 
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, msg=None, tipo_msg=None):
-        group_user = None;
         context_dict = {}
         if id:  # EDIÇÃO
             try:
@@ -36,8 +35,6 @@ class ServidorView(View):
         else:  # CADASTRO NOVO
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
-        return render(request, self.template, {'form': form, 'method': 'get', 'id': id, 'group_user': group_user,
-                                               'id_group_user': id_group_user})
 
         context_dict['form'] = form
         context_dict['id'] = id
@@ -49,8 +46,8 @@ class ServidorView(View):
     # TODO: REFATORAR
     @method_decorator(user_passes_test(group_test))
     def post(self, request, id=None, msg=None, tipo_msg=None):
+        context_dict = {}
         id_group_user = None
-        group_user = None
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
@@ -95,15 +92,17 @@ class ServidorView(View):
                 msg = 'Cadastro efetuado com sucesso!'
                 tipo_msg = 'green'
                 form = ServidorFormCad()
-                return render(request, self.template, {'form': form, 'msg': msg, 'tipo_msg': tipo_msg})
             else:
                 print(form.errors)
                 msg = 'Erros encontrados!'
                 tipo_msg = 'red'
 
-        return render(request, self.template,
-                      {'form': form, 'method': 'post', 'id': id, 'msg': msg, 'tipo_msg': tipo_msg,
-                       'id_group_user': id_group_user})
+        context_dict['form'] = form
+        context_dict['id'] = id
+        context_dict['id_group_user'] = id_group_user
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        return render(request, self.template, context_dict)
 
     @classmethod
     def ServidorDelete(self, request, id):

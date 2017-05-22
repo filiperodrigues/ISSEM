@@ -40,7 +40,6 @@
             <div class="three wide column">
                 {% if id %}
                     <div class="ui right floated vertical buttons">
-                        {{ id_group_user }}
                         <a href="{% url 'issem:edita_senha' id id_group_user %}"
                            class="ui labeled icon button secondary">
                             <i class="key icon"></i> Alterar Senha
@@ -61,33 +60,35 @@
 
                 {% include 'blocos/formulario_pessoa.html' %}
 
-                <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
-                <div class="fields">
-                    <div class="four wide field"></div>
-                    <div class="four wide field">
-                        <label>Departamento <i class="asterisk icon red"></i></label>
+                {% if not id %}
+                    <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
+                    <div class="fields">
+                        <div class="four wide field"></div>
+                        <div class="four wide field">
+                            <label>Departamento <i class="asterisk icon red"></i></label>
 
-                        {{ form.groups }}
+                            {{ form.groups }}
 
-                        {% if form.groups.errors %}
-                            <div class="ui pointing red basic label">
-                                {{ form.groups.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="four wide field">
-                        <label>CRM</label>
-                        <div class="crm">
-                            {{ form.crm }}
-                            {% if form.crm.errors %}
+                            {% if form.groups.errors %}
                                 <div class="ui pointing red basic label">
-                                    {{ form.crm.errors }}
+                                    {{ form.groups.errors }}
                                 </div>
                             {% endif %}
                         </div>
+                        <div class="four wide field">
+                            <label>CRM</label>
+                            <div class="crm">
+                                {{ form.crm }}
+                                {% if form.crm.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ form.crm.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="four wide field"></div>
                     </div>
-                    <div class="four wide field"></div>
-                </div>
+                {% endif %}
 
                 {% include 'blocos/buttons_form.html' %}
 
