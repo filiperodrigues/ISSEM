@@ -14,6 +14,8 @@ class SeguradoFormCad(CadPessoaForm):
                                             )
     groups = forms.CharField(required=False)
 
+    data_admissao = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa'}))
+
     class Meta:
         model = SeguradoModel
         fields = '__all__'

@@ -2,7 +2,6 @@
 from django import forms
 from issem.models import ParametrosConfiguracaoModel
 
-
 class ParametrosConfiguracaoForm(forms.ModelForm):
 
     class Meta:

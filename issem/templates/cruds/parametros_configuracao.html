@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-
     <div class="ui centered grid issem-grid">
         <div class="ui row segment issem-segment issem-segment-border">
 
@@ -115,6 +114,19 @@
                             </div>
                         </div>
                         <div class="four wide field"></div>
+                    </div>
+                    <div class="fields">
+                        <div class="three wide field"></div>
+                        <div class="ten wide field">
+                            <label>Mensagem de rodapé (pagina de requerimento)</label>
+                            {{ form.msg_requerimento }}
+                            {% if form.msg_requerimento.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.msg_requerimento.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="three wide field"></div>
                     </div>
                     <h4 class="ui dividing red header aligned centered">Configurações</h4>
                     <br/>

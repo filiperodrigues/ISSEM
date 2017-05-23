@@ -100,19 +100,18 @@
                             <div class="four wide field"></div>
                         </div>
                         <br/>
-
+                        {% if msg_requerimento %}
                         <div class="fields">
                             <div class="two wide field"></div>
                             <div class="twelve wide field">
                                 <div class="ui red message centered grid">
-                                    Só poderão ser realizados requerimentos online para afastamentos com períodos
-                                    maiores que 15(quinze) dias.
+                                    {{ msg_requerimento }}
                                     <br/>
                                 </div>
                             </div>
                             <div class="two wide field"></div>
                         </div>
-
+                        {% endif %}
                         <div class="fields">
                             <div class="two wide field"></div>
                             <div class="twelve wide field">

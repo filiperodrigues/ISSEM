@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'issem',
 )
 
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -125,3 +126,22 @@ EMAIL_HOST_USER = 'issem.js@gmail.com'
 EMAIL_HOST_PASSWORD = 'issem2016'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+# editor
+TINYMCE_SPELLCHECKER = False
+TINYMCE_COMPRESSOR = False
+TINYMCE_DEFAULT_CONFIG = {
+	'plugins': "paste",
+	'paste_text_sticky': True,
+	'paste_text_sticky_default': True,
+	'theme': "advanced",
+	'theme_advanced_buttons1': "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,|,link,unlink,anchor,|,table,removeformat,code",
+	'theme_advanced_buttons2': "",
+	'theme_advanced_buttons3': "",
+	'theme_advanced_buttons4': "",
+	'theme_advanced_toolbar_location': "top",
+	'theme_advanced_toolbar_align': "left",
+	'theme_advanced_statusbar_location': "bottom",
+	'theme_advanced_resizing': True,
+}
