@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'tinymce',
 )
 
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,7 +70,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'issem_project.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -111,9 +109,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR)
-STATIC_PATH = os.path.join(BASE_DIR,'static')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
 
-STATIC_URL = '/static/' # You may find this is already defined as such.
+STATIC_URL = '/static/'  # You may find this is already defined as such.
 
 STATICFILES_DIRS = (
     STATIC_PATH,
@@ -122,7 +120,7 @@ STATICFILES_DIRS = (
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/'
 
-#ENVIAR E-MAIL#
+# ENVIAR E-MAIL#
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'issem.js@gmail.com'
 EMAIL_HOST_PASSWORD = 'issem2016'
@@ -130,14 +128,14 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 TINYMCE_DEFAULT_CONFIG = {
-    'theme' : 'advanced',
-    'theme_advanced_buttons1' : 'fontselect, bold,italic,underline,separator,bullist,numlist,separator,link,unlink, fontsizeselect',
-    'theme_advanced_buttons2' : '',
-    'theme_advanced_buttons3' : '',
-    'theme_advanced_toolbar_location' : 'top',
+    'theme': 'advanced',
+    'theme_advanced_buttons1': 'fontselect, bold,italic,underline,separator,bullist,numlist,separator,link,unlink, fontsizeselect',
+    'theme_advanced_buttons2': '',
+    'theme_advanced_buttons3': '',
+    'theme_advanced_toolbar_location': 'top',
     'theme_advanced_toolbar_align': 'left',
     'paste_text_sticky': True,
-    'paste_text_sticky_default' : True,
-    'valid_styles' : 'font-weight,font-style,text-decoration',
-    'fontsize_formats' : "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+    'paste_text_sticky_default': True,
+    'valid_styles': 'font-weight,font-style,text-decoration',
+    'fontsize_formats': "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
 }
