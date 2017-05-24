@@ -49,10 +49,6 @@ class CadPessoaForm(forms.ModelForm):
     email = forms.EmailField(required=True)
 
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
-    telefone_residencial = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXX-XXXX'}))
-    telefone_celular = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
-    rg = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
-    cep = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
 
     class Meta:
         model = PessoaModel
@@ -112,10 +108,6 @@ class PessoaEditForm(forms.ModelForm):
     email = forms.EmailField(required=True)
 
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
-    telefone_residencial = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXX-XXXX'}))
-    telefone_celular = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
-    rg = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
-    cep = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
 
     class Meta:
         model = PessoaModel
