@@ -1,12 +1,6 @@
 # coding: utf-8
 from django.db import models
-# from tinymce import models as tinymce_models
-from django.db import models
-from tinymce.models import HTMLField
-
-from django.db import models
-from tinymce import models as tinymce_models
-
+from ckeditor.fields import RichTextField
 
 class ParametrosConfiguracaoModel(models.Model):
     tempo_consulta = models.IntegerField(null=False)
@@ -15,7 +9,7 @@ class ParametrosConfiguracaoModel(models.Model):
     limite_consultas = models.IntegerField(null=False)
     gap_agendamento = models.IntegerField()
     tempo_minimo_exercicio = models.IntegerField()
-    descricao_issem = models.CharField(null=True, blank=True, max_length=500)
+    descricao_issem = RichTextField()
     msg_requerimento = models.CharField(null=True, blank=True, max_length=500)
 
 

@@ -7,10 +7,8 @@
     <link type="text/css" rel="stylesheet" href="{% static 'css/base.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static 'css/jquery-ui.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static 'semanticui/dist/semantic.css' %}"/>
-    <script type="text/javascript" src="{% static "js/tiny_mce/tiny_mce.js" %}"></script>
-     <script type="text/javascript" src="{% static 'js/tinymce/NAME_textareas.js' %}"></script>
-<script type="text/javascript" src="{% static "js/tiny_mce/tiny_mce.js" %}"></script>
-
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 </head>
 
 {% block body_tag %}
@@ -109,7 +107,8 @@
 </footer>
 
 <!-- SCRIPTS -->
-<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}">
+</script>
 <script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
 <script type="text/javascript" src="{% static 'semanticui/dist/semantic.js' %}"></script>
