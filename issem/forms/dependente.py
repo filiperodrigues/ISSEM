@@ -11,7 +11,6 @@ class DependenteFormCad(CadPessoaForm):
     password = forms.CharField(widget=forms.HiddenInput(attrs={'value': '1'}))
     password_checker = forms.CharField(widget=forms.HiddenInput(attrs={'value': '1'}))
     username = forms.CharField(widget=forms.HiddenInput(), required=False)
-    telefone_celular = forms.DateField(widget=forms.DateInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
 
     class Meta:
         model = DependenteModel

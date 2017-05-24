@@ -248,21 +248,25 @@
     <div class="four wide field"></div>
     <div class="four wide field">
         <label>Nome do pai</label>
-        {{ form.nome_pai }}
-        {% if form.nome_pai.errors %}
-            <div class="ui pointing red basic label">
-                {{ form.nome_pai.errors }}
-            </div>
-        {% endif %}
+        <div class="somente_letras">
+            {{ form.nome_pai }}
+            {% if form.nome_pai.errors %}
+                <div class="ui pointing red basic label">
+                    {{ form.nome_pai.errors }}
+                </div>
+            {% endif %}
+        </div>
     </div>
     <div class="four wide field">
         <label>Nome da mãe <i class="asterisk icon red"></i></label>
-        {{ form.nome_mae }}
-        {% if form.nome_mae.errors %}
-            <div class="ui pointing red basic label">
-                {{ form.nome_mae.errors }}
-            </div>
-        {% endif %}
+        <div class="somente_letras">
+            {{ form.nome_mae }}
+            {% if form.nome_mae.errors %}
+                <div class="ui pointing red basic label">
+                    {{ form.nome_mae.errors }}
+                </div>
+            {% endif %}
+        </div>
     </div>
     <div class="four wide field"></div>
 </div>

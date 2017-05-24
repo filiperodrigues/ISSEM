@@ -36,7 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'issem',
-    'ckeditor',
+    # 'ckeditor',
+    'tinymce',
 )
 
 
@@ -128,13 +129,15 @@ EMAIL_HOST_PASSWORD = 'issem2016'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-#EDITOR DE TEXTO#
-CKEDITOR_CONFIGS = {
-   'default': {
-        'toolbar':[ ['CodeSnippet', ], ],
-        'height': 400,
-        'width': 900,
-        'removePlugins': 'stylesheetparser',
-        'extraPlugins': 'codesnippet',
-   },
+TINYMCE_DEFAULT_CONFIG = {
+    'theme' : 'advanced',
+    'theme_advanced_buttons1' : 'sizeselect, fontselect, bold,italic,underline,separator,bullist,numlist,separator,link,unlink, fontsizeselect',
+    'theme_advanced_buttons2' : '',
+    'theme_advanced_buttons3' : '',
+    'theme_advanced_toolbar_location' : 'top',
+    'theme_advanced_toolbar_align': 'left',
+    'paste_text_sticky': True,
+    'paste_text_sticky_default' : True,
+    'valid_styles' : 'font-weight,font-style,text-decoration',
+    'fontsize_formats' : "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
 }

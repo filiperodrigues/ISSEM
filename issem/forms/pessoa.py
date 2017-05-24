@@ -47,10 +47,10 @@ class CadPessoaForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     password_checker = forms.CharField(widget=forms.PasswordInput())
     email = forms.EmailField(required=True)
+
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
-    telefone_residencial = forms.DateField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXX-XXXX'}))
+    telefone_residencial = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXX-XXXX'}))
     telefone_celular = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
-    cpf = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
     rg = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
     cep = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
 
@@ -110,6 +110,12 @@ class PessoaEditForm(forms.ModelForm):
                                           widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                           )
     email = forms.EmailField(required=True)
+
+    data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
+    telefone_residencial = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXX-XXXX'}))
+    telefone_celular = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '(XX) XXXXX-XXXX'}))
+    rg = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
+    cep = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Somente números'}))
 
     class Meta:
         model = PessoaModel
