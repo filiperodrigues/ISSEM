@@ -9,13 +9,15 @@ register = template.Library()
 @register.simple_tag
 def issem_info():
     dados = ParametrosConfiguracaoModel.objects.all().last()
-    if dados:
+    if dados.descricao_issem:
         return dados.descricao_issem
-    return None
+    else:
+        return ""
+
 
 @register.simple_tag
 def informacoes_rodape():
     dados = ParametrosConfiguracaoModel.objects.all().last()
-    if dados:
+    if dados.informacoes_rodape:
         return dados.informacoes_rodape
-    return None
+    return ""

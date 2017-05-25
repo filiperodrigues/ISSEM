@@ -53,7 +53,7 @@ class RequerimentoView(View):
         else:
             form = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
 
-        parametro_configuracao = ParametrosConfiguracaoModel.objects.get(pk=1)
+        parametro_configuracao = ParametrosConfiguracaoModel.objects.all().last()
         context_dict['form'] = form
         context_dict['id'] = id
         context_dict['msg'] = msg

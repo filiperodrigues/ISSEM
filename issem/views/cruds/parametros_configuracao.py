@@ -19,7 +19,7 @@ class ParametrosConfiguracaoView(View):
     def get(self, request, msg=None, tipo_msg=None):
         context_dict = {}
         try:
-            consulta_parametros = ParametrosConfiguracaoModel.objects.get()
+            consulta_parametros = ParametrosConfiguracaoModel.objects.all().last()
         except:
             raise Http404("Parâmetros de Configuração não encontrados.")
         form = ParametrosConfiguracaoForm(instance=consulta_parametros)
@@ -34,7 +34,7 @@ class ParametrosConfiguracaoView(View):
     def post(self, request, msg=None, tipo_msg=None):
         context_dict = {}
         try:
-            consulta_parametros = ParametrosConfiguracaoModel.objects.get(pk=1)
+            consulta_parametros = ParametrosConfiguracaoModel.objects.all().last()
         except:
             raise Http404("Parâmetros de Configuração não encontrados.")
         form = ParametrosConfiguracaoForm(instance=consulta_parametros, data=request.POST)
