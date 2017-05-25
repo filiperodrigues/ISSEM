@@ -14,7 +14,7 @@ class SeguradoFormCad(CadPessoaForm):
                                             )
     groups = forms.CharField(required=False)
 
-    data_admissao = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa'}))
+    data_admissao = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
 
     class Meta:
         model = SeguradoModel
@@ -32,6 +32,9 @@ class SeguradoFormEdit(PessoaEditForm):
                                             widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                             )
     groups = forms.CharField(required=False)
+
+    data_admissao = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
+
 
     class Meta:
         model = SeguradoModel

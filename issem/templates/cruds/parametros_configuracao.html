@@ -119,7 +119,7 @@
                     <div class="fields">
                         <div class="three wide field"></div>
                         <div class="ten wide field">
-                            <label>Mensagem de rodapé (pagina de requerimento)</label>
+                            <label>Informação para segurado em página de requerimento:</label>
                             {{ form.msg_requerimento }}
                             {% if form.msg_requerimento.errors %}
                                 <div class="ui pointing red basic label issem-error-field">
@@ -131,6 +131,20 @@
                     </div>
                     <h4 class="ui dividing red header aligned centered">Configurações</h4>
                     <br/>
+                    <div class="fields">
+                        <div class="three wide field"></div>
+                        <div class="ten wide field">
+                            <label>Informações de rodapé:</label>
+                            {{ form.informacoes_rodape }}
+                            {% if form.informacoes_rodape.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.informacoes_rodape.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="three wide field"></div>
+                    </div>
+
                     <div class="fields">
                         <div class="three wide field"></div>
                         <div class="ten wide field ui centered grid">

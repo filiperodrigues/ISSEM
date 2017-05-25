@@ -1,6 +1,7 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from issem.models import ParametrosConfiguracaoModel
 
 
 def index(request):

@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from issem import views
 from issem.views import *
 
+
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),

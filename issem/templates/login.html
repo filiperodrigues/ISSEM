@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
 {% block body_block %}
-
+    {% load sistema %}
     <div class="ui centered grid issem-grid">
         <div class="row">
             <div class="four wide column">
                 <div class="ui segment">
-                    <form class="ui large form" method="post">
+                    <form class="ui large form" action="{% url 'issem:login' %}" method="post">
                         {% csrf_token %}
-
                         <div class="fields">
                             <div class="sixteen wide field">
                                 <label>Usuário:</label>
@@ -56,25 +55,15 @@
 
             </div>
             <div class="ui eleven wide column segment">
-                <div class="ui">
-                    <h1><i class="info circle icon"></i> SPISSEM - Software de Perícia do ISSEM</h1>
-                    <section class="issem-info-texto">
-                        <p><strong><i class="wait icon"></i> Horário de Atendimento</strong></p>
-                        Guias Médicas(Sala 06)<br>
-                        Segunda à Sexta:<br>
-                        <strong>07h30 às 13h</strong><br>
+                <div class="ui grid">
+                    <div class="sixteen wide column">
+                        <h1><i class="info circle icon"></i> SPISSEM - Software de Perícia do ISSEM</h1>
+                        <section class="issem-info-texto">
+                            {% issem_info %}
+                        </section>
                         <br>
-                        Demais Setores<br>
-                        Segunda à Sexta:<br>
-                        <strong>07h30 às 12h30</strong><br>
-                        <br>
-                        Simulação Benefícios<br>
-                        Agendamento pelo fone:<br>
-                        <strong><i class="phone icon"></i> 3270 3933<br></strong>
-                    </section>
-                    <br>
+                    </div>
                 </div>
-                {{ info_issem|safe }}
             </div>
         </div>
     </div>
