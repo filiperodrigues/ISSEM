@@ -1,7 +1,7 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render
-from issem.models import SeguradoModel, RequerimentoModel
+from issem.models import SeguradoModel, RequerimentoModel, DependenteModel
 from issem.forms import PessoaPasswordForm, SeguradoFormEdit, SeguradoFormCad
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
@@ -110,7 +110,16 @@ class SeguradoView(View):
             segurado = SeguradoModel.objects.get(pk=id)
         except:
             raise Http404("Segurado não encontrado.")
+
+        #REMOVE TODOS OS DEPENDENTES DO SEGURADO
+        for dependente in segurado.dependente.all():
+            dp = DependenteModel.objects.get(pk=dependente.id)
+            dp.excluido = True
+            dp.is_active = False
+            dp.save()
+            print(dp)
         segurado.excluido = True
+        segurado.is_active = False
         segurado.save()
         msg = "Segurado excluído com sucesso!"
         tipo_msg = "green"
