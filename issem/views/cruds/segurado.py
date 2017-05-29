@@ -117,7 +117,6 @@ class SeguradoView(View):
             dp.excluido = True
             dp.is_active = False
             dp.save()
-            print(dp)
         segurado.excluido = True
         segurado.is_active = False
         segurado.save()
