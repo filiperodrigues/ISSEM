@@ -25,7 +25,7 @@ class LaudoView(View):
         context_dict = {}
         if id:
             try:
-                laudo = LaudoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                laudo = LaudoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Laudo médico não encontrado.")
             form = LaudoForm(instance=laudo)
@@ -43,7 +43,7 @@ class LaudoView(View):
     def post(self, request, id_laudo=None):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
-            laudo = LaudoModel.objects.get(pk=id, excluido=0)
+            laudo = LaudoModel.objects.get(pk=id, excluido=False)
             form = LaudoForm(instance=laudo, data=request.POST)
         else:  # CADASTRO NOVO
             id = None

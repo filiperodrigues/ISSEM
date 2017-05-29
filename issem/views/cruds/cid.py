@@ -21,7 +21,7 @@ class CidView(View):
         context_dict = {}
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                cid = CidModel.objects.get(pk=id, excluido=0)
+                cid = CidModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("CID não encontrado.")
             form = CidForm(instance=cid)
@@ -41,7 +41,7 @@ class CidView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                cid = CidModel.objects.get(pk=id, excluido=0)
+                cid = CidModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("CID não encontrado.")
             form = CidForm(instance=cid, data=request.POST)
@@ -75,11 +75,13 @@ class CidView(View):
     @method_decorator(user_passes_test(group_test))
     def ListaCids(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        if request.GET or 'page' in request.GET:
-            if request.GET.get('filtro'):
-                cid1 = CidModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=0)
-                cid2 = CidModel.objects.filter(cod_cid__icontains=request.GET.get('filtro'), excluido=0)
-                cid3 = CidModel.objects.filter(gravidade__icontains=request.GET.get('filtro'), excluido=0)
+        if request.GET:
+            ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
+            FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
+            if 'filtro' in request.GET:
+                cid1 = CidModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=False)
+                cid2 = CidModel.objects.filter(cod_cid__icontains=request.GET.get('filtro'), excluido=False)
+                cid3 = CidModel.objects.filter(gravidade__icontains=request.GET.get('filtro'), excluido=False)
                 cids = list(cid1) + list(cid2) + list(cid3)
                 cids = list(set(cids))
             else:

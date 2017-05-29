@@ -146,9 +146,9 @@ class DependenteView(View):
         context_dict = {}
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
-                dependente1 = DependenteModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=0)
-                dependente2 = DependenteModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=0)
-                dependente3 = DependenteModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=0)
+                dependente1 = DependenteModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=False)
+                dependente2 = DependenteModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=False)
+                dependente3 = DependenteModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=False)
                 dependentes = list(dependente1) + list(dependente2) + list(dependente3)
                 dependentes = list(set(dependentes))
             else:
@@ -184,14 +184,19 @@ class TransferenciaSegurado(View):
         except:
             raise Http404("Segurado não encontrado.")
 
-        if request.GET or 'page' in request.GET:
-            segurado1 = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=False)
-            segurado2 = SeguradoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=False)
-            segurado3 = SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=False)
-            segurados = list(segurado1) + list(segurado2) + list(segurado3)
-            segurados = list(set(segurados))
+        if request.GET:
+            ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
+            FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
+            if 'filtro' in request.GET:
+                segurado1 = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=False)
+                segurado2 = SeguradoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=False)
+                segurado3 = SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=False)
+                segurados = list(segurado1) + list(segurado2) + list(segurado3)
+                segurados = list(set(segurados))
+            else:
+                segurados = SeguradoModel.objects.filter(excluido=False)
         else:
-            segurados = ""
+            segurados = SeguradoModel.objects.filter(excluido=False)
 
         dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
         context_dict['id'] = id

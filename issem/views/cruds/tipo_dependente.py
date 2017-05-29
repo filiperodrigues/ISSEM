@@ -19,7 +19,7 @@ class TipoDependenteView(View):
         context_dict = {}
         if id:
             try:
-                tipo_dependente = TipoDependenteModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                tipo_dependente = TipoDependenteModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Tipo de Dependente não encontrado.")
 
@@ -39,7 +39,7 @@ class TipoDependenteView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                tipo_dependente = TipoDependenteModel.objects.get(pk=id, excluido=0)
+                tipo_dependente = TipoDependenteModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Tipo de dependente não encontrado.")
             form = TipoDependenteForm(instance=tipo_dependente, data=request.POST)

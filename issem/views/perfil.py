@@ -36,7 +36,7 @@ class PerfilView(View):
                 usuario = SeguradoModel.objects.get(pk=id)
             except:
                 raise Http404("Segurado não encontrado.")
-            dependente = usuario.dependente.filter(excluido=0)
+            dependente = usuario.dependente.filter(excluido=False)
 
         elif str(grupo) == 'Dependente':
             grupo = False

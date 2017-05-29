@@ -19,7 +19,7 @@ class TipoExameView(View):
         context_dict = {}
         if id:
             try:
-                tipo_exame = TipoExameModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                tipo_exame = TipoExameModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Tipo de Exame não encontrado.")
             form = TipoExameForm(instance=tipo_exame)
@@ -38,7 +38,7 @@ class TipoExameView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                tipo_exame = TipoExameModel.objects.get(pk=id, excluido=0)
+                tipo_exame = TipoExameModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Tipo de Exame não encontrado.")
             form = TipoExameForm(instance=tipo_exame, data=request.POST)

@@ -21,7 +21,8 @@ class ProcedimentoMedicoView(View):
         context_dict = {}
         if id:
             try:
-                procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id,
+                                                                          excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Procedimento Médico não encontrado.")
             form = ProcedimentoMedicoForm(instance=procedimento_medico)
@@ -41,7 +42,7 @@ class ProcedimentoMedicoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id, excluido=0)
+                procedimento_medico = ProcedimentoMedicoModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Procedimento Médico não encontrado.")
             form = ProcedimentoMedicoForm(instance=procedimento_medico, data=request.POST)
@@ -88,12 +89,15 @@ class ProcedimentoMedicoView(View):
     @method_decorator(user_passes_test(group_test))
     def ListaProcedimentosMedicos(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        if request.GET or 'page' in request.GET:
-            if request.GET.get('filtro'):
-                lista1 = ProcedimentoMedicoModel.objects.filter(procedimento__icontains=request.GET.get('filtro'), excluido=0)
-                lista2 = ProcedimentoMedicoModel.objects.filter(codigo__icontains=request.GET.get('filtro'), excluido=0)
-                lista3 = ProcedimentoMedicoModel.objects.filter(porte__icontains=request.GET.get('filtro'), excluido=0)
-                lista4 = ProcedimentoMedicoModel.objects.filter(valor__icontains=request.GET.get('filtro'), excluido=0)
+        if request.GET:
+            ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
+            FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
+            if 'filtro' in request.GET:
+                lista1 = ProcedimentoMedicoModel.objects.filter(procedimento__icontains=request.GET.get('filtro'),
+                                                                excluido=False)
+                lista2 = ProcedimentoMedicoModel.objects.filter(codigo__icontains=request.GET.get('filtro'), excluido=False)
+                lista3 = ProcedimentoMedicoModel.objects.filter(porte__icontains=request.GET.get('filtro'), excluido=False)
+                lista4 = ProcedimentoMedicoModel.objects.filter(valor__icontains=request.GET.get('filtro'), excluido=False)
                 procedimentos_medicos = list(lista1) + list(lista2) + list(lista3) + list(lista4)
                 procedimentos_medicos = list(set(procedimentos_medicos))
             else:

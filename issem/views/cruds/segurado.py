@@ -24,7 +24,7 @@ class SeguradoView(View):
 
         if id:
             try:
-                segurado = SeguradoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                segurado = SeguradoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Segurado não encontrado.")
             form = SeguradoFormEdit(instance=segurado, id=id)
@@ -54,7 +54,7 @@ class SeguradoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                segurado = SeguradoModel.objects.get(pk=id, excluido=0)
+                segurado = SeguradoModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Segurado não encontrado.")
             form = SeguradoFormEdit(instance=segurado, data=request.POST, id=id)
@@ -127,11 +127,13 @@ class SeguradoView(View):
     @classmethod
     def ListaSegurados(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        if request.GET or 'page' in request.GET:
-            if request.GET.get('filtro'):
-                segurado1 = SeguradoModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=0)
-                segurado2 = SeguradoModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=0)
-                segurado3 = SeguradoModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=0)
+        if request.GET:
+            ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
+            FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
+            if 'filtro' in request.GET:
+                segurado1 = SeguradoModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=False)
+                segurado2 = SeguradoModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=False)
+                segurado3 = SeguradoModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=False)
                 segurados = list(segurado1) + list(segurado2) + list(segurado3)
                 segurados = list(set(segurados))
             else:

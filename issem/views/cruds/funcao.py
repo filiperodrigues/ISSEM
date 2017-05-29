@@ -14,7 +14,7 @@ class FuncaoView(View):
         context_dict = {}
         if id:
             try:
-                funcao = FuncaoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                funcao = FuncaoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Função não encontrada.")
             form = FuncaoForm(instance=funcao)
@@ -33,7 +33,7 @@ class FuncaoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                funcao = FuncaoModel.objects.get(pk=id, excluido=0)
+                funcao = FuncaoModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Função não encontrada.")
             form = FuncaoForm(instance=funcao, data=request.POST)

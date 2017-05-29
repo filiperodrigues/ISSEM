@@ -21,7 +21,7 @@ class PaginaFuncionarioView(View):
         hoje_mais_dois_dias = date.today() + timedelta(days=2)
         context_dict['proximos_agendamentos'] = AgendamentoModel.objects.filter(
             Q(data_pericia=hoje_mais_um_dia) | Q(data_pericia=hoje_mais_dois_dias)).order_by('data_pericia')
-        context_dict['beneficios'] = BeneficioModel.objects.filter(excluido=0)
+        context_dict['beneficios'] = BeneficioModel.objects.filter(excluido=False)
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         return render(request, self.template, context_dict)

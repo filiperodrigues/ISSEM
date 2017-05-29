@@ -23,7 +23,7 @@ class ServidorView(View):
         context_dict = {}
         if id:  # EDIÇÃO
             try:
-                servidor = ServidorModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                servidor = ServidorModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Servidor não encontrado.")
             form = ServidorFormEdit(instance=servidor, id=id)
@@ -51,7 +51,7 @@ class ServidorView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                servidor = ServidorModel.objects.get(pk=id, excluido=0)
+                servidor = ServidorModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Servidor não encontrado.")
             form = ServidorFormEdit(instance=servidor, data=request.POST, id=id)
@@ -119,11 +119,13 @@ class ServidorView(View):
     @classmethod
     def ListaServidores(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        if request.GET or 'page' in request.GET:
-            if request.GET.get('filtro'):
-                servidor1 = ServidorModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=0)
-                servidor2 = ServidorModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=0)
-                servidor3 = ServidorModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=0)
+        if request.GET:
+            ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
+            FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
+            if 'filtro' in request.GET:
+                servidor1 = ServidorModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=False)
+                servidor2 = ServidorModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=False)
+                servidor3 = ServidorModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=False)
                 servidores = list(servidor1) + list(servidor2) + list(servidor3)
                 servidores = list(set(servidores))
             else:

@@ -21,7 +21,7 @@ class CargoView(View):
         context_dict = {}
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                cargo = CargoModel.objects.get(pk=id, excluido=0)
+                cargo = CargoModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Cargo não encontrado.")
             form = CargoForm(instance=cargo)
@@ -41,7 +41,7 @@ class CargoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                cargo = CargoModel.objects.get(pk=id, excluido=0)
+                cargo = CargoModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Cargo não encontrado.")
             form = CargoForm(instance=cargo, data=request.POST)
@@ -88,6 +88,6 @@ class CargoView(View):
     @classmethod
     @method_decorator(user_passes_test(group_test))
     def AtualizaCargo(self, request):
-        cargos = CargoModel.objects.filter(excluido=0)
+        cargos = CargoModel.objects.filter(excluido=False)
         json = serializers.serialize("json", cargos)
         return HttpResponse(json)

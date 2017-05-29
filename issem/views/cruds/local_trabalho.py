@@ -22,7 +22,7 @@ class LocalTrabalhoView(View):
         context_dict = {}
         if id:  # EDIÇÃO
             try:
-                local_trabalho = LocalTrabalhoModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                local_trabalho = LocalTrabalhoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Local de Trabalho não encontrado.")
             form = LocalTrabalhoForm(instance=local_trabalho)
@@ -43,7 +43,7 @@ class LocalTrabalhoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                local_trabalho = LocalTrabalhoModel.objects.get(pk=id, excluido=0)
+                local_trabalho = LocalTrabalhoModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Loca de Trabalho não encontrado.")
             form = LocalTrabalhoForm(instance=local_trabalho, data=request.POST)
@@ -92,6 +92,6 @@ class LocalTrabalhoView(View):
     @classmethod
     @method_decorator(user_passes_test(group_test))
     def AtualizaLocalTrabalho(self, request):
-        local_trabalhos = LocalTrabalhoModel.objects.filter(excluido=0)
+        local_trabalhos = LocalTrabalhoModel.objects.filter(excluido=False)
         json = serializers.serialize("json", local_trabalhos)
         return HttpResponse(json)

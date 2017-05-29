@@ -21,7 +21,7 @@ class BeneficioView(View):
         context_dict = {}
         if id:  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             try:
-                beneficio = BeneficioModel.objects.get(pk=id, excluido=0)
+                beneficio = BeneficioModel.objects.get(pk=id, excluido=False)
             except BeneficioModel.DoesNotExist:
                 raise Http404("Benefício não encontrado.")
             form = BeneficioForm(instance=beneficio)
@@ -41,7 +41,7 @@ class BeneficioView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                beneficio = BeneficioModel.objects.get(pk=id, excluido=0)
+                beneficio = BeneficioModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Benefício não encontrado.")
             form = BeneficioForm(instance=beneficio, data=request.POST)
@@ -75,11 +75,13 @@ class BeneficioView(View):
     @method_decorator(user_passes_test(group_test))
     def ListaBeneficios(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        if request.GET or 'page' in request.GET:
-            if request.GET.get('filtro'):
-                beneficio1 = BeneficioModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=0)
-                beneficio2 = BeneficioModel.objects.filter(numero_portaria__icontains=request.GET.get('filtro'), excluido=0)
-                beneficio3 = BeneficioModel.objects.filter(concessao__icontains=request.GET.get('filtro'), excluido=0)
+        if request.GET:
+            ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
+            FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
+            if 'filtro' in request.GET:
+                beneficio1 = BeneficioModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=False)
+                beneficio2 = BeneficioModel.objects.filter(numero_portaria__icontains=request.GET.get('filtro'), excluido=False)
+                beneficio3 = BeneficioModel.objects.filter(concessao__icontains=request.GET.get('filtro'), excluido=False)
                 beneficios = list(beneficio1) + list(beneficio2) + list(beneficio3)
                 beneficios = list(set(beneficios))
             else:

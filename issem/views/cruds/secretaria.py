@@ -21,7 +21,7 @@ class SecretariaView(View):
         context_dict = {}
         if id:
             try:
-                secretaria = SecretariaModel.objects.get(pk=id, excluido=0)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                secretaria = SecretariaModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Secretaria não encontrada.")
             form = SecretariaForm(instance=secretaria)
@@ -44,14 +44,14 @@ class SecretariaView(View):
             nome = request.POST['sec']
             nome_sec = SecretariaModel(nome=nome)
             nome_sec.save()
-            nome_sec = SecretariaModel.objects.filter(excluido=0)
+            nome_sec = SecretariaModel.objects.filter(excluido=False)
             json = serializers.serialize("json", nome_sec)
             return HttpResponse(json)
 
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                secretaria = SecretariaModel.objects.get(pk=id, excluido=0)
+                secretaria = SecretariaModel.objects.get(pk=id, excluido=False)
             except:
                 raise Http404("Secretaria não encontrada.")
             form = SecretariaForm(instance=secretaria, data=request.POST)
@@ -101,6 +101,6 @@ class SecretariaView(View):
     @method_decorator(user_passes_test(group_test))
     def AtualizaSecretaria(self, request):
 
-        secretarias = SecretariaModel.objects.filter(excluido=0)
+        secretarias = SecretariaModel.objects.filter(excluido=False)
         json = serializers.serialize("json", secretarias)
         return HttpResponse(json)
