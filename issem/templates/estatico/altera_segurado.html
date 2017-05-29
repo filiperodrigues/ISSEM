@@ -15,18 +15,6 @@
                 </div>
             {% endif %}
 
-            {#            {% if segurado_novo %}#}
-            {#                <div class="sixteen wide column issem-div-message">#}
-            {#                    <div class="ui {{ tipo_msg }} message">#}
-            {#                        <div class="header">#}
-            {#                            Transferência concluída com sucesso!#}
-            {#                            O dependente {{ dependente.nome }} foi transferido de {{ segurado }}#}
-            {#                            para {{ segurado_novo }}.#}
-            {#                        </div>#}
-            {#                    </div>#}
-            {#                </div>#}
-            {#            {% endif %}#}
-
             <div class="three wide column">
                 <a href="{% url 'issem:perfil' id %}">
                     <div class="ui labeled icon button basic">
@@ -37,7 +25,7 @@
 
             <div class="ten wide column issem-margin-bottom">
                 <div class="issem-title-edit-page">
-                    <h1><i class="exchange icon"></i> Transferência para outro Segurado</h1>
+                    <h1><i class="exchange icon"></i> Transferência de dependente para outro Segurado</h1>
                     <h2><i class="user icon"></i>{{ dependente.nome }}</h2>
                 </div>
                 <br/>
