@@ -11,7 +11,7 @@ from issem.views.pagination import pagination
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from issem_project.settings import STATIC_URL
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 
 import sys
 reload(sys)
@@ -194,7 +194,6 @@ def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendament
     psFinal = 80
     i = 0
     p.setFont("Helvetica", 11)
-    print(qtdLinhas)
     if qtdLinhas == 0:
         linhaInicial -= 12
         p.drawString(50, linhaInicial, msg2)
@@ -221,15 +220,31 @@ def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendament
     p.showPage()
     p.save()
     if(segurado.email):
-        msg_email = ("Esse e-mail foi gerado pelo sistema de agendamento automático ISSEM, respostas não serão consideradas. " + str(msg))
-        send_mail(
+        msg_topo = ("<strong>Esse e-mail foi gerado pelo sistema de agendamento automático ISSEM, respostas não "
+                     "serão consideradas.</strong><br/>")
+        msg_nome_segurado = "Agendado para: " + segurado.nome + (" (CPF: " + segurado.cpf + ")") + "<br/>"
+        msg_data_atendimento = "Data atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[5:7] + "/" + str(agendamento.data_pericia)[0:4] + "<br/>"
+        msg_hora_consulta = "Horário da consulta: " + str(agendamento.hora_pericia)[:5] + "h"
+
+        #Calcula o tamanho da linha de divisão entre mensagem de topo e dados do agendamento
+        i = 0
+        linha_divisao = "-"
+        while i <= len(msg_nome_segurado):
+            linha_divisao += "-"
+            i += 1
+        linha_divisao += "<br/>"
+
+        msg_completa_email = str(msg_topo + linha_divisao + msg_nome_segurado + msg_data_atendimento + msg_hora_consulta)
+        email = EmailMultiAlternatives(
             'Comprovante de agendamento ISSEM',
-            msg_email,
-            'ISSEM.com.br',
+            msg_completa_email,
+            'ISSEM - Instituto de Seguridade dos Servidores Municipais',
             [str(segurado.email)],
-            fail_silently=False,
+
         )
-    return response
+        email.attach_alternative(msg_completa_email, "text/html")
+        email.send()
+    return HttpResponseRedirect('/')
 
 
 def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
@@ -310,7 +325,6 @@ def ApresentaRequerimentosSemAgendamento(request, msg=None, tipo_msg=None):
     context_dict = {}
     if request.GET or 'page' in request.GET:
         if request.GET.get('data_inicio'):
-            print(str(request.GET.get('data_inicio')))
             data_inicio = str(request.GET.get('data_inicio')).split('/')
             inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
             data_inicio_formatada = str(inicio_ano + "-" + inicio_mes + "-" + inicio_dia)
