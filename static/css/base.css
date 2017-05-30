@@ -137,6 +137,10 @@ footer {
     margin-top: 40px !important;
 }
 
+.issem-form-filter-group{
+    display: inline;
+}
+
 .issem-green{
     color: green;
 }

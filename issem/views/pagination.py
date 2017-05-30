@@ -2,7 +2,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def pagination(model, page):
-    paginator = Paginator(model, 2)
+    paginator = Paginator(model, 10)
     limite_paginas_anteriores = 2
     limite_paginas_seguintes = 3
     try:
