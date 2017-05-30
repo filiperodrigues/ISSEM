@@ -156,6 +156,9 @@ class DependenteView(View):
         else:
             dependentes = DependenteModel.objects.filter(excluido=False)
 
+        for dependente in dependentes:
+            dependente.segurado = SeguradoModel.objects.get(dependente__id=dependente.id)
+
         dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
         context_dict['dados'] = dados
         context_dict['page_range'] = page_range

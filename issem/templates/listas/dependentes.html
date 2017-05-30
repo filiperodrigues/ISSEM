@@ -52,6 +52,7 @@
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Email</th>
+                        <th>Segurado</th>
                         <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                     </tr>
                     </thead>
@@ -72,6 +73,11 @@
                             {% endif %}
                             {% if dado.email != "" %}
                                 <td>{{ dado.email }}</td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
+                            {% if dado.segurado != "" %}
+                                <td><a href="{% url 'issem:perfil' dado.segurado.id %}">{{ dado.segurado.nome }}</a></td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
