@@ -80,8 +80,12 @@
                             {% else %}
                                 <td>---</td>
                             {% endif %}
-                            {% if dado.group != "" %}
-                                <td>{{ dado.group }}</td>
+                            {% if dado.groups.all != "" %}
+                                <td>
+                                    {% for grupo in dado.groups.all %}
+                                        {{ grupo }};
+                                    {% endfor %}
+                                </td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}

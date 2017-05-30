@@ -160,3 +160,8 @@ div.ten.wide.column.issem-margin-bottom{
 input[disabled]{
     border-color: #aaaaaa !important;
 }
+
+i.search.icon {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
