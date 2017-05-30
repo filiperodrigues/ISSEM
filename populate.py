@@ -153,10 +153,10 @@ def populate():
 
     # CONSULTA PARÂMETROS
     consulta_parametros = [
-        [20, 5, '08:00', 2, 2, 365, '<address>Instituto de Seguridade dos Servidores Municipais</address><address>Walter Marquardt, 623 - Barra do Rio Molha - Jaragua do Sul - SC / Fone: (47)3270 3900</address>'],
+        [20, 5, '08:00', 2, 2, 365, '<address>Instituto de Seguridade dos Servidores Municipais</address><address>Walter Marquardt, 623 - Barra do Rio Molha - Jaragua do Sul - SC / Fone: (47)3270 3900</address>', '<p><strong>Hor&aacute;rio de Atendimento</strong></p><p>Guias M&eacute;dicas (Sala 06) - Segunda &agrave; Sexta:<br /> <strong>07h30 &agrave;s 16h</strong></p><p>Demais Setores - Segunda &agrave; Sexta:<br /> <strong>07h30 &agrave;s 11h30 -- 13h &agrave;s 16h<br /> </strong></p><p><strong>Simula&ccedil;&atilde;o Benef&iacute;cios </strong><em>(Agendamento pelo fone):</em></p><p><strong>(47) 3270-3933</strong></p>', 'Só poderão ser realizados requerimentos online para afastamentos com períodos maiores que 15(quinze) dias.'],
     ]
     for cp in consulta_parametros:
-        add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4], cp[5], cp[6])
+        add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4], cp[5], cp[6], cp[7], cp[8])
 
 
 def add_beneficio(c, di, df, dr, dp, d, np, dpt, sm, obs, ca):
@@ -224,10 +224,11 @@ def add_tipo_sanguineo(n):
     return TipoSanguineoModel.objects.get_or_create(nome=n)
 
 
-def add_consulta_parametros(tc, te, ia, lc, ga, tm, ir):
+def add_consulta_parametros(tc, te, ia, lc, ga, tm, ir, di, mr):
     return ParametrosConfiguracaoModel.objects.get_or_create(tempo_consulta=tc, tempo_espera=te, inicio_atendimento=ia,
                                                              limite_consultas=lc, gap_agendamento=ga,
-                                                             tempo_minimo_exercicio=tm, informacoes_rodape=ir)
+                                                             tempo_minimo_exercicio=tm, informacoes_rodape=ir,
+                                                             descricao_issem=di, msg_requerimento=mr)
 
 
 # Start execution here!

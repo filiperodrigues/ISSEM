@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 class LaudoView(View):
     template = 'cruds/laudo.html'
     template_lista = 'listas/laudos.html'
-    template_laudo = 'estatico-deletar/visualizar_laudo.html'
+    template_laudo = 'estatico/visualizar_laudo.html'
     template_adendo = 'cruds/adendo.html'
 
     def group_test(user):
@@ -69,7 +69,6 @@ class LaudoView(View):
 
         from issem.views import pagination, CidModel
         laudos = CidModel.objects.all()
-        print(type(laudos))
 
         dados, page_range, ultima = pagination(laudos, request.GET.get('page'))
         context_dict['dados'] = dados
