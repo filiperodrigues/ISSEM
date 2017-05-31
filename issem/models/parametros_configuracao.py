@@ -13,6 +13,7 @@ class ParametrosConfiguracaoModel(models.Model):
     descricao_issem = HTMLField(null=True, blank=True)
     msg_requerimento = models.CharField(null=True, blank=True, max_length=500)
     informacoes_rodape = HTMLField(null=True, blank=True)
+    telefone_issem = models.CharField(max_length=15, blank=True)
 
     def __unicode__(self):
         return "Parametro de Configuracao"

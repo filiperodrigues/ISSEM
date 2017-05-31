@@ -6,8 +6,8 @@ from django import forms
 
 
 class DependenteFormCad(CadPessoaForm):
-    data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'limita_data_final()', 'placeholder': 'dd/mm/aaaa'}))
-    data_final = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa'}))
+    data_inicial = forms.DateField(widget=forms.TextInput(attrs={'onfocus': 'limita_data_final()', 'placeholder': 'DD/MM/AAAA'}))
+    data_final = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
     password = forms.CharField(widget=forms.HiddenInput(attrs={'value': '111111'}))
     password_checker = forms.CharField(widget=forms.HiddenInput(attrs={'value': '111111'}))
     username = forms.CharField(widget=forms.HiddenInput(), required=False)

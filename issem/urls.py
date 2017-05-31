@@ -122,7 +122,7 @@ urlpatterns = [
     url(r'^agenda/medica/filtro/$', views.ApresentaAgendamentosMedico, name='filtro_agenda'),
     url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento,
         name='tabela_requerimentos_sem_agendamento'),
-    url(r'^comprovante_agendamento/pdf/(?P<msg>.+)/(?P<id_agendamento>\d+)/(?P<id_usuario>\d+)/$',
+    url(r'^comprovante_agendamento/pdf/(?P<id_agendamento>\d+)/(?P<id_usuario>\d+)/$',
         views.GeraComprovanteAgendamento, name='comprovante_agendamento'),
 
     # LAUDO

@@ -137,6 +137,7 @@ class RequerimentoView(View):
                                 msg_valida = define_mensagem_consulta(data_pericia, hora_pericia_msg[:len(
                                     hora_pericia_msg) - 3] + "h", beneficio)
 
+                                envia_email = EnviaEmail(id_usuario, agendamento.id)
                                 return render(request, self.template,
                                               {'msg_valida': msg_valida, 'beneficio_descricao': beneficio.descricao,
                                                'id_usuario': id_usuario, 'id_agendamento': agendamento.id,
@@ -174,67 +175,73 @@ class RequerimentoView(View):
                                                'msg': msg})
 
 
-def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendamento=None):
+def GeraComprovanteAgendamento(request, id_usuario=None, id_agendamento=None):
     segurado = SeguradoModel.objects.get(pk=id_usuario)
     agendamento = AgendamentoModel.objects.get(pk=id_agendamento)
+    parametros_configuracoes = ParametrosConfiguracaoModel.objects.get(pk=1)
+
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="comprovante_agendamento.pdf"'
     p = canvas.Canvas(response)
     p.setLineWidth(.1)
-    msg1 = msg[:msg.find('.') + 1]
-    msg2 = msg[msg.find('.') + 2:]
     prefix = 'https://' if request.is_secure() else 'http://'
     image_url = prefix + request.get_host() + STATIC_URL + "/images/issem_comprovante.jpg"
     p.drawImage(image_url, 250, 750, mask=[0, 255, 0, 255, 0, 255], width=60, height=60)
 
-    p.drawString(50, 730, msg1)
-    qtdLinhas = len(msg2) / 70
     linhaInicial = 728
-    psInicial = 0
-    psFinal = 80
-    i = 0
-    p.setFont("Helvetica", 11)
-    if qtdLinhas == 0:
-        linhaInicial -= 12
-        p.drawString(50, linhaInicial, msg2)
-    while i < qtdLinhas:
-        linhaInicial -=12
-        p.drawString(50, linhaInicial, msg2[psInicial:psFinal])
-        psInicial += 80
-        psFinal += 80
-        i +=1
-    linhaInicial -=10
-    p.drawString(50, linhaInicial, "_______________________________________")
+
+    #   Formata o nome do Segurado para apresentar somente os três primeiros nomes, "de e da" são contados como nome   #
+    nome_segurado = str(segurado.nome).split(" ")
+    nome_segurado_formatado = str(nome_segurado[0] + " " + nome_segurado[1] + " " + nome_segurado[2])
     p.setFont("Helvetica", 10)
-    p.drawString(50, linhaInicial-10, "Agendado para: " + segurado.nome + (" (CPF: " + segurado.cpf + ")"))
-    p.drawString(50, linhaInicial-20,
-                 "Data atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[
-                                                                                  5:7] + "/" +
+    p.drawString(50, linhaInicial-10, "Prezado(a) senhor(a): " + nome_segurado_formatado + " você possui uma visita junto ao ISSEM.")
+    p.drawString(50, linhaInicial -25, "Segue as informações:")
+
+    p.drawString(50, linhaInicial-40, "Agendado para: " + nome_segurado_formatado + " (CPF:" + str(segurado.cpf) + ")")
+    p.drawString(50, linhaInicial-55,
+                 "Data do atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[5:7] + "/" +
                  str(agendamento.data_pericia)[0:4])
-    p.drawString(50, linhaInicial-30, "Horário da consulta: " + str(agendamento.hora_pericia)[:5] + "h")
+    p.drawString(50, linhaInicial-70, "Horário da consulta: " + str(agendamento.hora_pericia)[:5] + "h")
     p.setFont("Helvetica", 8)
-    p.drawString(50, linhaInicial-40, "_______________________________________")
-    p.drawString(50, linhaInicial-50, "Documento gerado em: " + str(datetime.now().strftime("%d/%m/%Y às %H:%M:%S")))
-    p.setFont("Helvetica", 6)
-    p.drawString(50, linhaInicial-60, "*NÃO É NECESSÁRIO IMPRIMIR ESTE DOCUMENTO")
+    p.drawString(50, linhaInicial-85, "----")
+    p.setFont("Helvetica-Bold", 13)
+    p.drawString(50, linhaInicial-105, "ISSEM")
+    p.setFont("Helvetica-Bold", 10)
+    p.drawString(50, linhaInicial-120, "Instituto de Seguridade do Servidores Municipais")
+    p.setFont("Helvetica", 10)
+    p.drawString(50, linhaInicial-132, "Contato: " + str(parametros_configuracoes.telefone_issem))
+    p.setFont("Helvetica", 8)
+    p.drawString(50, linhaInicial-150, "Documento gerado em: " + str(datetime.now().strftime("%d/%m/%Y às %H:%M:%S")))
+
     p.showPage()
     p.save()
-    if(segurado.email):
-        msg_topo = ("<strong>Esse e-mail foi gerado pelo sistema de agendamento automático ISSEM, respostas não "
-                     "serão consideradas.</strong><br/>")
-        msg_nome_segurado = "Agendado para: " + segurado.nome + (" (CPF: " + segurado.cpf + ")") + "<br/>"
-        msg_data_atendimento = "Data atendimento: " + str(agendamento.data_pericia)[8:] + "/" + str(agendamento.data_pericia)[5:7] + "/" + str(agendamento.data_pericia)[0:4] + "<br/>"
-        msg_hora_consulta = "Horário da consulta: " + str(agendamento.hora_pericia)[:5] + "h"
+    return response
 
-        #Calcula o tamanho da linha de divisão entre mensagem de topo e dados do agendamento
-        i = 0
-        linha_divisao = "-"
-        while i <= len(msg_nome_segurado):
-            linha_divisao += "-"
-            i += 1
-        linha_divisao += "<br/>"
+def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
+    requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
+    requerimento.delete()
+    return HttpResponseRedirect('/')
 
-        msg_completa_email = str(msg_topo + linha_divisao + msg_nome_segurado + msg_data_atendimento + msg_hora_consulta)
+def EnviaEmail(id_usuario, id_agendamento):
+    segurado = SeguradoModel.objects.get(pk=id_usuario)
+    agendamento = AgendamentoModel.objects.get(pk=id_agendamento)
+    parametros_configuracoes = ParametrosConfiguracaoModel.objects.get(pk=1)
+    if (segurado.email):
+        msg_topo = (
+        "Prezado(a) senhor(a) <strong>Vinícius de Oliveira</strong>, você possui uma visita junto ao ISSEM. Segue as informações:<br/><br/>")
+        msg_nome_segurado = "<strong>Agendado para: </strong>" + segurado.nome + (
+        " (CPF: " + segurado.cpf + ")") + "<br/>"
+        msg_data_atendimento = "<strong>Data do atendimento: </strong>" + str(agendamento.data_pericia)[8:] + "/" + str(
+            agendamento.data_pericia)[5:7] + "/" + str(agendamento.data_pericia)[0:4] + "<br/>"
+        msg_hora_consulta = "<strong>Horário da consulta: </strong>" + str(agendamento.hora_pericia)[:5] + "h"
+        msg_rodape = "<h4>----</h4>" \
+                     "<font size='5'><strong>ISSEM<strong></font><br/>" \
+                     "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
+                     "Contato: " + str(parametros_configuracoes.telefone_issem) + "<br/>" \
+                     "<br/><span style='color:red'><em>Obs: Este e-mail foi gerado pelo Sistema de Agendamento automático ISSEM, respostas não serão consideradas</em></span>"
+
+        msg_completa_email = str(
+            msg_topo + msg_nome_segurado + msg_data_atendimento + msg_hora_consulta + msg_rodape)
         email = EmailMultiAlternatives(
             'Comprovante de agendamento ISSEM',
             msg_completa_email,
@@ -244,13 +251,7 @@ def GeraComprovanteAgendamento(request, msg=None, id_usuario=None, id_agendament
         )
         email.attach_alternative(msg_completa_email, "text/html")
         email.send()
-    return HttpResponseRedirect('/')
-
-
-def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
-    requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
-    requerimento.delete()
-    return HttpResponseRedirect('/')
+    return ""
 
 
 def RequerimentoSemAgendamentoDelete(request, id):

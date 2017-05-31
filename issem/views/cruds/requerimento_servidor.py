@@ -6,6 +6,7 @@ from django.views.generic.base import View
 from datetime import date, datetime
 from django.contrib.auth.models import User
 from issem.views.pagination import pagination
+from issem.views.cruds.requerimento import EnviaEmail
 
 
 class RequerimentoServidorView(View):
@@ -83,9 +84,11 @@ class RequerimentoServidorView(View):
                 form_agendamento_model.hora_pericia = form_agendamento._raw_value('hora_pericia')
 
                 form_agendamento_model.save()
+                enviar_email = EnviaEmail(requerimento.segurado, form_agendamento_model.id)
 
             msg = "Consulta agendada"
             tipo_msg = 'green'
+
             return render(request, self.template,
                           {'msg': msg, 'tipo_msg': tipo_msg, 'beneficio_descricao': beneficio.descricao, 'id_usuario': usuario_logado.id,
                            'id_beneficio': id_beneficio})
@@ -115,7 +118,6 @@ def ApresentaAgendamentos(request):
 def ApresentaAgendamentosMedico(request):
     if request.GET or 'page' in request.GET:
         if request.GET.get('data_inicio'):
-            print(str(request.GET.get('data_inicio')))
             data_inicio = str(request.GET.get('data_inicio')).split('/')
             inicio_ano, inicio_mes, inicio_dia = data_inicio[2], data_inicio[1], data_inicio[0]
             data_inicio_formatada = str(inicio_ano + "-" + inicio_mes + "-" + inicio_dia)

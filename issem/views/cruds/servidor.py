@@ -111,6 +111,7 @@ class ServidorView(View):
         except:
             raise Http404("Servidor não encontrado.")
         servidor.excluido = True
+        servidor.is_active = False
         servidor.save()
         msg = "Servidor excluído com sucesso!"
         tipo_msg = "green"

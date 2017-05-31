@@ -117,6 +117,20 @@
                         <div class="four wide field"></div>
                     </div>
                     <div class="fields">
+                        <div class="six wide field"></div>
+                        <div class="four wide field">
+                            <label>Telefone de Contato ISSEM:</label>
+                            <div class="fone_ddd_8digitos">
+                                {{ form.telefone_issem }}
+                                {% if form.telefone_issem.errors %}
+                                    <div class="ui pointing red basic label issem-error-field">
+                                        {{ form.telefone_issem.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fields">
                         <div class="three wide field"></div>
                         <div class="ten wide field">
                             <label>Informação para segurado em página de requerimento:</label>
