@@ -192,7 +192,11 @@ def GeraComprovanteAgendamento(request, id_usuario=None, id_agendamento=None):
 
     #   Formata o nome do Segurado para apresentar somente os três primeiros nomes, "de e da" são contados como nome   #
     nome_segurado = str(segurado.nome).split(" ")
-    nome_segurado_formatado = str(nome_segurado[0] + " " + nome_segurado[1] + " " + nome_segurado[2])
+    if len(nome_segurado) >= 3:
+        nome_segurado_formatado = str(nome_segurado[0] + " " + nome_segurado[1] + " " + nome_segurado[2])
+    else:
+        nome_segurado_formatado = segurado.nome
+
     p.setFont("Helvetica", 10)
     p.drawString(50, linhaInicial-10, "Prezado(a) senhor(a): " + nome_segurado_formatado + " você possui uma visita junto ao ISSEM.")
     p.drawString(50, linhaInicial -25, "Segue as informações:")
