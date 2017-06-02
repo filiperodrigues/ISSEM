@@ -3,7 +3,7 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 from issem import views
 from issem.views import *
-
+from issem.views.cruds.procedimentos_medicos import BuscaProcedimentosMedicosView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -96,7 +96,6 @@ urlpatterns = [
     url(r'^edita/senha/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenhaView.as_view(), name='edita_senha'),
 
     # CIDADE / ESTADO
-    url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),
     url(r'^escolha_cidade_atual/$', CidadeView.as_view(), name='escolha_cidade_atual'),
     url(r'^escolha_cidade_local_trabalho/$', CidadeView.as_view(), name='escolha_cidade_local_trabalho'),
 
@@ -130,6 +129,7 @@ urlpatterns = [
     url(r'^cad/laudo/$', LaudoView.as_view(), name='cad_laudo'),
     url(r'^lista/laudos/$', LaudoView.ListaLaudos, name='lista_laudos'),
     url(r'^laudo/adendo/(?P<id>\d+)/$', LaudoView.AdicionarAdendo, name='adicionar_adendo'),
+    url(r'^busca_procedimento_medico/$', BuscaProcedimentosMedicosView.as_view(), name='busca_procedimentos_medicos'),
 
     # CONTATO ISSEM
     url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),

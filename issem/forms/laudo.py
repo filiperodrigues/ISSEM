@@ -26,8 +26,10 @@ class LaudoForm(forms.ModelForm):
     procedimento_medico = forms.ModelChoiceField(required=True,
                                                  empty_label="Selecione um procedimento",
                                                  queryset=ProcedimentoMedicoModel.objects.filter(excluido=False),
-                                                 widget=forms.SelectMultiple(
-                                                     attrs={"class": "ui fluid search selection dropdown"})
+                                                 widget=forms.Select(
+                                                 # widget=forms.SelectMultiple(
+                                                     attrs={"onchange": "get_procedimentos_medicos()",
+                                                            "class": "ui fluid search selection dropdown"})
                                                  )
     cid = forms.ModelChoiceField(required=True,
                                  empty_label="Selecione um CID",

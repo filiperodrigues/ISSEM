@@ -304,3 +304,31 @@ function atualiza_select_local_trabalho(id_local_trabalho) {
         },
     });
 }
+
+var vendaMediaMensal = $("#id_procedimento_medico");
+vendaMediaMensal.click( function(){
+    alert(vendaMediaMensal.val());
+});
+
+// function get_procedimentos_medicos() {
+
+    // alert($('#id_procedimento_medico').val());
+    // alert("oi");
+    //
+    // $.ajax({
+    //     type: 'POST',
+    //     url: '/issem/busca_procedimentos_medicos/',
+    //     data: {
+    //         estado: $("select[name='estados']").val(),
+    //         csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+    //     },
+    //     dataType: 'json',
+    //     success: function (data) {
+    //         var options = '';
+    //         for (var i = 0; i < data.length; i++) {
+    //             options += '<option value="' + data[i].pk + '">' + data[i].fields['nome'] + '</option>';
+    //         }
+    //         $("select#id_cidade").html(options);
+    //     }
+    // });
+// }
