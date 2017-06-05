@@ -25,7 +25,7 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1><i class="calendar icon"></i> Meus Requerimentos</h1>
+                    <h1><i class="calendar icon"></i> Histórico de Requerimentos</h1>
                 </div>
             </div>
 
@@ -37,7 +37,6 @@
                     <tr>
                         <th>Benefício</th>
                         <th>Data do agendamento</th>
-                        <th>Agendado?</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,11 +51,6 @@
                                 <td>{{ dado.data_requerimento }}</td>
                             {% else %}
                                 <td>---</td>
-                            {% endif %}
-                            {% if dado.possui_agendamento %}
-                                <td class="issem-green">Sim</td>
-                            {% else %}
-                                <td class="issem-red">Não</td>
                             {% endif %}
                         </tr>
                     {% endfor %}

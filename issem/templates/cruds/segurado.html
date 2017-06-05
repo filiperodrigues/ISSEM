@@ -43,15 +43,24 @@
 
             <div class="three wide column">
                 {% if id %}
-                    <div class="ui right floated vertical buttons">
-                        <a href="{% url 'issem:edita_senha' id id_group_user %}"
-                           class="ui labeled icon button secondary">
-                            <i class="key icon"></i> Alterar Senha
-                        </a>
-                        <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
-                            <i class="trash icon"></i> Excluir
-                        </a>
-                    </div>
+                    {% if usuario_logado == id_segurado %}
+                        <div class="ui right floated buttons">
+                            <a href="{% url 'issem:edita_senha' id id_group_user %}"
+                               class="ui labeled icon button secondary">
+                                <i class="key icon"></i> Alterar Senha
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="ui right floated vertical buttons">
+                            <a href="{% url 'issem:edita_senha' id id_group_user %}"
+                               class="ui labeled icon button secondary">
+                                <i class="key icon"></i> Alterar Senha
+                            </a>
+                            <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
+                                <i class="trash icon"></i> Excluir
+                            </a>
+                        </div>
+                    {% endif %}
                 {% endif %}
             </div>
 

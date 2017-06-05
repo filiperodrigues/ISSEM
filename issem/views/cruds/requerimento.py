@@ -357,3 +357,13 @@ def ApresentaRequerimentosSemAgendamento(request, msg=None, tipo_msg=None):
     context_dict['data_inicio'] = request.GET.get('data_inicio')
     context_dict['data_fim'] = request.GET.get('data_fim')
     return render(request, 'listas/tabela_requerimentos_sem_agendamento.html', context_dict)
+
+
+def ListaRequerimentosSegurado(request, id=None):
+    context_dict = {}
+    requerimentos = RequerimentoModel.objects.filter(segurado=id, possui_agendamento=True)
+    dados, page_range, ultima = pagination(requerimentos, request.GET.get('page'))
+    context_dict['dados'] = dados
+    context_dict['page_range'] = page_range
+    context_dict['ultima'] = ultima
+    return render(request, 'listas/requerimentos_segurado.html', context_dict)

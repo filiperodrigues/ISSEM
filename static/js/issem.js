@@ -6,19 +6,19 @@ $(document).ready(function () {
     $('.hora input').mask('00:00');
     $('.data input').mask('00/00/0000');
     $('.dois_digitos input').mask('00');
-    $('.dez_digitos input').mask('0000000000');
+    $('.dez_digitos input').mask('0000000000', {placeholder:'Somente números'});
     $('.cep input').mask('00000-000',{placeholder:'Somente números'});
     $('.rg input').mask('000000000',{placeholder:'Somente números'});
-    $('.dez_digitos input').mask('0000000000');
     $('.fone_ddd_9digitos input').mask('(00) 00000-0000',{placeholder:'(XX) XXXXX-XXXX'});
     $('.fone_ddd_8digitos input').mask('(00) 0000-0000',{placeholder:'(XX) XXXX-XXXX'});
     $('.crm input').mask('00000000000000000000000000000000');
     $('.valor input').mask('00000000000000000,00', {reverse: true});
-    $('.somente_numeros input').mask('00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    $('.somente_numeros input').mask('00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', {placeholder:'Somente números'});
     $('.somente_letras input').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
         'translation': {
             S: {pattern: /[A-Za-zÀ-ú ]/},
-        }
+        },
+        placeholder:'Somente letras'
     });
 
     // ===== ESTILIZAR DROPDOWNS ===== //

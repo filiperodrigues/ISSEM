@@ -3,9 +3,10 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-from issem.models import BeneficioModel, AgendamentoModel
+from issem.models import BeneficioModel, AgendamentoModel, RequerimentoModel
 from datetime import date, timedelta
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 
 class PaginaFuncionarioView(View):
@@ -53,4 +54,6 @@ class PaginaSeguradoView(View):
         context_dict['beneficios'] = BeneficioModel.objects.all()
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
+        if RequerimentoModel.objects.filter(segurado=User.objects.get(pk=request.user.id), possui_agendamento=False):
+            context_dict['possui_requerimento_aberto'] = True
         return render(request, self.template, context_dict)

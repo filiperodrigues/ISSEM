@@ -58,11 +58,14 @@
                         <th>Email</th>
                         <th width="330">
                             Departamento &ensp;
-                            <form class="ui form issem-form-filter-group">
-                                <select>
-                                    <option value="todos">Todos</option>
-                                    <option value="administrativo">Administrativo</option>
-                                    <option value="servidor">Servidor</option>
+                            <form id="form_lista_servidores" class="ui form issem-form-filter-group"
+                                  action="{% url 'issem:lista_servidores' %}" method="post">
+                                {% csrf_token %}
+                                <select onchange="this.form.submit()" id="filtro_grupo" name="filtro_grupo">
+                                    <option value="">Selecione um grupo</option>
+                                    <option value="todos" {% if grupo_controle == "todos" %}selected="selected"{% endif %}>Todos</option>
+                                    <option value="administrativo" {% if grupo_controle == "administrativo" %}selected="selected"{% endif %}>Administrativo</option>
+                                    <option value="tecnico" {% if grupo_controle == "tecnico" %}selected="selected"{% endif %}>Técnico</option>
                                 </select>
                             </form>
                         </th>
@@ -129,3 +132,138 @@
     </div>
 
 {% endblock %}
+
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block body_block %}#}
+{##}
+{#    <div class="ui centered grid issem-grid">#}
+{#        <div class="ui row segment issem-segment issem-segment-border">#}
+{##}
+{#            {% if msg %}#}
+{#                <div class="sixteen wide column issem-div-message">#}
+{#                    <div class="ui {{ tipo_msg }} message">#}
+{#                        <div class="header">#}
+{#                            {{ msg }}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
+{##}
+{#            <div class="three wide column">#}
+{#                <a href="{% url 'issem:funcionario' %}">#}
+{#                    <div class="ui labeled icon button basic">#}
+{#                        <i class="left arrow icon"></i> Voltar#}
+{#                    </div>#}
+{#                </a>#}
+{#            </div>#}
+{##}
+{#            <div class="ten wide column">#}
+{#                <div class="issem-title-edit-page">#}
+{#                    <h1><i class="group icon"></i> Servidores</h1>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="three wide column">#}
+{#                <a href="{% url 'issem:cad_servidor' %}">#}
+{#                    <div class="ui right floated icon button green">#}
+{#                        <i class="plus icon"></i> Adicionar Novo#}
+{#                    </div>#}
+{#                </a>#}
+{#            </div>#}
+{##}
+{#            <div class="ui centered row">#}
+{#                <br/>#}
+{#                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_servidores' %}">#}
+{#                    <div class="ui right aligned category search">#}
+{#                        <div class="ui icon input">#}
+{#                            <i class="search icon"></i>#}
+{#                            <input type="text" id="id_campo" name="filtro" placeholder="Pesquisar">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </form>#}
+{#            </div>#}
+{##}
+{#            {% if dados %}#}
+{#                <table class="ui celled table issem-table-form">#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th>Nome</th>#}
+{#                        <th>CPF</th>#}
+{#                        <th>Email</th>#}
+{#                        <th width="330">#}
+{#                            <form action="{% url 'issem:lista_servidores' %}" method="get">#}
+{#                                <label for="featured">Departamento:</label>#}
+{#                                <br>#}
+{#                                <select name="filtro_departamento">#}
+{#                                    <option value="Todos">Todos</option>#}
+{#                                    <option value="Administrativo">Administrativo</option>#}
+{#                                    <option value="Tecnico">Técnico</option>#}
+{#                                    <button><input type="submit" name="featured" value=''/></button>#}
+{##}
+{#                                </select>#}
+{#                            </form>#}
+{#                        </th>#}
+{#                        <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% for dado in dados %}#}
+{#                        <tr>#}
+{#                            {% if dado.nome != "" %}#}
+{#                                <td>#}
+{#                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.nome }}</a>#}
+{#                                </td>#}
+{#                            {% else %}#}
+{#                                <td>---</td>#}
+{#                            {% endif %}#}
+{#                            {% if dado.cpf != "" %}#}
+{#                                <td>{{ dado.cpf }}</td>#}
+{#                            {% else %}#}
+{#                                <td>---</td>#}
+{#                            {% endif %}#}
+{#                            {% if dado.email != "" %}#}
+{#                                <td>{{ dado.email }}</td>#}
+{#                            {% else %}#}
+{#                                <td>---</td>#}
+{#                            {% endif %}#}
+{#                            {% if dado.groups.all != "" %}#}
+{#                                <td>#}
+{#                                    {% for grupo in dado.groups.all %}#}
+{#                                        {{ grupo }}#}
+{#                                    {% endfor %}#}
+{#                                </td>#}
+{#                            {% else %}#}
+{#                                <td>---</td>#}
+{#                            {% endif %}#}
+{##}
+{#                            <td class="ui right aligned">#}
+{#                                {% if usuario_logado == dado.id %}#}
+{#                                    <a href="{% url 'issem:edita_servidor' dado.id %}">#}
+{#                                        <div class="ui labeled icon button">#}
+{#                                            <i class="edit icon"></i> Editar#}
+{#                                        </div>#}
+{#                                    </a>#}
+{#                                {% endif %}#}
+{#                            </td>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                    </tbody>#}
+{#                    <tfoot>#}
+{#                </table>#}
+{##}
+{#                {% include 'blocos/pagination.html' %}#}
+{#            {% else %}#}
+{#                <div class="sixteen wide column issem-div-message">#}
+{#                    <br/>#}
+{#                    <div class="ui yellow message">#}
+{#                        <div class="header">#}
+{#                            Não existem dados cadastrados#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#{% endblock %}#}

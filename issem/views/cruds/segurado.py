@@ -1,19 +1,18 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render
-from issem.models import SeguradoModel, RequerimentoModel, DependenteModel
-from issem.forms import PessoaPasswordForm, SeguradoFormEdit, SeguradoFormCad
+from issem.models import SeguradoModel, DependenteModel
+from issem.forms import SeguradoFormEdit, SeguradoFormCad
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from issem.views.pagination import pagination
 
 
 class SeguradoView(View):
     template = 'cruds/segurado.html'
     template_lista = 'listas/segurados.html'
-    template_lista_segurados = 'listas/requerimentos_segurado.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo') or user.groups.filter(name='Segurado')
@@ -25,6 +24,7 @@ class SeguradoView(View):
         if id:
             try:
                 segurado = SeguradoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                context_dict['id_segurado'] = segurado.id
             except:
                 raise Http404("Segurado não encontrado.")
             form = SeguradoFormEdit(instance=segurado, id=id)
@@ -42,6 +42,7 @@ class SeguradoView(View):
         context_dict['id_group_user'] = id_group_user
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
+        context_dict['usuario_logado'] = User.objects.get(pk=request.user.id).id
         return render(request, self.template, context_dict)
 
     def post(self, request, id=None, msg=None, tipo_msg=None):
@@ -102,6 +103,7 @@ class SeguradoView(View):
         context_dict['id_segurado'] = user_id
         context_dict['nome'] = user_nome
         context_dict['id_group_user'] = id_group_user
+        context_dict['usuario_logado'] = User.objects.get(pk=request.user.id).id
         return render(request, self.template, context_dict)
 
     @classmethod
@@ -149,13 +151,3 @@ class SeguradoView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
-
-    @classmethod
-    def ListaRequerimentosSegurado(self, request, id=None):
-        context_dict = {}
-        requerimentos = RequerimentoModel.objects.filter(segurado=id)
-        dados, page_range, ultima = pagination(requerimentos, request.GET.get('page'))
-        context_dict['dados'] = dados
-        context_dict['page_range'] = page_range
-        context_dict['ultima'] = ultima
-        return render(request, self.template_lista_segurados, context_dict)

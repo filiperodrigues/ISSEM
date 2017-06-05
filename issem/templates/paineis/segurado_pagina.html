@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-
+    {% load sistema %}
     <div class="ui centered grid issem-grid">
 
         {% if msg %}
@@ -22,7 +22,7 @@
                     {# DROPDOWN #}
                     <div class="menu">
                         <a href="{% url 'issem:requerimentos_segurado' user.id %}" class="item">
-                            <i class="calendar icon"></i> Meus requerimentos</a>
+                            <i class="calendar icon"></i> Histórico de requerimentos</a>
                         {% for beneficio in beneficios %}
                             <a href="{% url 'issem:cad_requerimento' beneficio.id %} "
                                class="item">{{ beneficio.descricao }}</a>
@@ -48,5 +48,11 @@
         </div>
 
     </div>
+    <div class="ui centered grid issem-grid-message">
+        {%if possui_requerimento_aberto %}
+            <div class="ui yellow message">Você possui um requerimento aguardando agendamento pelo Servidor ISSEM</div>
+        {% endif %}
+    </div>
+
 
 {% endblock %}

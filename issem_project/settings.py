@@ -129,7 +129,7 @@ EMAIL_USE_TLS = True
 
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,xhtmlxtras,paste,searchreplace",
-    'theme': "advanced",
+    'theme': "simple",
     "theme_advanced_buttons3_add" : "cite,abbr, fontselect, fontsizeselect",
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 10,
