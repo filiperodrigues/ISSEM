@@ -21,7 +21,7 @@ class CadPessoaForm(forms.ModelForm):
                              choices=generos,
                              )
     estados = EstadoModel.objects.all()
-    cidades = CidadeModel.objects.all()
+    cidades = CidadeModel.objects.filter(id=0)
     estado_natural = forms.ModelChoiceField(required=False,
                                             empty_label="Selecione um estado",
                                             queryset=estados,
@@ -46,8 +46,6 @@ class CadPessoaForm(forms.ModelForm):
                                           )
     password = forms.CharField(widget=forms.PasswordInput())
     password_checker = forms.CharField(widget=forms.PasswordInput())
-    email = forms.EmailField(required=True)
-
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
 
     class Meta:
@@ -82,7 +80,7 @@ class PessoaEditForm(forms.ModelForm):
                              choices=generos,
                              )
     estados = EstadoModel.objects.all()
-    cidades = CidadeModel.objects.all()
+    cidades = CidadeModel.objects.filter(id=0)
     estado_natural = forms.ModelChoiceField(required=False,
                                             empty_label="Selecione um estado",
                                             queryset=estados,
@@ -105,8 +103,6 @@ class PessoaEditForm(forms.ModelForm):
                                           queryset=cidades,
                                           widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                           )
-    email = forms.EmailField(required=True)
-
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
 
     class Meta:

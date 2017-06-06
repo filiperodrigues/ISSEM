@@ -95,13 +95,18 @@
                             {% endif %}
                         </div>
                         <div class="eight wide field">
-                            <label>Procedimento médico<i class="asterisk icon red"></i></label>
-                            {{ form.procedimento_medico }}
-                            {% if form.procedimento_medico.errors %}
-                                <div class="ui pointing red basic label issem-error-field">
-                                    {{ form.procedimento_medico.errors }}
+                            <div class="fields">
+                                <div class="sixteen wide field" id="div_procedimento">
+                                    <label>Procedimento médico<i class="asterisk icon red"></i>
+                                        <em class="issem-red">(Mínimo de 3 caracteres para a consulta)</em></label>
+                                    {{ form.procedimento_medico }}
+                                    {% if form.procedimento_medico.errors %}
+                                        <div class="ui pointing red basic label issem-error-field">
+                                            {{ form.procedimento_medico.errors }}
+                                        </div>
+                                    {% endif %}
                                 </div>
-                            {% endif %}
+                            </div>
                         </div>
                     </div>
 
@@ -109,7 +114,6 @@
 
                     <div class="fields">
                         <div class="eight wide field">
-
                             {{ form.pericia_revisional }}
                             {% if form.pericia_revisional.errors %}
                                 <div class="ui pointing red basic label issem-error-field">

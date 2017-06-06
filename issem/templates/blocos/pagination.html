@@ -4,7 +4,7 @@
             {% if dados.has_previous %}
                 <a href="?page={{ 1 }}{% if data_inicio and data_fim %}&data_inicio={{ data_inicio }}&data_fim={{ data_fim }}{% endif %}{% if filtro %}&filtro={{ filtro }}{% endif %}"
                    class="icon item blue" style="color: #2185d0">Primeira</a>
-                <a href="?page={{ dados.previous_page_number }}{% if data_inicio and data_fim %}&data_inicio={{ data_inicio }}&data_fim={{ data_fim }}{% endif %}{% if filtro %}&filtro={{ filtro }}{% endif %}"
+                    <a href="?page={{ dados.previous_page_number }}{% if data_inicio and data_fim %}&data_inicio={{ data_inicio }}&data_fim={{ data_fim }}{% endif %}{% if filtro %}&filtro={{ filtro }}{% endif %}"
                    class="icon item"><i class="left arrow icon blue"></i></a>
             {% else %}
                 <a href="#" class="icon item blue">Primeira</a>

@@ -129,7 +129,7 @@ urlpatterns = [
     url(r'^cad/laudo/$', LaudoView.as_view(), name='cad_laudo'),
     url(r'^lista/laudos/$', LaudoView.ListaLaudos, name='lista_laudos'),
     url(r'^laudo/adendo/(?P<id>\d+)/$', LaudoView.AdicionarAdendo, name='adicionar_adendo'),
-    url(r'^busca_procedimento_medico/$', BuscaProcedimentosMedicosView.as_view(), name='busca_procedimentos_medicos'),
+    url(r'^busca_procedimentos_medicos/$', BuscaProcedimentosMedicosView.as_view(), name='busca_procedimentos_medicos'),
 
     # CONTATO ISSEM
     url(r'^cad/contato_issem/$', ContatoIssemView.as_view(), name='cad_contato_issem'),

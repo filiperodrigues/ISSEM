@@ -12,6 +12,7 @@ class ServidorFormCad(CadPessoaForm):
                                     queryset=Group.objects.all().exclude(name='Segurado').exclude(name='Dependente'),
                                     widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                     )
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = ServidorModel
@@ -39,6 +40,7 @@ class ServidorFormEdit(PessoaEditForm):
                                     queryset=Group.objects.all().exclude(name='Segurado').exclude(name='Dependente'),
                                     widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                     )
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = ServidorModel
