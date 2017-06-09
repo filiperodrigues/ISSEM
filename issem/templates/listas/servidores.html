@@ -30,11 +30,18 @@
             </div>
 
             <div class="three wide column">
-                <a href="{% url 'issem:cad_servidor' %}">
-                    <div class="ui right floated icon button green">
-                        <i class="plus icon"></i> Adicionar Novo
-                    </div>
-                </a>
+                <div class="ui right floated vertical buttons">
+                    <a href="{% url 'issem:cad_servidor' %}"
+                       class="ui labeled icon button green">
+                        <i class="key icon"></i> Adicionar Novo
+                    </a>
+                    {% if administrador %}
+                        <a href="#"
+                           class="ui labeled icon button red">
+                            <i class="trash icon"></i> Excluídos
+                        </a>
+                    {% endif %}
+                </div>
             </div>
 
             <div class="ui centered row">
@@ -103,7 +110,14 @@
                             {% endif %}
 
                             <td class="ui right aligned">
-                                {% if usuario_logado == dado.id %}
+                                {% if administrador %}
+                                    <a href="{% url 'issem:grupo' dado.id %}">
+                                        <div class="ui labeled icon button">
+                                            <i class="exchange icon"></i> Transferência de Grupo
+                                        </div>
+                                    </a>
+                                {% endif %}
+                                {% if usuario_logado.id == dado.id or administrador %}
                                     <a href="{% url 'issem:edita_servidor' dado.id %}">
                                         <div class="ui labeled icon button">
                                             <i class="edit icon"></i> Editar

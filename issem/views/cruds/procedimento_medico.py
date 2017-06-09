@@ -7,6 +7,7 @@ from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from issem.views.pagination import pagination
+from django.db.models import Q
 
 
 class ProcedimentoMedicoView(View):
@@ -93,17 +94,15 @@ class ProcedimentoMedicoView(View):
             ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
             FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
             if 'filtro' in request.GET:
-                lista1 = ProcedimentoMedicoModel.objects.filter(procedimento__icontains=request.GET.get('filtro'),
-                                                                excluido=False)
-                lista2 = ProcedimentoMedicoModel.objects.filter(codigo__icontains=request.GET.get('filtro'), excluido=False)
-                lista3 = ProcedimentoMedicoModel.objects.filter(porte__icontains=request.GET.get('filtro'), excluido=False)
-                lista4 = ProcedimentoMedicoModel.objects.filter(valor__icontains=request.GET.get('filtro'), excluido=False)
-                procedimentos_medicos = list(lista1) + list(lista2) + list(lista3) + list(lista4)
-                procedimentos_medicos = list(set(procedimentos_medicos))
+                procedimentos_medicos = ProcedimentoMedicoModel.objects.filter(
+                    Q(procedimento__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(codigo__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(porte__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(valor__icontains=request.GET.get('filtro'), excluido=False)).order_by('procedimento')
             else:
                 procedimentos_medicos = ProcedimentoMedicoModel.objects.filter(excluido=False)
         else:
-            procedimentos_medicos = ProcedimentoMedicoModel.objects.filter(excluido=False)
+            procedimentos_medicos = ProcedimentoMedicoModel.objects.filter(excluido=False).order_by('procedimento')
 
         dados, page_range, ultima = pagination(procedimentos_medicos, request.GET.get('page'))
         context_dict['dados'] = dados

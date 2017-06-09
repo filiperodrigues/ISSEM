@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
 from issem.views.pagination import pagination
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 class ServidorView(View):
@@ -23,13 +24,16 @@ class ServidorView(View):
         context_dict = {}
         if id:  # EDIÇÃO
             try:
-                servidor = ServidorModel.objects.get(pk=id,
-                                                     excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                servidor = ServidorModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                administrador = ServidorModel.objects.get(id=request.user.id).administrador
+                context_dict['administrador'] = administrador
+                context_dict['crm'] = servidor.crm
             except:
                 raise Http404("Servidor não encontrado.")
             form = ServidorFormEdit(instance=servidor, id=id)
             try:
                 group_user = Group.objects.get(user=id)
+                context_dict['grupo'] = group_user
             except:
                 raise Http404("Grupo do usuário não encontrado.")
             id_group_user = group_user.id
@@ -37,6 +41,8 @@ class ServidorView(View):
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
 
+
+        context_dict['method'] = 'get'
         context_dict['form'] = form
         context_dict['id'] = id
         context_dict['id_group_user'] = id_group_user
@@ -58,14 +64,13 @@ class ServidorView(View):
             form = ServidorFormEdit(instance=servidor, data=request.POST, id=id)
             try:
                 group_user = Group.objects.get(user=id)
+                context_dict['grupo'] = group_user
             except:
                 raise Http404("Grupo do usuário não encontrado.")
             id_group_user = group_user.id
 
             if form.is_valid():
                 form.save(commit=False)
-                # group_user.user_set.remove(id)
-                # servidor.groups.add(form.cleaned_data['groups'])
                 servidor.save()
 
                 msg = 'Alterações realizadas com sucesso!'
@@ -133,21 +138,15 @@ class ServidorView(View):
                             id_grupo = Group.objects.get(name="Tecnico").id
                         else:
                             raise Http404("Ocorreu algum erro, verifique e tente novamente!")
-                        servidor1 = ServidorModel.objects.filter(cpf__icontains=request.GET.get('filtro'),
-                                                                 excluido=False, groups=id_grupo)
-                        servidor2 = ServidorModel.objects.filter(nome__icontains=request.GET.get('filtro'),
-                                                                 excluido=False, groups=id_grupo)
-                        servidor3 = ServidorModel.objects.filter(email__icontains=request.GET.get('filtro'),
-                                                                 excluido=False, groups=id_grupo)
+                        servidores = ServidorModel.objects.filter(
+                            Q(cpf__icontains=request.GET.get('filtro'), excluido=False, groups=id_grupo) |
+                            Q(nome__icontains=request.GET.get('filtro'), excluido=False, groups=id_grupo) |
+                            Q(email__icontains=request.GET.get('filtro'), excluido=False, groups=id_grupo)).order_by('nome')
                     else:
-                        servidor1 = ServidorModel.objects.filter(cpf__icontains=request.GET.get('filtro'),
-                                                                 excluido=False)
-                        servidor2 = ServidorModel.objects.filter(nome__icontains=request.GET.get('filtro'),
-                                                                 excluido=False)
-                        servidor3 = ServidorModel.objects.filter(email__icontains=request.GET.get('filtro'),
-                                                                 excluido=False)
-                    servidores = list(servidor1) + list(servidor2) + list(servidor3)
-                    servidores = list(set(servidores))
+                        servidores = ServidorModel.objects.filter(
+                            Q(cpf__icontains=request.GET.get('filtro'), excluido=False) |
+                            Q(nome__icontains=request.GET.get('filtro'), excluido=False) |
+                            Q(email__icontains=request.GET.get('filtro'), excluido=False)).order_by('nome')
                 else:
                     if request.POST['filtro_grupo'] != "todos":
                         if request.POST['filtro_grupo'] == "administrativo":
@@ -161,11 +160,10 @@ class ServidorView(View):
                         servidores = ServidorModel.objects.filter(excluido=False)
             else:
                 if 'filtro' in request.GET:
-                    servidor1 = ServidorModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=False)
-                    servidor2 = ServidorModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=False)
-                    servidor3 = ServidorModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=False)
-                    servidores = list(servidor1) + list(servidor2) + list(servidor3)
-                    servidores = list(set(servidores))
+                    servidores = ServidorModel.objects.filter(
+                        Q(cpf__icontains=request.GET.get('filtro'), excluido=False) |
+                        Q(nome__icontains=request.GET.get('filtro'), excluido=False) |
+                        Q(email__icontains=request.GET.get('filtro'), excluido=False)).order_by('nome')
                 else:
                     servidores = ServidorModel.objects.filter(excluido=False)
         else:
@@ -181,10 +179,11 @@ class ServidorView(View):
                 else:
                     raise Http404("Ocorreu algum erro, verifique e tente novamente!")
             else:
-                servidores = ServidorModel.objects.filter(excluido=False)
+                servidores = ServidorModel.objects.filter(excluido=False).order_by('nome')
 
         dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
         usuario_logado = User.objects.get(pk=request.user.id)
+        administrador = ServidorModel.objects.get(id=request.user.id)
 
         context_dict['grupo_controle'] = request.POST['filtro_grupo'] if request.POST else ""
         context_dict['dados'] = dados
@@ -193,5 +192,6 @@ class ServidorView(View):
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
-        context_dict['usuario_logado'] = usuario_logado.id
+        context_dict['usuario_logado'] = usuario_logado
+        context_dict['administrador'] = administrador.administrador
         return render(request, self.template_lista, context_dict)

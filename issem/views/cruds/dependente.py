@@ -7,9 +7,10 @@ from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
+from issem.models import ServidorModel
 from issem.views.pagination import pagination
 from issem.views.cruds.pass_generator import mkpass
-
+from django.db.models import Q
 
 class DependenteView(View):
     template = 'cruds/dependente.html'
@@ -23,6 +24,8 @@ class DependenteView(View):
         context_dict = {}
         segurado = None
         id_group_user = None
+        administrador = ServidorModel.objects.get(id=request.user.id).administrador
+        context_dict['administrador'] = administrador
 
         if id:
             try:
@@ -54,6 +57,7 @@ class DependenteView(View):
         context_dict['segurado'] = segurado
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
+        context_dict['dependente'] = True
         return render(request, self.template, context_dict)
 
     def post(self, request, id_segurado=None, msg=None, tipo_msg=None):
@@ -144,17 +148,18 @@ class DependenteView(View):
     @classmethod
     def ListaDependentes(self, request, msg=None, tipo_msg=None):
         context_dict = {}
+        administrador = ServidorModel.objects.get(id=request.user.id).administrador
+        context_dict['administrador'] = administrador
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
-                dependente1 = DependenteModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=False)
-                dependente2 = DependenteModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=False)
-                dependente3 = DependenteModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=False)
-                dependentes = list(dependente1) + list(dependente2) + list(dependente3)
-                dependentes = list(set(dependentes))
+                dependentes = DependenteModel.objects.filter(
+                    Q(cpf__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(nome__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(email__icontains=request.GET.get('filtro'), excluido=False)).order_by('nome')
             else:
                 dependentes = DependenteModel.objects.filter(excluido=False)
         else:
-            dependentes = DependenteModel.objects.filter(excluido=False)
+            dependentes = DependenteModel.objects.filter(excluido=False).order_by('nome')
 
         for dependente in dependentes:
             dependente.segurado = SeguradoModel.objects.get(dependente__id=dependente.id)

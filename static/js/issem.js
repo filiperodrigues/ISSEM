@@ -325,6 +325,30 @@ function atualiza_select_local_trabalho(id_local_trabalho) {
         },
     });
 }
+function campo_obrigatorio() {
+    var opcao = document.getElementById("opcao").value;
+    var grupos = document.getElementById("grupos").value;
+    if (opcao == "") {
+        document.getElementById("erroopcao").innerHTML = "Este campo é obrigatório.";
+        document.getElementById("erroopcao").className = "ui pointing red basic label";
+
+        //alert("div");
+    } else {
+        document.getElementById("erroopcao").innerHTML = "";
+        document.getElementById("erroopcao").className = "";
+    }
+    if (grupos == "") {
+
+        document.getElementById("errogrupo").innerHTML = "Este campo é obrigatório.";
+        document.getElementById("errogrupo").className = "ui pointing red basic label";
+
+        //alert("div2 do barry");
+    } else {
+        document.getElementById("errogrupo").innerHTML = "";
+        document.getElementById("errogrupo").className = "";
+
+    }
+}
 
 // function get_procedimento_medico() {
 //     alert('inicio');

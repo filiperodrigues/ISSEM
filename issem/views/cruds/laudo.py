@@ -6,7 +6,7 @@ from issem.forms import LaudoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-
+from django.db.models import Q
 
 # TODO
 
@@ -68,7 +68,7 @@ class LaudoView(View):
         context_dict = {}
 
         from issem.views import pagination, CidModel
-        laudos = CidModel.objects.all()
+        laudos = CidModel.objects.all().order_by('laudomodel__requerimento__segurado')
 
         dados, page_range, ultima = pagination(laudos, request.GET.get('page'))
         context_dict['dados'] = dados

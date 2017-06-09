@@ -7,6 +7,7 @@ from django.views.generic.base import View
 from issem.views.pagination import pagination
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from django.db.models import Q
 
 
 class BeneficioView(View):
@@ -79,15 +80,19 @@ class BeneficioView(View):
             ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
             FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
             if 'filtro' in request.GET:
-                beneficio1 = BeneficioModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=False)
-                beneficio2 = BeneficioModel.objects.filter(numero_portaria__icontains=request.GET.get('filtro'), excluido=False)
-                beneficio3 = BeneficioModel.objects.filter(concessao__icontains=request.GET.get('filtro'), excluido=False)
-                beneficios = list(beneficio1) + list(beneficio2) + list(beneficio3)
-                beneficios = list(set(beneficios))
+                concessao = None
+                if request.GET.get('filtro').lower() in 'sim':
+                    concessao = True
+                elif request.GET.get('filtro').lower() in 'não':
+                    concessao = False
+                beneficios = BeneficioModel.objects.filter(
+                    Q(descricao__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(numero_portaria__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(concessao=concessao, excluido=False)).order_by('descricao')
             else:
                 beneficios = BeneficioModel.objects.filter(excluido=False)
         else:
-            beneficios = BeneficioModel.objects.filter(excluido=False)
+            beneficios = BeneficioModel.objects.filter(excluido=False).order_by('descricao')
 
         dados, page_range, ultima = pagination(beneficios, request.GET.get('page'))
         context_dict['dados'] = dados

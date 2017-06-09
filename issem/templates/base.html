@@ -53,7 +53,7 @@
         {% if user.groups.all.0.name == 'Tecnico' %}
             <a href="{% url 'issem:index' %}" class="item">Técnico</a>
         {% endif %}
-        {% if user.groups.all.0.name == "Administrativo" %}
+        {% if user.groups.all.0.name == "Administrativo"  %}
             <a href="{% url 'issem:index' %}" class="item">Administrativo</a>
         {% endif %}
         {% if user.groups.all.0.name == "Segurado" %}

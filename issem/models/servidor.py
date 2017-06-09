@@ -7,6 +7,7 @@ from issem.models.pessoa import PessoaModel
 class ServidorModel(PessoaModel):
     crm = models.CharField(max_length=32, blank=True)
     funcao = models.ForeignKey(FuncaoModel, null=True, blank=True)
+    administrador = models.BooleanField(blank=True)
 
     def __unicode__(self):
         return self.nome

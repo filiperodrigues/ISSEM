@@ -46,7 +46,7 @@
             </div>
 
             <div class="three wide column">
-                {% if id %}
+                {% if id and administrador %}
                     <div class="ui right floated vertical buttons">
                         <a href="{% url 'issem:edita_senha' id id_group_user %}"
                            class="ui labeled icon button secondary">

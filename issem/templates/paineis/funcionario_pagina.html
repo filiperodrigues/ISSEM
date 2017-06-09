@@ -87,11 +87,11 @@
     </div>
 
     <!-- MODAL -->
-    {% if proximos_agendamentos %}
+    {% if agendamentos %}
         <div class="ui centered grid form modal modalConsultas">
             <i class="close icon"></i>
             <div class="header">
-                Próximas Consultas
+                Consultas nas próximas 72 horas
             </div>
 
             <div class="content">
@@ -106,7 +106,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for agendamento in proximos_agendamentos %}
+                    {% for agendamento in agendamentos %}
                         <tr>
                             <td>{{ agendamento.data_pericia }}</td>
                             <td>{{ agendamento.hora_pericia }}</td>

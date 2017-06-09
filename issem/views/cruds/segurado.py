@@ -1,5 +1,5 @@
 # coding:utf-8
-from django.http import Http404
+from django.http import Http404, request
 from django.shortcuts import render
 from issem.models import SeguradoModel, DependenteModel
 from issem.forms import SeguradoFormEdit, SeguradoFormCad
@@ -7,7 +7,9 @@ from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group, User
+from issem.models import ServidorModel
 from issem.views.pagination import pagination
+from django.db.models import Q
 
 
 class SeguradoView(View):
@@ -20,6 +22,9 @@ class SeguradoView(View):
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
+        if request.user.groups.all()[0] == "Servidor":
+            administrador = ServidorModel.objects.get(id=request.user.id).administrador
+            context_dict['administrador'] = administrador
 
         if id:
             try:
@@ -129,19 +134,20 @@ class SeguradoView(View):
     @classmethod
     def ListaSegurados(self, request, msg=None, tipo_msg=None):
         context_dict = {}
+        administrador = ServidorModel.objects.get(id=request.user.id).administrador
+        context_dict['administrador'] = administrador
         if request.GET:
             ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
             FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
             if 'filtro' in request.GET:
-                segurado1 = SeguradoModel.objects.filter(cpf__icontains=request.GET.get('filtro'), excluido=False)
-                segurado2 = SeguradoModel.objects.filter(nome__icontains=request.GET.get('filtro'), excluido=False)
-                segurado3 = SeguradoModel.objects.filter(email__icontains=request.GET.get('filtro'), excluido=False)
-                segurados = list(segurado1) + list(segurado2) + list(segurado3)
-                segurados = list(set(segurados))
+                segurados = SeguradoModel.objects.filter(
+                    Q(cpf__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(nome__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(email__icontains=request.GET.get('filtro'), excluido=False)).order_by('nome')
             else:
                 segurados = SeguradoModel.objects.filter(excluido=False)
         else:
-            segurados = SeguradoModel.objects.filter(excluido=False)
+            segurados = SeguradoModel.objects.filter(excluido=False).order_by('nome')
 
         dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
         context_dict['dados'] = dados

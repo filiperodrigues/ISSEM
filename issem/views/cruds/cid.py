@@ -7,6 +7,7 @@ from django.views.generic.base import View
 from issem.views.pagination import pagination
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from django.db.models import Q
 
 
 class CidView(View):
@@ -79,17 +80,24 @@ class CidView(View):
             ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
             FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
             if 'filtro' in request.GET:
-                cid1 = CidModel.objects.filter(descricao__icontains=request.GET.get('filtro'), excluido=False)
-                cid2 = CidModel.objects.filter(cod_cid__icontains=request.GET.get('filtro'), excluido=False)
-                cid3 = CidModel.objects.filter(gravidade__icontains=request.GET.get('filtro'), excluido=False)
-                cids = list(cid1) + list(cid2) + list(cid3)
-                cids = list(set(cids))
+                gravidade = None
+                if request.GET.get('filtro').lower() in 'sim':
+                    gravidade = True
+                elif request.GET.get('filtro').lower() in 'não':
+                    gravidade = False
+
+                cids = CidModel.objects.filter(
+                    Q(descricao__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(cod_cid__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(gravidade=gravidade, excluido=False)).order_by('descricao')
             else:
                 cids = CidModel.objects.filter(excluido=False)
         else:
-            cids = CidModel.objects.filter(excluido=False)
+            cids = CidModel.objects.filter(excluido=False).order_by('descricao')
 
         dados, page_range, ultima = pagination(cids, request.GET.get('page'))
+
+
         context_dict['dados'] = dados
         context_dict['page_range'] = page_range
         context_dict['ultima'] = ultima

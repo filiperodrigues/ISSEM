@@ -18,10 +18,15 @@ class PaginaFuncionarioView(View):
     @method_decorator(user_passes_test(group_test))
     def get(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        hoje_mais_um_dia = date.today() + timedelta(days=1)
-        hoje_mais_dois_dias = date.today() + timedelta(days=2)
-        context_dict['proximos_agendamentos'] = AgendamentoModel.objects.filter(
-            Q(data_pericia=hoje_mais_um_dia) | Q(data_pericia=hoje_mais_dois_dias)).order_by('data_pericia')
+        amanha = date.today() + timedelta(days=1)
+        depois_de_amanha = date.today() + timedelta(days=2)
+        agendamentos = AgendamentoModel.objects.filter(
+            Q(data_pericia=date.today()) |
+            Q(data_pericia=amanha) |
+            Q(data_pericia=depois_de_amanha)).order_by('data_pericia')[:10]
+        num_agendamentos = len(agendamentos)
+        context_dict['agendamentos'] = agendamentos
+        context_dict['num_agendamentos'] = num_agendamentos
         context_dict['beneficios'] = BeneficioModel.objects.filter(excluido=False)
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg

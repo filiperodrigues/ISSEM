@@ -50,7 +50,7 @@
                                 <i class="key icon"></i> Alterar Senha
                             </a>
                         </div>
-                    {% else %}
+                    {% elif administrador %}
                         <div class="ui right floated vertical buttons">
                             <a href="{% url 'issem:edita_senha' id id_group_user %}"
                                class="ui labeled icon button secondary">
@@ -124,7 +124,6 @@
                             </div>
                         </div>
                     </div>
-
                     {% include 'blocos/buttons_form.html' %}
                 </form>
 

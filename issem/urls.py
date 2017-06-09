@@ -140,6 +140,9 @@ urlpatterns = [
     # PERFIL
     url(r'^perfil/(?P<id>\d+)$', PerfilView.as_view(), name='perfil'),
 
+    #Alteração de Grupo
+    url(r'^grupo/(?P<id>\d+)/$', Grupo.as_view(), name='grupo'),
+    url(r'^altera_grupo/(?P<id>\d+)/$', Grupo.as_view(), name='altera_grupo'),
 
     # 404
     url(r'', TemplateView.as_view(template_name='404.html'), name='404'),

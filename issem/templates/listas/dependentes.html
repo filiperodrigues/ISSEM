@@ -83,6 +83,13 @@
                             {% endif %}
 
                             <td class="ui right aligned">
+                                {% if administrador %}
+                                    <a href="#">
+                                        <div class="ui labeled icon button">
+                                            <i class="exchange icon"></i> Transferência de Grupo
+                                        </div>
+                                    </a>
+                                {% endif %}
                                 <a href="{% url 'issem:edita_dependente' dado.id %}">
                                     <div class="ui labeled icon button">
                                         <i class="edit icon"></i> Editar
