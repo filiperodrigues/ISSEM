@@ -50,7 +50,7 @@
     </div>
     <div class="ui centered grid issem-grid-message">
         {%if possui_requerimento_aberto %}
-            <div class="ui yellow message">Você possui um requerimento aguardando agendamento pelo Servidor ISSEM</div>
+            <div class="ui yellow message">Você possui um <a href="{% url 'issem:visualizar_requerimento_sem_agendamento' id_requerimento_sem_agendamento %}">requerimento</a> aguardando agendamento pelo Servidor ISSEM</div>
         {% endif %}
     </div>
 

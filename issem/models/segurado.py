@@ -7,10 +7,10 @@ from issem.models.funcao import FuncaoModel
 
 
 class SeguradoModel(PessoaModel):
-    pasep_pis_nit = models.CharField(blank=True, max_length=128)
+    pasep_pis_nit = models.CharField(blank=True, max_length=15)
     local_trabalho = models.ForeignKey(LocalTrabalhoModel, null=True)
     data_admissao = models.DateField()
-    documento_legal = models.CharField(blank=True, max_length=128)
+    documento_legal = models.CharField(blank=True, max_length=15)
     dependente = models.ManyToManyField(DependenteModel, blank=True)
     funcao = models.ForeignKey(FuncaoModel, null=True, blank=True)
 

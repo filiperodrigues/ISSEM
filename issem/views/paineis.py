@@ -60,5 +60,7 @@ class PaginaSeguradoView(View):
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         if RequerimentoModel.objects.filter(segurado=User.objects.get(pk=request.user.id), possui_agendamento=False):
+            requerimento = RequerimentoModel.objects.get(segurado=User.objects.get(pk=request.user.id), possui_agendamento=False)
             context_dict['possui_requerimento_aberto'] = True
+            context_dict['id_requerimento_sem_agendamento'] = requerimento.id
         return render(request, self.template, context_dict)
