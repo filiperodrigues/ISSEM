@@ -61,7 +61,9 @@
                     {% for dado in dados %}
                         <tr>
                             {% if dado.data_pericia != "" %}
-                                <td>{{ dado.data_pericia }}</td>
+                                <td>
+                                    <a href="{% url 'issem:visualizar_requerimento' dado.id %}">{{ dado.data_pericia }}</a>
+                                </td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
@@ -76,7 +78,7 @@
                                 <td>---</td>
                             {% endif %}
                             {% if dado.requerimento.beneficio != "" %}
-                                <td>{{ dado.requerimento.beneficio }}</td>
+                                <td><a href="{% url 'issem:visualizar_requerimento' dado.id %}">{{ dado.requerimento.beneficio }}</a></td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
@@ -85,6 +87,11 @@
                                 <a href="{% url 'issem:edita_requerimento' dado.requerimento.id dado.id %}">
                                     <div class="ui labeled icon button">
                                         <i class="edit icon"></i> Editar
+                                    </div>
+                                </a>
+                                <a href="{% url 'issem:visualizar_requerimento' dado.id %}">
+                                    <div class="ui labeled icon button blue">
+                                        <i class="edit icon"></i> Visualizar
                                     </div>
                                 </a>
                             </td>

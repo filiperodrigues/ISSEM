@@ -236,7 +236,7 @@ def EnviaEmail(id_usuario, id_agendamento):
     parametros_configuracoes = ParametrosConfiguracaoModel.objects.get(pk=1)
     if (segurado.email):
         msg_topo = (
-        "Prezado(a) senhor(a) <strong>Vinícius de Oliveira</strong>, você possui uma visita junto ao ISSEM. Segue as informações:<br/><br/>")
+        "Prezado(a) senhor(a) <strong>" + segurado.nome +"</strong>, você possui uma visita junto ao ISSEM. Segue as informações:<br/><br/>")
         msg_nome_segurado = "<strong>Agendado para: </strong>" + segurado.nome + (
         " (CPF: " + segurado.cpf + ")") + "<br/>"
         msg_data_atendimento = "<strong>Data do atendimento: </strong>" + str(agendamento.data_pericia)[8:] + "/" + str(
@@ -382,3 +382,18 @@ def ListaRequerimentosSegurado(request, id=None):
     context_dict['page_range'] = page_range
     context_dict['ultima'] = ultima
     return render(request, 'listas/requerimentos_segurado.html', context_dict)
+
+
+def VisualizarRequerimento(request, id=None):
+    requerimento = RequerimentoModel.objects.get(pk=id)
+    agendamento = AgendamentoModel.objects.get(requerimento=id)
+    context_dict = {}
+    context_dict['requerimento'] = requerimento
+    context_dict['agendamento'] = agendamento
+    return render(request, 'estatico/visualiza_requerimento.html', context_dict)
+
+def VisualizarRequerimentoSemAgendamento(request, id=None):
+    requerimento = RequerimentoModel.objects.get(pk=id)
+    context_dict = {}
+    context_dict['requerimento'] = requerimento
+    return render(request, 'estatico/visualiza_requerimento_sem_agendamento.html', context_dict)

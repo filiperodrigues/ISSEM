@@ -37,6 +37,7 @@
                     <tr>
                         <th>Benefício</th>
                         <th>Data do agendamento</th>
+                        <th>Ações</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,6 +53,13 @@
                             {% else %}
                                 <td>---</td>
                             {% endif %}
+                            <td>
+                                <a href="{% url 'issem:visualizar_requerimento' dado.id %}">
+                                    <div class="ui labeled icon button blue">
+                                        <i class="edit icon"></i> Visualizar
+                                    </div>
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

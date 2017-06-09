@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block body_tag %}
+    <body onload="calendar_input();">
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="ui centered grid issem-grid">
+        <div class="ui row segment issem-segment issem-segment-border">
+
+            <div class="three wide column">
+                <a href="{% url 'issem:tabela_agendamentos' %}">
+                    <div class="ui labeled icon button basic">
+                        <i class="left arrow icon"></i> Voltar
+                    </div>
+                </a>
+            </div>
+
+            <div class="ten wide column">
+                <div class="issem-title-edit-page">
+                    <h1><i class="treatment icon"></i> Requerimento: {{ requerimento.beneficio }}</h1>
+                </div>
+            </div>
+
+            <div class="three wide column"></div>
+
+            <div class="sixteen wide column">
+                <br/>
+                <br/>
+                <br/>
+                <div class="ui grid">
+                    <div class="five wide column">
+                        <div class="ui segment">
+                            <h4 class="ui dividing red header">Dados do segurado</h4>
+                            <ul>
+                                <li><strong>Segurado: </strong><br/>{{ requerimento.segurado.nome }}</li>
+                                <br/>
+                                <li><strong>CPF: </strong><br/>{{ requerimento.segurado.cpf }}</li>
+                                <br/>
+                                <li><strong>E-mail: </strong><br/>{{ requerimento.segurado.email }}</li>
+                                <br/>
+                                <li><strong>Telefone residêncial: </strong><br/>
+                                    {% if requerimento.segurado.telefone_residencial %}
+                                        {{ requerimento.segurado.telefone_residencial }}
+                                    {% else %}
+                                            -----------
+                                    {% endif %}
+                                </li>
+                                <br/>
+                                <li><strong>Telefone celular: </strong><br/>
+                                    {% if requerimento.segurado.telefone_celular %}
+                                        {{ requerimento.segurado.telefone_celular }}
+                                    {% else %}
+                                            -----------
+                                    {% endif %}
+                                </li>
+                                <br/>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="six wide column">
+                        <div class="ui segment">
+                            <h4 class="ui dividing red header">Dados do requerimento</h4>
+                            <ul>
+                                <li><strong>Data de início do
+                                    afastamento: </strong><br/>{{ requerimento.data_inicio_afastamento }}</li>
+                                <br/>
+                                <li><strong>Data de término do
+                                    afastamento: </strong><br/>{{ requerimento.data_final_afastamento }}</li>
+                                <br/>
+                                <li><strong>Data do requerimento: </strong><br/>{{ requerimento.data_requerimento }}
+                                </li>
+                                <br/>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="five wide column">
+                        <div class="ui segment">
+                            <h4 class="ui dividing red header">Dados do agendamento</h4>
+                            <ul>
+                                <li><strong>Data do agendamento: </strong><br/>{{ agendamento.data_agendamento }}</li>
+                                <br/>
+                                <li><strong>Data e hora da perícia: </strong><br/>{{ agendamento.data_pericia }} às
+                                    {{ agendamento.hora_pericia }}</li>
+                                <br/>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

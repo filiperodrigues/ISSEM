@@ -13,9 +13,11 @@ class GeraAgendamentoServidorView(View):
     template_painel = 'paineis/funcionario_pagina.html'
 
     def get(self, request, id_requerimento=None, id_beneficio=None, id_agendamento=None, msg=None, tipo_msg=None):
+        print("no get")
         context_dict = {}
         var_controle = True
         if id_beneficio:
+            print("1")
             try:
                 beneficio = BeneficioModel.objects.get(pk=id_beneficio)
             except:
@@ -26,6 +28,7 @@ class GeraAgendamentoServidorView(View):
             beneficio_descricao = ""
             beneficio_id = ""
         if id_requerimento:
+            print("2")
             try:
                 # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
                 requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
@@ -36,6 +39,9 @@ class GeraAgendamentoServidorView(View):
             beneficio_descricao = requerimento.beneficio.descricao
             form_requerimento = RequerimentoForm(instance=requerimento)
             form_agendamento = AgendamentoForm(instance=agendamento)
+            context_dict['agendamento_sem_requerimento'] = True
+            context_dict['segurado_nome'] = requerimento.segurado.nome
+            context_dict['segurado_id'] = requerimento.segurado.id
         else:
             form_requerimento = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
             form_agendamento = AgendamentoForm()
@@ -52,6 +58,7 @@ class GeraAgendamentoServidorView(View):
         return render(request, self.template, context_dict)
 
     def post(self, request, id_requerimento=None, msg=None, tipo_msg=None):
+        print("no post")
         context_dict = {}
         if request.POST['id']:  # EDIÇÃO
             try:

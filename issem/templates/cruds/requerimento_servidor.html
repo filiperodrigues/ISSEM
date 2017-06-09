@@ -76,7 +76,14 @@
                     <div class="five wide field"></div>
                     <div class="six wide field">
                         <label>Segurado<i class="asterisk icon red"></i></label>
-                        {{ form_requerimento.segurado }}
+                        {% if agendamento_sem_requerimento %}
+                            <select class="ui fluid search selection dropdown" id="id_segurado" name="segurado">
+                                <option value="">---------</option>
+                                <option value="{{ segurado_id }}" selected="selected">{{ segurado_nome }}</option>
+                            </select>
+                        {% else %}
+                            {{ form_requerimento.segurado }}
+                        {% endif %}
                         {% if form_requerimento.segurado.errors %}
                             <div class="ui pointing red basic label issem-error-field">
                                 {{ form_requerimento.segurado.errors }}

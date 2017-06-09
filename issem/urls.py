@@ -123,6 +123,8 @@ urlpatterns = [
         name='tabela_requerimentos_sem_agendamento'),
     url(r'^comprovante_agendamento/pdf/(?P<id_agendamento>\d+)/(?P<id_usuario>\d+)/$',
         views.GeraComprovanteAgendamento, name='comprovante_agendamento'),
+    url(r'^pagina_requerimento/(?P<id>\d+)/$', views.VisualizarRequerimento, name='visualizar_requerimento'),
+    url(r'^pagina_requerimento_sem_agendamento/(?P<id>\d+)/$', views.VisualizarRequerimentoSemAgendamento, name='visualizar_requerimento_sem_agendamento'),
 
     # LAUDO
     url(r'^laudo/(?P<id>\d+)/$', LaudoView.VisualizarLaudo, name='visualizar_laudo'),
