@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-
     <div class="ui centered grid issem-grid">
         <div class="ui row segment issem-segment issem-segment-border">
 
@@ -17,13 +16,13 @@
 
             <div class="three wide column">
                 <a href="{% url 'issem:index' %}">
-                    <div class="ui labeled icon button {% url 'issem:index' %}basic">
+                    <div class="ui labeled icon button basic">
                         <i class="left arrow icon"></i> Voltar
                     </div>
                 </a>
             </div>
 
-            <div class="ten wide column issem-margin-bottom">
+            <div class="ten wide column">
                 <div class="issem-title-edit-page">
                     <h1><i class="exchange icon"></i> Transferência de Grupo</h1>
                     <h2><i class="user icon"></i>{{ nome }}</h2>
@@ -32,56 +31,57 @@
             </div>
 
             <div class="three wide column"></div>
-            <div class="four wide column"></div>
-            <form class="ui eight wide column ui centered aligned form" action="{% url 'issem:altera_grupo' id %}"
-                  method="POST">
 
-                {% csrf_token %}
-                <div class="two fields">
-                    <div class="field">
-                        <label>Grupo atual</label>
-                        <input type="text" class="issem-input-disabled" disabled="disabled"
-                               value="{{ grupo.name }}"/>
-                    </div>
-                    <div class="field">
-                        <label>Opção<i class="asterisk icon red"></i></label>
+            <div class="sixteen wide column issem-table-form">
+                <form class="ui eight wide column ui centered aligned form" action="{% url 'issem:altera_grupo' id %}"
+                      method="POST">
 
-                        <select class="ui dropdown" id="opcao" name="opcao" required>
-                            <option value="">Selecione uma opção</option>
-                            <option value="1">Atualizar</option>
-                            <option value="2">Adicionar</option>
-                        </select>
+                    {% csrf_token %}
+                    <div class="fields">
+                        <div class="two wide field"></div>
 
-                        <div id="erroopcao">
+                        <div class="four wide field">
+                            <label>Grupo atual</label>
+                            <input type="text" class="issem-input-disabled" disabled="disabled"
+                                   value="{{ grupo.name }}"/>
                         </div>
 
+                        <div class="four wide field">
+                            <label>Opção<i class="asterisk icon red"></i></label>
 
-                    </div>
-                    <div class="field">
-                        <label>Novo(s) grupos(s)<i class="asterisk icon red"></i></label>
-                        <select multiple="" class="ui dropdown" id="grupos" name="grupos" required="required">
-                            <option value="">Selecione um grupo</option>
-                            {% for g in grupos %}
-                                <option value="{{ g.id }}">{{ g.name }}</option>
-                            {% endfor %}
-                        </select>
-                        <div ></div>
-                    <div  id="errogrupo">
+                            <select class="ui dropdown" id="opcao" name="opcao" required>
+                                <option value="">Selecione uma opção</option>
+                                <option value="1">Atualizar</option>
+                                <option value="2">Adicionar</option>
+                            </select>
 
+                            <div id="erroopcao">
+                            </div>
+                        </div>
+
+                        <div class="four wide field">
+                            <label>Novo(s) grupos(s)<i class="asterisk icon red"></i></label>
+                            <select multiple="" class="ui dropdown" id="grupos" name="grupos" required="required">
+                                <option value="">Selecione um grupo</option>
+                                {% for g in grupos %}
+                                    <option value="{{ g.id }}">{{ g.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <div id="errogrupo"></div>
+                        </div>
+                        <div class="two wide field"></div>
                     </div>
+
+                    <br/>
+                    <div class="ui centered grid">
+                        <div class="ui column centered row">
+                            <button type="submit" onclick="campo_obrigatorio()" class="ui button green">
+                                Atualizar
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="three fields ">
-                    <div class="field"></div>
-                    <div class="field">
-                        <button type="submit" onclick="campo_obrigatorio()" class="ui button green">
-                            Atualizar
-                        </button>
-                    </div>
-                    <div class="field"></div>
-                </div>
-            </form>
-            <div class="four wide column"></div>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

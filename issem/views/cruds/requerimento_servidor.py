@@ -84,7 +84,7 @@ class RequerimentoServidorView(View):
                 form_agendamento_model.hora_pericia = form_agendamento._raw_value('hora_pericia')
 
                 form_agendamento_model.save()
-                enviar_email = EnviaEmail(requerimento.segurado, form_agendamento_model.id)
+                EnviaEmail(requerimento.segurado, form_agendamento_model.id)
 
             msg = "Consulta agendada"
             tipo_msg = 'green'

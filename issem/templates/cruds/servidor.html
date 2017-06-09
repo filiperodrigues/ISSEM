@@ -39,7 +39,7 @@
 
             <div class="three wide column">
                 {% if id or administrador %}
-                    <div class="ui right floated vertical buttons">
+                    <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
                         <a href="{% url 'issem:edita_senha' id id_group_user %}"
                            class="ui labeled icon button secondary">
                             <i class="key icon"></i> Alterar Senha

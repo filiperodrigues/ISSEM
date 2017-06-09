@@ -46,13 +46,13 @@ class SeguradoFormEdit(PessoaEditForm):
 
     def __init__(self, *args, **kwargs):
         try:
-
             id = kwargs.pop('id')
-            segurado = SeguradoModel.objects.get(id=id)
+            segurado = SeguradoModel.objects.get(pk=id)
             super(SeguradoFormEdit, self).__init__(*args, **kwargs)
 
-            self.fields['estado_natural'].initial = segurado.cidade_natural.uf.id
-            self.fields['estado_atual'].initial = segurado.cidade_atual.uf.id
-
+            if self.fields['estado_natural']:
+                self.fields['estado_natural'].initial = segurado.cidade_natural.uf.id
+            if self.fields['estado_atual']:
+                self.fields['estado_atual'].initial = segurado.cidade_atual.uf.id
         except:
-            print("ERROR")
+            pass

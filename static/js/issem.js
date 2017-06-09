@@ -349,25 +349,3 @@ function campo_obrigatorio() {
 
     }
 }
-
-// function get_procedimento_medico() {
-//     alert('inicio');
-//     $.ajax({
-//         type: 'POST',
-//         url: '/issem/busca_procedimentos_medicos/',
-//         data: {
-//             procedimento_medico: $("div[id='div_procedimento'] input[class='search']").val(),
-//             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-//         },
-//         dataType: 'json',
-//         success: function (data) {
-//             var options = '';
-//             for (var i = 0; i < data.length; i++) {
-//                 options += '<option value="' + data[i].pk + '">' + data[i].fields['procedimento'] + '</option>';
-//             }
-//             alert(options);
-//             $("select#id_procedimento_medico").html(options);
-//         }
-//     });
-//     alert("fim");
-// }

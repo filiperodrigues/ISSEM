@@ -22,8 +22,8 @@ class SeguradoView(View):
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
-        if request.user.groups.all()[0] == "Servidor":
-            administrador = ServidorModel.objects.get(id=request.user.id).administrador
+        if str(request.user.groups.all()[0]) == "Administrativo":
+            administrador = ServidorModel.objects.get(pk=request.user.id).administrador
             context_dict['administrador'] = administrador
 
         if id:
@@ -134,8 +134,6 @@ class SeguradoView(View):
     @classmethod
     def ListaSegurados(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        administrador = ServidorModel.objects.get(id=request.user.id).administrador
-        context_dict['administrador'] = administrador
         if request.GET:
             ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
             FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
@@ -149,10 +147,16 @@ class SeguradoView(View):
         else:
             segurados = SeguradoModel.objects.filter(excluido=False).order_by('nome')
 
+        if not request.user.is_superuser:
+            administrador = ServidorModel.objects.get(pk=request.user.id).administrador
+        else:
+            administrador = 0
+
         dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
         context_dict['dados'] = dados
         context_dict['page_range'] = page_range
         context_dict['ultima'] = ultima
+        context_dict['administrador'] = administrador
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')

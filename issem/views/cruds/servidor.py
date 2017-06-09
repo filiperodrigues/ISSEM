@@ -183,7 +183,10 @@ class ServidorView(View):
 
         dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
         usuario_logado = User.objects.get(pk=request.user.id)
-        administrador = ServidorModel.objects.get(id=request.user.id)
+        if not request.user.is_superuser:
+            administrador = ServidorModel.objects.get(pk=request.user.id).administrador
+        else:
+            administrador = 0
 
         context_dict['grupo_controle'] = request.POST['filtro_grupo'] if request.POST else ""
         context_dict['dados'] = dados
@@ -193,5 +196,5 @@ class ServidorView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
         context_dict['usuario_logado'] = usuario_logado
-        context_dict['administrador'] = administrador.administrador
+        context_dict['administrador'] = administrador
         return render(request, self.template_lista, context_dict)
