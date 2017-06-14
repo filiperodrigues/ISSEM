@@ -52,8 +52,8 @@ class CadPessoaForm(forms.ModelForm):
         model = PessoaModel
         fields = "__all__"
 
-    # def clean_cpf(self):
-    #     return ValidarCPF(self.cleaned_data.get('cpf'))
+    def clean_cpf(self):
+        return ValidarCPF(self.cleaned_data.get('cpf'))
 
     def clean_password(self):
         return ValidarTamanhoPassword(self.cleaned_data['password'])
@@ -109,8 +109,8 @@ class PessoaEditForm(forms.ModelForm):
         model = PessoaModel
         fields = "__all__"
 
-    # def clean_cpf(self):
-    #     return ValidarCPF(self.cleaned_data.get('cpf'))
+    def clean_cpf(self):
+        return ValidarCPF(self.cleaned_data.get('cpf'))
 
     def save(self, commit=True):
         try:

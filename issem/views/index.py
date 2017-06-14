@@ -21,5 +21,8 @@ def index(request):
             return HttpResponseRedirect(reverse('issem:funcionario'))
         else:
             return render(request, 'paineis/index.html')
-
-    return render(request, 'paineis/index.html')
+    elif request.user.is_superuser:
+        return render(request, 'paineis/index.html')
+    else:
+        return render(request, 'paineis/index.html', {'msg': 'Ocorreu algum erro no login, verifique e tente novamente.',
+                                                      'tipo_msg': 'red'})

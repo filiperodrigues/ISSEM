@@ -171,12 +171,11 @@ function get_cidade_natural() {
         },
         dataType: 'json',
         success: function (data) {
-
             var options = '';
             for (var i = 0; i < data.length; i++) {
                 options += '<option value="' + data[i].pk + '">' + data[i].fields['nome'] + '</option>';
             }
-            $("#id_cidade_natural").html(options);
+            $("select#id_cidade_natural").html(options);
         }
     });
 }

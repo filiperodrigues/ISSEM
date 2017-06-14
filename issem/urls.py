@@ -97,6 +97,7 @@ urlpatterns = [
 
     # CIDADE / ESTADO
     url(r'^escolha_cidade_atual/$', CidadeView.as_view(), name='escolha_cidade_atual'),
+    url(r'^escolha_cidade_natural/$', CidadeView.as_view(), name='escolha_cidade_natural'),
     url(r'^escolha_cidade_local_trabalho/$', CidadeView.as_view(), name='escolha_cidade_local_trabalho'),
 
     # CONSULTA PARÂMETROS
@@ -142,7 +143,7 @@ urlpatterns = [
     # PERFIL
     url(r'^perfil/(?P<id>\d+)$', PerfilView.as_view(), name='perfil'),
 
-    #Alteração de Grupo
+    # ALTERAÇÃO DE GRUPO
     url(r'^grupo/(?P<id>\d+)/$', Grupo.as_view(), name='grupo'),
     url(r'^altera_grupo/(?P<id>\d+)/$', Grupo.as_view(), name='altera_grupo'),
 

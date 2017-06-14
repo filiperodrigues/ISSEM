@@ -41,8 +41,6 @@ class ServidorView(View):
             form = ServidorFormCad()  # MODO CADASTRO: recebe o formulário vazio
             id_group_user = ""
 
-
-        context_dict['method'] = 'get'
         context_dict['form'] = form
         context_dict['id'] = id
         context_dict['id_group_user'] = id_group_user
