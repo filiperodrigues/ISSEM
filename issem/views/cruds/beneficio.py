@@ -40,6 +40,7 @@ class BeneficioView(View):
         context_dict = {}
         valido = False
         if request.POST['id']:  # EDIÇÃO
+
             id = request.POST['id']
             try:
                 beneficio = BeneficioModel.objects.get(pk=id, excluido=False)
