@@ -12,7 +12,6 @@ class RequerimentoForm(forms.ModelForm):
 
     data_final_afastamento = forms.DateField(widget=forms.DateInput(attrs={'placeholder':'DD/MM/AAAA'}))
 
-
     segurado = forms.ModelChoiceField(
         queryset=SeguradoModel.objects.all(),
         widget=forms.Select(attrs={"class": "ui fluid search selection dropdown", })

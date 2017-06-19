@@ -156,7 +156,7 @@ def populate():
         [20, 5, '08:00', 2, 2, 365,
          '<address>Instituto de Seguridade dos Servidores Municipais</address><address>Walter Marquardt, 623 - Barra do Rio Molha - Jaragua do Sul - SC / Fone: (47)3270 3900</address>',
          '<p><strong>Hor&aacute;rio de Atendimento</strong></p><p>Guias M&eacute;dicas (Sala 06) - Segunda &agrave; Sexta:<br /> <strong>07h30 &agrave;s 16h</strong></p><p>Demais Setores - Segunda &agrave; Sexta:<br /> <strong>07h30 &agrave;s 11h30 -- 13h &agrave;s 16h<br /> </strong></p><p><strong>Simula&ccedil;&atilde;o Benef&iacute;cios </strong><em>(Agendamento pelo fone):</em></p><p><strong>(47) 3270-3933</strong></p>',
-         'Só poderão ser realizados requerimentos online para afastamentos com períodos maiores que 15(quinze) dias.', '(47)3270 3900'],    ]
+         '<p>Lei 4326/2006</p> <p>Art. 10 Todo atestado ou laudo, passado por m&eacute;dico ou junta m&eacute;dica particular, somente produzir&aacute; efeitos ap&oacute;s a sua homologa&ccedil;&atilde;o pela junta m&eacute;dica do ISSEM.</p> <p>Par&aacute;grafo &Uacute;nico: N&atilde;o havendo homologa&ccedil;&atilde;o o servidor p&uacute;blico reassumir&aacute; o cargo, sendo consideradas como faltas injustificadas os dias que alegou doen&ccedil;a.</p> ', '(47)3270 3900'],    ]
     for cp in consulta_parametros:
         add_consulta_parametros(cp[0], cp[1], cp[2], cp[3], cp[4], cp[5], cp[6], cp[7], cp[8], cp[9])
 

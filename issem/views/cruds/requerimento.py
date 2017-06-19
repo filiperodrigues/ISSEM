@@ -104,7 +104,7 @@ class RequerimentoView(View):
             requerimento = RequerimentoModel.objects.latest('id')
             id = requerimento.id
             agendamento = AgendamentoModel()
-            consulta_parametros = ParametrosConfiguracaoModel.objects.get(id=1)
+            consulta_parametros = ParametrosConfiguracaoModel.objects.all().last()
 
             dias_gap_agendamento = int(consulta_parametros.gap_agendamento)
             prazo_pericia_final = requerimento.data_final_afastamento + timedelta(days=dias_gap_agendamento)
@@ -233,7 +233,7 @@ def RequerimentoAgendamentoDelete(request, id_requerimento, id_agendamento):
 def EnviaEmail(id_usuario, id_agendamento):
     segurado = SeguradoModel.objects.get(pk=id_usuario)
     agendamento = AgendamentoModel.objects.get(pk=id_agendamento)
-    parametros_configuracoes = ParametrosConfiguracaoModel.objects.get(pk=1)
+    parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
     if (segurado.email):
         msg_topo = (
         "Prezado(a) senhor(a) <strong>" + segurado.nome +"</strong>, você possui uma visita junto ao ISSEM. Segue as informações:<br/><br/>")
@@ -242,6 +242,7 @@ def EnviaEmail(id_usuario, id_agendamento):
         msg_data_atendimento = "<strong>Data do atendimento: </strong>" + str(agendamento.data_pericia)[8:] + "/" + str(
             agendamento.data_pericia)[5:7] + "/" + str(agendamento.data_pericia)[0:4] + "<br/>"
         msg_hora_consulta = "<strong>Horário da consulta: </strong>" + str(agendamento.hora_pericia)[:5] + "h"
+        msg_complemento = parametros_configuracoes.msg_requerimento
         msg_rodape = "<h4>----</h4>" \
                      "<font size='5'><strong>ISSEM<strong></font><br/>" \
                      "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
@@ -249,7 +250,7 @@ def EnviaEmail(id_usuario, id_agendamento):
                      "<br/><span style='color:red'><em>Obs: Este e-mail foi gerado pelo Sistema de Agendamento automático ISSEM, respostas não serão consideradas</em></span>"
 
         msg_completa_email = str(
-            msg_topo + msg_nome_segurado + msg_data_atendimento + msg_hora_consulta + msg_rodape)
+            msg_topo + msg_nome_segurado + msg_data_atendimento + msg_hora_consulta + msg_complemento + msg_rodape)
         email = EmailMultiAlternatives(
             'Comprovante de agendamento ISSEM',
             msg_completa_email,

@@ -5,6 +5,8 @@ from issem.models import RequerimentoModel, AgendamentoModel, BeneficioModel
 from issem.forms import RequerimentoForm, AgendamentoForm
 from django.views.generic.base import View
 from datetime import date, datetime
+from issem.views.cruds.requerimento import EnviaEmail
+from django.contrib.auth.models import User
 
 
 class GeraAgendamentoServidorView(View):
@@ -28,7 +30,6 @@ class GeraAgendamentoServidorView(View):
             beneficio_descricao = ""
             beneficio_id = ""
         if id_requerimento:
-            print("2")
             try:
                 # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
                 requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
@@ -41,6 +42,7 @@ class GeraAgendamentoServidorView(View):
             form_agendamento = AgendamentoForm(instance=agendamento)
             context_dict['agendamento_sem_requerimento'] = True
             context_dict['segurado_nome'] = requerimento.segurado.nome
+            context_dict['id_usuario'] = request.user.id
             context_dict['segurado_id'] = requerimento.segurado.id
         else:
             form_requerimento = RequerimentoForm()  # MODO CADASTRO: recebe o formulário vazio]
@@ -73,38 +75,35 @@ class GeraAgendamentoServidorView(View):
             form_agendamento = AgendamentoForm(data=request.POST)
 
         if form_requerimento.is_valid():
-            current_user = request.user
-            form_requerimento.segurado = current_user
-            form_requerimento.servidor = current_user
-            form_requerimento.save()
 
             try:
                 requerimento = RequerimentoModel.objects.get(pk=id_requerimento)
+                form_requerimento = RequerimentoForm(instance=requerimento, data=request.POST)
             except:
                 raise Http404("Requerimento não encontrado")
 
-            form_agendamento_model = AgendamentoModel()
-            form_agendamento_model.requerimento_id = id_requerimento
-            form_agendamento_model.data_agendamento = date.today()
-            data_pericia_form = form_agendamento._raw_value('data_pericia')
-            data_pericia_split = data_pericia_form.split('/')
-            data_pericia = datetime(int(data_pericia_split[2]), int(data_pericia_split[1]), int(data_pericia_split[0]))
-            form_agendamento_model.data_pericia = data_pericia
-            hora_pericia = form_agendamento._raw_value('hora_pericia')
-            form_agendamento_model.hora_pericia = hora_pericia
-            # TODO: Verificar se não precisa de "if form.is_valid()"
-            form_agendamento_model.save()
-            # TODO: Verificar se a linha abaixo é necessária
-            # obj = requerimento.save(commit=False)
+            if form_agendamento.is_valid():
+                form_agendamento = form_agendamento.save(commit=False)
+                form_agendamento.requerimento_id = requerimento.id
+                form_agendamento.data_agendamento = date.today()
+                form_agendamento.save()
 
-            requerimento.possui_agendamento = True
-            # TODO: Verificar se não precisa de "if form.is_valid()"
-            requerimento.save()
+                # Altera os dados do requerimento é criado #
+                form_requerimento.possui_agendamento = True
+                form_requerimento.save()
 
-            msg_cadastro_concluido = self.DefineMensagemAgendamento(data_pericia, hora_pericia)
+                # form_agendamento = AgendamentoForm()
+                # form_requerimento = RequerimentoForm()
 
-            msg = msg_cadastro_concluido
-            tipo_msg = 'green'
+                EnviaEmail(requerimento.segurado, form_agendamento.id)
+
+                msg = self.DefineMensagemAgendamento(form_agendamento.data_pericia, form_agendamento.hora_pericia)
+                tipo_msg = 'green'
+
+            else:
+                msg = "Erros encontrados!"
+                tipo_msg = "red"
+
             context_dict['beneficio_descricao'] = requerimento.beneficio.descricao
         else:
             print(form_requerimento.errors)

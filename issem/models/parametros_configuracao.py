@@ -11,7 +11,7 @@ class ParametrosConfiguracaoModel(models.Model):
     gap_agendamento = models.IntegerField()
     tempo_minimo_exercicio = models.IntegerField()
     descricao_issem = HTMLField(null=True, blank=True)
-    msg_requerimento = models.CharField(null=True, blank=True, max_length=500)
+    msg_requerimento = HTMLField(null=True, blank=True)
     informacoes_rodape = HTMLField(null=True, blank=True)
     telefone_issem = models.CharField(max_length=15, blank=True)
 

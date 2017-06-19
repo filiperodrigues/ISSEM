@@ -48,14 +48,13 @@
 
             <div class="sixteen wide column issem-table-form">
 
-                {% if not msg %}
-                    {% if not var_controle %}
-                        <form class="ui form" id="RequerimentoForm" method="post"
-                              action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">
-                    {% else %}
-                        <form class="ui form" id="RequerimentoForm" method="post"
-                              action="{% url 'issem:define_agendamento' id_requerimento %}">
-                    {% endif %}
+                {% if not var_controle %}
+                    <form class="ui form" id="RequerimentoForm" method="post"
+                          action="{% url 'issem:cad_requerimento_servidor' id_beneficio %}">
+                {% else %}
+                    <form class="ui form" id="RequerimentoForm" method="post"
+                          action="{% url 'issem:define_agendamento' id_requerimento %}">
+                {% endif %}
                 {% csrf_token %}
 
                 {% if not id %}
@@ -66,9 +65,10 @@
                     <input type="hidden" name="id_agendamento" value="{{ id_agendamento }}">
                 {% endif %}
 
-                <input id="id_beneficio" name="beneficio" type="hidden" style="display:none" value="{{ id_beneficio }}" />
+                <input id="id_beneficio" name="beneficio" type="hidden" style="display:none"
+                       value="{{ id_beneficio }}"/>
 
-                <input id="id_servidor" name="servidor" type="hidden" style="display:none" value="{{ id_usuario }}" />
+                <input id="id_servidor" name="servidor" type="hidden" style="display:none" value="{{ id_usuario }}"/>
 
                 <input id="id_possui_agendamento" name="possui_agendamento" type="hidden" value="True"/>
 
@@ -141,7 +141,6 @@
 
                 {% include 'blocos/buttons_form.html' %}
                 </form>
-                {% endif %}
 
             </div>
         </div>
