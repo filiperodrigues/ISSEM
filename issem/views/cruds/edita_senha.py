@@ -7,7 +7,6 @@ from django.shortcuts import render
 from django.contrib.auth.models import Group
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from segurado import EnviaEmailSenha
 
 
 

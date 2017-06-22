@@ -98,7 +98,6 @@ class SeguradoView(View):
                     user.groups.add(gp)
                     user.primeiro_login = True
                     user.save()
-                    print(senha)
                     EnviaEmailSenha(senha, user.username)
 
                 except:
