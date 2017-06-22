@@ -5,6 +5,10 @@ from django.views.generic.base import View
 from issem.models import ServidorModel, SeguradoModel, DependenteModel
 from django.shortcuts import render
 from django.contrib.auth.models import Group
+from django.shortcuts import render, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from segurado import EnviaEmailSenha
+
 
 
 class EditaSenhaView(View):
@@ -27,7 +31,11 @@ class EditaSenhaView(View):
                 raise Http404("Servidor não encontrado.")
         elif group_user == "Segurado":
             try:
-                nome = SeguradoModel.objects.get(pk=id).nome
+                segurado = SeguradoModel.objects.get(pk=id)
+                nome = segurado.nome
+                if segurado.primeiro_login is True:
+                    context_dict['msg'] = "Bem-vindo ao ISSEM. É necessário alterar sua senha inicial para ter acesso ao Sistema."
+                    context_dict['tipo_msg'] = "green"
             except:
                 raise Http404("Segurado não encontrado.")
         else:
@@ -67,10 +75,23 @@ class EditaSenhaView(View):
                 raise Http404("Dependente não encontrado.")
 
         form = PessoaPasswordForm(instance=pessoa, data=request.POST)
+        grupo = Group.objects.get(user=pessoa.id)
         if form.is_valid():
             form.save()
-            msg = 'Senha alterada com sucesso!'
-            tipo_msg = 'green'
+            if grupo.name == "Segurado":
+                if pessoa.primeiro_login:
+                    pessoa.primeiro_login = False
+                    pessoa.save()
+                    msg = 'Sua nova senha foi cadastrada com sucesso!'
+                    tipo_msg = 'green'
+
+                else:
+                    msg = 'Senha alterada com sucesso!'
+                    tipo_msg = 'green'
+
+            else:
+                msg = 'Senha alterada com sucesso!'
+                tipo_msg = 'green'
         else:
             print(form.errors)
             msg = 'Erros encontrados!'

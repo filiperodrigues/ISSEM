@@ -59,6 +59,40 @@
                 {% endif %}
 
                 {% include 'blocos/formulario_pessoa.html' %}
+                <br/>
+                <br/>
+
+                <div class="fields">
+                    <div class="two wide field"></div>
+                    <div class="four wide field">
+                        <label>Usuário<i class="asterisk icon red"></i></label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.username.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Senha<i class="asterisk icon red"></i></label>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.password.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="four wide field">
+                        <label>Confirme sua senha<i class="asterisk icon red"></i></label>
+                        {{ form.password_checker }}
+                        {% if form.password_checker.errors %}
+                            <div class="ui pointing red basic label issem-error-field">
+                                {{ form.password_checker.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="two wide field"></div>
+                </div>
 
                 {% if not id %}
                     <h4 class="ui dividing red header">Dados específicos do Servidor</h4>

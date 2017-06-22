@@ -1,5 +1,6 @@
 # coding:utf-8
 from django import forms
+from django.contrib.auth.management import get_default_username
 
 from issem.forms.validators.cpf_validator import ValidarCPF
 from issem.forms.validators.generic_validators import ValidarPassword, ValidarTamanhoPassword
@@ -44,22 +45,23 @@ class CadPessoaForm(forms.ModelForm):
                                           queryset=cidades,
                                           widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
                                           )
-    password = forms.CharField(widget=forms.PasswordInput())
-    password_checker = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(required=False, widget=forms.PasswordInput())
+    password_checker = forms.CharField(required=False, widget=forms.PasswordInput())
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
+
 
     class Meta:
         model = PessoaModel
         fields = "__all__"
 
-    def clean_cpf(self):
-        return ValidarCPF(self.cleaned_data.get('cpf'))
+    # def clean_cpf(self):
+    #     return ValidarCPF(self.cleaned_data.get('cpf'))
 
-    def clean_password(self):
-        return ValidarTamanhoPassword(self.cleaned_data['password'])
-
-    def clean_password_checker(self):
-        return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
+    # def clean_password(self):
+    #     return ValidarTamanhoPassword(self.cleaned_data['password'])
+    #
+    # def clean_password_checker(self):
+    #     return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
 
     def save(self, commit=True):
         user = super(CadPessoaForm, self).save(commit=False)
@@ -105,6 +107,7 @@ class PessoaEditForm(forms.ModelForm):
                                           )
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
 
+
     class Meta:
         model = PessoaModel
         fields = "__all__"
@@ -122,18 +125,18 @@ class PessoaEditForm(forms.ModelForm):
 
 
 class PessoaPasswordForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    password_checker = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(required=False, widget=forms.PasswordInput())
+    password_checker = forms.CharField(required=False, widget=forms.PasswordInput())
 
     class Meta:
         model = PessoaModel
         fields = ['password']
 
-    def clean_password(self):
-        return ValidarTamanhoPassword(self.cleaned_data['password'])
-
-    def clean_password_checker(self):
-        return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
+    # def clean_password(self):
+    #     return ValidarTamanhoPassword(self.cleaned_data['password'])
+    #
+    # def clean_password_checker(self):
+    #     return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
 
     def save(self, commit=True):
         user = super(PessoaPasswordForm, self).save(commit=False)

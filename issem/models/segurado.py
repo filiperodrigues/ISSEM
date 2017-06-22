@@ -13,6 +13,7 @@ class SeguradoModel(PessoaModel):
     documento_legal = models.CharField(blank=True, max_length=15)
     dependente = models.ManyToManyField(DependenteModel, blank=True)
     funcao = models.ForeignKey(FuncaoModel, null=True, blank=True)
+    primeiro_login = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.nome

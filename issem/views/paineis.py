@@ -3,10 +3,14 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-from issem.models import BeneficioModel, AgendamentoModel, RequerimentoModel
+from issem.models import BeneficioModel, AgendamentoModel, RequerimentoModel, SeguradoModel
 from datetime import date, timedelta
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.shortcuts import render, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.contrib.auth.models import Group, User
+
 
 
 class PaginaFuncionarioView(View):
@@ -59,8 +63,13 @@ class PaginaSeguradoView(View):
         context_dict['beneficios'] = BeneficioModel.objects.all()
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
+        segurado = SeguradoModel.objects.get(pk=request.user.id)
+        grupo = Group.objects.get(user=segurado.id)
+        if segurado.primeiro_login is True:
+            return HttpResponseRedirect(reverse('issem:edita_senha', args=(segurado.id, grupo.id)))
         if RequerimentoModel.objects.filter(segurado=User.objects.get(pk=request.user.id), possui_agendamento=False):
-            requerimento = RequerimentoModel.objects.get(segurado=User.objects.get(pk=request.user.id), possui_agendamento=False)
+            requerimento = RequerimentoModel.objects.get(segurado=User.objects.get(pk=request.user.id),
+                                                         possui_agendamento=False)
             context_dict['possui_requerimento_aberto'] = True
             context_dict['id_requerimento_sem_agendamento'] = requerimento.id
         return render(request, self.template, context_dict)

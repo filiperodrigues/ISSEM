@@ -1,7 +1,7 @@
 # coding:utf-8
 from django.http import Http404, request
 from django.shortcuts import render
-from issem.models import SeguradoModel, DependenteModel
+from issem.models import SeguradoModel, DependenteModel, ParametrosConfiguracaoModel
 from issem.forms import SeguradoFormEdit, SeguradoFormCad
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
@@ -10,6 +10,12 @@ from django.contrib.auth.models import Group, User
 from issem.models import ServidorModel
 from issem.views.pagination import pagination
 from django.db.models import Q
+import string
+import random
+from django.core.mail import EmailMultiAlternatives
+from django.shortcuts import redirect
+
+
 
 
 class SeguradoView(View):
@@ -83,9 +89,18 @@ class SeguradoView(View):
 
                 try:
                     gp = Group.objects.get(name='Segurado')
-                    user = SeguradoModel.objects.get(username=request.POST["username"])
+                    user = SeguradoModel.objects.get(email=request.POST["email"])
+
+                    #Define uma senha aleatória para o Segurado e seta o e-mail inserido como "username"
+                    senha = (''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6)))
+                    user.set_password(senha)
+                    user.username = form.data.get('email')
                     user.groups.add(gp)
+                    user.primeiro_login = True
                     user.save()
+                    print(senha)
+                    EnviaEmailSenha(senha, user.username)
+
                 except:
                     raise Http404("Ocorreu algum erro, verifique e tente novamente.")
 
@@ -161,3 +176,39 @@ class SeguradoView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
+
+def EnviaEmailSenha(senha, username):
+    segurado = SeguradoModel.objects.get(username=username)
+    parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
+    if (segurado.email):
+        msg_topo = (
+        "Prezado(a) senhor(a) <strong>" + segurado.nome +"</strong>, você foi cadastrado no Sistema ISSEM. Segue às informações de login:<br/><br/>")
+        msg_complemento = "Login: " + segurado.username + "<br/>Senha: " + senha + "<br/>"
+        msg_rodape = "<h4>----</h4>" \
+                     "<font size='5'><strong>ISSEM<strong></font><br/>" \
+                     "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
+                     "Contato: " + str(parametros_configuracoes.telefone_issem) + "<br/>" \
+                     "<br/><span style='color:red'><em>Obs: Este e-mail foi gerado pelo Sistema de Agendamento automático ISSEM, respostas não serão consideradas</em></span>"
+
+        msg_completa_email = str(msg_topo + msg_complemento + msg_rodape)
+        email = EmailMultiAlternatives(
+            'Informações de Cadastro - ISSEM',
+            msg_completa_email,
+            'ISSEM - Instituto de Seguridade dos Servidores Municipais',
+            [str(segurado.email)],
+
+        )
+        email.attach_alternative(msg_completa_email, "text/html")
+        email.send()
+    return ""
+
+
+def VerificaPrimeiroLogin(user=None):
+    usuario = SeguradoModel.objects.get(username=user)
+    ultimoLogin = usuario.last_login
+    if ultimoLogin:
+        print "nao eh primeiro login"
+        return redirect('login')
+    else:
+        print "primeiro login"
+

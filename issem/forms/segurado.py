@@ -5,6 +5,8 @@ from issem.forms.validators.generic_validators import ValidarDataNascimento
 from issem.models.segurado import SeguradoModel
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
+from django.contrib.auth.models import Group, User
+
 
 
 class SeguradoFormCad(CadPessoaForm):
@@ -16,6 +18,9 @@ class SeguradoFormCad(CadPessoaForm):
     groups = forms.CharField(required=False)
     data_admissao = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
     email = forms.EmailField(required=True)
+    username = forms.CharField(required=False)
+
+
 
     class Meta:
         model = SeguradoModel
@@ -24,6 +29,13 @@ class SeguradoFormCad(CadPessoaForm):
 
     def clean_data_nascimento(self):
         return ValidarDataNascimento(self.cleaned_data.get('data_nascimento'))
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email):
+            raise forms.ValidationError("Este e-mail já existe")
+        else:
+            return email
 
 
 class SeguradoFormEdit(PessoaEditForm):
