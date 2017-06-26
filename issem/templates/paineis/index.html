@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-
-    {% if msg %}
-        <div class="ui {{ tipo_msg }} message">
-            <div class="header">{{ msg }}</div>
+    <div class="ui centered grid">
+        <div class="sixteen wide column centered aligned">
+            {% if msg %}
+                <div class="ui {{ tipo_msg }} message">
+                    <div class="header">{{ msg }}</div>
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
+
+        <div class="sixteen wide column centered aligned">
+            {% if login_required %}
+                <a href="{% url 'issem:index' %}" class="ui button blue">Faça Login!</a>
+            {% endif %}
+        </div>
+    </div>
 
     {% if request.user.is_superuser %}
         <div class="ui warning message">

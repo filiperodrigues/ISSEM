@@ -12,7 +12,7 @@
             {% if msg %}
                 <div class="ui {{ tipo_msg }} message">
                     <div class="header">
-                        {{ msg }}
+                        {{ msg|safe }}
                     </div>
                 </div>
             {% endif %}

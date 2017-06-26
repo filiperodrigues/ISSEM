@@ -1,13 +1,14 @@
 # coding:utf-8
+from django.core.urlresolvers import reverse
 from django.http import Http404
+from django.http import HttpResponseRedirect
+
 from issem.forms import PessoaPasswordForm
 from django.views.generic.base import View
 from issem.models import ServidorModel, SeguradoModel, DependenteModel
-from django.shortcuts import render
+from django.contrib.auth import logout
 from django.contrib.auth.models import Group
-from django.shortcuts import render, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-
+from django.shortcuts import render
 
 
 class EditaSenhaView(View):
@@ -81,9 +82,11 @@ class EditaSenhaView(View):
                 if pessoa.primeiro_login:
                     pessoa.primeiro_login = False
                     pessoa.save()
-                    msg = 'Sua nova senha foi cadastrada com sucesso!'
-                    tipo_msg = 'green'
-
+                    logout(request)
+                    context_dict['msg'] = 'Sua nova senha foi cadastrada com sucesso! É necessário fazer login novamente para acessar o Sistema.'
+                    context_dict['tipo_msg'] = 'green'
+                    context_dict['login_required'] = True
+                    return render(request, 'paineis/index.html', context_dict)
                 else:
                     msg = 'Senha alterada com sucesso!'
                     tipo_msg = 'green'
@@ -99,7 +102,6 @@ class EditaSenhaView(View):
         context_dict['form'] = form
         context_dict['id'] = id
         context_dict['id_group_user'] = id_group
-        context_dict['group'] = group_user
         context_dict['group'] = group_user
         context_dict['nome'] = pessoa
         context_dict['msg'] = msg

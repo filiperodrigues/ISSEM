@@ -3,6 +3,15 @@
 {% block body_block %}
     {% load sistema %}
     <div class="ui centered grid issem-grid">
+
+        {% if msg %}
+            <div class="ui {{ tipo_msg }} message">
+                <div class="header">
+                    {{ msg|safe }}
+                </div>
+            </div>
+        {% endif %}
+
         <div class="row">
             <div class="four wide column">
                 <div class="ui segment">

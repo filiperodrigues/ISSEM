@@ -181,13 +181,13 @@ def EnviaEmailSenha(senha, username):
     parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
     if (segurado.email):
         msg_topo = (
-        "Prezado(a) senhor(a) <strong>" + segurado.nome +"</strong>, você foi cadastrado no Sistema ISSEM. Segue às informações de login:<br/><br/>")
+        "Prezado(a) senhor(a) <st3rong>" + segurado.nome +"</strong>, você foi cadastrado no Sistema ISSEM. Segue às informações de login:<br/><br/>")
         msg_complemento = "Login: " + segurado.username + "<br/>Senha: " + senha + "<br/>"
         msg_rodape = "<h4>----</h4>" \
                      "<font size='5'><strong>ISSEM<strong></font><br/>" \
                      "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
                      "Contato: " + str(parametros_configuracoes.telefone_issem) + "<br/>" \
-                     "<br/><span style='color:red'><em>Obs: Este e-mail foi gerado pelo Sistema de Agendamento automático ISSEM, respostas não serão consideradas</em></span>"
+                     "<br/><span style='color:red'><em>Obs: Este e-mail foi gerado pelo Sistema ISSEM, respostas não serão consideradas</em></span>"
 
         msg_completa_email = str(msg_topo + msg_complemento + msg_rodape)
         email = EmailMultiAlternatives(
