@@ -16,7 +16,7 @@
             {% endif %}
 
             <div class="three wide column">
-                <a href="{% url 'issem:funcionario' %}">
+                <a href="{% url 'issem:index' %}">
                     <div class="ui labeled icon button basic">
                         <i class="left arrow icon"></i> Voltar
                     </div>
@@ -25,28 +25,15 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1><i class="group icon"></i> Segurados</h1>
+                    <h1><i class="group icon"></i>Dependentes Inativos</h1>
                 </div>
             </div>
 
-            <div class="three wide column">
-                <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
-                    <a href="{% url 'issem:cad_segurado' %}"
-                       class="ui labeled icon button green">
-                        <i class="key icon"></i> Adicionar Novo
-                    </a>
-                    {% if administrador %}
-                        <a href="{% url 'issem:lista_segurados_inativos' %}"
-                           class="ui labeled icon button red">
-                            <i class="trash icon"></i> Excluídos
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
+            <div class="three wide column"></div>
 
             <div class="ui centered row">
                 <br/>
-                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_segurados' %}">
+                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_dependentes' %}">
                     <div class="ui right aligned category search">
                         <div class="ui icon input">
                             <i class="search icon"></i>
@@ -56,6 +43,8 @@
                 </form>
             </div>
 
+            <div class="thirteen wide column"></div>
+
             {% if dados %}
                 <table class="ui celled table issem-table-form">
                     <thead>
@@ -63,6 +52,7 @@
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Email</th>
+                        <th>Segurado</th>
                         <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                     </tr>
                     </thead>
@@ -86,21 +76,25 @@
                             {% else %}
                                 <td>---</td>
                             {% endif %}
+                            {% if dado.segurado != "" %}
+                                <td><a href="{% url 'issem:perfil' dado.segurado.id %}">{{ dado.segurado.nome }}</a></td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
 
-                            <td>
-                                <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
-                                    {% if administrador %}
-                                        <a href="{% url 'issem:grupo' dado.id %}" class="ui labeled icon button blue">
-                                            <i class="exchange icon"></i> Transferência de Grupo
-                                        </a>
-                                    {% endif %}
-                                    {% if usuario_logado.id == dado.id or administrador or not administrador %}
-                                        <a href="{% url 'issem:edita_segurado' dado.id %}"
-                                           class="ui labeled icon button ">
-                                            <i class="edit icon"></i> Editar
-                                        </a>
-                                    {% endif %}
-                                </div>
+                            <td class="ui right aligned">
+                                {% if administrador %}
+                                    <a href="{% url 'issem:ativa_dependente' dado.id %}">
+                                        <div class="ui labeled icon fluid button">
+                                            <i class="checkmark icon"></i> Ativar
+                                        </div>
+                                    </a>
+                                {% endif %}
+                                <a href="{% url 'issem:edita_dependente' dado.id %}">
+                                    <div class="ui labeled icon fluid button">
+                                        <i class="edit icon"></i> Editar
+                                    </div>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -114,7 +108,7 @@
                     <br/>
                     <div class="ui yellow message">
                         <div class="header">
-                            Não existem dados cadastrados
+                            Não existem dependentes inativos
                         </div>
                     </div>
                 </div>

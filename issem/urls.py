@@ -34,7 +34,8 @@ urlpatterns = [
         name='edita_procedimento_medico'),
     url(r'^deleta/procedimento_medico/(?P<id>[0-9]+)/$', ProcedimentoMedicoView.ProcedimentoMedicoDelete,
         name='deleta_procedimento_medico'),
-    url(r'^lista/procedimentos_medicos/$', ProcedimentoMedicoView.ListaProcedimentosMedicos, name='lista_procedimentos_medicos'),
+    url(r'^lista/procedimentos_medicos/$', ProcedimentoMedicoView.ListaProcedimentosMedicos,
+        name='lista_procedimentos_medicos'),
 
     # FUNÇÃO
     url(r'^cad/funcao/$', FuncaoView.as_view(), name='cad_funcao'),
@@ -50,7 +51,8 @@ urlpatterns = [
     # TIPO DEPENDENTE
     url(r'^cad/tipo_dependente/$', TipoDependenteView.as_view(), name='cad_tipo_dependente'),
     url(r'^edita/tipo_dependente/(?P<id>\d+)/$', TipoDependenteView.as_view(), name='edita_tipo_dependente'),
-    url(r'^deleta/tipo_dependente/(?P<id>[0-9]+)/$', TipoDependenteView.TipoDependenteDelete, name='deleta_tipo_dependente'),
+    url(r'^deleta/tipo_dependente/(?P<id>[0-9]+)/$', TipoDependenteView.TipoDependenteDelete,
+        name='deleta_tipo_dependente'),
 
     # TIPO EXAME
     url(r'^cad/tipo_exame/$', TipoExameView.as_view(), name='cad_tipo_exame'),
@@ -66,7 +68,8 @@ urlpatterns = [
     # LOCAL DE TRABALHO
     url(r'^cad/local_trabalho/$', LocalTrabalhoView.as_view(), name='cad_local_trabalho'),
     url(r'^edita/local_trabalho/(?P<id>\d+)/$', LocalTrabalhoView.as_view(), name='edita_local_trabalho'),
-    url(r'^deleta/local_trabalho/(?P<id>[0-9]+)/$', LocalTrabalhoView.LocalTrabalhoDelete, name='deleta_local_trabalho'),
+    url(r'^deleta/local_trabalho/(?P<id>[0-9]+)/$', LocalTrabalhoView.LocalTrabalhoDelete,
+        name='deleta_local_trabalho'),
     url(r'^atualiza/local_trabalho/$', LocalTrabalhoView.AtualizaLocalTrabalho, name='atualiza_local_trabalho'),
 
     # DEPENDENTE
@@ -74,7 +77,9 @@ urlpatterns = [
     url(r'^cad/dependente_segurado/(?P<id_segurado>\d+)/$', DependenteView.as_view(), name='cad_dependente_segurado'),
     url(r'^edita/dependente/(?P<id>\d+)/$', DependenteView.as_view(), name='edita_dependente'),
     url(r'^deleta/dependente/(?P<id>[0-9]+)/$', DependenteView.DependenteDelete, name='deleta_dependente'),
+    url(r'^ativa/dependente/(?P<id>[0-9]+)/$', DependenteView.AtivaDelete, name='ativa_dependente'),
     url(r'^lista/dependentes/$', DependenteView.ListaDependentes, name='lista_dependentes'),
+    url(r'^lista/dependentes/inativos/$', DependenteView.ListaDependentesInativos, name='lista_dependentes_inativos'),
     url(r'^transferencia/$', TransferenciaSegurado.as_view(), name='transferencia'),
     url(r'^busca_segurado/(?P<id>\d+)/$', TransferenciaSegurado.as_view(), name='seleciona_segurado'),
 
@@ -82,7 +87,9 @@ urlpatterns = [
     url(r'^cad/segurado/$', SeguradoView.as_view(), name='cad_segurado'),
     url(r'^edita/segurado/(?P<id>\d+)/$', SeguradoView.as_view(), name='edita_segurado'),
     url(r'^deleta/segurado/(?P<id>[0-9]+)/$', SeguradoView.SeguradoDelete, name='deleta_segurado'),
+    url(r'^ativa/segurado/(?P<id>[0-9]+)/$', SeguradoView.SeguradoAtiva, name='ativa_segurado'),
     url(r'^lista/segurados/$', SeguradoView.ListaSegurados, name='lista_segurados'),
+    url(r'^lista/segurados/inativos/$', SeguradoView.ListaSeguradosInativos, name='lista_segurados_inativos'),
     url(r'^lista/requerimentos/segurado/(?P<id>[0-9]+)/$', views.ListaRequerimentosSegurado,
         name='requerimentos_segurado'),
 
@@ -90,7 +97,9 @@ urlpatterns = [
     url(r'^cad/servidor/$', ServidorView.as_view(), name='cad_servidor'),
     url(r'^edita/servidor/(?P<id>\d+)/$', ServidorView.as_view(), name='edita_servidor'),
     url(r'^deleta/servidor/(?P<id>[0-9]+)/$', ServidorView.ServidorDelete, name='deleta_servidor'),
+    url(r'^ativa/servidor/(?P<id>[0-9]+)/$', ServidorView.ServidorAtiva, name='ativa_servidor'),
     url(r'^lista/servidores/$', ServidorView.ListaServidores, name='lista_servidores'),
+    url(r'^lista/servidores/inativos/$', ServidorView.ListaServidoresInativos, name='lista_servidores_inativos'),
 
     # SEGURADO / SERVIDOR
     url(r'^edita/senha/(?P<id>\d+)/(?P<id_group>\d+)/$', EditaSenhaView.as_view(), name='edita_senha'),
@@ -117,7 +126,8 @@ urlpatterns = [
     url(r'^gera/agendamento/(?P<id_requerimento>\d+)/$', GeraAgendamentoServidorView.as_view(),
         name='define_agendamento'),
     url(r'^agenda/$', views.ApresentaAgendamentos, name='tabela_agendamentos'),
-    url(r'^agenda/requerimentos/sem/agendamento$', views.ApresentaRequerimentosSemAgendamento, name='tabela_agendamentos_sem_requerimento'),
+    url(r'^agenda/requerimentos/sem/agendamento$', views.ApresentaRequerimentosSemAgendamento,
+        name='tabela_agendamentos_sem_requerimento'),
     url(r'^agenda/medica/$', views.ApresentaAgendamentosMedico, name='agenda_medica'),
     url(r'^agenda/medica/filtro/$', views.ApresentaAgendamentosMedico, name='filtro_agenda'),
     url(r'^requerimentos_sem_agendamento/$', views.ApresentaRequerimentosSemAgendamento,
@@ -125,7 +135,8 @@ urlpatterns = [
     url(r'^comprovante_agendamento/pdf/(?P<id_agendamento>\d+)/(?P<id_usuario>\d+)/$',
         views.GeraComprovanteAgendamento, name='comprovante_agendamento'),
     url(r'^pagina_requerimento/(?P<id>\d+)/$', views.VisualizarRequerimento, name='visualizar_requerimento'),
-    url(r'^pagina_requerimento_sem_agendamento/(?P<id>\d+)/$', views.VisualizarRequerimentoSemAgendamento, name='visualizar_requerimento_sem_agendamento'),
+    url(r'^pagina_requerimento_sem_agendamento/(?P<id>\d+)/$', views.VisualizarRequerimentoSemAgendamento,
+        name='visualizar_requerimento_sem_agendamento'),
 
     # LAUDO
     url(r'^laudo/(?P<id>\d+)/$', LaudoView.VisualizarLaudo, name='visualizar_laudo'),

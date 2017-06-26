@@ -48,13 +48,19 @@
                                 {% endif %}
                             </div>
                         </div>
-
                         <br/>
                         <div class="ui centered grid">
                             <input type="submit" name="submit" class="ui button blue center" value="Login"/>
                         </div>
                         <br/>
+                        <br/>
                     </form>
+                    <div class="ui centered grid">
+                        <div class="sixteen wide column centered aligned">
+                            <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a>
+                        </div>
+                    </div>
+                    <br/>
                 </div>
             </div>
             <div class="one wide column">

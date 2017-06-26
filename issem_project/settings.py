@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from django.conf.global_settings import DEFAULT_FROM_EMAIL
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -128,6 +130,7 @@ EMAIL_HOST_USER = 'issem.js@gmail.com'
 EMAIL_HOST_PASSWORD = 'issem2016'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'ISSEM - Instituto de Seguridade dos Servidores Municipais <issem.js@gmail.com>'
 
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,xhtmlxtras,paste,searchreplace",

@@ -25,23 +25,11 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1><i class="group icon"></i> Segurados</h1>
+                    <h1><i class="group icon"></i> Segurados Inativos</h1>
                 </div>
             </div>
 
             <div class="three wide column">
-                <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
-                    <a href="{% url 'issem:cad_segurado' %}"
-                       class="ui labeled icon button green">
-                        <i class="key icon"></i> Adicionar Novo
-                    </a>
-                    {% if administrador %}
-                        <a href="{% url 'issem:lista_segurados_inativos' %}"
-                           class="ui labeled icon button red">
-                            <i class="trash icon"></i> Excluídos
-                        </a>
-                    {% endif %}
-                </div>
             </div>
 
             <div class="ui centered row">
@@ -90,11 +78,11 @@
                             <td>
                                 <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
                                     {% if administrador %}
-                                        <a href="{% url 'issem:grupo' dado.id %}" class="ui labeled icon button blue">
-                                            <i class="exchange icon"></i> Transferência de Grupo
+                                        <a href="{% url 'issem:ativa_segurado' dado.id %}" class="ui labeled icon button blue">
+                                            <i class="exchange icon"></i> Ativar
                                         </a>
                                     {% endif %}
-                                    {% if usuario_logado.id == dado.id or administrador or not administrador %}
+                                    {% if usuario_logado.id == dado.id or administrador %}
                                         <a href="{% url 'issem:edita_segurado' dado.id %}"
                                            class="ui labeled icon button ">
                                             <i class="edit icon"></i> Editar
@@ -114,7 +102,7 @@
                     <br/>
                     <div class="ui yellow message">
                         <div class="header">
-                            Não existem dados cadastrados
+                            Não existem segurados excluídos!
                         </div>
                     </div>
                 </div>

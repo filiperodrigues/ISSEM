@@ -39,7 +39,7 @@ $(document).ready(function () {
                 success: function (data) {
                     var options = '';
                     for (var i = 0; i < data.length; i++) {
-                        options += '<option value="' + data[i].pk + '" data-tooltip="teste">' + data[i].fields['procedimento'] + '</option>';
+                        options += '<option value="' + data[i].pk + '" data-tooltip="password_reset">' + data[i].fields['procedimento'] + '</option>';
                     }
                     $("select#id_procedimento_medico").html(options);
                 }
@@ -262,7 +262,7 @@ function modalRequerimento(id) {
     html = "<div class='ui green ok inverted button'>Não</div>" +
         "<a class='ui red ok inverted button IDAgendamento' href='/issem/deleta/requerimento_sem_agendamento/"
         + id + "/'><i class='remove icon'></i>Sim</a>";
-    document.getElementById("teste").innerHTML = html;
+    document.getElementById("password_reset").innerHTML = html;
 }
 
 function atualiza_select_cargo(id_cargo) {

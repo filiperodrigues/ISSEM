@@ -16,11 +16,10 @@ from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import redirect
 
 
-
-
 class SeguradoView(View):
     template = 'cruds/segurado.html'
     template_lista = 'listas/segurados.html'
+    template_inativos = 'listas/segurados_inativos.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo') or user.groups.filter(name='Segurado')
@@ -34,7 +33,8 @@ class SeguradoView(View):
 
         if id:
             try:
-                segurado = SeguradoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                segurado = SeguradoModel.objects.get(pk=id,
+                                                     excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
                 context_dict['id_segurado'] = segurado.id
             except:
                 raise Http404("Segurado não encontrado.")
@@ -91,7 +91,7 @@ class SeguradoView(View):
                     gp = Group.objects.get(name='Segurado')
                     user = SeguradoModel.objects.get(email=request.POST["email"])
 
-                    #Define uma senha aleatória para o Segurado e seta o e-mail inserido como "username"
+                    # Define uma senha aleatória para o Segurado e seta o e-mail inserido como "username"
                     senha = (''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6)))
                     user.set_password(senha)
                     user.username = form.data.get('email')
@@ -132,7 +132,7 @@ class SeguradoView(View):
         except:
             raise Http404("Segurado não encontrado.")
 
-        #REMOVE TODOS OS DEPENDENTES DO SEGURADO
+        # REMOVE TODOS OS DEPENDENTES DO SEGURADO
         for dependente in segurado.dependente.all():
             dp = DependenteModel.objects.get(pk=dependente.id)
             dp.excluido = True
@@ -140,6 +140,26 @@ class SeguradoView(View):
             dp.save()
         segurado.excluido = True
         segurado.is_active = False
+        segurado.save()
+        msg = "Segurado excluído com sucesso!"
+        tipo_msg = "green"
+        return self.ListaSegurados(request, msg, tipo_msg)
+
+    @classmethod
+    def SeguradoAtiva(self, request, id=None):
+        try:
+            segurado = SeguradoModel.objects.get(pk=id)
+        except:
+            raise Http404("Segurado não encontrado.")
+
+        # REMOVE TODOS OS DEPENDENTES DO SEGURADO
+        for dependente in segurado.dependente.all():
+            dp = DependenteModel.objects.get(pk=dependente.id)
+            dp.excluido = False
+            dp.is_active = True
+            dp.save()
+        segurado.excluido = False
+        segurado.is_active = True
         segurado.save()
         msg = "Segurado excluído com sucesso!"
         tipo_msg = "green"
@@ -176,38 +196,67 @@ class SeguradoView(View):
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
 
-def EnviaEmailSenha(senha, username):
-    segurado = SeguradoModel.objects.get(username=username)
-    parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
-    if (segurado.email):
-        msg_topo = (
-        "Prezado(a) senhor(a) <st3rong>" + segurado.nome +"</strong>, você foi cadastrado no Sistema ISSEM. Segue às informações de login:<br/><br/>")
-        msg_complemento = "Login: " + segurado.username + "<br/>Senha: " + senha + "<br/>"
-        msg_rodape = "<h4>----</h4>" \
-                     "<font size='5'><strong>ISSEM<strong></font><br/>" \
-                     "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
-                     "Contato: " + str(parametros_configuracoes.telefone_issem) + "<br/>" \
-                     "<br/><span style='color:red'><em>Obs: Este e-mail foi gerado pelo Sistema ISSEM, respostas não serão consideradas</em></span>"
+    @classmethod
+    def ListaSeguradosInativos(self, request, msg=None, tipo_msg=None):
+        context_dict = {}
+        if request.GET:
+            ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
+            FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
+            if 'filtro' in request.GET:
+                segurados = SeguradoModel.objects.filter(
+                    Q(cpf__icontains=request.GET.get('filtro'), excluido=True) |
+                    Q(nome__icontains=request.GET.get('filtro'), excluido=True) |
+                    Q(email__icontains=request.GET.get('filtro'), excluido=True)).order_by('nome')
+            else:
+                segurados = SeguradoModel.objects.filter(excluido=True)
 
-        msg_completa_email = str(msg_topo + msg_complemento + msg_rodape)
-        email = EmailMultiAlternatives(
-            'Informações de Cadastro - ISSEM',
-            msg_completa_email,
-            'ISSEM - Instituto de Seguridade dos Servidores Municipais',
-            [str(segurado.email)],
+        else:
+            segurados = SeguradoModel.objects.filter(excluido=True).order_by('nome')
 
-        )
-        email.attach_alternative(msg_completa_email, "text/html")
-        email.send()
-    return ""
+        if not request.user.is_superuser:
+            administrador = ServidorModel.objects.get(pk=request.user.id).administrador
+        else:
+            administrador = 0
 
+        dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
+        context_dict['dados'] = dados
+        context_dict['page_range'] = page_range
+        context_dict['ultima'] = ultima
+        context_dict['administrador'] = administrador
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        context_dict['filtro'] = request.GET.get('filtro')
+        return render(request, self.template_inativos, context_dict)
 
-def VerificaPrimeiroLogin(user=None):
-    usuario = SeguradoModel.objects.get(username=user)
-    ultimoLogin = usuario.last_login
-    if ultimoLogin:
-        print "nao eh primeiro login"
-        return redirect('login')
-    else:
-        print "primeiro login"
+    def EnviaEmailSenha(senha, username):
+        segurado = SeguradoModel.objects.get(username=username)
+        parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
+        if (segurado.email):
+            msg_topo = ("Prezado(a) senhor(a) <st3rong>" + segurado.nome + "</strong>, você foi cadastrado no Sistema ISSEM. Segue às informações de login:<br/><br/>")
+            msg_complemento = "Login: " + segurado.username + "<br/>Senha: " + senha + "<br/>"
+            msg_rodape = "<h4>----</h4>" \
+                         "<font size='5'><strong>ISSEM<strong></font><br/>" \
+                         "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
+                         "Contato: " + str(parametros_configuracoes.telefone_issem) + "<br/>" \
+                                                                                  "<br/><span style='color:red'><em>Obs: Este e-mail foi gerado pelo Sistema ISSEM, respostas não serão consideradas</em></span>"
 
+            msg_completa_email = str(msg_topo + msg_complemento + msg_rodape)
+            email = EmailMultiAlternatives(
+                'Informações de Cadastro - ISSEM',
+                msg_completa_email,
+                'ISSEM - Instituto de Seguridade dos Servidores Municipais',
+                [str(segurado.email)],
+
+            )
+            email.attach_alternative(msg_completa_email, "text/html")
+            email.send()
+        return ""
+
+    def VerificaPrimeiroLogin(user=None):
+        usuario = SeguradoModel.objects.get(username=user)
+        ultimoLogin = usuario.last_login
+        if ultimoLogin:
+            print "nao eh primeiro login"
+            return redirect('login')
+        else:
+            print "primeiro login"

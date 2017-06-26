@@ -36,7 +36,7 @@
                         <i class="plus icon"></i> Adicionar Novo
                     </a>
                     {% if administrador %}
-                        <a href="#"
+                        <a href="{% url 'issem:lista_servidores_inativos' %}"
                            class="ui labeled icon button red">
                             <i class="trash icon"></i> Excluídos
                         </a>
@@ -64,15 +64,22 @@
                         <th>CPF</th>
                         <th>Email</th>
                         <th width="330">
-                            Departamento &ensp;
+                            Departamento
                             <form id="form_lista_servidores" class="ui form issem-form-filter-group"
                                   action="{% url 'issem:lista_servidores' %}" method="post">
                                 {% csrf_token %}
                                 <select onchange="this.form.submit()" id="filtro_grupo" name="filtro_grupo">
                                     <option value="">Selecione um grupo</option>
-                                    <option value="todos" {% if grupo_controle == "todos" %}selected="selected"{% endif %}>Todos</option>
-                                    <option value="administrativo" {% if grupo_controle == "administrativo" %}selected="selected"{% endif %}>Administrativo</option>
-                                    <option value="tecnico" {% if grupo_controle == "tecnico" %}selected="selected"{% endif %}>Técnico</option>
+                                    <option value="todos"
+                                            {% if grupo_controle == "todos" %}selected="selected"{% endif %}>Todos
+                                    </option>
+                                    <option value="administrativo"
+                                            {% if grupo_controle == "administrativo" %}selected="selected"{% endif %}>
+                                        Administrativo
+                                    </option>
+                                    <option value="tecnico"
+                                            {% if grupo_controle == "tecnico" %}selected="selected"{% endif %}>Técnico
+                                    </option>
                                 </select>
                             </form>
                         </th>
@@ -108,22 +115,20 @@
                             {% else %}
                                 <td>---</td>
                             {% endif %}
-
-                            <td class="ui right aligned">
-                                {% if administrador %}
-                                    <a href="{% url 'issem:grupo' dado.id %}">
-                                        <div class="ui labeled icon button">
+                            <td>
+                                <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
+                                    {% if administrador %}
+                                        <a href="{% url 'issem:grupo' dado.id %}" class="ui labeled icon button blue">
                                             <i class="exchange icon"></i> Transferência de Grupo
-                                        </div>
-                                    </a>
-                                {% endif %}
-                                {% if usuario_logado.id == dado.id or administrador %}
-                                    <a href="{% url 'issem:edita_servidor' dado.id %}">
-                                        <div class="ui labeled icon button">
+                                        </a>
+                                    {% endif %}
+                                    {% if usuario_logado.id == dado.id or administrador %}
+                                        <a href="{% url 'issem:edita_servidor' dado.id %}"
+                                           class="ui labeled icon button ">
                                             <i class="edit icon"></i> Editar
-                                        </div>
-                                    </a>
-                                {% endif %}
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}

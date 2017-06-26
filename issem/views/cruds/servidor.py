@@ -15,6 +15,7 @@ from django.db.models import Q
 class ServidorView(View):
     template = 'cruds/servidor.html'
     template_lista = 'listas/servidores.html'
+    template_inativos = 'listas/servidores_inativos.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo') or user.groups.filter(name='Tecnico')
@@ -122,6 +123,19 @@ class ServidorView(View):
         return self.ListaServidores(request, msg, tipo_msg)
 
     @classmethod
+    def ServidorAtiva(self, request, id):
+        try:
+            servidor = ServidorModel.objects.get(pk=id)
+        except:
+            raise Http404("Servidor não encontrado.")
+        servidor.excluido = False
+        servidor.is_active = True
+        servidor.save()
+        msg = "Servidor ativado com sucesso!"
+        tipo_msg = "green"
+        return self.ListaServidores(request, msg, tipo_msg)
+
+    @classmethod
     def ListaServidores(self, request, msg=None, tipo_msg=None):
         context_dict = {}
         if request.GET:
@@ -196,3 +210,80 @@ class ServidorView(View):
         context_dict['usuario_logado'] = usuario_logado
         context_dict['administrador'] = administrador
         return render(request, self.template_lista, context_dict)
+
+    @classmethod
+    def ListaServidoresInativos(self, request, msg=None, tipo_msg=None):
+        context_dict = {}
+        if request.GET:
+            ''' SE EXISTIR PAGINAÇÃO OU FILTRO; CASO EXISTA FILTRO MAS NÃO EXISTA PAGINAÇÃO,
+            FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
+            if request.POST and 'filtro_grupo' in request.POST:
+                if 'filtro' in request.GET:
+                    if request.POST['filtro_grupo'] != "todos":
+                        if request.POST['filtro_grupo'] == "administrativo":
+                            id_grupo = Group.objects.get(name="Administrativo").id
+                        elif request.POST['filtro_grupo'] == "tecnico":
+                            id_grupo = Group.objects.get(name="Tecnico").id
+                        else:
+                            raise Http404("Ocorreu algum erro, verifique e tente novamente!")
+                        servidores = ServidorModel.objects.filter(
+                            Q(cpf__icontains=request.GET.get('filtro'), excluido=True, groups=id_grupo) |
+                            Q(nome__icontains=request.GET.get('filtro'), excluido=True, groups=id_grupo) |
+                            Q(email__icontains=request.GET.get('filtro'), excluido=True, groups=id_grupo)).order_by(
+                            'nome')
+                    else:
+                        servidores = ServidorModel.objects.filter(
+                            Q(cpf__icontains=request.GET.get('filtro'), excluido=True) |
+                            Q(nome__icontains=request.GET.get('filtro'), excluido=True) |
+                            Q(email__icontains=request.GET.get('filtro'), excluido=True)).order_by('nome')
+                else:
+                    if request.POST['filtro_grupo'] != "todos":
+                        if request.POST['filtro_grupo'] == "administrativo":
+                            id_grupo = Group.objects.get(name="Administrativo").id
+                        elif request.POST['filtro_grupo'] == "tecnico":
+                            id_grupo = Group.objects.get(name="Tecnico").id
+                        else:
+                            raise Http404("Ocorreu algum erro, verifique e tente novamente!")
+                        servidores = ServidorModel.objects.filter(excluido=True, groups=id_grupo)
+                    else:
+                        servidores = ServidorModel.objects.filter(excluido=True)
+            else:
+                if 'filtro' in request.GET:
+                    servidores = ServidorModel.objects.filter(
+                        Q(cpf__icontains=request.GET.get('filtro'), excluido=True) |
+                        Q(nome__icontains=request.GET.get('filtro'), excluido=True) |
+                        Q(email__icontains=request.GET.get('filtro'), excluido=True)).order_by('nome')
+                else:
+                    servidores = ServidorModel.objects.filter(excluido=True)
+        else:
+            if request.POST and 'filtro_grupo' in request.POST:
+                if request.POST['filtro_grupo'] == "todos":
+                    servidores = ServidorModel.objects.filter(excluido=True)
+                elif request.POST['filtro_grupo'] == "administrativo":
+                    servidores = ServidorModel.objects.filter(excluido=True,
+                                                              groups=Group.objects.get(name="Administrativo").id)
+                elif request.POST['filtro_grupo'] == "tecnico":
+                    servidores = ServidorModel.objects.filter(excluido=True,
+                                                              groups=Group.objects.get(name="Tecnico").id)
+                else:
+                    raise Http404("Ocorreu algum erro, verifique e tente novamente!")
+            else:
+                servidores = ServidorModel.objects.filter(excluido=True).order_by('nome')
+
+        dados, page_range, ultima = pagination(servidores, request.GET.get('page'))
+        usuario_logado = User.objects.get(pk=request.user.id)
+        if not request.user.is_superuser:
+            administrador = ServidorModel.objects.get(pk=request.user.id).administrador
+        else:
+            administrador = 0
+
+        context_dict['grupo_controle'] = request.POST['filtro_grupo'] if request.POST else ""
+        context_dict['dados'] = dados
+        context_dict['page_range'] = page_range
+        context_dict['ultima'] = ultima
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        context_dict['filtro'] = request.GET.get('filtro')
+        context_dict['usuario_logado'] = usuario_logado
+        context_dict['administrador'] = administrador
+        return render(request, self.template_inativos, context_dict)

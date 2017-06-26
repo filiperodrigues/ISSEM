@@ -35,11 +35,7 @@ class ServidorFormCad(CadPessoaForm):
 
 
 class ServidorFormEdit(PessoaEditForm):
-    groups = forms.ModelChoiceField(required=True,
-                                    empty_label="Selecione um departamento...",
-                                    queryset=Group.objects.all().exclude(name='Segurado').exclude(name='Dependente'),
-                                    widget=forms.Select(attrs={"class": "ui fluid search selection dropdown"})
-                                    )
+
     email = forms.EmailField(required=True)
 
     class Meta:

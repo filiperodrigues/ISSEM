@@ -18,17 +18,17 @@ class Grupo(View):
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None):
         context_dict = {}
-        usuario = User.objects.get(id=id)
+        usuario = User.objects.get(pk=id)
         grupo = usuario.groups.all()[0]
         grupos = Group.objects.all()
         if grupo.name == ADMINISTRATIVO:
-            nome = ServidorModel.objects.get(id=id).nome
+            nome = ServidorModel.objects.get(pk=id).nome
         elif grupo.name == TECNICO:
-            nome = ServidorModel.objects.get(id=id).nome
+            nome = ServidorModel.objects.get(pk=id).nome
         elif grupo.name == SEGURADO:
-            nome = SeguradoModel.objects.get(id=id).nome
+            nome = SeguradoModel.objects.get(pk=id).nome
         else:
-            nome = DependenteModel.objects.get(id=id).nome
+            nome = DependenteModel.objects.get(pk=id).nome
         context_dict['grupos'] = grupos
         context_dict['nome'] = nome
         context_dict['grupo'] = grupo
@@ -38,8 +38,7 @@ class Grupo(View):
 
     @method_decorator(user_passes_test(group_test))
     def post(self, request, id=None):
-        print ("oiioiioioio")
-        usuario = User.objects.get(id=id)
+        usuario = User.objects.get(pk=id)
         grupo_antigo = usuario.groups.all()
         novo_grupo = request.POST.getlist('grupos')
         try:
@@ -55,7 +54,7 @@ class Grupo(View):
         except:
             pass
         context_dict = {}
-        usuario = User.objects.get(id=id)
+        usuario = User.objects.get(pk=id)
         context_dict['id'] = usuario.id
 
         return render(request, self.index, context_dict )

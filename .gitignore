@@ -61,8 +61,4 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-# PyBuilder
 
-/issem/templates/listas/dependentes_inativos.html
-/issem/templates/listas/segurados_inativos.html
-/issem/templates/listas/servidores_inativos.html

@@ -15,6 +15,7 @@ from django.db.models import Q
 class DependenteView(View):
     template = 'cruds/dependente.html'
     template_lista = 'listas/dependentes.html'
+    template_inativos = 'listas/dependentes_inativos.html'
 
     def group_test(user):
         return user.groups.filter(name='Administrativo')
@@ -150,6 +151,18 @@ class DependenteView(View):
         return self.ListaDependentes(request, msg, tipo_msg)
 
     @classmethod
+    def AtivaDelete(self, request, id):
+        try:
+            dependente = DependenteModel.objects.get(pk=id)
+        except:
+            raise Http404("Dependente não encontrado.")
+        dependente.excluido = False
+        dependente.save()
+        msg = "Dependente excluído com sucesso!"
+        tipo_msg = "Dependente excluído com sucesso!"
+        return self.ListaDependentes(request, msg, tipo_msg)
+
+    @classmethod
     def ListaDependentes(self, request, msg=None, tipo_msg=None):
         context_dict = {}
         administrador = ServidorModel.objects.get(id=request.user.id).administrador
@@ -176,6 +189,34 @@ class DependenteView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_lista, context_dict)
+
+    @classmethod
+    def ListaDependentesInativos(self, request, msg=None, tipo_msg=None):
+        context_dict = {}
+        administrador = ServidorModel.objects.get(id=request.user.id).administrador
+        context_dict['administrador'] = administrador
+        if request.GET or 'page' in request.GET:
+            if request.GET.get('filtro'):
+                dependentes = DependenteModel.objects.filter(
+                    Q(cpf__icontains=request.GET.get('filtro'), excluido=True) |
+                    Q(nome__icontains=request.GET.get('filtro'), excluido=True) |
+                    Q(email__icontains=request.GET.get('filtro'), excluido=True)).order_by('nome')
+            else:
+                dependentes = DependenteModel.objects.filter(excluido=True)
+        else:
+            dependentes = DependenteModel.objects.filter(excluido=True).order_by('nome')
+
+        for dependente in dependentes:
+            dependente.segurado = SeguradoModel.objects.get(dependente__id=dependente.id)
+
+        dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
+        context_dict['dados'] = dados
+        context_dict['page_range'] = page_range
+        context_dict['ultima'] = ultima
+        context_dict['msg'] = msg
+        context_dict['tipo_msg'] = tipo_msg
+        context_dict['filtro'] = request.GET.get('filtro')
+        return render(request, self.template_inativos, context_dict)
 
 
 class TransferenciaSegurado(View):

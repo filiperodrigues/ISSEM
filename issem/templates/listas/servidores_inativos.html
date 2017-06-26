@@ -23,30 +23,18 @@
                 </a>
             </div>
 
-            <div class="ten wide column">
+            <div class="ten wide column ">
                 <div class="issem-title-edit-page">
-                    <h1><i class="group icon"></i> Segurados</h1>
+                    <h1><i class="group icon"></i> Servidores Inativos</h1>
                 </div>
             </div>
 
             <div class="three wide column">
-                <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
-                    <a href="{% url 'issem:cad_segurado' %}"
-                       class="ui labeled icon button green">
-                        <i class="key icon"></i> Adicionar Novo
-                    </a>
-                    {% if administrador %}
-                        <a href="{% url 'issem:lista_segurados_inativos' %}"
-                           class="ui labeled icon button red">
-                            <i class="trash icon"></i> Excluídos
-                        </a>
-                    {% endif %}
-                </div>
             </div>
 
             <div class="ui centered row">
                 <br/>
-                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_segurados' %}">
+                <form class="ui form" id="CampoFiltroForm" method="get" action="{% url 'issem:lista_servidores' %}">
                     <div class="ui right aligned category search">
                         <div class="ui icon input">
                             <i class="search icon"></i>
@@ -63,6 +51,16 @@
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Email</th>
+                        <th width="330">
+                            Departamento &ensp;
+                            <form class="ui form issem-form-filter-group">
+                                <select>
+                                    <option value="todos">Todos</option>
+                                    <option value="administrativo">Administrativo</option>
+                                    <option value="servidor">Servidor</option>
+                                </select>
+                            </form>
+                        </th>
                         <th class="ui right aligned">AÇÕES <i class="setting icon"></i>&nbsp;</th>
                     </tr>
                     </thead>
@@ -86,16 +84,25 @@
                             {% else %}
                                 <td>---</td>
                             {% endif %}
+                            {% if dado.groups.all != "" %}
+                                <td>
+                                    {% for grupo in dado.groups.all %}
+                                        {{ grupo }};
+                                    {% endfor %}
+                                </td>
+                            {% else %}
+                                <td>---</td>
+                            {% endif %}
 
                             <td>
                                 <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
                                     {% if administrador %}
-                                        <a href="{% url 'issem:grupo' dado.id %}" class="ui labeled icon button blue">
-                                            <i class="exchange icon"></i> Transferência de Grupo
+                                        <a href="{% url 'issem:ativa_servidor' dado.id %}" class="ui labeled icon button blue">
+                                            <i class="exchange icon"></i> Ativar
                                         </a>
                                     {% endif %}
-                                    {% if usuario_logado.id == dado.id or administrador or not administrador %}
-                                        <a href="{% url 'issem:edita_segurado' dado.id %}"
+                                    {% if usuario_logado.id == dado.id or administrador %}
+                                        <a href="{% url 'issem:edita_servidor' dado.id %}"
                                            class="ui labeled icon button ">
                                             <i class="edit icon"></i> Editar
                                         </a>
@@ -114,7 +121,7 @@
                     <br/>
                     <div class="ui yellow message">
                         <div class="header">
-                            Não existem dados cadastrados
+                            Não existem servidores excluídos!
                         </div>
                     </div>
                 </div>
