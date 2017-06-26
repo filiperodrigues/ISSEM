@@ -35,7 +35,7 @@ class EditaSenhaView(View):
                 nome = segurado.nome
                 if segurado.primeiro_login is True:
                     context_dict['msg'] = "Bem-vindo ao ISSEM. É necessário alterar sua senha inicial para ter acesso ao Sistema."
-                    context_dict['tipo_msg'] = "green"
+                    context_dict['tipo_msg'] = "yellow"
             except:
                 raise Http404("Segurado não encontrado.")
         else:

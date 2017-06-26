@@ -100,17 +100,12 @@ class DependenteView(View):
                 try:
                     gp = Group.objects.get(name='Dependente')
                     user = DependenteModel.objects.get(username=request.POST["username"])
-                    cpf_limpo = ''
-                    for num in user.cpf:
-                        if num.isdigit():
-                            cpf_limpo += num
-                    user.groups.add(gp)
-                    user.is_active = False
-                    user.set_password(mkpass())
-                    user.username = cpf_limpo
-                    user.save()
                 except:
                     raise Http404("Ocorreu algum erro, verifique e tente novamente.")
+                cpf_limpo = ''
+                for num in user.cpf:
+                    if num.isdigit():
+                        cpf_limpo += num
                 user.groups.add(gp)
                 user.is_active = False
                 user.set_password(mkpass())
