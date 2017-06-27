@@ -11,6 +11,7 @@ from issem.models import ServidorModel
 from issem.views.pagination import pagination
 from issem.views.cruds.pass_generator import mkpass
 from django.db.models import Q
+from issem.views.perfil import VerificaValidadeDependente
 
 class DependenteView(View):
     template = 'cruds/dependente.html'
@@ -176,6 +177,9 @@ class DependenteView(View):
         for dependente in dependentes:
             dependente.segurado = SeguradoModel.objects.get(dependente__id=dependente.id)
 
+        #Faz a verificação para retornar somente os dependentes que possuem menos de 18 anos ou que são considerados incapazes
+        dependentes = VerificaValidadeDependente(dependentes)
+
         dados, page_range, ultima = pagination(dependentes, request.GET.get('page'))
         context_dict['dados'] = dados
         context_dict['page_range'] = page_range
@@ -212,6 +216,7 @@ class DependenteView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_inativos, context_dict)
+
 
 
 class TransferenciaSegurado(View):
@@ -288,3 +293,4 @@ class TransferenciaSegurado(View):
         context_dict['ultima'] = None
         context_dict['filtro'] = None
         return render(request, self.template, context_dict)
+

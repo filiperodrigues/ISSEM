@@ -5,7 +5,7 @@ from issem.models.pessoa import PessoaModel
 
 
 class DependenteModel(PessoaModel):
-    tipo = models.ForeignKey(TipoDependenteModel, null=True, blank=True)
+    tipo = models.ForeignKey(TipoDependenteModel, null=False, blank=False)
     data_inicial = models.DateField(null=True, blank=True)
     data_final = models.DateField(null=True, blank=True)
 

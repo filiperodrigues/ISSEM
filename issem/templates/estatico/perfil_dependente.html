@@ -10,7 +10,11 @@
 <div class="fields">
     <div class="six wide field">
         <label>Tipo de Dependente</label>
-        {{ usuario.tipo }}
+        {% if usuario.tipo.descricao == "Incapaz" %}
+            <span class="issem-incapaz">{{ usuario.tipo.descricao }}</span>
+        {% else %}
+            {{ usuario.tipo.descricao }}
+        {% endif %}
     </div>
     <div class="five wide field">
         <label>Data de início</label>

@@ -55,6 +55,17 @@ def ValidarDataNascimento(data):
         raise forms.ValidationError("Deve ter mais que 18 anos")
 
 
+def ValidarDataNascimentoDependente(data, tipo):
+    data_gerada = datetime.now() - relativedelta(years=18)
+    data_gerada = data_gerada.date()
+    if data == None:
+        raise forms.ValidationError("Este campo é obrigatório.")
+    elif data >= data_gerada:
+        return tipo
+    else:
+        raise forms.ValidationError("Dependentes não incapazes devem ter mais de 18 anos")
+
+
 def ValidarTamanhoPassword(senha):
     if len(senha) >= 6:
         return senha

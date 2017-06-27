@@ -173,3 +173,8 @@ i.search.icon {
     margin-right: 0 !important;
     margin-left: 0 !important;
 }
+
+.issem-incapaz {
+    font-weight: bold;
+    color: red;
+}

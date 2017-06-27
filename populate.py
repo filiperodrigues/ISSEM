@@ -86,7 +86,7 @@ def populate():
     arq.close()
 
     # TIPOS DE DEPENDENTE
-    tipos_dependente = ['Cônjuge', 'Incapaz', 'Pai', 'Mãe', 'Filho(a)', 'Irmão não emancipado']
+    tipos_dependente = ['Cônjuge', 'Incapaz', 'Filho(a)', 'Irmão não emancipado']
     for td in tipos_dependente:
         add_tipo_dependente(td)
 

@@ -1,5 +1,5 @@
 # coding:utf-8
-from issem.forms.validators.generic_validators import ValidarDataInicialFinal
+from issem.forms.validators.generic_validators import ValidarDataInicialFinal, ValidarDataNascimentoDependente
 from issem.models.dependente import DependenteModel
 from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
 from django import forms
@@ -20,6 +20,11 @@ class DependenteFormCad(CadPessoaForm):
     def clean_data_final(self):
         return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
 
+    def clean_tipo(self):
+        if (str(self.cleaned_data.get('tipo')) != "Incapaz"):
+            return ValidarDataNascimentoDependente(self.cleaned_data.get('data_nascimento'), self.cleaned_data.get('tipo'))
+        return self.cleaned_data.get('tipo')
+
 
 class DependenteFormEdit(PessoaEditForm):
     data_inicial = forms.DateField(widget=forms.DateInput(attrs={'onfocus': 'limita_data_final()'}))
@@ -31,3 +36,4 @@ class DependenteFormEdit(PessoaEditForm):
 
     def clean_data_final(self):
         return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
+
