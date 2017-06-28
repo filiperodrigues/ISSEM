@@ -14,6 +14,13 @@ import string
 import random
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import redirect
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.shortcuts import render, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
 
 
 class SeguradoView(View):
@@ -92,13 +99,16 @@ class SeguradoView(View):
                     user = SeguradoModel.objects.get(email=request.POST["email"])
 
                     # Define uma senha aleatória para o Segurado e seta o e-mail inserido como "username"
-                    senha = (''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6)))
-                    user.set_password(senha)
                     user.username = form.data.get('email')
                     user.groups.add(gp)
                     user.primeiro_login = True
                     user.save()
-                    EnviaEmailSenha(senha, user.username)
+
+                    #Token link segurado
+                    token = default_token_generator.make_token(user)
+                    uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+                    EnviaEmailSenha(user.username, token, uid)
 
                 except:
                     raise Http404("Ocorreu algum erro, verifique e tente novamente.")
@@ -228,35 +238,43 @@ class SeguradoView(View):
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_inativos, context_dict)
 
-    def EnviaEmailSenha(senha, username):
-        segurado = SeguradoModel.objects.get(username=username)
-        parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
-        if (segurado.email):
-            msg_topo = ("Prezado(a) senhor(a) <st3rong>" + segurado.nome + "</strong>, você foi cadastrado no Sistema ISSEM. Segue às informações de login:<br/><br/>")
-            msg_complemento = "Login: " + segurado.username + "<br/>Senha: " + senha + "<br/>"
-            msg_rodape = "<h4>----</h4>" \
-                         "<font size='5'><strong>ISSEM<strong></font><br/>" \
-                         "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
-                         "Contato: " + str(parametros_configuracoes.telefone_issem) + "<br/>" \
+
+def EnviaEmailSenha(username, token, uid):
+    segurado = SeguradoModel.objects.get(username=username)
+    parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
+    if (segurado.email):
+        msg_topo = (
+        "Prezado(a) senhor(a) <st3rong>" + segurado.nome + "</strong>, você foi cadastrado no Sistema ISSEM. Segue o link para acesso ao Sistema:<br/><br/>")
+        link = "<a href='http://127.0.0.1:8000/issem/primeiro_login/%s/%s/'><font size='3'><strong>Acesse sua conta<strong></font></a>"%(uid, token)
+        msg_rodape = "<h4>----</h4>" \
+                     "<font size='5'><strong>ISSEM<strong></font><br/>" \
+                     "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
+                     "Contato: " + str(parametros_configuracoes.telefone_issem) + "<br/>" \
                                                                                   "<br/><span style='color:red'><em>Obs: Este e-mail foi gerado pelo Sistema ISSEM, respostas não serão consideradas</em></span>"
 
-            msg_completa_email = str(msg_topo + msg_complemento + msg_rodape)
-            email = EmailMultiAlternatives(
-                'Informações de Cadastro - ISSEM',
-                msg_completa_email,
-                'ISSEM - Instituto de Seguridade dos Servidores Municipais',
-                [str(segurado.email)],
+        msg_completa_email = str(msg_topo + link + msg_rodape)
+        email = EmailMultiAlternatives(
+            'Informações de Cadastro - ISSEM',
+            msg_completa_email,
+            'ISSEM - Instituto de Seguridade dos Servidores Municipais',
+            [str(segurado.email)],
 
-            )
-            email.attach_alternative(msg_completa_email, "text/html")
-            email.send()
-        return ""
+        )
+        email.attach_alternative(msg_completa_email, "text/html")
+        email.send()
+    return ""
 
-    def VerificaPrimeiroLogin(user=None):
-        usuario = SeguradoModel.objects.get(username=user)
-        ultimoLogin = usuario.last_login
-        if ultimoLogin:
-            print "nao eh primeiro login"
-            return redirect('login')
-        else:
-            print "primeiro login"
+
+def VerificaTokenPrimeiroLoginSegurado(request, uidb64, token):
+    print("uidb64", uidb64)
+    print("token", token)
+    if uidb64 is not None and token is not None:
+        uid = urlsafe_base64_decode(uidb64)
+        user = SeguradoModel.objects.get(pk=uid)
+        grupo = user.groups.get()
+        if default_token_generator.check_token(user, token):
+            print("5")
+            return HttpResponseRedirect(reverse('issem:edita_senha', args=(user.id, grupo.id)))
+
+    return HttpResponseRedirect(reverse('issem:index'))
+
