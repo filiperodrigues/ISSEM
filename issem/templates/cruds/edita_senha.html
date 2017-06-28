@@ -50,7 +50,11 @@
                     <h1 class="ui header">
                         <i class="key icon"></i>
                         <div class="content">
-                            Defina sua senha
+                            {% if msg_tipo_senha %}
+                                {{ msg_tipo_senha }}
+                            {% else %}
+                                Alteração de senha
+                            {% endif %}
                         </div>
                         <h4><i class="user icon"></i>Nome: {{ nome }}</h4>
                     </h1>
