@@ -18,6 +18,7 @@ def index(request):
                 grupo = request.session['grupo_sessao']
         else:
             grupo = str(grupos[0])
+            request.session['grupo_sessao'] = grupo
 
         if grupo == "Tecnico":
             print("técnico")
