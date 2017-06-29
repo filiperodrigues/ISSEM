@@ -1,16 +1,13 @@
 # coding:utf-8
-from django.shortcuts import render
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from issem.models import BeneficioModel, AgendamentoModel, RequerimentoModel, SeguradoModel
 from datetime import date, timedelta
 from django.db.models import Q
-from django.contrib.auth.models import User
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Group, User
-
 
 
 class PaginaFuncionarioView(View):

@@ -178,3 +178,10 @@ i.search.icon {
     font-weight: bold;
     color: red;
 }
+
+.issem-button-escolha-papel a{
+    width: 300px !important;
+    height: 80px !important;
+    margin-bottom: 15px !important;
+    line-height: 45px !important;
+}

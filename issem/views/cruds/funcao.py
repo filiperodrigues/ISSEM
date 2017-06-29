@@ -1,6 +1,6 @@
 # coding:utf-8
 from django.http import Http404
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render
 from issem.models import FuncaoModel
 from issem.forms import FuncaoForm
 from django.views.generic.base import View

@@ -3,7 +3,7 @@ from django.http import Http404
 from django.shortcuts import render
 from issem.models import ServidorModel, SeguradoModel, DependenteModel
 from django.views.generic.base import View
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User
 from datetime import date
 from dateutil.relativedelta import relativedelta
 

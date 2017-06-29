@@ -1,8 +1,5 @@
 # coding:utf-8
-from django.core.urlresolvers import reverse
 from django.http import Http404
-from django.http import HttpResponseRedirect
-
 from issem.forms import PessoaPasswordForm
 from django.views.generic.base import View
 from issem.models import ServidorModel, SeguradoModel, DependenteModel

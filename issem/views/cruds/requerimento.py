@@ -12,7 +12,6 @@ from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from issem_project.settings import STATIC_URL
 from django.core.mail import EmailMultiAlternatives
-from django.db.models import Avg, Max, Min
 
 import sys
 reload(sys)

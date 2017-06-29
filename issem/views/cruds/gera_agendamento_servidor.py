@@ -4,9 +4,8 @@ from django.shortcuts import render
 from issem.models import RequerimentoModel, AgendamentoModel, BeneficioModel
 from issem.forms import RequerimentoForm, AgendamentoForm
 from django.views.generic.base import View
-from datetime import date, datetime
+from datetime import date
 from issem.views.cruds.requerimento import EnviaEmail
-from django.contrib.auth.models import User
 
 
 class GeraAgendamentoServidorView(View):

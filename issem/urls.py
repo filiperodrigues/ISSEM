@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^login', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^logout', 'django.contrib.auth.views.logout', {'next_page': '/issem/login/'}, name='logout'),
     url(r'^primeiro_login/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', VerificaTokenPrimeiroLoginSegurado, name='user-activation-link'),
-
+    url(r'^escolha_papel/', views.escolha_papel, name='escolha_papel'),
 
     # PAINÉIS
     url(r'^funcionario/$', PaginaFuncionarioView.as_view(), name='funcionario'),

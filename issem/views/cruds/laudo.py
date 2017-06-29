@@ -1,12 +1,11 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import LaudoModel, ServidorModel, SeguradoModel
+from issem.models import LaudoModel, ServidorModel
 from issem.forms import LaudoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
-from django.db.models import Q
 
 # TODO
 

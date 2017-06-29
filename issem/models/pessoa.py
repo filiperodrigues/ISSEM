@@ -23,7 +23,13 @@ class PessoaModel(User):
     cep = models.CharField(max_length=9, blank=True)
     estado_civil = models.ForeignKey(EstadoCivilModel, null=True, blank=True)
     tipo_sanguineo = models.ForeignKey(TipoSanguineoModel, null=True, blank=True)
+
     cargo = models.ForeignKey(CargoModel, null=True, blank=True)
+
+    # APÓS 'PessoaModel' se tornar concreta
+
+    # cargo = models.ManyToManyField(CargoModel, through='Pessoa_Cargo_Associativa', blank=True)
+
     cidade_atual = models.ForeignKey(CidadeModel, related_name="%(app_label)s_%(class)s_atual", null=True, blank=True)
     cidade_natural = models.ForeignKey(CidadeModel, related_name="%(app_label)s_%(class)s_natural", null=True, blank=True)
     nome_pai = models.CharField(max_length=128, blank=True)
@@ -36,3 +42,13 @@ class PessoaModel(User):
         verbose_name_plural = "Pessoas"
 
 
+# APÓS 'PessoaModel' se tornar concreta
+
+# class Pessoa_Cargo_Associativa(models.Model):
+#     id_cargo = models.ForeignKey(CargoModel)
+#     id_pessoa = models.ForeignKey(PessoaModel)
+#     data_inicial = models.DateField()
+#     data_final = models.DateField()
+#
+#     def __unicode__(self):
+#         return unicode(str(self.data_final) + str(self.data_inicial))

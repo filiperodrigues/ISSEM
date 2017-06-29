@@ -13,6 +13,7 @@ from issem.views.cruds.pass_generator import mkpass
 from django.db.models import Q
 from issem.views.perfil import VerificaValidadeDependente
 
+
 class DependenteView(View):
     template = 'cruds/dependente.html'
     template_lista = 'listas/dependentes.html'

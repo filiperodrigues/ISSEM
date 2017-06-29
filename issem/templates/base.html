@@ -6,7 +6,7 @@
 <head>
     <title>ISSEM</title>
     <meta charset="UTF-8">
-    <link rel="icon" href="{% static 'images/issem.png' %}" type="image/x-icon" />
+    <link rel="icon" href="{% static 'images/issem.png' %}" type="image/x-icon"/>
     <link type="text/css" rel="stylesheet" href="{% static 'css/base.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static 'css/jquery-ui.css' %}"/>
     <link type="text/css" rel="stylesheet" href="{% static 'semanticui/dist/semantic.css' %}"/>
@@ -50,27 +50,38 @@
 
 <nav class="ui menu large">
     <div class="ui container">
-        <a href="{% url 'issem:index' %}" class="item issem-icon"><i class="icon large home"></i></a>
-        {% if user.groups.all.0.name == 'Tecnico' %}
-            <a href="{% url 'issem:index' %}" class="item">Técnico</a>
-        {% endif %}
-        {% if user.groups.all.0.name == "Administrativo"  %}
-            <a href="{% url 'issem:index' %}" class="item">Administrativo</a>
-        {% endif %}
-        {% if user.groups.all.0.name == "Segurado" %}
-            <a href="{% url 'issem:index' %}" class="item">Segurado</a>
-        {% endif %}
+        <a href="{% url 'issem:index' %}" class="item issem-icon"><i class="icon large home"></i> &ensp;Início</a>
         {% if not user.is_anonymous %}
             <div class="right menu">
                 <div class="ui pointing dropdown link item">
-                    {% if user.groups.all.0.name == 'Tecnico' %}
+                    <i class="ui right large users icon"></i>
+                    {% if request.session.grupo_sessao == 'Tecnico' %}
+                        Técnico
+                    {% endif %}
+                    {% if request.session.grupo_sessao == "Administrativo" %}
+                        Administrativo
+                    {% endif %}
+                    {% if request.session.grupo_sessao == "Segurado" %}
+                        Segurado
+                    {% endif %}
+                    <i class="angle down icon"></i>
+                    <div class="menu">
+                        <a href="{% url 'issem:escolha_papel' %}" class="item">
+                            <i class="exchange icon"></i>
+                            Trocar Acesso
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ui pointing dropdown link item">
+                    {% if request.session.grupo_sessao == 'Tecnico' %}
                         <i class="ui right large doctor icon"></i>
-                    {% elif user.groups.all.0.name == 'Administrativo' %}
+                    {% elif request.session.grupo_sessao == 'Administrativo' %}
                         <i class="ui right large user icon"></i>
-                    {% elif user.groups.all.0.name == 'Segurado' %}
+                    {% elif request.session.grupo_sessao == 'Segurado' %}
                         <i class="ui right large child icon"></i>
                     {% endif %}
-                    <span class="issem-bold">{{ user }}</span>
+                    {{ user }}
                     <i class="angle down icon"></i>
                     <div class="menu">
                         {% if not user.is_superuser %}
@@ -86,8 +97,6 @@
                     </div>
                 </div>
             </div>
-        {% else %}
-            <a href="{% url 'issem:index' %}" class="item">Início</a>
         {% endif %}
     </div>
 </nav>
