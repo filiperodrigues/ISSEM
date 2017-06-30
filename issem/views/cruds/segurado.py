@@ -268,7 +268,8 @@ def VerificaTokenPrimeiroLoginSegurado(request, uidb64, token):
         user = SeguradoModel.objects.get(pk=uid)
         grupo = user.groups.get()
         if default_token_generator.check_token(user, token):
-            return HttpResponseRedirect(reverse('issem:edita_senha', args=(user.id, grupo.id)))
+            if user.primeiro_login == True:
+                return HttpResponseRedirect(reverse('issem:edita_senha', args=(user.id, grupo.id)))
 
     return HttpResponseRedirect(reverse('issem:index'))
 
