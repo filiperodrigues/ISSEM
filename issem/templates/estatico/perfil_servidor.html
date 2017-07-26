@@ -8,21 +8,30 @@
 
 <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
 <div class="fields">
-    <div class="four wide field"></div>
+    <div class="two wide field"></div>
+
+    <div class="four wide field">
+        <label> Função </label>
+        {% if usuario.funcao %}
+            {{ usuario.funcao }}
+        {% else %}
+            -----------
+        {% endif %}
+    </div>
+
     <div class="four wide field" id="div_group_user">
         <label> Departamento </label>
         {{ usuario.groups.all.0.name }}
     </div>
 
-    {% if usuario.crm %}
-        <div class="four wide field">
-            <label>CRM</label>
+    <div class="four wide field">
+        <label>CRM</label>
+        {% if usuario.crm %}
             {{ usuario.crm }}
-        </div>
+        {% else %}
+            -----------
+        {% endif %}
+    </div>
 
-    {% else %}
-        <div class="four wide field">
-        </div>
-    {% endif %}
-    <div class="four wide field"></div>
+    <div class="two wide field"></div>
 </div>

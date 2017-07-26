@@ -1,8 +1,8 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render
-from issem.models import ParametrosConfiguracaoModel
-from issem.forms import ParametrosConfiguracaoForm
+from issem.models.parametros_configuracao import ParametrosConfiguracaoModel
+from issem.forms.parametros_configuracao import ParametrosConfiguracaoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator

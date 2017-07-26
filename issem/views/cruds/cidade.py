@@ -2,7 +2,7 @@
 from django.shortcuts import HttpResponse
 from django.core import serializers
 from django.views.generic.base import View
-from issem.models import CidadeModel
+from issem.models.cidade import CidadeModel
 
 
 class CidadeView(View):

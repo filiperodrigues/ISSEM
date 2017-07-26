@@ -1,10 +1,11 @@
 # coding: utf-8
 from django import forms
-from issem.models import BeneficioModel
-from issem.models import CidModel
-from issem.models import LaudoModel, SeguradoModel
-from issem.models import ProcedimentoMedicoModel
-from issem.models import RequerimentoModel
+from issem.models.beneficio import BeneficioModel
+from issem.models.cid import CidModel
+from issem.models.laudo import LaudoModel
+from issem.models.segurado import SeguradoModel
+from issem.models.procedimento_medico import ProcedimentoMedicoModel
+from issem.models.requerimento import RequerimentoModel
 
 
 class LaudoForm(forms.ModelForm):

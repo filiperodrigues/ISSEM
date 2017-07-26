@@ -26,7 +26,7 @@
             <div class="ten wide column issem-margin-bottom">
                 <div class="issem-title-edit-page">
                     <h1><i class="exchange icon"></i> Transferência de dependente para outro Segurado</h1>
-                    <h2><i class="user icon"></i>{{ dependente.nome }}</h2>
+                    <h2><i class="user icon"></i>{{ dependente.get_full_name }}</h2>
                 </div>
                 <br/>
             </div>
@@ -74,9 +74,9 @@
                         {% for segurado_pesquisa in dados %}
                             {% if segurado_pesquisa != segurado_atual %}
                                 <tr>
-                                    {% if segurado_pesquisa.nome != "" %}
+                                    {% if segurado_pesquisa.get_full_name != "" %}
                                         <td>
-                                            <a href="{% url 'issem:perfil' segurado_pesquisa.id %}">{{ segurado_pesquisa.nome }}</a>
+                                            <a href="{% url 'issem:perfil' segurado_pesquisa.id %}">{{ segurado_pesquisa.get_full_name }}</a>
                                         </td>
                                     {% else %}
                                         <td>---</td>

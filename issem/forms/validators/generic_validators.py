@@ -5,6 +5,51 @@ from dateutil.relativedelta import relativedelta
 import string
 import random
 
+from django.contrib.auth.models import User
+
+
+def ValidaPrimeiroNome(first_name):
+    if not first_name:
+        raise forms.ValidationError("Este campo é obrigatório")
+    else:
+        return first_name
+
+
+def ValidaSegundoNome(last_name):
+    if not last_name:
+        raise forms.ValidationError("Este campo é obrigatório")
+    else:
+        return last_name
+
+
+def ValidaEmail(email, instance_id):
+    if not email:
+        raise forms.ValidationError("Este campo é obrigatório")
+    elif User.objects.filter(email=email).exclude(pk=instance_id):
+        raise forms.ValidationError("Este e-mail já existe")
+    else:
+        return email
+
+
+def ValidaEmailDependente(email, instance_id):
+    if email:
+        if User.objects.filter(email=email).exclude(pk=instance_id):
+            raise forms.ValidationError("Este e-mail já existe")
+        else:
+            return email
+    else:
+        return email
+
+
+def ValidaCRM(crm, groups):
+    if str(groups) == "Tecnico":
+        if crm:
+            return crm
+        else:
+            raise forms.ValidationError("Digite um CRM.")
+    else:
+        return crm
+
 
 def ValidarDataInicialFinal(data_inicial, data_final):
 

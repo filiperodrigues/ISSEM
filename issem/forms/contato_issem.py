@@ -1,6 +1,6 @@
 #coding:utf-8
 from django import forms
-from issem.models import ContatoIssemModel
+from issem.models.contato_issem import ContatoIssemModel
 
 
 class ContatoIssemForm(forms.ModelForm):

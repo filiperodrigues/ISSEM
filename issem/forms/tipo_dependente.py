@@ -1,6 +1,6 @@
 #coding:utf-8
 from django import forms
-from issem.models import TipoDependenteModel
+from issem.models.tipo_dependente import TipoDependenteModel
 
 
 class TipoDependenteForm(forms.ModelForm):

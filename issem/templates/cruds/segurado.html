@@ -24,7 +24,7 @@
             {% endif %}
 
             <div class="three wide column">
-                <a href="{% url 'issem:lista_segurados' %}">
+                <a href="{% url 'issem:index' %}">
                     <div class="ui labeled icon button basic">
                         <i class="left arrow icon"></i> Voltar
                     </div>
@@ -50,8 +50,8 @@
                                 <i class="key icon"></i> Alterar Senha
                             </a>
                         </div>
-                    {% elif administrador %}
-                        <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
+                    {% elif request.session.administrador %}
+                        <div class="ui right floated {% if request.session.administrador %}vertical{% endif %} buttons">
                             <a href="{% url 'issem:edita_senha' id id_group_user %}"
                                class="ui labeled icon button secondary">
                                 <i class="key icon"></i> Alterar Senha

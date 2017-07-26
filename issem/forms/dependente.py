@@ -1,5 +1,5 @@
 # coding:utf-8
-from issem.forms.validators.generic_validators import ValidarDataInicialFinal, ValidarDataNascimentoDependente
+from issem.forms.validators.generic_validators import ValidarDataInicialFinal, ValidarDataNascimentoDependente, ValidaEmailDependente
 from issem.models.dependente import DependenteModel
 from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
 from django import forms
@@ -20,6 +20,9 @@ class DependenteFormCad(CadPessoaForm):
     def clean_data_final(self):
         return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
 
+    def clean_email(self):
+        return ValidaEmailDependente(self.cleaned_data['email'], self.instance.id)
+
     def clean_tipo(self):
         if (str(self.cleaned_data.get('tipo')) != "Incapaz"):
             return ValidarDataNascimentoDependente(self.cleaned_data.get('data_nascimento'), self.cleaned_data.get('tipo'))
@@ -36,4 +39,7 @@ class DependenteFormEdit(PessoaEditForm):
 
     def clean_data_final(self):
         return ValidarDataInicialFinal(self.cleaned_data.get('data_inicial'), self.cleaned_data.get('data_final'))
+
+    def clean_email(self):
+        return ValidaEmailDependente(self.cleaned_data['email'], self.instance.id)
 

@@ -1,7 +1,10 @@
 # coding:utf-8
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import RequerimentoModel, AgendamentoModel, BeneficioModel
-from issem.forms import RequerimentoForm, AgendamentoForm
+from issem.models.requerimento import RequerimentoModel
+from issem.models.agendamento import AgendamentoModel
+from issem.models.beneficio import BeneficioModel
+from issem.forms.requerimento import RequerimentoForm
+from issem.forms.agendamento import AgendamentoForm
 from django.views.generic.base import View
 from datetime import date
 from django.contrib.auth.models import User

@@ -1,6 +1,6 @@
 #coding:utf-8
 from django import forms
-from issem.models import FuncaoModel
+from issem.models.funcao import FuncaoModel
 
 
 class FuncaoForm(forms.ModelForm):

@@ -8,61 +8,45 @@
 
 <h4 class="ui dividing red header">Dados específicos do Segurado</h4>
 <div class="fields">
-    {% if usuario.local_trabalho %}
-        <div class="four wide field">
-            <label> Local de Trabalho </label>
+    <div class="four wide field">
+        <label> Local de Trabalho </label>
+        {% if usuario.local_trabalho %}
             {{ usuario.local_trabalho }}
-        </div>
-
-    {% else %}
-        <div class="four wide field">
-            <label> Local de Trabalho </label>
+        {% else %}
             -----------
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
 
-    {% if usuario.pasep_pis_nit %}
-        <div class="four wide field">
-            <label> PIS/PASEP/NIT </label>
-            <div class="somente_numeros">
+    <div class="four wide field">
+        <label> PIS/PASEP/NIT </label>
+        <div class="somente_numeros">
+            {% if usuario.pasep_pis_nit %}
                 {{ usuario.pasep_pis_nit }}
-            </div>
+            {% else %}
+                -----------
+            {% endif %}
         </div>
+    </div>
 
-    {% else %}
-        <div class="four wide field">
-            <label> PIS/PASEP/NIT </label>
-            -----------
-        </div>
-    {% endif %}
-
-    {% if usuario.documento_legal %}
-        <div class="four wide field">
-            <label> Documento legal </label>
-            <div class="somente_numeros">
+    <div class="four wide field">
+        <label> Documento legal </label>
+        <div class="somente_numeros">
+            {% if usuario.documento_legal %}
                 {{ usuario.documento_legal }}
-            </div>
+            {% else %}
+                -----------
+            {% endif %}
         </div>
+    </div>
 
-    {% else %}
-        <div class="four wide field">
-            <label> Documento Legal </label>
-            -----------
-        </div>
-    {% endif %}
-
-    {% if usuario.data_admissao %}
-        <div class="four wide field">
-            <label>Data de Admissão</label>
-            <div class="data">
+    <div class="four wide field">
+        <label>Data de Admissão</label>
+        <div class="data">
+            {% if usuario.data_admissao %}
                 {{ usuario.data_admissao }}
-            </div>
+            {% else %}
+                -----------
+            {% endif %}
         </div>
-
-    {% else %}
-        <div class="four wide field">
-            <label> Data de Admissão </label>
-            -----------
-        </div>
-    {% endif %}
+    </div>
 </div>

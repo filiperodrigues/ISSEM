@@ -25,7 +25,7 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1><i class="group icon"></i>Dependentes Inativos</h1>
+                    <h1><i class="group icon"></i> Dependentes Inativos</h1>
                 </div>
             </div>
 
@@ -59,9 +59,9 @@
                     <tbody>
                     {% for dado in dados %}
                         <tr>
-                            {% if dado.nome != "" %}
+                            {% if dado.get_full_name != "" %}
                                 <td>
-                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.nome }}</a>
+                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.get_full_name }}</a>
                                 </td>
                             {% else %}
                                 <td>---</td>
@@ -77,24 +77,21 @@
                                 <td>---</td>
                             {% endif %}
                             {% if dado.segurado != "" %}
-                                <td><a href="{% url 'issem:perfil' dado.segurado.id %}">{{ dado.segurado.nome }}</a></td>
+                                <td><a href="{% url 'issem:perfil' dado.segurado.id %}">{{ dado.segurado.get_full_name }}</a>
+                                </td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
 
-                            <td class="ui right aligned">
-                                {% if administrador %}
-                                    <a href="{% url 'issem:ativa_dependente' dado.id %}">
-                                        <div class="ui labeled icon fluid button">
+                            <td>
+                                <div class="ui right floated buttons">
+                                    {% if request.session.administrador %}
+                                        <a href="{% url 'issem:ativa_dependente' dado.id %}"
+                                           class="ui labeled icon  fluid button blue">
                                             <i class="checkmark icon"></i> Ativar
-                                        </div>
-                                    </a>
-                                {% endif %}
-                                <a href="{% url 'issem:edita_dependente' dado.id %}">
-                                    <div class="ui labeled icon fluid button">
-                                        <i class="edit icon"></i> Editar
-                                    </div>
-                                </a>
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}

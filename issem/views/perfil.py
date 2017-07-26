@@ -24,8 +24,6 @@ class PerfilView(View):
             raise Http404("Grupo do usuário não encontrado.")
 
         if str(grupo) == "Administrativo" or str(grupo) == "Tecnico":
-            administrador = ServidorModel.objects.get(pk=request.user.id)
-            context_dict['administrador'] = administrador
             grupo = False
             try:
                 usuario = ServidorModel.objects.get(pk=id)

@@ -1,4 +1,4 @@
-0# coding: utf-8
+# coding:utf-8
 from django.db import models
 from issem.models.cidade import CidadeModel
 from issem.models.secretaria import SecretariaModel

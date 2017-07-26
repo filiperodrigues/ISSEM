@@ -1,6 +1,6 @@
 #coding:utf-8
 from django import forms
-from issem.models import CargoModel
+from issem.models.cargo import CargoModel
 
 
 class CargoForm(forms.ModelForm):

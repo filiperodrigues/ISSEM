@@ -39,14 +39,16 @@
 
             <div class="three wide column">
                 {% if id %}
-                    <div class="ui right floated vertical buttons">
+                    <div class="ui right floated {% if request.session.administrador %}vertical{% endif %} buttons">
                         <a href="{% url 'issem:edita_senha' id id_group_user %}"
                            class="ui labeled icon button secondary">
                             <i class="key icon"></i> Alterar Senha
                         </a>
-                        <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
-                            <i class="trash icon"></i> Excluir
-                        </a>
+                        {% if request.session.administrador %}
+                            <a class="ui labeled icon button red abrirModalConfirmacao" href="#">
+                                <i class="trash icon"></i> Excluir
+                            </a>
+                        {% endif %}
                     </div>
                 {% endif %}
             </div>
@@ -62,47 +64,56 @@
                 <br/>
                 <br/>
 
-                <div class="fields">
-                    <div class="two wide field"></div>
-                    <div class="four wide field">
-                        <label>Usuário<i class="asterisk icon red"></i></label>
-                        {{ form.username }}
-                        {% if form.username.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.username.errors }}
-                            </div>
-                        {% endif %}
+                {% if not id %}
+                    <div class="fields">
+                        <div class="two wide field"></div>
+                        <div class="four wide field">
+                            <label>Usuário<i class="asterisk icon red"></i></label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.username.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="four wide field">
+                            <label>Senha<i class="asterisk icon red"></i></label>
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.password.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="four wide field">
+                            <label>Confirme sua senha<i class="asterisk icon red"></i></label>
+                            {{ form.password_checker }}
+                            {% if form.password_checker.errors %}
+                                <div class="ui pointing red basic label issem-error-field">
+                                    {{ form.password_checker.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="two wide field"></div>
                     </div>
-                    <div class="four wide field">
-                        <label>Senha<i class="asterisk icon red"></i></label>
-                        {{ form.password }}
-                        {% if form.password.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.password.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="four wide field">
-                        <label>Confirme sua senha<i class="asterisk icon red"></i></label>
-                        {{ form.password_checker }}
-                        {% if form.password_checker.errors %}
-                            <div class="ui pointing red basic label issem-error-field">
-                                {{ form.password_checker.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="two wide field"></div>
-                </div>
+                {% endif %}
 
                 {% if not id %}
                     <h4 class="ui dividing red header">Dados específicos do Servidor</h4>
                     <div class="fields">
-                        <div class="four wide field"></div>
+                        <div class="two wide field"></div>
+                        <div class="four wide field">
+                            <label>Função</label>
+                            {{ form.funcao }}
+                            {% if form.funcao.errors %}
+                                <div class="ui pointing red basic label">
+                                    {{ form.funcao.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
                         <div class="four wide field">
                             <label>Departamento <i class="asterisk icon red"></i></label>
-
                             {{ form.groups }}
-
                             {% if form.groups.errors %}
                                 <div class="ui pointing red basic label">
                                     {{ form.groups.errors }}
@@ -120,7 +131,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="four wide field"></div>
+                        <div class="two wide field"></div>
                     </div>
                 {% endif %}
 

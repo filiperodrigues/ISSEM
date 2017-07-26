@@ -25,10 +25,10 @@
 
             <div class="ten wide column">
                 <div class="issem-title-edit-page">
-                    <h1><i class="user icon"></i> {{ usuario.nome }}</h1>
+                    <h1><i class="user icon"></i> {{ usuario.get_full_name }}</h1>
                     {% if usuario.groups.all.0.name == "Dependente" %}
                         {% if segurado %}
-                            <h3>Segurado(a): "{{ segurado.nome }}"</h3>
+                            <h3>Segurado(a): "{{ segurado.get_full_name }}"</h3>
                         {% else %}
                             <h3 class="issem-red">(Sem segurado associado)</h3>
                         {% endif %}
@@ -39,7 +39,7 @@
             <div class="three wide column">
                 {% if usuario.groups.all.0.name == "Administrativo" or usuario.groups.all.0.name == "Tecnico" %}
 
-                    {% if usuario_logado == usuario.id or administrador %}
+                    {% if usuario_logado == usuario.id or request.session.administrador %}
                         <a class="ui right floated labeled icon button blue"
                            href="{% url 'issem:edita_servidor' usuario.id %}">
                             <i class="edit icon"></i> Alterar Perfil
@@ -54,18 +54,18 @@
                     </a>
 
                 {% else %}
-
-                    <div class="ui right floated vertical buttons">
+                    <div class="ui right floated {% if request.session.administrador %}vertical{% endif %} buttons">
                         <a class="ui right floated labeled icon button blue"
                            href="{% url 'issem:edita_dependente' usuario.id %}">
                             <i class="edit icon"></i> Alterar Perfil
                         </a>
-                        <a class="ui right floated labeled icon button"
-                           href="{% url 'issem:seleciona_segurado' id %}">
-                            <i class="exchange icon"></i> Transferir para outro segurado
-                        </a>
+                        {% if request.session.administrador %}
+                            <a class="ui right floated labeled icon button"
+                               href="{% url 'issem:seleciona_segurado' id %}">
+                                <i class="exchange icon"></i> Transferir para outro segurado
+                            </a>
+                        {% endif %}
                     </div>
-
                 {% endif %}
             </div>
 
@@ -88,7 +88,7 @@
                                     <i class="big user icon"></i>
                                     <div class="content">
                                         <div class="ui sub header">
-                                            <a href="{% url 'issem:perfil' dependente.id %}">{{ dependente.nome }}</a>
+                                            <a href="{% url 'issem:perfil' dependente.id %}">{{ dependente.get_full_name }}</a>
                                         </div>
                                         <strong> CPF: </strong>
                                         {{ dependente.cpf }}<br/>
@@ -114,11 +114,11 @@
                         </div>
                         {% if usuario_logado != usuario.id %}
                             <div class="ui grid center aligned">
-                            <div class="row">
-                                <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
-                                    dependente</a>
+                                <div class="row">
+                                    <a href="{% url 'issem:cad_dependente_segurado' id %}" class="ui button green">Associar
+                                        dependente</a>
+                                </div>
                             </div>
-                        </div>
                         {% endif %}
                     {% endif %}
                 {% elif usuario.groups.all.0.name == "Dependente" %}

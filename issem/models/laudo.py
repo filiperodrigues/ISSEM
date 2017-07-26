@@ -30,10 +30,10 @@ class LaudoModel(models.Model):
     excluido = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return "Laudo de " + str(self.segurado.nome) + " criado em " + str(self.data)
+        return "Laudo de " + str(self.segurado.get_full_name()) + " criado em " + str(self.data)
 
     def __str__(self):
-        return "Laudo de " + str(self.segurado.nome) + " criado em " + str(self.data)
+        return "Laudo de " + str(self.segurado.get_full_name()) + " criado em " + str(self.data)
 
     class Meta:
         verbose_name = "Laudo Médico"

@@ -30,12 +30,12 @@
             </div>
 
             <div class="three wide column">
-                <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
+                <div class="ui right floated {% if request.session.administrador %}vertical{% endif %} buttons">
                     <a href="{% url 'issem:cad_segurado' %}"
                        class="ui labeled icon button green">
                         <i class="plus icon"></i> Adicionar Novo
                     </a>
-                    {% if administrador %}
+                    {% if request.session.administrador %}
                         <a href="{% url 'issem:lista_segurados_inativos' %}"
                            class="ui labeled icon button red">
                             <i class="trash icon"></i> Excluídos
@@ -69,9 +69,9 @@
                     <tbody>
                     {% for dado in dados %}
                         <tr>
-                            {% if dado.nome != "" %}
+                            {% if dado.get_full_name != "" %}
                                 <td>
-                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.nome }}</a>
+                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.get_full_name }}</a>
                                 </td>
                             {% else %}
                                 <td>---</td>
@@ -88,13 +88,13 @@
                             {% endif %}
 
                             <td>
-                                <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
-                                    {% if administrador %}
+                                <div class="ui right floated {% if request.session.administrador %}vertical{% endif %} buttons">
+                                    {% if request.session.administrador %}
                                         <a href="{% url 'issem:grupo' dado.id %}" class="ui labeled icon button blue">
                                             <i class="exchange icon"></i> Transferência de Grupo
                                         </a>
                                     {% endif %}
-                                    {% if usuario_logado.id == dado.id or administrador or not administrador %}
+                                    {% if usuario_logado.id == dado.id or request.session.administrador %}
                                         <a href="{% url 'issem:edita_segurado' dado.id %}"
                                            class="ui labeled icon button ">
                                             <i class="edit icon"></i> Editar

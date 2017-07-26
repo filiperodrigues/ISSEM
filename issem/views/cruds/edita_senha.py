@@ -2,7 +2,9 @@
 from django.http import Http404
 from issem.forms import PessoaPasswordForm
 from django.views.generic.base import View
-from issem.models import ServidorModel, SeguradoModel, DependenteModel
+from issem.models.servidor import ServidorModel
+from issem.models.segurado import SeguradoModel
+from issem.models.dependente import DependenteModel
 from django.contrib.auth import logout
 from django.contrib.auth.models import Group
 from django.shortcuts import render
@@ -23,13 +25,13 @@ class EditaSenhaView(View):
             raise Http404("Ocorreu algum erro, verifique e tente novamente.")
         if group_user == "Administrativo" or group_user == "Tecnico":
             try:
-                nome = ServidorModel.objects.get(pk=id).nome
+                nome = ServidorModel.objects.get(pk=id).get_full_name()
             except:
                 raise Http404("Servidor não encontrado.")
         elif group_user == "Segurado":
             try:
                 segurado = SeguradoModel.objects.get(pk=id)
-                nome = segurado.nome
+                nome = segurado.get_full_name()
                 if segurado.primeiro_login is True:
                     context_dict['msg'] = "Bem-vindo ao ISSEM. É necessário criar uma senha para ter acesso ao Sistema."
                     context_dict['msg_tipo_senha'] = "Defina sua senha"
@@ -38,7 +40,7 @@ class EditaSenhaView(View):
                 raise Http404("Segurado não encontrado.")
         else:
             try:
-                nome = DependenteModel.objects.get(pk=id).nome
+                nome = DependenteModel.objects.get(pk=id).get_full_name()
             except:
                 raise Http404("Dependente não encontrado.")
 

@@ -1,13 +1,12 @@
 # coding:utf-8
 from django import forms
-from django.contrib.auth.management import get_default_username
-
-from issem.forms.validators.cpf_validator import ValidarCPF
-from issem.forms.validators.generic_validators import ValidarPassword, ValidarTamanhoPassword
-from issem.models import CargoModel
-from issem.models.estado import EstadoModel
 from issem.models.cidade import CidadeModel
+from issem.models.estado import EstadoModel
 from issem.models.pessoa import PessoaModel
+from issem.forms.validators.cpf_validator import ValidarCPF
+from issem.forms.validators.generic_validators import ValidarPassword, ValidarTamanhoPassword, ValidaPrimeiroNome, \
+    ValidaSegundoNome
+from issem.models.cargo import CargoModel
 
 
 class CadPessoaForm(forms.ModelForm):
@@ -22,7 +21,7 @@ class CadPessoaForm(forms.ModelForm):
                              choices=generos,
                              )
     estados = EstadoModel.objects.all()
-    cidades = CidadeModel.objects.filter(id=0)
+    cidades = CidadeModel.objects.filter()
     estado_natural = forms.ModelChoiceField(required=False,
                                             empty_label="Selecione um estado",
                                             queryset=estados,
@@ -49,19 +48,18 @@ class CadPessoaForm(forms.ModelForm):
     password_checker = forms.CharField(required=False, widget=forms.PasswordInput())
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
 
-
     class Meta:
         model = PessoaModel
         fields = "__all__"
 
-    # def clean_cpf(self):
-    #     return ValidarCPF(self.cleaned_data.get('cpf'))
+    def clean_first_name(self):
+        return ValidaPrimeiroNome(self.cleaned_data['first_name'])
 
-    # def clean_password(self):
-    #     return ValidarTamanhoPassword(self.cleaned_data['password'])
-    #
-    # def clean_password_checker(self):
-    #     return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
+    def clean_last_name(self):
+        return ValidaSegundoNome(self.cleaned_data['last_name'])
+
+    def clean_cpf(self):
+        return ValidarCPF(self.cleaned_data.get('cpf'))
 
     def save(self, commit=True):
         user = super(CadPessoaForm, self).save(commit=False)
@@ -82,7 +80,7 @@ class PessoaEditForm(forms.ModelForm):
                              choices=generos,
                              )
     estados = EstadoModel.objects.all()
-    cidades = CidadeModel.objects.filter(id=0)
+    cidades = CidadeModel.objects.filter()
     estado_natural = forms.ModelChoiceField(required=False,
                                             empty_label="Selecione um estado",
                                             queryset=estados,
@@ -107,13 +105,18 @@ class PessoaEditForm(forms.ModelForm):
                                           )
     data_nascimento = forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'DD/MM/AAAA'}))
 
-
     class Meta:
         model = PessoaModel
         fields = "__all__"
 
-    # def clean_cpf(self):
-    #     return ValidarCPF(self.cleaned_data.get('cpf'))
+    def clean_first_name(self):
+        return ValidaPrimeiroNome(self.cleaned_data['first_name'])
+
+    def clean_last_name(self):
+        return ValidaSegundoNome(self.cleaned_data['last_name'])
+
+    def clean_cpf(self):
+        return ValidarCPF(self.cleaned_data.get('cpf'))
 
     def save(self, commit=True):
         try:
@@ -132,11 +135,11 @@ class PessoaPasswordForm(forms.ModelForm):
         model = PessoaModel
         fields = ['password']
 
-    # def clean_password(self):
-    #     return ValidarTamanhoPassword(self.cleaned_data['password'])
-    #
-    # def clean_password_checker(self):
-    #     return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
+    def clean_password(self):
+        return ValidarTamanhoPassword(self.cleaned_data['password'])
+
+    def clean_password_checker(self):
+        return ValidarPassword(self.cleaned_data.get('password'), self.cleaned_data.get('password_checker'))
 
     def save(self, commit=True):
         user = super(PessoaPasswordForm, self).save(commit=False)

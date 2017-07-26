@@ -3,12 +3,16 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
+from issem.models.servidor import ServidorModel
+
 
 def index(request):
+    print("oiii")
     if not request.user.is_authenticated():
         return HttpResponseRedirect(reverse('issem:login'))
 
     grupos = request.user.groups.all()
+    request.session['administrador'] = False
 
     if len(grupos) > 0:
         if len(grupos) > 1:
@@ -21,13 +25,11 @@ def index(request):
             request.session['grupo_sessao'] = grupo
 
         if grupo == "Tecnico":
-            print("técnico")
             return HttpResponseRedirect(reverse('issem:medico'))
         elif grupo == 'Segurado':
-            print("segurado")
             return HttpResponseRedirect(reverse('issem:segurado'))
         elif grupo == 'Administrativo':
-            print("administrativo")
+            request.session['administrador'] = ServidorModel.objects.get(pk=request.user.id).administrador
             return HttpResponseRedirect(reverse('issem:funcionario'))
         else:
             return render(request, 'paineis/index.html')

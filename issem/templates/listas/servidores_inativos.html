@@ -67,9 +67,9 @@
                     <tbody>
                     {% for dado in dados %}
                         <tr>
-                            {% if dado.nome != "" %}
+                            {% if dado.get_full_name != "" %}
                                 <td>
-                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.nome }}</a>
+                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.get_full_name }}</a>
                                 </td>
                             {% else %}
                                 <td>---</td>
@@ -95,13 +95,13 @@
                             {% endif %}
 
                             <td>
-                                <div class="ui right floated {% if administrador %}vertical{% endif %} buttons">
-                                    {% if administrador %}
+                                <div class="ui right floated {% if request.session.administrador %}vertical{% endif %} buttons">
+                                    {% if request.session.administrador %}
                                         <a href="{% url 'issem:ativa_servidor' dado.id %}" class="ui labeled icon button blue">
                                             <i class="exchange icon"></i> Ativar
                                         </a>
                                     {% endif %}
-                                    {% if usuario_logado.id == dado.id or administrador %}
+                                    {% if request.session.administrador %}
                                         <a href="{% url 'issem:edita_servidor' dado.id %}"
                                            class="ui labeled icon button ">
                                             <i class="edit icon"></i> Editar

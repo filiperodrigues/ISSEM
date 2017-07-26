@@ -1,8 +1,8 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render, HttpResponse
-from issem.models import SecretariaModel
-from issem.forms import SecretariaForm
+from issem.models.secretaria import SecretariaModel
+from issem.forms.secretaria import SecretariaForm
 from django.views.generic.base import View
 from django.core import serializers
 from django.contrib.auth.decorators import user_passes_test

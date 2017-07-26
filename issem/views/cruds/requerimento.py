@@ -2,8 +2,12 @@
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from issem.models import RequerimentoModel, AgendamentoModel, BeneficioModel, SeguradoModel, ParametrosConfiguracaoModel
-from issem.forms import RequerimentoForm
+from issem.models.requerimento import RequerimentoModel
+from issem.models.agendamento import AgendamentoModel
+from issem.models.beneficio import BeneficioModel
+from issem.models.segurado import SeguradoModel
+from issem.models.parametros_configuracao import ParametrosConfiguracaoModel
+from issem.forms.requerimento import RequerimentoForm
 from django.views.generic.base import View
 from datetime import date, timedelta, datetime
 from django.contrib.auth.models import User
@@ -194,11 +198,11 @@ def GeraComprovanteAgendamento(request, id_usuario=None, id_agendamento=None):
     linhaInicial = 728
 
     #   Formata o nome do Segurado para apresentar somente os três primeiros nomes, "de e da" são contados como nome   #
-    nome_segurado = str(segurado.nome).split(" ")
+    nome_segurado = str(segurado.get_full_name()).split(" ")
     if len(nome_segurado) >= 3:
         nome_segurado_formatado = str(nome_segurado[0] + " " + nome_segurado[1] + " " + nome_segurado[2])
     else:
-        nome_segurado_formatado = segurado.nome
+        nome_segurado_formatado = segurado.get_full_name()
 
     p.setFont("Helvetica", 10)
     p.drawString(50, linhaInicial-10, "Prezado(a) senhor(a): " + nome_segurado_formatado + " você possui uma visita junto ao ISSEM.")
@@ -235,8 +239,8 @@ def EnviaEmail(id_usuario, id_agendamento):
     parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
     if (segurado.email):
         msg_topo = (
-        "Prezado(a) senhor(a) <strong>" + segurado.nome +"</strong>, você possui uma visita junto ao ISSEM. Segue as informações:<br/><br/>")
-        msg_nome_segurado = "<strong>Agendado para: </strong>" + segurado.nome + (
+        "Prezado(a) senhor(a) <strong>" + segurado.get_full_name() +"</strong>, você possui uma visita junto ao ISSEM. Segue as informações:<br/><br/>")
+        msg_nome_segurado = "<strong>Agendado para: </strong>" + segurado.get_full_name() + (
         " (CPF: " + segurado.cpf + ")") + "<br/>"
         msg_data_atendimento = "<strong>Data do atendimento: </strong>" + str(agendamento.data_pericia)[8:] + "/" + str(
             agendamento.data_pericia)[5:7] + "/" + str(agendamento.data_pericia)[0:4] + "<br/>"

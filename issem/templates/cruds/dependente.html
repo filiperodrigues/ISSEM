@@ -32,12 +32,12 @@
                     {% if not id %}
                         <h1><i class="plus icon"></i> Cadastro de Dependente</h1>
                         {% if segurado %}
-                            <h3>Para o segurado(a): "{{ segurado.nome }}"</h3>
+                            <h3>Para o segurado(a): "{{ segurado.get_full_name }}"</h3>
                         {% endif %}
                     {% else %}
                         <h1><i class="edit icon"></i> Edição de Dependente</h1>
                         {% if segurado %}
-                            <h3>Segurado(a): "{{ segurado.nome }}"</h3>
+                            <h3>Segurado(a): "{{ segurado.get_full_name }}"</h3>
                         {% else %}
                             <h3 class="issem-red">(Sem segurado associado)</h3>
                         {% endif %}
@@ -46,7 +46,7 @@
             </div>
 
             <div class="three wide column">
-                {% if id and administrador %}
+                {% if id and request.session.administrador %}
                     <div class="ui right floated vertical buttons">
                         <a href="{% url 'issem:edita_senha' id id_group_user %}"
                            class="ui labeled icon button secondary">

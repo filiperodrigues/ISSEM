@@ -1,8 +1,11 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render
-from issem.models import RequerimentoModel, AgendamentoModel, BeneficioModel
-from issem.forms import RequerimentoForm, AgendamentoForm
+from issem.models.requerimento import RequerimentoModel
+from issem.models.agendamento import AgendamentoModel
+from issem.models.beneficio import BeneficioModel
+from issem.forms.requerimento import RequerimentoForm
+from issem.forms.agendamento import AgendamentoForm
 from django.views.generic.base import View
 from datetime import date
 from issem.views.cruds.requerimento import EnviaEmail
@@ -40,7 +43,7 @@ class GeraAgendamentoServidorView(View):
             form_requerimento = RequerimentoForm(instance=requerimento)
             form_agendamento = AgendamentoForm(instance=agendamento)
             context_dict['agendamento_sem_requerimento'] = True
-            context_dict['segurado_nome'] = requerimento.segurado.nome
+            context_dict['segurado_nome'] = requerimento.segurado.get_full_name()
             context_dict['id_usuario'] = request.user.id
             context_dict['segurado_id'] = requerimento.segurado.id
         else:

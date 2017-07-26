@@ -1,7 +1,7 @@
 # coding:utf-8
 from django.db import models
-from issem.models.tipo_dependente import TipoDependenteModel
 from issem.models.pessoa import PessoaModel
+from issem.models.tipo_dependente import TipoDependenteModel
 
 
 class DependenteModel(PessoaModel):
@@ -10,12 +10,10 @@ class DependenteModel(PessoaModel):
     data_final = models.DateField(null=True, blank=True)
 
     def __unicode__(self):
-        nome = str(self.nome) + " " + str(self.id)
-        return nome
+        return self.get_full_name()
 
     def __str__(self):
-        nome = str(self.nome) + " " + str(self.id)
-        return nome
+        return self.get_full_name()
 
     class Meta:
         verbose_name = "Dependente"

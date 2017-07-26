@@ -1,7 +1,7 @@
 # coding: utf-8
 from django import forms
 from issem.forms.validators.generic_validators import ValidarDataInicialFinal
-from issem.models import BeneficioModel
+from issem.models.beneficio import BeneficioModel
 
 
 class BeneficioForm(forms.ModelForm):

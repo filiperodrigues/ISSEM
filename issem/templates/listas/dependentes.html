@@ -24,19 +24,19 @@
             </div>
 
             <div class="ten wide column">
-
                 <div class="issem-title-edit-page">
                     <h1><i class="group icon"></i> Dependentes</h1>
                 </div>
-
             </div>
 
             <div class="three wide column">
-                {% if administrador %}
-                    <a href="{% url 'issem:lista_dependentes_inativos' %}" class="ui labeled icon button red">
-                        <i class="trash icon"></i> Excluídos
-                    </a>
-                {% endif %}
+                <div class="ui right floated buttons">
+                    {% if request.session.administrador %}
+                        <a href="{% url 'issem:lista_dependentes_inativos' %}" class="ui labeled icon button red">
+                            <i class="trash icon"></i> Excluídos
+                        </a>
+                    {% endif %}
+                </div>
             </div>
 
             <div class="ui centered row">
@@ -67,9 +67,9 @@
                     <tbody>
                     {% for dado in dados %}
                         <tr>
-                            {% if dado.nome != "" %}
+                            {% if dado.get_full_name != "" %}
                                 <td>
-                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.nome }}</a>
+                                    <a href="{% url 'issem:perfil' dado.id %}">{{ dado.get_full_name }}</a>
                                 </td>
                             {% else %}
                                 <td>---</td>
@@ -85,14 +85,15 @@
                                 <td>---</td>
                             {% endif %}
                             {% if dado.segurado != "" %}
-                                <td><a href="{% url 'issem:perfil' dado.segurado.id %}">{{ dado.segurado.nome }}</a>
+                                <td>
+                                    <a href="{% url 'issem:perfil' dado.segurado.id %}">{{ dado.segurado.get_full_name }}</a>
                                 </td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
 
                             <td class="ui right aligned">
-                                {% if administrador %}
+                                {% if request.session.administrador %}
                                     <a href="#">
                                         <div class="ui labeled icon button">
                                             <i class="exchange icon"></i> Transferência de Grupo

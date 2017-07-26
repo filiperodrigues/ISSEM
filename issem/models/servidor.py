@@ -1,7 +1,7 @@
 # coding:utf-8
 from django.db import models
-from issem.models.funcao import FuncaoModel
 from issem.models.pessoa import PessoaModel
+from issem.models.funcao import FuncaoModel
 
 
 class ServidorModel(PessoaModel):
@@ -10,10 +10,10 @@ class ServidorModel(PessoaModel):
     administrador = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return self.nome
+        return self.get_full_name()
 
     def __str__(self):
-        return self.nome
+        return self.get_full_name()
 
     class Meta:
         verbose_name = "Servidor"

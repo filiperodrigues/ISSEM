@@ -1,8 +1,8 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render,HttpResponse
-from issem.models import CargoModel
-from issem.forms import CargoForm
+from issem.models.cargo import CargoModel
+from issem.forms.cargo import CargoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator

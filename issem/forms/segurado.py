@@ -1,12 +1,10 @@
 # coding:utf-8
 from django import forms
-
-from issem.forms.validators.generic_validators import ValidarDataNascimento
+from issem.forms.validators.generic_validators import ValidarDataNascimento, ValidaEmail
 from issem.models.segurado import SeguradoModel
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.forms.pessoa import CadPessoaForm, PessoaEditForm
 from django.contrib.auth.models import Group, User
-
 
 
 class SeguradoFormCad(CadPessoaForm):
@@ -20,8 +18,6 @@ class SeguradoFormCad(CadPessoaForm):
     email = forms.EmailField(required=True)
     username = forms.CharField(required=False)
 
-
-
     class Meta:
         model = SeguradoModel
         fields = '__all__'
@@ -31,11 +27,7 @@ class SeguradoFormCad(CadPessoaForm):
         return ValidarDataNascimento(self.cleaned_data.get('data_nascimento'))
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email):
-            raise forms.ValidationError("Este e-mail já existe")
-        else:
-            return email
+        return ValidaEmail(self.cleaned_data['email'], self.instance.id)
 
 
 class SeguradoFormEdit(PessoaEditForm):
@@ -55,6 +47,9 @@ class SeguradoFormEdit(PessoaEditForm):
 
     def clean_data_nascimento(self):
         return ValidarDataNascimento(self.cleaned_data.get('data_nascimento'))
+
+    def clean_email(self):
+        return ValidaEmail(self.cleaned_data['email'], self.instance.id)
 
     def __init__(self, *args, **kwargs):
         try:

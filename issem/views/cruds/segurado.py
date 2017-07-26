@@ -1,12 +1,14 @@
 # coding:utf-8
 from django.http import Http404
-from issem.models import SeguradoModel, DependenteModel, ParametrosConfiguracaoModel
-from issem.forms import SeguradoFormEdit, SeguradoFormCad
+from issem.models.segurado import SeguradoModel
+from issem.models.dependente import DependenteModel
+from issem.models.parametros_configuracao import ParametrosConfiguracaoModel
+from issem.forms.segurado import SeguradoFormEdit, SeguradoFormCad
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group, User
-from issem.models import ServidorModel
+from issem.models.servidor import ServidorModel
 from issem.views.pagination import pagination
 from django.db.models import Q
 from django.core.mail import EmailMultiAlternatives
@@ -29,14 +31,14 @@ class SeguradoView(View):
     @method_decorator(user_passes_test(group_test))
     def get(self, request, id=None, msg=None, tipo_msg=None):
         context_dict = {}
+        administrador = None
         if str(request.user.groups.all()[0]) == "Administrativo":
             administrador = ServidorModel.objects.get(pk=request.user.id).administrador
             context_dict['administrador'] = administrador
 
         if id:
             try:
-                segurado = SeguradoModel.objects.get(pk=id,
-                                                     excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                segurado = SeguradoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
                 context_dict['id_segurado'] = segurado.id
             except:
                 raise Http404("Segurado não encontrado.")
@@ -68,7 +70,7 @@ class SeguradoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                segurado = SeguradoModel.objects.get(pk=id, excluido=False)
+                segurado = SeguradoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Segurado não encontrado.")
             form = SeguradoFormEdit(instance=segurado, data=request.POST, id=id)
@@ -113,7 +115,7 @@ class SeguradoView(View):
                 form = SeguradoFormCad()
                 valido = True
                 user_id = user.id
-                user_nome = user.nome
+                user_nome = user.get_full_name()
 
         if not valido:
             print(form.errors)
@@ -179,23 +181,18 @@ class SeguradoView(View):
             if 'filtro' in request.GET:
                 segurados = SeguradoModel.objects.filter(
                     Q(cpf__icontains=request.GET.get('filtro'), excluido=False) |
-                    Q(nome__icontains=request.GET.get('filtro'), excluido=False) |
-                    Q(email__icontains=request.GET.get('filtro'), excluido=False)).order_by('nome')
+                    Q(first_name__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(last_name__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(email__icontains=request.GET.get('filtro'), excluido=False)).order_by('first_name')
             else:
                 segurados = SeguradoModel.objects.filter(excluido=False)
         else:
-            segurados = SeguradoModel.objects.filter(excluido=False).order_by('nome')
-
-        if not request.user.is_superuser:
-            administrador = ServidorModel.objects.get(pk=request.user.id).administrador
-        else:
-            administrador = 0
+            segurados = SeguradoModel.objects.filter(excluido=False).order_by('first_name')
 
         dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
         context_dict['dados'] = dados
         context_dict['page_range'] = page_range
         context_dict['ultima'] = ultima
-        context_dict['administrador'] = administrador
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
@@ -210,24 +207,20 @@ class SeguradoView(View):
             if 'filtro' in request.GET:
                 segurados = SeguradoModel.objects.filter(
                     Q(cpf__icontains=request.GET.get('filtro'), excluido=True) |
-                    Q(nome__icontains=request.GET.get('filtro'), excluido=True) |
-                    Q(email__icontains=request.GET.get('filtro'), excluido=True)).order_by('nome')
+                    Q(first_name__icontains=request.GET.get('filtro'), excluido=True) |
+                    Q(last_name__icontains=request.GET.get('filtro'), excluido=True) |
+                    Q(email__icontains=request.GET.get('filtro'), excluido=True)).order_by('first_name')
             else:
                 segurados = SeguradoModel.objects.filter(excluido=True)
 
         else:
-            segurados = SeguradoModel.objects.filter(excluido=True).order_by('nome')
+            segurados = SeguradoModel.objects.filter(excluido=True).order_by('first_name')
 
-        if not request.user.is_superuser:
-            administrador = ServidorModel.objects.get(pk=request.user.id).administrador
-        else:
-            administrador = 0
 
         dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
         context_dict['dados'] = dados
         context_dict['page_range'] = page_range
         context_dict['ultima'] = ultima
-        context_dict['administrador'] = administrador
         context_dict['msg'] = msg
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
@@ -239,7 +232,7 @@ def EnviaEmailSenha(username, token, uid):
     parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
     if (segurado.email):
         msg_topo = (
-        "Prezado(a) senhor(a) <st3rong>" + segurado.nome + "</strong>, você foi cadastrado no Sistema ISSEM. Segue o link para acesso ao Sistema:<br/><br/>")
+        "Prezado(a) senhor(a) <st3rong>" + segurado.get_full_name() + "</strong>, você foi cadastrado no Sistema ISSEM. Segue o link para acesso ao Sistema:<br/><br/>")
         link = "<a href='http://127.0.0.1:8000/issem/primeiro_login/%s/%s/'><font size='3'><strong>Acesse sua conta<strong></font></a>"%(uid, token)
         msg_rodape = "<h4>----</h4>" \
                      "<font size='5'><strong>ISSEM<strong></font><br/>" \

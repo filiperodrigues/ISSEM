@@ -22,13 +22,13 @@ class Grupo(View):
         grupo = usuario.groups.all()[0]
         grupos = Group.objects.all()
         if grupo.name == ADMINISTRATIVO:
-            nome = ServidorModel.objects.get(pk=id).nome
+            nome = ServidorModel.objects.get(pk=id).get_full_name()
         elif grupo.name == TECNICO:
-            nome = ServidorModel.objects.get(pk=id).nome
+            nome = ServidorModel.objects.get(pk=id).get_full_name()
         elif grupo.name == SEGURADO:
-            nome = SeguradoModel.objects.get(pk=id).nome
+            nome = SeguradoModel.objects.get(pk=id).get_full_name()
         else:
-            nome = DependenteModel.objects.get(pk=id).nome
+            nome = DependenteModel.objects.get(pk=id).get_full_name()
         context_dict['grupos'] = grupos
         context_dict['nome'] = nome
         context_dict['grupo'] = grupo

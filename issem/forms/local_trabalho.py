@@ -1,11 +1,10 @@
 # coding:utf-8
 from django import forms
-
+from issem.models.cidade import CidadeModel
 from issem.models.estado import EstadoModel
 from issem.forms.validators.cnpj_validator import ValidarCNPJ
 from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.models.secretaria import SecretariaModel
-from issem.models.cidade import CidadeModel
 
 
 class LocalTrabalhoForm(forms.ModelForm):

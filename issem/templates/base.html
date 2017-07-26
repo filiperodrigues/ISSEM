@@ -53,25 +53,32 @@
         <a href="{% url 'issem:index' %}" class="item issem-icon"><i class="icon large home"></i> &ensp;Início</a>
         {% if not user.is_anonymous %}
             <div class="right menu">
-                <div class="ui pointing dropdown link item">
-                    <i class="ui right large users icon"></i>
-                    {% if request.session.grupo_sessao == 'Tecnico' %}
-                        Técnico
-                    {% endif %}
-                    {% if request.session.grupo_sessao == "Administrativo" %}
-                        Administrativo
-                    {% endif %}
-                    {% if request.session.grupo_sessao == "Segurado" %}
-                        Segurado
-                    {% endif %}
-                    <i class="angle down icon"></i>
-                    <div class="menu">
-                        <a href="{% url 'issem:escolha_papel' %}" class="item">
-                            <i class="exchange icon"></i>
-                            Trocar Acesso
-                        </a>
+                {% if request.session.administrador %}
+                    <div class="ui item issem-red">
+                        Administrador geral
                     </div>
-                </div>
+                {% endif %}
+                {% if not user.is_superuser %}
+                    <div class="ui pointing dropdown link item">
+                        <i class="ui right large users icon"></i>
+                        {% if request.session.grupo_sessao == 'Tecnico' %}
+                            Técnico
+                        {% endif %}
+                        {% if request.session.grupo_sessao == "Administrativo" %}
+                            Administrativo
+                        {% endif %}
+                        {% if request.session.grupo_sessao == "Segurado" %}
+                            Segurado
+                        {% endif %}
+                        <i class="angle down icon"></i>
+                        <div class="menu">
+                            <a href="{% url 'issem:escolha_papel' %}" class="item">
+                                <i class="exchange icon"></i>
+                                Trocar Acesso
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
 
                 <div class="ui pointing dropdown link item">
                     {% if request.session.grupo_sessao == 'Tecnico' %}
@@ -81,7 +88,7 @@
                     {% elif request.session.grupo_sessao == 'Segurado' %}
                         <i class="ui right large child icon"></i>
                     {% endif %}
-                    {{ user }}
+                    {{ user.get_full_name }}
                     <i class="angle down icon"></i>
                     <div class="menu">
                         {% if not user.is_superuser %}

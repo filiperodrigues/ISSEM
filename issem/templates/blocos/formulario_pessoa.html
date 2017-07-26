@@ -9,16 +9,26 @@
 <h4 class="ui dividing header red">Informações Pessoais</h4>
 <div class="fields">
     <div class="four wide field">
-        <label>Nome <i class="asterisk icon red"></i></label>
+        <label>Primeiro nome <i class="asterisk icon red"></i></label>
         <div class="somente_letras">
-            {{ form.nome }}
-            {% if form.nome.errors %}
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
                 <div class="ui pointing red basic label">
-                    {{ form.nome.errors }}
+                    {{ form.first_name.errors }}
                 </div>
             {% endif %}
         </div>
-
+    </div>
+    <div class="four wide field">
+        <label>Segundo nome <i class="asterisk icon red"></i></label>
+        <div class="somente_letras">
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+                <div class="ui pointing red basic label">
+                    {{ form.last_name.errors }}
+                </div>
+            {% endif %}
+        </div>
     </div>
     <div class="four wide field">
         <label>CPF <i class="asterisk icon red"></i></label>
@@ -35,9 +45,11 @@
         <label>RG <i class="asterisk icon red"></i></label>
         <div class="rg">
             {{ form.rg }}
-
         </div>
     </div>
+</div>
+
+<div class="fields">
     <div class="four wide field">
         <label>Data de Nascimento <i class="asterisk icon red"></i></label>
         <div class="data">
@@ -49,9 +61,7 @@
             {% endif %}
         </div>
     </div>
-</div>
 
-<div class="fields">
     <div class="four wide field">
         <div class="fields">
             <div class="fourteen wide field">
@@ -86,26 +96,6 @@
             {% if form.sexo.errors %}
                 <div class="ui pointing red basic label">
                     {{ form.sexo.errors }}
-                </div>
-            {% endif %}
-        </div>
-    </div>
-    <div class="two wide field issem-input-small">
-        <label>Tipo Sanguíneo</label>
-        {{ form.tipo_sanguineo }}
-        {% if form.tipo_sanguineo.errors %}
-            <div class="ui pointing red basic label">
-                {{ form.tipo_sanguineo.errors }}
-            </div>
-        {% endif %}
-    </div>
-    <div class="two wide field">
-        <label>Doador</label>
-        <div class="ui segment issem-input-checkbox">
-            {{ form.doador }}
-            {% if form.doador.errors %}
-                <div class="ui pointing red basic label">
-                    {{ form.doador.errors }}
                 </div>
             {% endif %}
         </div>
@@ -241,7 +231,6 @@
 </div>
 
 <div class="fields">
-    <div class="four wide field"></div>
     <div class="four wide field">
         <label>Nome do pai</label>
         <div class="somente_letras">
@@ -264,7 +253,27 @@
             {% endif %}
         </div>
     </div>
-    <div class="four wide field"></div>
+
+    <div class="four wide field issem-input-small">
+        <label>Tipo Sanguíneo</label>
+        {{ form.tipo_sanguineo }}
+        {% if form.tipo_sanguineo.errors %}
+            <div class="ui pointing red basic label">
+                {{ form.tipo_sanguineo.errors }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="four wide field">
+        <label>Doador</label>
+        <div class="ui segment issem-input-checkbox">
+            {{ form.doador }}
+            {% if form.doador.errors %}
+                <div class="ui pointing red basic label">
+                    {{ form.doador.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
 
 {% if dependente %}

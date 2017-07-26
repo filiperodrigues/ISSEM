@@ -1,9 +1,9 @@
 # coding:utf-8
 from django.db import models
-from issem.models.local_trabalho import LocalTrabalhoModel
 from issem.models.pessoa import PessoaModel
 from issem.models.dependente import DependenteModel
 from issem.models.funcao import FuncaoModel
+from issem.models.local_trabalho import LocalTrabalhoModel
 
 
 class SeguradoModel(PessoaModel):
@@ -16,10 +16,10 @@ class SeguradoModel(PessoaModel):
     primeiro_login = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return self.nome
+        return self.get_full_name()
 
     def __str__(self):
-        return self.nome
+        return self.get_full_name()
 
     class Meta:
         verbose_name = "Segurado"

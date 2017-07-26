@@ -3,8 +3,8 @@ from django.http import Http404
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
-from issem.models import TipoDependenteModel
-from issem.forms import TipoDependenteForm
+from issem.models.tipo_dependente import TipoDependenteModel
+from issem.forms.tipo_dependente import TipoDependenteForm
 from django.views.generic.base import View
 
 

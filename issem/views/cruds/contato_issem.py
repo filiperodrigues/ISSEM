@@ -1,8 +1,8 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render
-from issem.models import ContatoIssemModel
-from issem.forms import ContatoIssemForm
+from issem.models.contato_issem import ContatoIssemModel
+from issem.forms.contato_issem import ContatoIssemForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator

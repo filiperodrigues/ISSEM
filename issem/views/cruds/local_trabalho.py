@@ -2,9 +2,9 @@
 from django.core import serializers
 from django.http import Http404
 from django.shortcuts import render, HttpResponse
-from issem.models import EstadoModel
-from issem.models import LocalTrabalhoModel
-from issem.forms import LocalTrabalhoForm
+from issem.models.estado import EstadoModel
+from issem.models.local_trabalho import LocalTrabalhoModel
+from issem.forms.local_trabalho import LocalTrabalhoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator

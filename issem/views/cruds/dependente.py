@@ -1,13 +1,14 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render
-from issem.models import DependenteModel, SeguradoModel
-from issem.forms import DependenteFormCad, DependenteFormEdit
+from issem.models.dependente import DependenteModel
+from issem.models.segurado import SeguradoModel
+from issem.forms.dependente import DependenteFormCad, DependenteFormEdit
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
-from issem.models import ServidorModel
+from issem.models.servidor import ServidorModel
 from issem.views.pagination import pagination
 from issem.views.cruds.pass_generator import mkpass
 from django.db.models import Q
@@ -27,8 +28,6 @@ class DependenteView(View):
         context_dict = {}
         segurado = None
         id_group_user = None
-        administrador = ServidorModel.objects.get(id=request.user.id).administrador
-        context_dict['administrador'] = administrador
 
         if id:
             try:
@@ -162,18 +161,17 @@ class DependenteView(View):
     @classmethod
     def ListaDependentes(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        administrador = ServidorModel.objects.get(id=request.user.id).administrador
-        context_dict['administrador'] = administrador
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
                 dependentes = DependenteModel.objects.filter(
                     Q(cpf__icontains=request.GET.get('filtro'), excluido=False) |
-                    Q(nome__icontains=request.GET.get('filtro'), excluido=False) |
-                    Q(email__icontains=request.GET.get('filtro'), excluido=False)).order_by('nome')
+                    Q(first_name__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(last_name__icontains=request.GET.get('filtro'), excluido=False) |
+                    Q(email__icontains=request.GET.get('filtro'), excluido=False)).order_by('first_name')
             else:
                 dependentes = DependenteModel.objects.filter(excluido=False)
         else:
-            dependentes = DependenteModel.objects.filter(excluido=False).order_by('nome')
+            dependentes = DependenteModel.objects.filter(excluido=False).order_by('first_name')
 
         for dependente in dependentes:
             dependente.segurado = SeguradoModel.objects.get(dependente__id=dependente.id)
@@ -193,18 +191,17 @@ class DependenteView(View):
     @classmethod
     def ListaDependentesInativos(self, request, msg=None, tipo_msg=None):
         context_dict = {}
-        administrador = ServidorModel.objects.get(id=request.user.id).administrador
-        context_dict['administrador'] = administrador
         if request.GET or 'page' in request.GET:
             if request.GET.get('filtro'):
                 dependentes = DependenteModel.objects.filter(
                     Q(cpf__icontains=request.GET.get('filtro'), excluido=True) |
-                    Q(nome__icontains=request.GET.get('filtro'), excluido=True) |
-                    Q(email__icontains=request.GET.get('filtro'), excluido=True)).order_by('nome')
+                    Q(first_name__icontains=request.GET.get('filtro'), excluido=True) |
+                    Q(last_name__icontains=request.GET.get('filtro'), excluido=True) |
+                    Q(email__icontains=request.GET.get('filtro'), excluido=True)).order_by('first_name')
             else:
                 dependentes = DependenteModel.objects.filter(excluido=True)
         else:
-            dependentes = DependenteModel.objects.filter(excluido=True).order_by('nome')
+            dependentes = DependenteModel.objects.filter(excluido=True).order_by('first_name')
 
         for dependente in dependentes:
             dependente.segurado = SeguradoModel.objects.get(dependente__id=dependente.id)
@@ -217,7 +214,6 @@ class DependenteView(View):
         context_dict['tipo_msg'] = tipo_msg
         context_dict['filtro'] = request.GET.get('filtro')
         return render(request, self.template_inativos, context_dict)
-
 
 
 class TransferenciaSegurado(View):
@@ -243,9 +239,10 @@ class TransferenciaSegurado(View):
             FARÁ A PAGINAÇÃO COM VALOR IGUAL À ZERO '''
             if 'filtro' in request.GET:
                 segurado1 = SeguradoModel.objects.filter(cpf__contains=request.GET.get('filtro'), excluido=False)
-                segurado2 = SeguradoModel.objects.filter(nome__contains=request.GET.get('filtro'), excluido=False)
-                segurado3 = SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=False)
-                segurados = list(segurado1) + list(segurado2) + list(segurado3)
+                segurado2 = SeguradoModel.objects.filter(first_name__contains=request.GET.get('filtro'), excluido=False)
+                segurado3 = SeguradoModel.objects.filter(last_name__contains=request.GET.get('filtro'), excluido=False)
+                segurado4 = SeguradoModel.objects.filter(email__contains=request.GET.get('filtro'), excluido=False)
+                segurados = list(segurado1) + list(segurado2) + list(segurado3) + list(segurado4)
                 segurados = list(set(segurados))
             else:
                 segurados = SeguradoModel.objects.filter(excluido=False)
@@ -287,7 +284,7 @@ class TransferenciaSegurado(View):
         context_dict['id'] = id
         context_dict['dependente'] = dependente
         context_dict['segurado_atual'] = segurado_novo
-        context_dict['msg'] = 'Transferência concluída com sucesso! O dependente ' + dependente.nome + ' foi transferido de ' + segurado_atual.nome + ' para ' + segurado_novo.nome + '.'
+        context_dict['msg'] = 'Transferência concluída com sucesso! O dependente ' + dependente.get_full_name + ' foi transferido de ' + segurado_atual.get_full_name + ' para ' + segurado_novo.get_full_name + '.'
         context_dict['tipo_msg'] = 'green'
         context_dict['dados'] = None
         context_dict['page_range'] = None

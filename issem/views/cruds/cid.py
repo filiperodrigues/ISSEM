@@ -1,8 +1,8 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render
-from issem.models import CidModel
-from issem.forms import CidForm
+from issem.models.cid import CidModel
+from issem.forms.cid import CidForm
 from django.views.generic.base import View
 from issem.views.pagination import pagination
 from django.contrib.auth.decorators import user_passes_test

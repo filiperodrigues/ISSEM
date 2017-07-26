@@ -1,6 +1,6 @@
 # coding:utf-8
 from django import forms
-from issem.models import CidModel
+from issem.models.cid import CidModel
 
 
 class CidForm(forms.ModelForm):

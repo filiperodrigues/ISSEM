@@ -1,6 +1,6 @@
 #coding:utf-8
 from django import forms
-from issem.models import ProcedimentoMedicoModel
+from issem.models.procedimento_medico import ProcedimentoMedicoModel
 
 
 class ProcedimentoMedicoForm(forms.ModelForm):

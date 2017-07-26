@@ -1,8 +1,9 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render, HttpResponseRedirect
-from issem.models import LaudoModel, ServidorModel
-from issem.forms import LaudoForm
+from issem.models.laudo import LaudoModel
+from issem.models.servidor import ServidorModel
+from issem.forms.laudo import LaudoForm
 from django.views.generic.base import View
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
@@ -66,7 +67,8 @@ class LaudoView(View):
     def ListaLaudos(self, request, msg=None, tipo_msg=None):
         context_dict = {}
 
-        from issem.views import pagination, CidModel
+        from issem.views.cruds.cid import CidModel
+        from issem.views.cruds import pagination
         laudos = CidModel.objects.all().order_by('laudomodel__requerimento__segurado')
 
         dados, page_range, ultima = pagination(laudos, request.GET.get('page'))

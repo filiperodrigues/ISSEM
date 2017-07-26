@@ -13,9 +13,9 @@
         <tbody>
         {% for dado in dados %}
             <tr>
-                {% if dado.nome != "" %}
+                {% if dado.get_full_name != "" %}
                     <td>
-                        <a href="{% url 'issem:perfil' dado.id %}">{{ dado.nome }}</a>
+                        <a href="{% url 'issem:perfil' dado.id %}">{{ dado.get_full_name }}</a>
                     </td>
                 {% else %}
                     <td>---</td>

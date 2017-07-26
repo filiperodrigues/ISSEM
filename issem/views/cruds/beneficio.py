@@ -1,8 +1,8 @@
 # coding:utf-8
 from django.http import Http404
 from django.shortcuts import render
-from issem.models import BeneficioModel
-from issem.forms import BeneficioForm
+from issem.models.beneficio import BeneficioModel
+from issem.forms.beneficio import BeneficioForm
 from django.views.generic.base import View
 from issem.views.pagination import pagination
 from django.contrib.auth.decorators import user_passes_test
