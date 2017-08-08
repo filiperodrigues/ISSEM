@@ -2,8 +2,6 @@
 from django import forms
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-import string
-import random
 
 from django.contrib.auth.models import User
 

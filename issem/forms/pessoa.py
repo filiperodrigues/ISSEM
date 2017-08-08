@@ -21,7 +21,7 @@ class CadPessoaForm(forms.ModelForm):
                              choices=generos,
                              )
     estados = EstadoModel.objects.all()
-    cidades = CidadeModel.objects.filter()
+    cidades = CidadeModel.objects.all()
     estado_natural = forms.ModelChoiceField(required=False,
                                             empty_label="Selecione um estado",
                                             queryset=estados,
@@ -58,8 +58,8 @@ class CadPessoaForm(forms.ModelForm):
     def clean_last_name(self):
         return ValidaSegundoNome(self.cleaned_data['last_name'])
 
-    def clean_cpf(self):
-        return ValidarCPF(self.cleaned_data.get('cpf'))
+    # def clean_cpf(self):
+    #     return ValidarCPF(self.cleaned_data.get('cpf'))
 
     def save(self, commit=True):
         user = super(CadPessoaForm, self).save(commit=False)
@@ -80,7 +80,7 @@ class PessoaEditForm(forms.ModelForm):
                              choices=generos,
                              )
     estados = EstadoModel.objects.all()
-    cidades = CidadeModel.objects.filter()
+    cidades = CidadeModel.objects.all()
     estado_natural = forms.ModelChoiceField(required=False,
                                             empty_label="Selecione um estado",
                                             queryset=estados,

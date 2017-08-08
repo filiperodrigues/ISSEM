@@ -3,6 +3,8 @@ from issem.models.agendamento import AgendamentoModel
 from issem.models.beneficio import BeneficioModel
 from issem.models.cargo import CargoModel
 from issem.models.cid import CidModel
+from issem.models.estado import EstadoModel
+from issem.models.cidade import CidadeModel
 from issem.models.contato_issem import ContatoIssemModel
 from issem.models.dependente import DependenteModel
 from issem.models.estado_civil import EstadoCivilModel

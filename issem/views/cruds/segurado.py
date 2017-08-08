@@ -38,7 +38,8 @@ class SeguradoView(View):
 
         if id:
             try:
-                segurado = SeguradoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                segurado = SeguradoModel.objects.get(pk=id,
+                                                     excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
                 context_dict['id_segurado'] = segurado.id
             except:
                 raise Http404("Segurado não encontrado.")
@@ -70,7 +71,8 @@ class SeguradoView(View):
         if request.POST['id']:  # EDIÇÃO
             id = request.POST['id']
             try:
-                segurado = SeguradoModel.objects.get(pk=id, excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
+                segurado = SeguradoModel.objects.get(pk=id,
+                                                     excluido=False)  # MODO EDIÇÃO: pega as informações do objeto através do ID (PK)
             except:
                 raise Http404("Segurado não encontrado.")
             form = SeguradoFormEdit(instance=segurado, data=request.POST, id=id)
@@ -91,24 +93,19 @@ class SeguradoView(View):
             if form.is_valid():
                 form.save()
 
-                try:
-                    gp = Group.objects.get(name='Segurado')
-                    user = SeguradoModel.objects.get(email=request.POST["email"])
+                gp = Group.objects.get(name='Segurado')
+                user = SeguradoModel.objects.get(email=request.POST["email"])
 
-                    # Define uma senha aleatória para o Segurado e seta o e-mail inserido como "username"
-                    user.username = form.data.get('email')
-                    user.groups.add(gp)
-                    user.primeiro_login = True
-                    user.save()
+                # Define uma senha aleatória para o Segurado e seta o e-mail inserido como "username"
+                user.username = form.data.get('email')
+                user.groups.add(gp)
+                user.primeiro_login = True
+                user.save()
 
-                    # Token link segurado
-                    token = default_token_generator.make_token(user)
-                    uid = urlsafe_base64_encode(force_bytes(user.pk))
-
-                    EnviaEmailSenha(user.username, token, uid)
-
-                except:
-                    raise Http404("Ocorreu algum erro, verifique e tente novamente.")
+                # Token link segurado
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                EnviaEmailSenha(user.username, token, uid)
 
                 msg = "Cadastro efetuado com sucesso!"
                 tipo_msg = 'green'
@@ -216,7 +213,6 @@ class SeguradoView(View):
         else:
             segurados = SeguradoModel.objects.filter(excluido=True).order_by('first_name')
 
-
         dados, page_range, ultima = pagination(segurados, request.GET.get('page'))
         context_dict['dados'] = dados
         context_dict['page_range'] = page_range
@@ -232,8 +228,9 @@ def EnviaEmailSenha(username, token, uid):
     parametros_configuracoes = ParametrosConfiguracaoModel.objects.all().last()
     if (segurado.email):
         msg_topo = (
-        "Prezado(a) senhor(a) <st3rong>" + segurado.get_full_name() + "</strong>, você foi cadastrado no Sistema ISSEM. Segue o link para acesso ao Sistema:<br/><br/>")
-        link = "<a href='http://127.0.0.1:8000/issem/primeiro_login/%s/%s/'><font size='3'><strong>Acesse sua conta<strong></font></a>"%(uid, token)
+            "Prezado(a) senhor(a) <strong>" + segurado.get_full_name() + "</strong>, você foi cadastrado no Sistema ISSEM. Segue o link para acesso ao Sistema:<br/><br/>")
+        link = "<a href='http://127.0.0.1:8000/issem/primeiro_login/%s/%s/'><font size='3'><strong>Acesse sua conta<strong></font></a>" % (
+            uid, token)
         msg_rodape = "<h4>----</h4>" \
                      "<font size='5'><strong>ISSEM<strong></font><br/>" \
                      "<strong>Instituto de Seguridade do Servidores Municipais</strong><br/>" \
@@ -265,4 +262,3 @@ def VerificaTokenPrimeiroLoginSegurado(request, uidb64, token):
                 return HttpResponseRedirect(reverse('issem:edita_senha', args=(user.id, grupo.id)))
 
     return HttpResponseRedirect(reverse('issem:index'))
-

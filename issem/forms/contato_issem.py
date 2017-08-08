@@ -5,7 +5,6 @@ from issem.models.contato_issem import ContatoIssemModel
 
 class ContatoIssemForm(forms.ModelForm):
 
-
     class Meta:
         model = ContatoIssemModel
         fields = '__all__'
