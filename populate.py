@@ -10,9 +10,39 @@ django.setup()
 
 from issem.models import *
 from django.contrib.auth.models import Group
+from datetime import datetime, timedelta
+import random
+
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+
 
 
 def populate():
+
+    # REQUERIMENTOS / AGENDAMENTOS
+    # i = 1
+    # segurado = SeguradoModel.objects.get(pk=3)
+    # while(i<=50):
+    #     i += 1
+    #     hora = random.randint(8, 17)
+    #     minuto = random.randint(0, 59)
+    #     beneficio = BeneficioModel.objects.get(pk=random.randint(1,3))
+    #     RequerimentoModel.objects.get_or_create(beneficio=beneficio, data_requerimento=datetime.now().date() + timedelta(days=i),
+    #                                             segurado=segurado, data_inicio_afastamento=datetime.now().date() + timedelta(days=i),
+    #                                             possui_agendamento=True,
+    #                                             data_final_afastamento=datetime.now().date() + timedelta(days=i))[0]
+    #
+    #     requerimento = RequerimentoModel.objects.last()
+    #
+    #     AgendamentoModel.objects.get_or_create(data_agendamento=datetime.now().date() + timedelta(days=i),
+    #                                            data_pericia=datetime.now().date() + timedelta(days=i),
+    #                                            hora_pericia="" + str(hora) + ":" + str(minuto) + ":00",
+    #                                            requerimento=requerimento)[0]
+
+
     # BENEFÍCIOS
     beneficios = [
         [1, "2010-10-10", "2010-10-10", "2010-10-10", "2010-10-10", "Benefício por incapacidade", 1, "2010-10-10",
