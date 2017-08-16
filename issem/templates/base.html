@@ -70,13 +70,13 @@
                         {% if request.session.grupo_sessao == "Segurado" %}
                             Segurado
                         {% endif %}
-                        <i class="angle down icon"></i>
+                        {% comment %}<i class="angle down icon"></i>
                         <div class="menu">
                             <a href="{% url 'issem:escolha_papel' %}" class="item">
                                 <i class="exchange icon"></i>
                                 Trocar Acesso
                             </a>
-                        </div>
+                        </div>{% endcomment %}
                     </div>
                 {% endif %}
 
